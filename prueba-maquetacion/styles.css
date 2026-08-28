@@ -1,0 +1,851 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.featured-cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    padding: 30px;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.featured-cards > a {
+    flex: 1 1 280px;
+    max-width: 350px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    height: 100%;
+    padding: 25px;
+    text-align: center;
+    background: white;
+    border: 2px solid #111;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s ease;
+}
+
+.card img {
+    width: 180px;
+    height: 150px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    margin: 10px 0;
+    color: #111;
+}
+
+.card p {
+    margin: 0;
+    color: #444;
+    line-height: 1.5;
+}
+
+.card:hover {
+    border-color: rgb(240, 204, 0);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px);
+}
+
+.card:hover h2 {
+    color: rgb(240, 204, 0);
+}
+
+.desplegable {
+    width: calc(100% - 60px);
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    border-left: 5px solid rgb(240, 204, 0);
+}
+
+.desplegable details {
+    border-bottom: 1px solid #333;
+}
+
+.desplegable details:last-child {
+    border-bottom: none;
+}
+
+.desplegable summary {
+    padding: 18px 25px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+}
+
+.desplegable summary:hover {
+    color: rgb(240, 204, 0);
+    background: #1c1c1c;
+}
+
+.desplegable details[open] summary {
+    color: #111;
+    background: rgb(240, 204, 0);
+}
+
+.desplegable p {
+    margin: 0;
+    padding: 20px 25px;
+    color: #ddd;
+    background: #1c1c1c;
+    line-height: 1.6;
+}
+
+.menu-superior {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+    padding: 15px 30px;
+}
+
+.logo {
+    flex-shrink: 0;
+}
+
+.logo img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.menu-contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex: 1;
+    min-width: 0;
+}
+
+.menu-items {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.menu-items a {
+    position: relative;
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.menu-items a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: rgb(240, 204, 0);
+    transition: width 0.3s ease;
+}
+
+.menu-items a:hover {
+    color: rgb(240, 204, 0);
+}
+
+.menu-items a:hover::after {
+    width: 100%;
+}
+
+.user-area {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-area a {
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+    white-space: nowrap;
+}
+
+.user-area a:first-child {
+    color: #111;
+    border: 2px solid #111;
+    background: white;
+}
+
+.user-area a:first-child:hover {
+    background: #111;
+    color: rgb(240, 204, 0);
+}
+
+.user-area a:last-child {
+    color: #111;
+    background: rgb(240, 204, 0);
+    border: 2px solid rgb(240, 204, 0);
+}
+
+.user-area a:last-child:hover {
+    background: #111;
+    color: rgb(240, 204, 0);
+    border-color: #111;
+    transform: translateY(-2px);
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-icon {
+    display: none;
+    width: 40px;
+    height: 35px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.menu-icon span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #111;
+    border-radius: 3px;
+    transition: 0.3s ease;
+}
+
+.Hero-Banner {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.493),
+            rgba(15, 1, 1, 0.945)
+        ),
+        url("./img/hero-banner.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 600px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    color: white;
+}
+
+.Hero-Banner h1,
+.Hero-Banner h2,
+.Hero-Banner p {
+    color: white;
+    max-width: 900px;
+}
+
+.Hero-Banner h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.Hero-Banner p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.6;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: rgb(240, 204, 0);
+    color: #000;
+    text-decoration: none;
+    font-size: 27px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background-color: black;
+    color: rgb(240, 204, 0);
+    transform: scale(1.05);
+}
+
+.contacto {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.formulario,
+.map-location {
+    flex: 1 1 0;
+    width: 50%;
+    min-width: 0;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 0;
+}
+
+.formulario {
+    background: #111;
+    color: white;
+    border-top: 5px solid rgb(240, 204, 0);
+}
+
+.map-location {
+    background: rgb(240, 204, 0);
+    color: #111;
+    border-top: 5px solid #111;
+}
+
+.formulario h2,
+.map-location h1 {
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.formulario h2 {
+    color: rgb(240, 204, 0);
+    font-size: 34px;
+}
+
+.map-location h1 {
+    color: #111;
+    font-size: 30px;
+}
+
+.formulario p,
+.map-location p {
+    margin: 0 0 25px 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.formulario form {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 15px;
+    margin: 0;
+    align-items: center;
+}
+
+.formulario label {
+    color: white;
+    text-align: right;
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 5px;
+}
+
+.formulario textarea {
+    resize: vertical;
+}
+
+.formulario label[for="acepto"],
+.formulario label[for="novedades"] {
+    grid-column: 1 / -1;
+    text-align: left;
+}
+
+.formulario button {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 10px;
+    padding: 12px 25px;
+    border: 2px solid rgb(240, 204, 0);
+    border-radius: 6px;
+    background: rgb(240, 204, 0);
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.formulario button:hover {
+    background: white;
+    border-color: white;
+}
+
+.map-location iframe {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    margin: 0;
+    border: 0;
+    border-radius: 8px;
+}
+
+.piedepagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 25px;
+    padding: 40px;
+    background: #7e7e7e;
+    color: white;
+    width: 100%;
+}
+
+.piedepagina > div {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 25px;
+    border-top: 4px solid rgb(240, 204, 0);
+}
+
+.piedepagina h1 {
+    margin: 0 0 15px 0;
+    color: rgb(240, 204, 0);
+    font-size: 20px;
+    text-align: center;
+}
+
+.piedepagina p {
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+    text-align: center;
+    color: #ddd;
+}
+
+.piedepagina ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.piedepagina li {
+    margin-bottom: 10px;
+}
+
+.piedepagina a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.piedepagina a:hover {
+    color: rgb(240, 204, 0);
+}
+
+.subscribe label {
+    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.subscribe input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.subscribe form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subscribe form label {
+    margin: 0;
+    text-align: left;
+}
+
+.subscribe input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 5px;
+}
+
+.subscribe button {
+    align-self: center;
+    padding: 12px 25px;
+    border: 2px solid rgb(240, 204, 0);
+    border-radius: 6px;
+    background: rgb(240, 204, 0);
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.subscribe button:hover {
+    background: white;
+    border-color: white;
+}
+
+.social-media {
+    text-align: center;
+}
+
+.social-media a {
+    display: inline-block;
+    margin: 5px;
+}
+
+.social-media img {
+    display: block;
+    transition: 0.3s ease;
+}
+
+.social-media img:hover {
+    transform: scale(1.15);
+}
+
+.copyrigth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+    background: #000;
+    border-top: 2px solid rgb(240, 204, 0);
+    color: #aaa;
+    text-align: center;
+}
+
+.copyrigth p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.copyrigth p:hover {
+    color: rgb(240, 204, 0);
+}
+
+@media (max-width: 1100px) {
+
+    .menu-superior {
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .menu-contenido {
+        gap: 15px;
+    }
+
+    .menu-items {
+        gap: 15px;
+    }
+
+    .user-area {
+        gap: 8px;
+    }
+
+    .user-area a {
+        padding: 9px 12px;
+        font-size: 14px;
+    }
+
+    .piedepagina {
+        flex-wrap: wrap;
+    }
+
+    .piedepagina > div {
+        flex: 1 1 calc(50% - 25px);
+    }
+}
+
+@media (max-width: 850px) {
+
+    .menu-superior {
+        flex-wrap: wrap;
+    }
+
+    .menu-icon {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .menu-contenido {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        flex-basis: 100%;
+        gap: 15px;
+        padding-top: 15px;
+        border-top: 2px solid rgb(240, 204, 0);
+    }
+
+    #menu-toggle:checked ~ .menu-contenido {
+        display: flex;
+    }
+
+    #menu-toggle:checked + .menu-icon span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    #menu-toggle:checked + .menu-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menu-toggle:checked + .menu-icon span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    .menu-items {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        flex: none;
+    }
+
+    .menu-items a {
+        width: 100%;
+        padding: 12px 10px;
+        text-align: center;
+    }
+
+    .menu-items a::after {
+        left: 25%;
+        width: 50%;
+    }
+
+    .user-area {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .user-area a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .Hero-Banner {
+        min-height: 500px;
+        padding: 35px;
+    }
+
+    .contacto {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .formulario,
+    .map-location {
+        width: 100%;
+    }
+
+    .piedepagina > div {
+        flex: 1 1 calc(50% - 25px);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .menu-superior {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .logo img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .menu-icon {
+        width: 35px;
+        height: 32px;
+    }
+
+    .featured-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 15px;
+    }
+
+    .featured-cards > a {
+        width: 100%;
+        max-width: 500px;
+        flex: none;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .desplegable {
+        width: calc(100% - 30px);
+        margin: 25px auto;
+    }
+
+    .desplegable summary {
+        padding: 16px 18px;
+    }
+
+    .desplegable p {
+        padding: 18px;
+    }
+
+    .Hero-Banner {
+        min-height: 500px;
+        padding: 30px 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .Hero-Banner h1 {
+        font-size: 2rem;
+    }
+
+    .Hero-Banner p {
+        font-size: 1rem;
+    }
+
+    .Hero-Banner p br {
+        display: none;
+    }
+
+    .button {
+        padding: 13px 22px;
+    }
+
+    .contacto {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+
+    .formulario,
+    .map-location {
+        padding: 25px 20px;
+    }
+
+    .formulario h2 {
+        font-size: 28px;
+    }
+
+    .map-location h1 {
+        font-size: 25px;
+    }
+
+    .formulario p br,
+    .map-location p br {
+        display: none;
+    }
+
+    .formulario form {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .formulario label {
+        text-align: left;
+    }
+
+    .formulario label[for="acepto"],
+    .formulario label[for="novedades"] {
+        grid-column: 1;
+    }
+
+    .formulario button {
+        grid-column: 1;
+        justify-self: stretch;
+        width: 100%;
+    }
+
+    .map-location iframe {
+        height: 300px;
+    }
+
+    .piedepagina {
+        flex-direction: column;
+        padding: 25px 15px;
+        gap: 20px;
+    }
+
+    .piedepagina > div {
+        flex: none;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .copyrigth {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .Hero-Banner {
+        min-height: 450px;
+        padding: 25px 15px;
+    }
+
+    .Hero-Banner h1 {
+        font-size: 1.7rem;
+    }
+
+    .Hero-Banner p {
+        font-size: 0.95rem;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card img {
+        width: 150px;
+        height: 130px;
+    }
+
+    .formulario,
+    .map-location {
+        padding: 20px 15px;
+    }
+
+    .piedepagina > div {
+        padding: 15px;
+    }
+
+    .desplegable {
+        border-left-width: 4px;
+    }
+}
