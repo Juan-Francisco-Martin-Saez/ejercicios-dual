@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -11,6 +14,7 @@ body {
     margin: 0;
     width: 100%;
     overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
 }
 
 .featured-cards {
@@ -23,7 +27,7 @@ body {
     width: 100%;
 }
 
-.featured-cards > a {
+.featured-cards>a {
     flex: 1 1 280px;
     max-width: 350px;
     text-decoration: none;
@@ -252,10 +256,8 @@ body {
 
 .Hero-Banner {
     background-image:
-        linear-gradient(
-            rgba(255, 255, 255, 0.493),
-            rgba(15, 1, 1, 0.945)
-        ),
+        linear-gradient(rgba(255, 255, 255, 0.493),
+            rgba(15, 1, 1, 0.945)),
         url("./img/hero-banner.webp");
     background-size: cover;
     background-position: center;
@@ -430,7 +432,7 @@ body {
     width: 100%;
 }
 
-.piedepagina > div {
+.piedepagina>div {
     flex: 1 1 0;
     min-width: 0;
     padding: 25px;
@@ -586,7 +588,7 @@ body {
         flex-wrap: wrap;
     }
 
-    .piedepagina > div {
+    .piedepagina>div {
         flex: 1 1 calc(50% - 25px);
     }
 }
@@ -613,19 +615,19 @@ body {
         border-top: 2px solid rgb(240, 204, 0);
     }
 
-    #menu-toggle:checked ~ .menu-contenido {
+    #menu-toggle:checked~.menu-contenido {
         display: flex;
     }
 
-    #menu-toggle:checked + .menu-icon span:nth-child(1) {
+    #menu-toggle:checked+.menu-icon span:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
     }
 
-    #menu-toggle:checked + .menu-icon span:nth-child(2) {
+    #menu-toggle:checked+.menu-icon span:nth-child(2) {
         opacity: 0;
     }
 
-    #menu-toggle:checked + .menu-icon span:nth-child(3) {
+    #menu-toggle:checked+.menu-icon span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
     }
 
@@ -673,7 +675,7 @@ body {
         width: 100%;
     }
 
-    .piedepagina > div {
+    .piedepagina>div {
         flex: 1 1 calc(50% - 25px);
     }
 }
@@ -702,7 +704,7 @@ body {
         padding: 20px 15px;
     }
 
-    .featured-cards > a {
+    .featured-cards>a {
         width: 100%;
         max-width: 500px;
         flex: none;
@@ -801,7 +803,7 @@ body {
         gap: 20px;
     }
 
-    .piedepagina > div {
+    .piedepagina>div {
         flex: none;
         width: 100%;
         padding: 20px;
@@ -841,7 +843,7 @@ body {
         padding: 20px 15px;
     }
 
-    .piedepagina > div {
+    .piedepagina>div {
         padding: 15px;
     }
 

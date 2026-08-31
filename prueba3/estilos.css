@@ -84,7 +84,7 @@ textarea {
 }
 
 .top-nav a:hover {
-    background-color: #1261a0;
+    background-color: #05471e;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -121,7 +121,7 @@ textarea {
 }
 
 .btn-register:hover {
-    background-color: #1261a0;
+    background-color: #05471e;
     color: #ffffff;
 }
 
@@ -182,7 +182,7 @@ textarea {
     padding: 13px 28px;
     border: 0;
     border-radius: 7px;
-    background-color: #1261a0;
+    background-color: #007c30;
     color: #ffffff;
     font-size: 1rem;
     font-weight: 700;
@@ -191,7 +191,7 @@ textarea {
 }
 
 .btn-cta:hover {
-    background-color: #19b56b;
+    background-color: #05471e;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
@@ -215,7 +215,7 @@ textarea {
     background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
-    border-left: 4px solid #1261a0;
+    border-left: 4px solid #05471e;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -240,7 +240,7 @@ textarea {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
-    color: #1261a0;
+    color: #05471e;
     font-size: 1.5rem;
 }
 
@@ -249,7 +249,7 @@ textarea {
 }
 
 .accordion-toggle:checked+.accordion-label {
-    background-color: #1261a0;
+    background-color: #05471e;
     color: #ffffff;
 }
 
@@ -299,7 +299,7 @@ textarea {
 
 .info-card:hover {
     transform: translateY(-8px);
-    border-top-color: #1261a0;
+    border-top-color: #05471e;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
 }
 
@@ -377,7 +377,7 @@ textarea {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #1261a0;
+    border-color: #05471e;
     background-color: #242424;
 }
 
@@ -398,7 +398,7 @@ textarea {
 }
 
 .btn-submit:hover {
-    background-color: #1261a0;
+    background-color: #05471e;
     transform: translateY(-2px);
 }
 
@@ -459,7 +459,7 @@ textarea {
 }
 
 .social-links a:hover {
-    background-color: #1261a0;
+    background-color: #05471e;
     color: #ffffff;
 }
 
@@ -570,7 +570,7 @@ textarea {
     }
 
     .top-nav a:hover {
-        background-color: #1261a0;
+        background-color: #05471e;
     }
 
     .auth-buttons {
