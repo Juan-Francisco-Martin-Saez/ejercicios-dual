@@ -51,7 +51,7 @@
     }
 
 
-    .game-container {
+    .game-wrapper {
 
       width:
         min(1200px,
@@ -70,7 +70,7 @@
 
       font-weight: bold;
 
-      letter-spacing: 7px;
+      letter-spacing: 6px;
 
       margin-bottom: 8px;
 
@@ -78,6 +78,8 @@
 
 
     .game-frame {
+
+      width: 100%;
 
       background: #fff;
 
@@ -102,29 +104,34 @@
 
       image-rendering: crisp-edges;
 
+      cursor: pointer;
+
     }
 
 
-    .controls {
+    .instructions {
 
-      color: #999;
+      margin-top: 8px;
 
       text-align: center;
 
-      font-size: 11px;
+      color: #999;
 
-      margin-top: 8px;
+      font-size: 11px;
 
     }
 
 
     .key {
 
+      display: inline-block;
+
+      padding:
+        2px 6px;
+
       background: #fff;
 
       color: #111;
-
-      padding: 2px 6px;
 
       font-weight: bold;
 
@@ -137,7 +144,7 @@
 <body>
 
 
-  <div class="game-container">
+  <div class="game-wrapper">
 
 
     <div class="title">
@@ -152,7 +159,7 @@
     </div>
 
 
-    <div class="controls">
+    <div class="instructions">
 
       <span class="key">
         ESPACIO
@@ -170,12 +177,6 @@
 
       <span class="key">
         ↓
-      </span>
-
-      /
-
-      <span class="key">
-        S
       </span>
 
       AGACHARSE
@@ -196,23 +197,25 @@
 
   <script>
 
+    /* =========================================================
+       PIXEL REX
+       =========================================================
+    
+       Juego completo en un único HTML.
+    
+       NO necesita:
+       - imágenes
+       - SVG
+       - assets
+       - librerías
+       - servidor
+    
+       ========================================================= */
+
 
     /* =========================================================
-       CONFIGURACIÓN GENERAL
+       CANVAS
     ========================================================= */
-
-
-    /*
-        false = juego normal
-    
-        true = muestra las cajas de colisión
-    
-        VERDE  = dinosaurio
-        ROJO   = obstáculo
-    */
-
-    const DEBUG = false;
-
 
     const canvas =
       document.getElementById(
@@ -230,92 +233,53 @@
       false;
 
 
-    const WIDTH = 1200;
+    const WIDTH =
+      canvas.width;
 
-    const HEIGHT = 520;
 
-    const GROUND = 390;
+    const HEIGHT =
+      canvas.height;
 
 
     /* =========================================================
-       ASSETS
+       SUELO
     ========================================================= */
 
-    const images = {};
+    const GROUND =
+      390;
 
 
-    const assetFiles = {
+    /* =========================================================
+       DEBUG
+    =========================================================
+    
+       Cambia a true si quieres ver
+       las cajas de colisión.
+    
+       VERDE = dinosaurio
+       ROJO  = obstáculo
+    ========================================================= */
+
+    const DEBUG =
+      false;
+
+
+    /* =========================================================
+       EMOJIS
+    ========================================================= */
+
+    const EMOJI = {
 
       rex:
-        "assets/rex-stand.svg",
-
-      rexCrouch:
-        "assets/rex-crouch.svg",
+        "🦖",
 
       bird:
-        "assets/bird.svg",
+        "🐦",
 
       cactus:
-        "assets/cactus.svg"
+        "🌵"
 
     };
-
-
-    function loadImage(
-      name,
-      path
-    ) {
-
-      return new Promise(
-        (resolve) => {
-
-          const image =
-            new Image();
-
-
-          image.onload =
-            () => {
-
-              images[name] =
-                image;
-
-              resolve();
-
-            };
-
-
-          image.src =
-            path;
-
-        }
-      );
-
-    }
-
-
-    Promise.all(
-
-      Object.entries(
-        assetFiles
-      ).map(
-        ([name, path]) =>
-
-          loadImage(
-            name,
-            path
-          )
-
-      )
-
-    ).then(
-      () => {
-
-        requestAnimationFrame(
-          gameLoop
-        );
-
-      }
-    );
 
 
     /* =========================================================
@@ -324,15 +288,29 @@
 
     const player = {
 
-      x: 145,
+      x:
+        150,
 
-      y: GROUND,
+      y:
+        GROUND,
 
-      velocityY: 0,
+      width:
+        64,
 
-      jumping: false,
+      height:
+        70,
 
-      crouching: false
+      velocityY:
+        0,
+
+      jumping:
+        false,
+
+      crouching:
+        false,
+
+      animation:
+        0
 
     };
 
@@ -342,21 +320,42 @@
     ========================================================= */
 
     const GRAVITY =
-      1750;
+      1800;
 
+
+    /*
+       Fuerza inicial del salto.
+    
+       Lo suficientemente grande para superar
+       cactus y pájaros altos.
+    */
 
     const JUMP_FORCE =
-      -770;
+      -820;
 
 
     /* =========================================================
-       ESTADO DEL JUEGO
+       VELOCIDAD
     ========================================================= */
 
-    let obstacles = [];
+    let speed =
+      285;
 
 
-    let score = 0;
+    const MAX_SPEED =
+      420;
+
+
+    /* =========================================================
+       JUEGO
+    ========================================================= */
+
+    let running =
+      true;
+
+
+    let score =
+      0;
 
 
     let best =
@@ -367,21 +366,13 @@
       ) || 0;
 
 
-    let speed =
-      285;
-
-
-    const MAX_SPEED =
-      440;
-
-
-    let running =
-      true;
-
-
     /* =========================================================
-       GENERACIÓN
+       OBSTÁCULOS
     ========================================================= */
+
+    let obstacles =
+      [];
+
 
     let spawnTimer =
       0;
@@ -392,11 +383,11 @@
 
 
     /* =========================================================
-       TIEMPO
+       DECORACIÓN
     ========================================================= */
 
-    let lastTime =
-      performance.now();
+    let worldOffset =
+      0;
 
 
     /* =========================================================
@@ -405,22 +396,218 @@
 
     const keys = {
 
-      down: false
+      down:
+        false
 
     };
 
 
+    /*
+       Importante:
+    
+       Usamos keydown directamente.
+    
+       No esperamos ningún evento de animación
+       para cambiar el estado del jugador.
+    */
+
+    document.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+
+    document.addEventListener(
+      "keyup",
+      handleKeyUp
+    );
+
+
     /* =========================================================
-       HITBOX DEL DINOSAURIO
+       KEYDOWN
+    ========================================================= */
+
+    function handleKeyDown(
+      event
+    ) {
+
+      /*
+         Evitar que las flechas
+         hagan scroll en la página.
+      */
+
+      if (
+
+        event.code ===
+        "ArrowUp"
+
+        ||
+
+        event.code ===
+        "ArrowDown"
+
+        ||
+
+        event.code ===
+        "Space"
+
+      ) {
+
+        event.preventDefault();
+
+      }
+
+
+      /*
+         SALTO
+      */
+
+      if (
+
+        (
+          event.code ===
+          "Space"
+
+          ||
+
+          event.code ===
+          "ArrowUp"
+        )
+
+        &&
+
+        !event.repeat
+
+      ) {
+
+        jump();
+
+      }
+
+
+      /*
+         AGACHARSE
+  
+         El cambio es inmediato.
+      */
+
+      if (
+
+        event.code ===
+        "ArrowDown"
+
+        ||
+
+        event.code ===
+        "KeyS"
+
+      ) {
+
+        keys.down =
+          true;
+
+      }
+
+
+      /*
+         REINICIAR
+      */
+
+      if (
+
+        event.code ===
+        "Enter"
+
+        &&
+
+        !running
+
+      ) {
+
+        resetGame();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       KEYUP
+    ========================================================= */
+
+    function handleKeyUp(
+      event
+    ) {
+
+      if (
+
+        event.code ===
+        "ArrowDown"
+
+        ||
+
+        event.code ===
+        "KeyS"
+
+      ) {
+
+        keys.down =
+          false;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SALTO
+    ========================================================= */
+
+    function jump() {
+
+      if (
+        !running
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        player.jumping
+      ) {
+
+        return;
+
+      }
+
+
+      player.jumping =
+        true;
+
+
+      player.crouching =
+        false;
+
+
+      player.velocityY =
+        JUMP_FORCE;
+
+    }
+
+
+    /* =========================================================
+       HITBOX DEL JUGADOR
     ========================================================= */
 
     function getPlayerHitbox() {
 
 
       /*
-          =====================================================
-          DINOSAURIO DE PIE
-          =====================================================
+         =====================================================
+         DE PIE
+         =====================================================
       */
 
       if (
@@ -430,16 +617,16 @@
         return {
 
           x:
-            player.x + 15,
+            player.x + 17,
 
           y:
-            player.y - 58,
+            player.y - 61,
 
           width:
-            42,
+            43,
 
           height:
-            53
+            57
 
         };
 
@@ -447,14 +634,11 @@
 
 
       /*
-          =====================================================
-          DINOSAURIO AGACHADO
-          =====================================================
+         =====================================================
+         AGACHADO
+         =====================================================
   
-          Más ancho y ligeramente más bajo.
-  
-          Esto permite que el pájaro bajo
-          realmente pueda pasar por encima.
+         El cuerpo ocupa una zona mucho más baja.
       */
 
       return {
@@ -463,13 +647,13 @@
           player.x + 10,
 
         y:
-          player.y - 38,
+          player.y - 39,
 
         width:
-          47,
+          53,
 
         height:
-          34
+          35
 
       };
 
@@ -477,7 +661,7 @@
 
 
     /* =========================================================
-       HITBOX DE LOS OBSTÁCULOS
+       HITBOX DE OBSTÁCULOS
     ========================================================= */
 
     function getObstacleHitbox(
@@ -486,9 +670,9 @@
 
 
       /*
-          =====================================================
-          CACTUS
-          =====================================================
+         =====================================================
+         CACTUS
+         =====================================================
       */
 
       if (
@@ -499,20 +683,18 @@
         return {
 
           x:
-            obstacle.x + 12,
+            obstacle.x + 13,
 
           y:
             obstacle.y -
             obstacle.height +
-            7,
+            8,
 
           width:
-            obstacle.width -
-            24,
+            obstacle.width - 26,
 
           height:
-            obstacle.height -
-            10
+            obstacle.height - 10
 
         };
 
@@ -520,32 +702,28 @@
 
 
       /*
-          =====================================================
-          PÁJARO
-          =====================================================
+         =====================================================
+         PÁJARO
+         =====================================================
   
-          IMPORTANTE:
+         El pájaro tiene una hitbox central.
   
-          La hitbox corresponde al cuerpo
-          central del pájaro.
-  
-          No usamos todo el SVG porque las alas
-          sobresalen demasiado.
+         La posición depende de su altura.
       */
 
       return {
 
         x:
-          obstacle.x + 16,
+          obstacle.x + 8,
 
         y:
-          obstacle.y - 39,
+          obstacle.y - 23,
 
         width:
-          72,
+          obstacle.width - 16,
 
         height:
-          28
+          25
 
       };
 
@@ -556,7 +734,7 @@
        COLISIÓN AABB
     ========================================================= */
 
-    function intersects(
+    function collision(
       a,
       b
     ) {
@@ -592,10 +770,21 @@
 
     function createCactus() {
 
+      const large =
+        Math.random() <
+        0.35;
+
+
       const height =
-        65 +
-        Math.random() *
-        30;
+        large
+          ? 88
+          : 68;
+
+
+      const width =
+        large
+          ? 58
+          : 48;
 
 
       obstacles.push({
@@ -604,13 +793,13 @@
           "cactus",
 
         x:
-          WIDTH + 60,
+          WIDTH + 80,
 
         y:
           GROUND,
 
         width:
-          65,
+          width,
 
         height:
           height,
@@ -631,12 +820,8 @@
 
 
       /*
-          TRUE:
-  
-          PÁJARO BAJO
-  
-          Se debe esquivar
-          agachándose.
+         50% pájaro bajo
+         50% pájaro alto
       */
 
       const low =
@@ -649,52 +834,38 @@
         type:
           "bird",
 
-
         x:
           WIDTH + 80,
 
 
         /*
-            =================================================
-            DOS ALTURAS REALES
-            =================================================
+           ==================================================
+           PÁJARO BAJO
+           ==================================================
 
-            BAJO:
-            -------------------------------------------------
-            El cuerpo del pájaro queda aproximadamente
-            a la altura del cuello/cabeza del dinosaurio.
-
-            ALTO:
-            -------------------------------------------------
-            Queda suficientemente elevado para obligar
-            a realizar un salto.
+           El cuerpo está a una altura
+           que obliga a agacharse.
         */
 
         y:
           low
 
-            ? GROUND - 43
+            ? GROUND - 48
 
-            : GROUND - 125,
+            : GROUND - 135,
 
 
         width:
-          110,
-
+          78,
 
         height:
-          60,
-
+          42,
 
         low:
           low,
 
-
         animation:
-          Math.random() *
-          Math.PI *
-          2,
-
+          Math.random() * 10,
 
         passed:
           false
@@ -705,19 +876,19 @@
 
 
     /* =========================================================
-       CREADOR DE OBSTÁCULOS
+       GENERAR OBSTÁCULO
     ========================================================= */
 
     function spawnObstacle() {
 
 
       /*
-          Evita que dos obstáculos
-          aparezcan pegados.
+         Impedir combinaciones
+         demasiado cercanas.
       */
 
       if (
-        obstacles.length > 0
+        obstacles.length
       ) {
 
         const last =
@@ -726,9 +897,14 @@
           ];
 
 
+        const distance =
+          WIDTH -
+          last.x;
+
+
         if (
-          last.x >
-          WIDTH - 470
+          distance <
+          420
         ) {
 
           return;
@@ -738,13 +914,11 @@
       }
 
 
-      const random =
-        Math.random();
-
-
       /*
-          Los pájaros comienzan
-          después de cierto progreso.
+         Los pájaros aparecen
+         cuando el jugador ya ha
+         tenido tiempo de familiarizarse
+         con los cactus.
       */
 
       if (
@@ -753,7 +927,8 @@
 
         &&
 
-        random < 0.42
+        Math.random() <
+        0.45
 
       ) {
 
@@ -780,12 +955,12 @@
 
 
       /*
-          =====================================================
-          AGACHARSE
-          =====================================================
+         AGACHARSE
   
-          El estado cambia INMEDIATAMENTE
-          al pulsar ↓.
+         Solo puede agacharse en el suelo.
+  
+         Esto evita estados extraños durante
+         el salto.
       */
 
       if (
@@ -806,9 +981,7 @@
 
 
       /*
-          =====================================================
-          SALTO
-          =====================================================
+         FÍSICA DEL SALTO
       */
 
       if (
@@ -824,7 +997,7 @@
 
 
         /*
-            CONTACTO CON EL SUELO
+           SUELO
         */
 
         if (
@@ -847,44 +1020,17 @@
 
       }
 
-    }
 
+      /*
+         ANIMACIÓN
+  
+         Se incrementa continuamente
+         para conseguir movimiento
+         aunque el jugador esté corriendo.
+      */
 
-    /* =========================================================
-       SALTO
-    ========================================================= */
-
-    function jump() {
-
-
-      if (
-        !running
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        player.jumping
-      ) {
-
-        return;
-
-      }
-
-
-      player.jumping =
-        true;
-
-
-      player.crouching =
-        false;
-
-
-      player.velocityY =
-        JUMP_FORCE;
+      player.animation +=
+        dt * 12;
 
     }
 
@@ -913,7 +1059,7 @@
 
 
         /*
-            MOVIMIENTO
+           MOVIMIENTO
         */
 
         obstacle.x -=
@@ -921,7 +1067,7 @@
 
 
         /*
-            ANIMACIÓN DEL PÁJARO
+           ANIMACIÓN DEL PÁJARO
         */
 
         if (
@@ -930,24 +1076,15 @@
         ) {
 
           obstacle.animation +=
-            dt * 12;
+            dt * 14;
 
         }
 
 
         /*
-            =================================================
-            COLISIÓN
-            =================================================
+           HITBOXES
 
-            IMPORTANTE:
-
-            Se recalcula cada frame.
-
-            Esto significa que si el jugador
-            se agacha justo antes de entrar
-            en el pájaro bajo, la hitbox cambia
-            inmediatamente.
+           Se calculan de nuevo cada frame.
         */
 
         const playerBox =
@@ -960,8 +1097,12 @@
           );
 
 
+        /*
+           COLISIÓN
+        */
+
         if (
-          intersects(
+          collision(
             playerBox,
             obstacleBox
           )
@@ -975,7 +1116,7 @@
 
 
         /*
-            PUNTUACIÓN
+           PUNTOS
         */
 
         if (
@@ -1001,13 +1142,15 @@
 
 
         /*
-            ELIMINAR OBSTÁCULO
+           ELIMINAR
         */
 
         if (
+
           obstacle.x +
           obstacle.width <
-          -120
+          -100
+
         ) {
 
           obstacles.splice(
@@ -1030,8 +1173,15 @@
       dt
     ) {
 
+      /*
+         Incremento muy progresivo.
+  
+         Evitamos que el juego se vuelva
+         imposible demasiado pronto.
+      */
+
       speed +=
-        3.5 * dt;
+        2.5 * dt;
 
 
       speed =
@@ -1053,11 +1203,11 @@
 
 
       /*
-          FONDO
+         BLANCO
       */
 
       ctx.fillStyle =
-        "#fff";
+        "#ffffff";
 
 
       ctx.fillRect(
@@ -1069,88 +1219,85 @@
 
 
       /*
-          =====================================================
-          NUBES
-          =====================================================
+         =====================================================
+         NUBES
+         =====================================================
       */
 
-      const cloudOffset =
-        (
-          time * 0.007
-        ) % 1400;
-
-
       drawCloud(
-        150 -
-        cloudOffset,
-        75
+        180 -
+        ((time * 0.018) % 1400),
+
+        85
       );
 
 
       drawCloud(
-        620 -
-        cloudOffset,
-        115
+        650 -
+        ((time * 0.012) % 1400),
+
+        125
       );
 
 
       drawCloud(
-        1080 -
-        cloudOffset,
+        1100 -
+        ((time * 0.015) % 1400),
+
         65
       );
 
 
       /*
-          =====================================================
-          MONTAÑAS
-          =====================================================
+         =====================================================
+         MONTAÑAS
+         =====================================================
       */
 
       ctx.fillStyle =
-        "#eeeeee";
+        "#e5e5e5";
 
 
       drawMountain(
-        80,
+        40,
+        315,
+        240,
+        75
+      );
+
+
+      drawMountain(
+        360,
+        335,
+        190,
+        55
+      );
+
+
+      drawMountain(
+        650,
         300,
-        220,
+        260,
         90
       );
 
 
       drawMountain(
-        420,
-        330,
-        180,
-        60
-      );
-
-
-      drawMountain(
-        720,
-        285,
-        240,
-        105
-      );
-
-
-      drawMountain(
-        1040,
-        320,
-        180,
-        70
+        1010,
+        325,
+        210,
+        65
       );
 
 
       /*
-          =====================================================
-          SUELO
-          =====================================================
+         =====================================================
+         SUELO
+         =====================================================
       */
 
       ctx.fillStyle =
-        "#111";
+        "#111111";
 
 
       ctx.fillRect(
@@ -1162,15 +1309,17 @@
 
 
       /*
-          Pequeñas marcas animadas.
+         =====================================================
+         MARCAS DEL SUELO
+         =====================================================
       */
 
+      worldOffset +=
+        speed * 0.016;
+
+
       const offset =
-        (
-          time *
-          speed *
-          0.0007
-        ) % 120;
+        worldOffset % 100;
 
 
       for (
@@ -1178,16 +1327,16 @@
           -offset;
 
         x <
-        WIDTH + 120;
+        WIDTH + 100;
 
-        x += 120
+        x += 100
       ) {
 
         ctx.fillRect(
           x,
-          GROUND + 24,
-          44,
-          3
+          GROUND + 23,
+          42,
+          2
         );
 
       }
@@ -1196,7 +1345,7 @@
 
 
     /* =========================================================
-       NUBE
+       NUBES
     ========================================================= */
 
     function drawCloud(
@@ -1204,32 +1353,78 @@
       y
     ) {
 
-      ctx.fillStyle =
-        "#e9e9e9";
+      ctx.strokeStyle =
+        "#111111";
 
 
-      ctx.fillRect(
+      ctx.lineWidth =
+        3;
+
+
+      ctx.beginPath();
+
+
+      ctx.moveTo(
         x,
-        y,
-        65,
-        7
+        y + 12
       );
 
 
-      ctx.fillRect(
-        x + 12,
-        y - 7,
-        36,
-        7
+      ctx.lineTo(
+        x + 15,
+        y + 12
       );
 
 
-      ctx.fillRect(
-        x + 28,
-        y - 13,
-        18,
-        13
+      ctx.lineTo(
+        x + 20,
+        y + 4
       );
+
+
+      ctx.lineTo(
+        x + 35,
+        y + 4
+      );
+
+
+      ctx.lineTo(
+        x + 42,
+        y - 3
+      );
+
+
+      ctx.lineTo(
+        x + 57,
+        y - 3
+      );
+
+
+      ctx.lineTo(
+        x + 66,
+        y + 5
+      );
+
+
+      ctx.lineTo(
+        x + 82,
+        y + 5
+      );
+
+
+      ctx.lineTo(
+        x + 88,
+        y + 12
+      );
+
+
+      ctx.lineTo(
+        x,
+        y + 12
+      );
+
+
+      ctx.stroke();
 
     }
 
@@ -1255,8 +1450,14 @@
 
 
       ctx.lineTo(
-        x + width / 2,
+        x + width * 0.45,
         y
+      );
+
+
+      ctx.lineTo(
+        x + width * 0.55,
+        y + height * 0.25
       );
 
 
@@ -1275,7 +1476,7 @@
 
 
     /* =========================================================
-       DINOSAURIO
+       DIBUJAR REX
     ========================================================= */
 
     function drawRex(
@@ -1284,101 +1485,134 @@
 
 
       /*
-          Cambia de sprite automáticamente
-          según la postura.
-      */
-
-      const image =
-        player.crouching
-
-          ? images.rexCrouch
-
-          : images.rex;
-
-
-      let width;
-
-      let height;
-
-
-      /*
-          POSTURA NORMAL
+         =====================================================
+         REX AGACHADO
+         =====================================================
       */
 
       if (
-        !player.crouching
+        player.crouching
       ) {
 
-        width =
-          94;
+        ctx.save();
 
-        height =
-          78;
+
+        /*
+           Emoji horizontal.
+
+           Lo hacemos más ancho y bajo
+           para representar la postura.
+        */
+
+        ctx.font =
+          "58px Arial";
+
+
+        ctx.textAlign =
+          "left";
+
+
+        ctx.textBaseline =
+          "bottom";
+
+
+        /*
+           Ligera animación.
+        */
+
+        const frame =
+          Math.floor(
+            player.animation
+          ) % 2;
+
+
+        const bob =
+          frame === 0
+            ? 0
+            : 1;
+
+
+        ctx.fillText(
+
+          EMOJI.rex,
+
+          player.x - 12,
+
+          player.y -
+          2 +
+          bob
+
+        );
+
+
+        ctx.restore();
+
 
       }
-
-
-      /*
-          POSTURA AGACHADA
-      */
 
       else {
 
-        width =
-          94;
 
-        height =
-          55;
+        /*
+           =================================================
+           REX NORMAL
+           =================================================
+        */
+
+        ctx.save();
+
+
+        ctx.font =
+          "62px Arial";
+
+
+        ctx.textAlign =
+          "left";
+
+
+        ctx.textBaseline =
+          "bottom";
+
+
+        /*
+           Animación de carrera.
+
+           El pequeño desplazamiento vertical
+           hace que no parezca completamente estático.
+        */
+
+        const frame =
+          Math.floor(
+            player.animation
+          ) % 2;
+
+
+        const bob =
+          frame === 0
+            ? 0
+            : 2;
+
+
+        ctx.fillText(
+
+          EMOJI.rex,
+
+          player.x - 12,
+
+          player.y -
+          1 +
+          bob
+
+        );
+
+
+        ctx.restore();
 
       }
 
 
       /*
-          Pequeña animación
-          de carrera.
-      */
-
-      let bob =
-        0;
-
-
-      if (
-
-        !player.jumping
-
-        &&
-
-        !player.crouching
-
-      ) {
-
-        bob =
-          Math.sin(
-            time * 0.018
-          ) * 1.5;
-
-      }
-
-
-      ctx.drawImage(
-
-        image,
-
-        player.x - 18,
-
-        player.y -
-        height +
-        bob,
-
-        width,
-
-        height
-
-      );
-
-
-      /*
-          HITBOX DEBUG
+         DEBUG
       */
 
       if (
@@ -1400,11 +1634,8 @@
         ctx.strokeRect(
 
           box.x,
-
           box.y,
-
           box.width,
-
           box.height
 
         );
@@ -1415,7 +1646,7 @@
 
 
     /* =========================================================
-       CACTUS
+       DIBUJAR CACTUS
     ========================================================= */
 
     function drawCactus(
@@ -1423,21 +1654,41 @@
     ) {
 
 
-      ctx.drawImage(
+      ctx.save();
 
-        images.cactus,
 
-        obstacle.x,
+      ctx.font =
+        obstacle.height >
+          80
+          ? "78px Arial"
+          : "64px Arial";
 
-        obstacle.y -
-        obstacle.height,
 
-        obstacle.width,
+      ctx.textAlign =
+        "left";
 
-        obstacle.height
+
+      ctx.textBaseline =
+        "bottom";
+
+
+      ctx.fillText(
+
+        EMOJI.cactus,
+
+        obstacle.x - 8,
+
+        obstacle.y + 2
 
       );
 
+
+      ctx.restore();
+
+
+      /*
+         DEBUG
+      */
 
       if (
         DEBUG
@@ -1460,11 +1711,8 @@
         ctx.strokeRect(
 
           box.x,
-
           box.y,
-
           box.width,
-
           box.height
 
         );
@@ -1475,7 +1723,7 @@
 
 
     /* =========================================================
-       PÁJARO
+       DIBUJAR PÁJARO
     ========================================================= */
 
     function drawBird(
@@ -1483,45 +1731,95 @@
     ) {
 
 
+      ctx.save();
+
+
       /*
-          Movimiento de las alas.
+         =====================================================
+         ANIMACIÓN DE VUELO
+         =====================================================
       */
 
-      const wing =
-        Math.sin(
+      const frame =
+        Math.floor(
           obstacle.animation
-        ) > 0
-          ? 0
-          : 5;
+        ) % 3;
+
+
+      let rotation;
+
+
+      if (
+        frame === 0
+      ) {
+
+        rotation =
+          -0.10;
+
+      }
+
+      else if (
+        frame === 1
+      ) {
+
+        rotation =
+          0.08;
+
+      }
+
+      else {
+
+        rotation =
+          -0.04;
+
+      }
 
 
       /*
-          =====================================================
-          DIBUJO
-          =====================================================
+         =====================================================
+         DIBUJO
+         =====================================================
       */
 
-      ctx.drawImage(
+      ctx.translate(
 
-        images.bird,
+        obstacle.x +
+        obstacle.width / 2,
 
-        obstacle.x,
-
-        obstacle.y -
-        45 +
-        wing,
-
-        obstacle.width,
-
-        60
+        obstacle.y
 
       );
 
 
+      ctx.rotate(
+        rotation
+      );
+
+
+      ctx.font =
+        "43px Arial";
+
+
+      ctx.textAlign =
+        "center";
+
+
+      ctx.textBaseline =
+        "middle";
+
+
+      ctx.fillText(
+        EMOJI.bird,
+        0,
+        0
+      );
+
+
+      ctx.restore();
+
+
       /*
-          =====================================================
-          DEBUG
-          =====================================================
+         DEBUG
       */
 
       if (
@@ -1545,37 +1843,9 @@
         ctx.strokeRect(
 
           box.x,
-
           box.y,
-
           box.width,
-
           box.height
-
-        );
-
-
-        /*
-            Indicador visual de altura
-        */
-
-        ctx.fillStyle =
-          "#ff0000";
-
-
-        ctx.font =
-          "bold 12px Courier New";
-
-
-        ctx.fillText(
-
-          obstacle.low
-            ? "BAJO / AGACHARSE"
-            : "ALTO / SALTAR",
-
-          obstacle.x,
-
-          obstacle.y - 52
 
         );
 
@@ -1585,7 +1855,7 @@
 
 
     /* =========================================================
-       OBSTÁCULOS
+       DIBUJAR OBSTÁCULOS
     ========================================================= */
 
     function drawObstacles() {
@@ -1629,11 +1899,15 @@
 
 
       ctx.fillStyle =
-        "#111";
+        "#111111";
 
 
       ctx.font =
         "bold 15px Courier New";
+
+
+      ctx.textAlign =
+        "left";
 
 
       ctx.fillText(
@@ -1649,8 +1923,7 @@
           "0"
         ),
 
-        24,
-
+        25,
         30
 
       );
@@ -1667,8 +1940,7 @@
           "0"
         ),
 
-        180,
-
+        170,
         30
 
       );
@@ -1680,23 +1952,59 @@
        GAME OVER
     ========================================================= */
 
+    function gameOver() {
+
+
+      running =
+        false;
+
+
+      best =
+        Math.max(
+
+          best,
+
+          Math.floor(
+            score
+          )
+
+        );
+
+
+      localStorage.setItem(
+
+        "pixelRexBest",
+
+        best
+
+      );
+
+    }
+
+
+    /* =========================================================
+       PANTALLA GAME OVER
+    ========================================================= */
+
     function drawGameOver() {
 
 
       ctx.fillStyle =
-        "rgba(255,255,255,.94)";
+        "rgba(255,255,255,0.94)";
 
 
       ctx.fillRect(
+
         0,
         0,
         WIDTH,
         HEIGHT
+
       );
 
 
       ctx.fillStyle =
-        "#111";
+        "#111111";
 
 
       ctx.textAlign =
@@ -1704,7 +2012,7 @@
 
 
       ctx.font =
-        "bold 48px Courier New";
+        "bold 46px Courier New";
 
 
       ctx.fillText(
@@ -1764,40 +2072,6 @@
 
 
     /* =========================================================
-       GAME OVER
-    ========================================================= */
-
-    function gameOver() {
-
-
-      running =
-        false;
-
-
-      best =
-        Math.max(
-
-          best,
-
-          Math.floor(
-            score
-          )
-
-        );
-
-
-      localStorage.setItem(
-
-        "pixelRexBest",
-
-        best
-
-      );
-
-    }
-
-
-    /* =========================================================
        REINICIAR
     ========================================================= */
 
@@ -1824,6 +2098,14 @@
         1.8;
 
 
+      worldOffset =
+        0;
+
+
+      player.x =
+        150;
+
+
       player.y =
         GROUND;
 
@@ -1838,6 +2120,10 @@
 
       player.crouching =
         false;
+
+
+      player.animation =
+        0;
 
 
       keys.down =
@@ -1855,178 +2141,12 @@
 
 
     /* =========================================================
-       TECLADO
-    ========================================================= */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-
-        /*
-            Evitar scroll del navegador.
-        */
-
-        if (
-
-          event.code ===
-          "Space"
-
-          ||
-
-          event.code ===
-          "ArrowUp"
-
-          ||
-
-          event.code ===
-          "ArrowDown"
-
-        ) {
-
-          event.preventDefault();
-
-        }
-
-
-        /*
-            SALTO
-        */
-
-        if (
-
-          (
-            event.code ===
-            "Space"
-
-            ||
-
-            event.code ===
-            "ArrowUp"
-          )
-
-          &&
-
-          !event.repeat
-
-        ) {
-
-          jump();
-
-        }
-
-
-        /*
-            AGACHARSE
-        */
-
-        if (
-
-          event.code ===
-          "ArrowDown"
-
-          ||
-
-          event.code ===
-          "KeyS"
-
-        ) {
-
-          keys.down =
-            true;
-
-        }
-
-
-        /*
-            REINICIAR
-        */
-
-        if (
-
-          event.code ===
-          "Enter"
-
-          &&
-
-          !running
-
-        ) {
-
-          resetGame();
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       SOLTAR AGACHARSE
-    ========================================================= */
-
-    document.addEventListener(
-      "keyup",
-      event => {
-
-
-        if (
-
-          event.code ===
-          "ArrowDown"
-
-          ||
-
-          event.code ===
-          "KeyS"
-
-        ) {
-
-          keys.down =
-            false;
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       RATÓN
-    ========================================================= */
-
-    canvas.addEventListener(
-      "mousedown",
-      jump
-    );
-
-
-    /* =========================================================
-       TÁCTIL
-    ========================================================= */
-
-    canvas.addEventListener(
-
-      "touchstart",
-
-      event => {
-
-        event.preventDefault();
-
-        jump();
-
-      },
-
-      {
-        passive: false
-      }
-
-    );
-
-
-    /* =========================================================
        LOOP PRINCIPAL
     ========================================================= */
+
+    let lastTime =
+      performance.now();
+
 
     function gameLoop(
       timestamp
@@ -2034,11 +2154,7 @@
 
 
       /*
-          Delta time.
-  
-          Limitamos el máximo para evitar
-          que un salto físico ocurra si
-          el navegador se queda congelado.
+         Delta time.
       */
 
       let dt =
@@ -2047,6 +2163,11 @@
           lastTime
         ) / 1000;
 
+
+      /*
+         Evita saltos físicos enormes
+         si el navegador se bloquea.
+      */
 
       dt =
         Math.min(
@@ -2059,9 +2180,16 @@
         timestamp;
 
 
+      /*
+         =====================================================
+         ACTUALIZACIÓN
+         =====================================================
+      */
+
       if (
         running
       ) {
+
 
         updatePlayer(
           dt
@@ -2077,6 +2205,10 @@
           dt
         );
 
+
+        /*
+           GENERACIÓN
+        */
 
         spawnTimer +=
           dt;
@@ -2094,13 +2226,24 @@
           spawnObstacle();
 
 
+          /*
+             Espaciado aleatorio.
+
+             No demasiado corto para que
+             siempre exista tiempo de reacción.
+          */
+
           spawnDelay =
-            1.65 +
+            1.55 +
             Math.random() *
-            0.75;
+            0.8;
 
         }
 
+
+        /*
+           PUNTUACIÓN
+        */
 
         score +=
           dt * 7;
@@ -2109,7 +2252,9 @@
 
 
       /*
-          DIBUJAR
+         =====================================================
+         RENDER
+         =====================================================
       */
 
       drawBackground(
@@ -2128,6 +2273,10 @@
       drawHUD();
 
 
+      /*
+         GAME OVER
+      */
+
       if (
         !running
       ) {
@@ -2142,6 +2291,15 @@
       );
 
     }
+
+
+    /* =========================================================
+       INICIAR
+    ========================================================= */
+
+    requestAnimationFrame(
+      gameLoop
+    );
 
   </script>
 
