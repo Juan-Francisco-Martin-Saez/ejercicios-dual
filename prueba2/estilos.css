@@ -68,7 +68,7 @@ header {
     z-index: 10;
 }
 
-.logo-placeholder {
+.logo {
     color: white;
     font-size: 1.5rem;
     font-weight: 900;
@@ -262,7 +262,13 @@ header button,
     margin-bottom: 50px;
 }
 
-.grid-container {
+.grid-container-soluciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.grid-container-clientes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
