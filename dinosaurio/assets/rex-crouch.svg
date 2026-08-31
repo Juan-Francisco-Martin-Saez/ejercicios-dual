@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 190 110"
+     shape-rendering="crispEdges">
+
+<g fill="#111">
+
+    <!-- Cola -->
+    <path d="
+        M8 78
+        H32 V67
+        H50 V55
+        H75 V45
+        H107 V34
+        H133 V42
+        H158 V51
+        H176 V64
+        H186 V78
+        H168 V86
+        H137 V94
+        H110 V87
+        H76 V94
+        H52 V85
+        H34 V94
+        H8 Z"/>
+
+    <!-- Cuello -->
+    <path d="
+        M113 42
+        H127 V25
+        H137 V13
+        H159 V19
+        H174 V29
+        H186 V43
+        H178 V54
+        H151 V61
+        H126 V67
+        Z"/>
+
+    <!-- Cabeza -->
+    <path d="
+        M140 30
+        H163 V35
+        H176 V42
+        H190 V48
+        H177 V56
+        H151 V53
+        H138 V43
+        Z"/>
+
+    <!-- Brazo -->
+    <path d="
+        M105 50
+        H113 V74
+        H122 V80
+        H105 Z"/>
+
+    <!-- Piernas -->
+    <path d="
+        M72 77
+        H86 V97
+        H72 Z"/>
+
+    <path d="
+        M110 77
+        H125 V97
+        H110 Z"/>
+
+    <!-- Pies -->
+    <path d="
+        M58 96
+        H91 V104
+        H55 Z"/>
+
+    <path d="
+        M100 96
+        H136 V104
+        H97 Z"/>
+
+</g>
+
+<!-- Ojo -->
+<rect
+    x="157"
+    y="34"
+    width="6"
+    height="6"
+    fill="#fff"/>
+
+<rect
+    x="159"
+    y="36"
+    width="3"
+    height="3"
+    fill="#111"/>
+
+<!-- Boca -->
+<rect
+    x="146"
+    y="49"
+    width="35"
+    height="5"
+    fill="#fff"/>
+
+<!-- Dientes -->
+<g fill="#fff">
+
+    <path d="M148 54h4v7h-4z"/>
+    <path d="M156 54h4v7h-4z"/>
+    <path d="M164 54h4v7h-4z"/>
+    <path d="M172 54h4v7h-4z"/>
+
+</g>
+
+</svg>
