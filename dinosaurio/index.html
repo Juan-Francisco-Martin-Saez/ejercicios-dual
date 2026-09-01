@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>PIXEL REX</title>
@@ -84,7 +81,6 @@
       border-radius: 2px;
     }
   </style>
-
 </head>
 
 <body>
@@ -96,14 +92,10 @@
     </div>
 
     <div class="game-frame">
-
-      <canvas id="game" width="1200" height="520">
-      </canvas>
-
+      <canvas id="game" width="1200" height="520"></canvas>
     </div>
 
     <div class="instructions">
-
       <span class="key">ESPACIO</span>
       /
       <span class="key">↑</span>
@@ -118,12 +110,2365 @@
 
       <span class="key">ENTER</span>
       REINICIAR
-
     </div>
 
   </div>
 
-  <script> /* ========================================================= CONFIGURACIÓN ========================================================= */ const canvas = document.getElementById("game"); const ctx = canvas.getContext("2d"); ctx.imageSmoothingEnabled = false; const WIDTH = canvas.width; const HEIGHT = canvas.height; const GROUND = 390; const GRAVITY = 1800; const JUMP_FORCE = -820; const INITIAL_SPEED = 285; const MAX_SPEED = 440; const DEBUG = false; /* ========================================================= EMOJIS ========================================================= */ const EMOJI = { rex: "🦖", bird: "🐦", cactus: "🌵", tree: "🌴", tree2: "🌳", bush: "🌿", rock: "🪨", flower: "🌼", flower2: "🌻", grass: "🌱", grass2: "🌾", mushroom: "🍄", log: "🪵", cloud: "☁️" }; /* ========================================================= JUGADOR ========================================================= */ const player = { x: 150, y: GROUND, width: 64, height: 70, velocityY: 0, jumping: false, crouching: false, animation: 0 }; /* ========================================================= ESTADO DEL JUEGO ========================================================= */ let running = true; let score = 0; let best = Number(localStorage.getItem("pixelRexBest")) || 0; let speed = INITIAL_SPEED; let obstacles = []; let spawnTimer = 0; let spawnDelay = 1.65; let worldOffset = 0; let lastTime = performance.now(); const keys = { down: false }; /* ========================================================= CONTROL ========================================================= */ document.addEventListener("keydown", handleKeyDown); document.addEventListener("keyup", handleKeyUp); function handleKeyDown(event) { if (event.code === "ArrowUp" || event.code === "ArrowDown" || event.code === "Space") { event.preventDefault(); } if ((event.code === "Space" || event.code === "ArrowUp") && !event.repeat) { jump(); } if (event.code === "ArrowDown" || event.code === "KeyS") { keys.down = true; } if (event.code === "Enter" && !running) { resetGame(); } } function handleKeyUp(event) { if (event.code === "ArrowDown" || event.code === "KeyS") { keys.down = false; } } /* ========================================================= SALTO ========================================================= */ function jump() { if (!running) { return; } if (player.jumping) { return; } player.jumping = true; player.crouching = false; player.velocityY = JUMP_FORCE; } /* ========================================================= HITBOX DEL JUGADOR ========================================================= */ function getPlayerHitbox() { if (player.crouching) { return { x: player.x + 8, y: player.y - 37, width: 54, height: 33 }; } return { x: player.x + 18, y: player.y - 61, width: 40, height: 57 }; } /* ========================================================= HITBOX DE OBSTÁCULOS ========================================================= */ function getObstacleHitbox(obstacle) { return { x: obstacle.x + obstacle.hitbox.x, y: obstacle.hitbox.y, width: obstacle.hitbox.width, height: obstacle.hitbox.height }; } /* ========================================================= COLISIÓN ========================================================= */ function collision(a, b) { return (a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y); } /* ========================================================= CREACIÓN DE CACTUS ========================================================= */ function createCactus() { const type = Math.floor(Math.random() * 5); let width; let height; let fontSize; if (type === 0) { width = 45; height = 60; fontSize = 58; } else if (type === 1) { width = 52; height = 78; fontSize = 70; } else if (type === 2) { width = 62; height = 98; fontSize = 86; } else if (type === 3) { width = 78; height = 72; fontSize = 68; } else { width = 92; height = 92; fontSize = 82; } obstacles.push({ type: "cactus", x: WIDTH + 80, y: GROUND, width, height, fontSize, hitbox: { x: width * 0.18, y: GROUND - height + height * 0.12, width: width * 0.62, height: height * 0.82 }, passed: false }); } /* ========================================================= CACTUS DOBLE ========================================================= */ function createCactusPair() { const x = WIDTH + 80; const gap = 8 + Math.random() * 16; const height1 = 55 + Math.random() * 35; const height2 = 65 + Math.random() * 35; const width1 = 50; const width2 = 58; obstacles.push({ type: "cactus", x, y: GROUND, width: width1, height: height1, fontSize: 64, hitbox: { x: width1 * 0.18, y: GROUND - height1 + 7, width: width1 * 0.62, height: height1 - 12 }, passed: false }); obstacles.push({ type: "cactus", x: x + width1 + gap, y: GROUND, width: width2, height: height2, fontSize: 72, hitbox: { x: width2 * 0.18, y: GROUND - height2 + 8, width: width2 * 0.62, height: height2 - 15 }, passed: false }); } /* ========================================================= CREACIÓN DE PÁJARO ========================================================= */ function createBird() { const type = Math.floor(Math.random() * 6); let y; let width; let height; let fontSize; let mode; let hitboxY; if (type === 0) { mode = "jump"; y = GROUND - 22; width = 70; height = 40; fontSize = 42; hitboxY = y - 20; } else if (type === 1) { mode = "jump"; y = GROUND - 28; width = 88; height = 50; fontSize = 52; hitboxY = y - 27; } else if (type === 2) { mode = "crouch"; y = GROUND - 64; width = 72; height = 40; fontSize = 42; hitboxY = y - 20; } else if (type === 3) { mode = "crouch"; y = GROUND - 70; width = 96; height = 50; fontSize = 54; hitboxY = y - 26; } else if (type === 4) { mode = "crouch"; y = GROUND - 62; width = 112; height = 52; fontSize = 58; hitboxY = y - 27; } else { mode = "crouch"; y = GROUND - 80; width = 120; height = 58; fontSize = 62; hitboxY = y - 30; } obstacles.push({ type: "bird", mode, x: WIDTH + 80, y, width, height, fontSize, hitbox: { x: width * 0.10, y: hitboxY, width: width * 0.78, height: height * 0.70 }, animation: Math.random() * 10, passed: false }); } /* ========================================================= PÁJAROS DOBLES ========================================================= */ function createBirdDouble() { const x = WIDTH + 80; const lowerY = GROUND - 25; const upperY = GROUND - 75; obstacles.push({ type: "bird", mode: "jump", x, y: lowerY, width: 82, height: 45, fontSize: 48, hitbox: { x: 9, y: lowerY - 24, width: 64, height: 33 }, animation: Math.random() * 10, passed: false }); obstacles.push({ type: "bird", mode: "crouch", x: x + 12, y: upperY, width: 88, height: 46, fontSize: 50, hitbox: { x: 8, y: upperY - 25, width: 70, height: 34 }, animation: Math.random() * 10, passed: false }); } /* ========================================================= LIANAS ========================================================= */ function createVine() { const variant = Math.floor(Math.random() * 4); let width; let height; let fontSize; if (variant === 0) { width = 105; height = 115; fontSize = 70; } else if (variant === 1) { width = 130; height = 140; fontSize = 78; } else if (variant === 2) { width = 160; height = 125; fontSize = 76; } else { width = 190; height = 155; fontSize = 82; } obstacles.push({ type: "vine", x: WIDTH + 80, y: 0, width, height, fontSize, hitbox: { x: width * 0.12, y: 48, width: width * 0.76, height: height - 55 }, animation: Math.random() * 10, passed: false }); } /* ========================================================= DOBLE LIANA ========================================================= */ function createVinePair() { const x = WIDTH + 80; obstacles.push({ type: "vine", x, y: 0, width: 95, height: 135, fontSize: 70, hitbox: { x: 12, y: 48, width: 70, height: 82 }, animation: Math.random() * 10, passed: false }); obstacles.push({ type: "vine", x: x + 100, y: 0, width: 105, height: 165, fontSize: 76, hitbox: { x: 12, y: 50, width: 81, height: 108 }, animation: Math.random() * 10, passed: false }); } /* ========================================================= GENERADOR DE OBSTÁCULOS ========================================================= */ function spawnObstacle() { if (obstacles.length) { const last = obstacles[obstacles.length - 1]; const distance = WIDTH - last.x; if (distance < 360) { return; } } let birdChance = 0.27; let vineChance = 0.14; let pairChance = 0.08; if (score > 100) { birdChance = 0.38; vineChance = 0.18; pairChance = 0.12; } if (score > 250) { birdChance = 0.45; vineChance = 0.22; pairChance = 0.17; } if (score > 450) { birdChance = 0.50; vineChance = 0.27; pairChance = 0.22; } const random = Math.random(); if (random < pairChance) { if (Math.random() < 0.5) { createBirdDouble(); } else { createVinePair(); } } else if (random < pairChance + vineChance) { createVine(); } else if (random < pairChance + vineChance + birdChance) { createBird(); } else if (score > 180 && Math.random() < 0.25) { createCactusPair(); } else { createCactus(); } } /* ========================================================= ACTUALIZAR JUGADOR ========================================================= */ function updatePlayer(dt) { if (!player.jumping) { player.crouching = keys.down; } else { player.crouching = false; } if (player.jumping) { player.velocityY += GRAVITY * dt; player.y += player.velocityY * dt; if (player.y >= GROUND) { player.y = GROUND; player.velocityY = 0; player.jumping = false; } } player.animation += dt * 12; } /* ========================================================= ACTUALIZAR OBSTÁCULOS ========================================================= */ function updateObstacles(dt) { const playerBox = getPlayerHitbox(); for (let i = obstacles.length - 1; i >= 0; i--) { const obstacle = obstacles[i]; obstacle.x -= speed * dt; if (obstacle.type === "bird" || obstacle.type === "vine") { obstacle.animation += dt * 8; } const obstacleBox = getObstacleHitbox(obstacle); if (collision(playerBox, obstacleBox)) { gameOver(); return; } if (!obstacle.passed && obstacle.x + obstacle.width < player.x) { obstacle.passed = true; score += 10; } if (obstacle.x + obstacle.width < -150) { obstacles.splice(i, 1); } } } /* ========================================================= DIFICULTAD ========================================================= */ function updateDifficulty(dt) { speed += 2.6 * dt; if (speed > MAX_SPEED) { speed = MAX_SPEED; } } /* ========================================================= FONDO ========================================================= */ function drawBackground(time) { /* CIELO */ const sky = ctx.createLinearGradient(0, 0, 0, GROUND); sky.addColorStop(0, "#67b9d5"); sky.addColorStop(0.5, "#a5d4d3"); sky.addColorStop(1, "#d8e7d3"); ctx.fillStyle = sky; ctx.fillRect(0, 0, WIDTH, HEIGHT); /* SOL */ ctx.globalAlpha = 0.75; ctx.font = "72px Arial"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("☀️", 1050, 90); /* NUBES */ drawCloud(150 - ((time * 0.012) % 1450), 75, 1); drawCloud(600 - ((time * 0.009) % 1550), 120, 0.8); drawCloud(1050 - ((time * 0.015) % 1650), 55, 1.1); ctx.globalAlpha = 1; /* MONTAÑAS */ drawFarMountains(); drawNearMountains(); /* VEGETACIÓN */ drawBackgroundObjects(); /* SUELO */ ctx.fillStyle = "#a9c58c"; ctx.fillRect(0, GROUND, WIDTH, HEIGHT - GROUND); ctx.fillStyle = "#6d9164"; ctx.fillRect(0, GROUND, WIDTH, 9); ctx.fillStyle = "#536f50"; ctx.fillRect(0, GROUND + 9, WIDTH, 3); /* TEXTURA DEL SUELO */ worldOffset += speed * 0.016; const offset = worldOffset % 85; ctx.fillStyle = "#7d9f6d"; for (let x = -offset; x < WIDTH + 100; x += 85) { ctx.fillRect(x, GROUND + 28, 35, 4); ctx.fillRect(x + 48, GROUND + 58, 18, 3); } } /* ========================================================= NUBES ========================================================= */ function drawCloud(x, y, scale) { ctx.globalAlpha = 0.55; ctx.font = `${54 * scale}px Arial`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(EMOJI.cloud, x, y); ctx.globalAlpha = 1; } /* ========================================================= MONTAÑAS ========================================================= */ function drawFarMountains() { ctx.fillStyle = "#9ab7a2"; drawMountain(-50, 310, 330, 90); drawMountain(200, 325, 300, 65); drawMountain(470, 300, 360, 90); drawMountain(800, 315, 340, 75); drawMountain(1050, 300, 300, 90); } function drawNearMountains() { ctx.fillStyle = "#7f9f83"; drawMountain(-100, 345, 300, 45); drawMountain(180, 338, 280, 52); drawMountain(500, 335, 310, 55); drawMountain(850, 340, 300, 50); drawMountain(1100, 332, 280, 58); } function drawMountain(x, y, width, height) { ctx.beginPath(); ctx.moveTo(x, GROUND); ctx.lineTo(x + width * 0.45, y); ctx.lineTo(x + width * 0.55, y + height * 0.25); ctx.lineTo(x + width, GROUND); ctx.closePath(); ctx.fill(); } /* ========================================================= DECORACIÓN ========================================================= */ function drawBackgroundObjects() { const farOffset = (worldOffset * 0.20) % 900; const nearOffset = (worldOffset * 0.38) % 650; /* CAPA LEJANA */ ctx.globalAlpha = 0.32; ctx.textAlign = "center"; ctx.textBaseline = "bottom"; for (let x = -farOffset; x < WIDTH + 900; x += 900) { ctx.font = "70px Arial"; ctx.fillText(EMOJI.tree2, x + 130, GROUND + 5); ctx.font = "52px Arial"; ctx.fillText(EMOJI.tree, x + 390, GROUND + 5); ctx.font = "42px Arial"; ctx.fillText(EMOJI.rock, x + 270, GROUND + 5); ctx.fillText(EMOJI.rock, x + 610, GROUND + 5); } /* CAPA CERCANA */ ctx.globalAlpha = 0.52; for (let x = -nearOffset; x < WIDTH + 650; x += 650) { ctx.font = "68px Arial"; ctx.fillText(EMOJI.tree, x + 70, GROUND + 5); ctx.font = "48px Arial"; ctx.fillText(EMOJI.tree2, x + 330, GROUND + 5); ctx.font = "35px Arial"; ctx.fillText(EMOJI.bush, x + 150, GROUND + 5); ctx.fillText(EMOJI.bush, x + 450, GROUND + 5); ctx.font = "31px Arial"; ctx.fillText(EMOJI.rock, x + 220, GROUND + 5); ctx.fillText(EMOJI.rock, x + 550, GROUND + 5); ctx.font = "24px Arial"; ctx.fillText(EMOJI.flower, x + 280, GROUND + 4); ctx.fillText(EMOJI.flower2, x + 410, GROUND + 4); ctx.font = "22px Arial"; ctx.fillText(EMOJI.grass, x + 120, GROUND + 4); ctx.fillText(EMOJI.grass, x + 390, GROUND + 4); ctx.font = "27px Arial"; ctx.fillText(EMOJI.mushroom, x + 500, GROUND + 5); ctx.font = "34px Arial"; ctx.fillText(EMOJI.grass2, x + 250, GROUND + 5); ctx.font = "32px Arial"; ctx.fillText(EMOJI.log, x + 590, GROUND + 5); } ctx.globalAlpha = 1; } /* ========================================================= REX ========================================================= */ function drawRex() { const frame = Math.floor(player.animation) % 2; const bob = frame === 0 ? 0 : 2; ctx.save(); if (player.crouching) { ctx.translate(player.x + 32, player.y - 2 + bob); ctx.scale(-1.35, 0.68); ctx.font = "62px Arial"; } else { const tilt = frame === 0 ? -0.025 : 0.025; ctx.translate(player.x + 30, player.y - 1 + bob); ctx.rotate(tilt); ctx.scale(-1, 1); ctx.font = "64px Arial"; } ctx.textAlign = "center"; ctx.textBaseline = "bottom"; ctx.fillText(EMOJI.rex, 0, 0); ctx.restore(); if (DEBUG) { const box = getPlayerHitbox(); ctx.strokeStyle = "#00aa00"; ctx.lineWidth = 2; ctx.strokeRect(box.x, box.y, box.width, box.height); } } /* ========================================================= CACTUS ========================================================= */ function drawCactus(obstacle) { const x = obstacle.x - 8; const y = obstacle.y; /* SOMBRA ESTÁTICA */ ctx.font = `${obstacle.fontSize}px Arial`; ctx.textAlign = "left"; ctx.textBaseline = "bottom"; ctx.fillStyle = "rgba(20,55,20,0.55)"; ctx.fillText(EMOJI.cactus, x + 4, y + 5); /* COLOR PRINCIPAL El emoji se mantiene como sprite, pero se utiliza una capa verde intensa detrás para aumentar el contraste. */ ctx.globalAlpha = 0.65; ctx.fillStyle = "#b7ff32"; ctx.fillText(EMOJI.cactus, x, y); /* CACTUS PRINCIPAL */ ctx.globalAlpha = 1; ctx.fillStyle = "#39a852"; ctx.fillText(EMOJI.cactus, x, y); /* PEQUEÑO CONTRASTE EXTERIOR Sin sombras ni filtros. */ ctx.globalAlpha = 0.75; ctx.fillStyle = "#d8ff45"; ctx.fillText(EMOJI.cactus, x - 1, y - 1); ctx.globalAlpha = 1; if (DEBUG) { const box = getObstacleHitbox(obstacle); ctx.strokeStyle = "#ff0000"; ctx.lineWidth = 3; ctx.strokeRect(box.x, box.y, box.width, box.height); } } /* ========================================================= PÁJARO ========================================================= */ function drawBird(obstacle) { const frame = Math.floor(obstacle.animation) % 3; const rotation = frame === 0 ? -0.10 : frame === 1 ? 0.08 : -0.04; const bob = Math.sin(obstacle.animation) * 2; ctx.save(); ctx.translate(obstacle.x + obstacle.width / 2, obstacle.y + bob); ctx.rotate(rotation); ctx.font = `${obstacle.fontSize}px Arial`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; /* SOMBRA SIMPLE */ ctx.fillStyle = "rgba(20,40,55,0.45)"; ctx.fillText(EMOJI.bird, 4, 5); /* PÁJARO */ ctx.fillStyle = "#ffffff"; ctx.fillText(EMOJI.bird, 0, 0); ctx.restore(); if (DEBUG) { const box = getObstacleHitbox(obstacle); ctx.strokeStyle = "#ff0000"; ctx.lineWidth = 3; ctx.strokeRect(box.x, box.y, box.width, box.height); } } /* ========================================================= LIANAS ========================================================= */ function drawVine(obstacle) { const sway = Math.sin(obstacle.animation) * 3; const center = obstacle.x + obstacle.width / 2; const left = center - obstacle.width * 0.22 + sway; const right = center + obstacle.width * 0.22 - sway; /* TALLOS */ ctx.strokeStyle = "#296b35"; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(left, 0); ctx.quadraticCurveTo(left - 5, obstacle.height * 0.45, left + 4, obstacle.height * 0.88); ctx.stroke(); ctx.beginPath(); ctx.moveTo(right, 0); ctx.quadraticCurveTo(right + 5, obstacle.height * 0.45, right - 4, obstacle.height * 0.88); ctx.stroke(); /* HOJAS */ ctx.font = `${obstacle.fontSize}px Arial`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#2f8b43"; ctx.fillText(EMOJI.vine, left, obstacle.height * 0.58); ctx.fillText(EMOJI.vine, right, obstacle.height * 0.72); if (DEBUG) { const box = getObstacleHitbox(obstacle); ctx.strokeStyle = "#ff0000"; ctx.lineWidth = 3; ctx.strokeRect(box.x, box.y, box.width, box.height); } } /* ========================================================= DIBUJAR OBSTÁCULOS ========================================================= */ function drawObstacles() { for (const obstacle of obstacles) { if (obstacle.type === "cactus") { drawCactus(obstacle); } else if (obstacle.type === "bird") { drawBird(obstacle); } else if (obstacle.type === "vine") { drawVine(obstacle); } } } /* ========================================================= HUD ========================================================= */ function drawHUD() { ctx.fillStyle = "#24452d"; ctx.font = "bold 16px Courier New"; ctx.textAlign = "left"; ctx.fillText("SCORE " + String(Math.floor(score)).padStart(5, "0"), 25, 30); ctx.fillText("BEST " + String(best).padStart(5, "0"), 170, 30); } /* ========================================================= GAME OVER ========================================================= */ function gameOver() { running = false; best = Math.max(best, Math.floor(score)); localStorage.setItem("pixelRexBest", best); } function drawGameOver() { ctx.fillStyle = "rgba(15,35,25,0.90)"; ctx.fillRect(0, 0, WIDTH, HEIGHT); ctx.fillStyle = "#ffffff"; ctx.textAlign = "center"; ctx.font = "bold 46px Courier New"; ctx.fillText("GAME OVER", WIDTH / 2, 215); ctx.font = "bold 18px Courier New"; ctx.fillText("SCORE " + String(Math.floor(score)).padStart(5, "0"), WIDTH / 2, 255); ctx.font = "bold 14px Courier New"; ctx.fillText("PULSA ENTER PARA REINICIAR", WIDTH / 2, 295); ctx.textAlign = "left"; } /* ========================================================= REINICIO ========================================================= */ function resetGame() { obstacles.length = 0; score = 0; speed = INITIAL_SPEED; spawnTimer = 0; spawnDelay = 1.65; worldOffset = 0; player.x = 150; player.y = GROUND; player.velocityY = 0; player.jumping = false; player.crouching = false; player.animation = 0; keys.down = false; running = true; lastTime = performance.now(); } /* ========================================================= GAME LOOP ========================================================= */ function gameLoop(timestamp) { let dt = (timestamp - lastTime) / 1000; if (dt > 0.025) { dt = 0.025; } lastTime = timestamp; if (running) { updatePlayer(dt); updateObstacles(dt); updateDifficulty(dt); spawnTimer += dt; if (spawnTimer >= spawnDelay) { spawnTimer = 0; spawnObstacle(); spawnDelay = 1.20 + Math.random() * 0.65; } score += dt * 7; } drawBackground(timestamp); drawObstacles(); drawRex(); drawHUD(); if (!running) { drawGameOver(); } requestAnimationFrame(gameLoop); } /* ========================================================= INICIO ========================================================= */ requestAnimationFrame(gameLoop); </script>
+  <script>
+
+    /* =========================================================
+       CONFIGURACIÓN
+    ========================================================= */
+
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    ctx.imageSmoothingEnabled = false;
+
+    const WIDTH = canvas.width;
+    const HEIGHT = canvas.height;
+
+    const GROUND = 390;
+
+    const GRAVITY = 1800;
+    const JUMP_FORCE = -820;
+
+    const INITIAL_SPEED = 285;
+    const MAX_SPEED = 470;
+
+    const DEBUG = false;
+
+
+    /* =========================================================
+       EMOJIS
+    ========================================================= */
+
+    const EMOJI = {
+      rex: "🦖",
+      bird: "🐦",
+      cactus: "🌵",
+
+      tree: "🌴",
+      tree2: "🌳",
+
+      bush: "🌿",
+      leaves: "🍃",
+      leaves2: "🌿",
+
+      rock: "🪨",
+
+      flower: "🌼",
+      flower2: "🌻",
+
+      grass: "🌱",
+      grass2: "🌾",
+
+      mushroom: "🍄",
+      log: "🪵",
+
+      cloud: "☁️"
+    };
+
+
+    /* =========================================================
+       JUGADOR
+    ========================================================= */
+
+    const player = {
+      x: 150,
+      y: GROUND,
+
+      width: 64,
+      height: 70,
+
+      velocityY: 0,
+
+      jumping: false,
+      crouching: false,
+
+      animation: 0
+    };
+
+
+    /* =========================================================
+       ESTADO
+    ========================================================= */
+
+    let running = true;
+
+    let score = 0;
+
+    let best =
+      Number(localStorage.getItem("pixelRexBest")) || 0;
+
+    let speed = INITIAL_SPEED;
+
+    let obstacles = [];
+
+    let spawnTimer = 0;
+
+    let spawnDelay = 1.65;
+
+    let worldOffset = 0;
+
+    let lastTime = performance.now();
+
+    let lastPattern = "";
+
+
+    const keys = {
+      down: false
+    };
+
+
+    /* =========================================================
+       CONTROL
+    ========================================================= */
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
+    function handleKeyDown(event) {
+
+      if (
+        event.code === "ArrowUp" ||
+        event.code === "ArrowDown" ||
+        event.code === "Space"
+      ) {
+        event.preventDefault();
+      }
+
+      if (
+        (event.code === "Space" ||
+          event.code === "ArrowUp") &&
+        !event.repeat
+      ) {
+        jump();
+      }
+
+      if (
+        event.code === "ArrowDown" ||
+        event.code === "KeyS"
+      ) {
+        keys.down = true;
+      }
+
+      if (
+        event.code === "Enter" &&
+        !running
+      ) {
+        resetGame();
+      }
+    }
+
+
+    function handleKeyUp(event) {
+
+      if (
+        event.code === "ArrowDown" ||
+        event.code === "KeyS"
+      ) {
+        keys.down = false;
+      }
+    }
+
+
+    /* =========================================================
+       SALTO
+    ========================================================= */
+
+    function jump() {
+
+      if (!running) {
+        return;
+      }
+
+      if (player.jumping) {
+        return;
+      }
+
+      player.jumping = true;
+      player.crouching = false;
+
+      player.velocityY = JUMP_FORCE;
+    }
+
+
+    /* =========================================================
+       HITBOX JUGADOR
+    ========================================================= */
+
+    function getPlayerHitbox() {
+
+      if (player.crouching) {
+
+        return {
+          x: player.x + 8,
+          y: player.y - 37,
+          width: 48,
+          height: 34
+        };
+      }
+
+      return {
+        x: player.x + 18,
+        y: player.y - 61,
+        width: 40,
+        height: 57
+      };
+    }
+
+
+    /* =========================================================
+       HITBOX OBSTÁCULO
+    ========================================================= */
+
+    function getObstacleHitbox(obstacle) {
+
+      return {
+        x: obstacle.x + obstacle.hitbox.x,
+        y: obstacle.hitbox.y,
+        width: obstacle.hitbox.width,
+        height: obstacle.hitbox.height
+      };
+    }
+
+
+    /* =========================================================
+       COLISIÓN
+    ========================================================= */
+
+    function collision(a, b) {
+
+      return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+      );
+    }
+
+
+    /* =========================================================
+       CACTUS INDIVIDUAL
+    ========================================================= */
+
+    function createCactus(x = WIDTH + 80, size = null) {
+
+      let type =
+        size !== null
+          ? size
+          : Math.floor(Math.random() * 5);
+
+      let width;
+      let height;
+      let fontSize;
+
+      if (type === 0) {
+
+        width = 45;
+        height = 60;
+        fontSize = 58;
+
+      } else if (type === 1) {
+
+        width = 52;
+        height = 76;
+        fontSize = 70;
+
+      } else if (type === 2) {
+
+        width = 60;
+        height = 88;
+        fontSize = 80;
+
+      } else if (type === 3) {
+
+        width = 70;
+        height = 78;
+        fontSize = 72;
+
+      } else {
+
+        width = 82;
+        height = 92;
+        fontSize = 82;
+      }
+
+
+      obstacles.push({
+
+        type: "cactus",
+
+        x,
+        y: GROUND,
+
+        width,
+        height,
+
+        fontSize,
+
+        hitbox: {
+          x: width * 0.18,
+          y: GROUND - height + 8,
+          width: width * 0.64,
+          height: height - 10
+        },
+
+        passed: false
+      });
+    }
+
+
+    /* =========================================================
+       GRUPO DE CACTUS
+    ========================================================= */
+
+    function createCactusGroup() {
+
+      const x = WIDTH + 80;
+
+      const amount =
+        Math.random() < 0.72
+          ? 2
+          : 3;
+
+      let currentX = x;
+
+      for (let i = 0; i < amount; i++) {
+
+        const size =
+          Math.random() < 0.5
+            ? Math.floor(Math.random() * 3)
+            : Math.floor(Math.random() * 5);
+
+        createCactus(currentX, size);
+
+        const spacing =
+          12 + Math.random() * 22;
+
+        currentX +=
+          obstacles[obstacles.length - 1].width +
+          spacing;
+      }
+    }
+
+
+    /* =========================================================
+       PÁJARO
+    ========================================================= */
+
+    function createBird(
+      x,
+      y,
+      width,
+      height,
+      fontSize
+    ) {
+
+      obstacles.push({
+
+        type: "bird",
+
+        x,
+        y,
+
+        width,
+        height,
+
+        fontSize,
+
+        animation: Math.random() * 10,
+
+        hitbox: {
+
+          x: width * 0.10,
+
+          y: y - height * 0.42,
+
+          width: width * 0.80,
+
+          height: height * 0.78
+        },
+
+        passed: false
+      });
+    }
+
+
+    /* =========================================================
+       PÁJAROS EN LÍNEA
+    ========================================================= */
+
+    function createBirdLine(amount = 3) {
+
+      const x = WIDTH + 80;
+
+      const high =
+        Math.random() < 0.55;
+
+      const y = high
+        ? GROUND - 155 - Math.random() * 35
+        : GROUND - 28;
+
+      const baseSize =
+        48 + Math.random() * 10;
+
+      let currentX = x;
+
+      for (let i = 0; i < amount; i++) {
+
+        const sizeVariation =
+          0.82 + Math.random() * 0.30;
+
+        const width =
+          baseSize * 1.55 * sizeVariation;
+
+        const height =
+          baseSize * sizeVariation;
+
+        createBird(
+          currentX,
+          y + Math.random() * 8,
+          width,
+          height,
+          baseSize * sizeVariation
+        );
+
+        currentX +=
+          width * 0.72 +
+          10 +
+          Math.random() * 12;
+      }
+    }
+
+
+    /* =========================================================
+       PÁJAROS EN COLUMNA
+    ========================================================= */
+
+    function createBirdColumn(amount = 2) {
+
+      const x = WIDTH + 80;
+
+      const baseWidth =
+        70 + Math.random() * 20;
+
+      const baseHeight =
+        44 + Math.random() * 8;
+
+
+      if (amount === 2) {
+
+        const bottomY =
+          GROUND - 125;
+
+        const topY =
+          GROUND - 215;
+
+        createBird(
+          x,
+          bottomY,
+          baseWidth,
+          baseHeight,
+          50
+        );
+
+        createBird(
+          x + 5,
+          topY,
+          baseWidth * 0.95,
+          baseHeight,
+          48
+        );
+
+      } else {
+
+        /*
+          TRES PÁJAROS EN COLUMNA.
+
+          Se colocan arriba dejando una zona
+          inferior segura para AGACHARSE.
+        */
+
+        const y1 =
+          GROUND - 115;
+
+        const y2 =
+          GROUND - 190;
+
+        const y3 =
+          GROUND - 265;
+
+        createBird(
+          x,
+          y1,
+          baseWidth,
+          baseHeight,
+          50
+        );
+
+        createBird(
+          x + 4,
+          y2,
+          baseWidth * 0.92,
+          baseHeight,
+          48
+        );
+
+        createBird(
+          x - 3,
+          y3,
+          baseWidth * 0.86,
+          baseHeight,
+          46
+        );
+      }
+    }
+
+
+    /* =========================================================
+       LIANA SUPERIOR
+    ========================================================= */
+
+    function createTopVine() {
+
+      const width =
+        110 + Math.random() * 50;
+
+      /*
+        La liana llega hasta una altura
+        que obliga a agacharse.
+      */
+
+      const bottom =
+        GROUND - 38;
+
+      const height =
+        280 + Math.random() * 45;
+
+      obstacles.push({
+
+        type: "topVine",
+
+        x: WIDTH + 80,
+
+        y: 0,
+
+        width,
+
+        height,
+
+        bottom,
+
+        animation:
+          Math.random() * Math.PI * 2,
+
+        hitbox: {
+
+          x: width * 0.18,
+
+          y: 35,
+
+          width: width * 0.64,
+
+          height:
+            bottom - 35
+        },
+
+        passed: false
+      });
+    }
+
+
+    /* =========================================================
+       LIANA INFERIOR
+    ========================================================= */
+
+    function createGroundVine() {
+
+      const width =
+        90 + Math.random() * 40;
+
+      const height =
+        Math.random() < 0.5
+          ? 105
+          : 145;
+
+      const top =
+        GROUND - height;
+
+      obstacles.push({
+
+        type: "groundVine",
+
+        x: WIDTH + 80,
+
+        y: top,
+
+        width,
+
+        height,
+
+        animation:
+          Math.random() * Math.PI * 2,
+
+        hitbox: {
+
+          x: width * 0.15,
+
+          y: top + 5,
+
+          width: width * 0.70,
+
+          height:
+            height - 8
+        },
+
+        passed: false
+      });
+    }
+
+
+    /* =========================================================
+       PATRÓN PÁJAROS BAJOS
+    ========================================================= */
+
+    function patternBirdLow() {
+
+      createBirdLine(3);
+    }
+
+
+    /* =========================================================
+       PATRÓN PÁJAROS ALTOS
+    ========================================================= */
+
+    function patternBirdHigh() {
+
+      createBirdColumn(
+        Math.random() < 0.68
+          ? 2
+          : 3
+      );
+    }
+
+
+    /* =========================================================
+       PATRÓN MIXTO
+    ========================================================= */
+
+    function patternMixedBirds() {
+
+      const x = WIDTH + 80;
+
+      const y =
+        GROUND -
+        (120 + Math.random() * 60);
+
+      const width = 72;
+
+      const height = 46;
+
+      createBird(
+        x,
+        y,
+        width,
+        height,
+        50
+      );
+
+      createBird(
+        x + 68,
+        y + 10,
+        width * 0.92,
+        height * 0.92,
+        46
+      );
+    }
+
+
+    /* =========================================================
+       GENERADOR DE PATRONES
+    ========================================================= */
+
+    function spawnPattern() {
+
+      const difficulty =
+        Math.min(score / 500, 1);
+
+      const patterns = [
+
+        "cactus",
+
+        "cactusGroup",
+
+        "birdLow",
+
+        "birdHigh",
+
+        "groundVine",
+
+        "topVine",
+
+        "mixedBirds"
+      ];
+
+
+      /*
+        Evitamos repetir el mismo patrón
+        demasiadas veces.
+      */
+
+      let pattern;
+
+      let attempts = 0;
+
+      do {
+
+        pattern =
+          patterns[
+          Math.floor(
+            Math.random() *
+            patterns.length
+          )
+          ];
+
+        attempts++;
+
+      } while (
+        pattern === lastPattern &&
+        attempts < 8
+      );
+
+
+      /*
+        Evitamos que a niveles bajos
+        aparezcan demasiados obstáculos
+        complejos.
+      */
+
+      if (
+        difficulty < 0.20 &&
+        (
+          pattern === "birdLow" ||
+          pattern === "topVine"
+        ) &&
+        Math.random() < 0.65
+      ) {
+
+        pattern = "cactus";
+      }
+
+
+      if (
+        difficulty < 0.35 &&
+        pattern === "mixedBirds" &&
+        Math.random() < 0.55
+      ) {
+
+        pattern = "birdHigh";
+      }
+
+
+      switch (pattern) {
+
+        case "cactus":
+          createCactus();
+          break;
+
+        case "cactusGroup":
+          createCactusGroup();
+          break;
+
+        case "birdLow":
+          patternBirdLow();
+          break;
+
+        case "birdHigh":
+          patternBirdHigh();
+          break;
+
+        case "groundVine":
+          createGroundVine();
+          break;
+
+        case "topVine":
+          createTopVine();
+          break;
+
+        case "mixedBirds":
+          patternMixedBirds();
+          break;
+      }
+
+
+      lastPattern = pattern;
+    }
+
+
+    /* =========================================================
+       ACTUALIZAR JUGADOR
+    ========================================================= */
+
+    function updatePlayer(dt) {
+
+      if (!player.jumping) {
+
+        player.crouching =
+          keys.down;
+
+      } else {
+
+        player.crouching =
+          false;
+      }
+
+
+      if (player.jumping) {
+
+        player.velocityY +=
+          GRAVITY * dt;
+
+        player.y +=
+          player.velocityY * dt;
+
+
+        if (player.y >= GROUND) {
+
+          player.y = GROUND;
+
+          player.velocityY = 0;
+
+          player.jumping = false;
+        }
+      }
+
+
+      player.animation +=
+        dt * 12;
+    }
+
+
+    /* =========================================================
+       ACTUALIZAR OBSTÁCULOS
+    ========================================================= */
+
+    function updateObstacles(dt) {
+
+      const playerBox =
+        getPlayerHitbox();
+
+
+      for (
+        let i = obstacles.length - 1;
+        i >= 0;
+        i--
+      ) {
+
+        const obstacle =
+          obstacles[i];
+
+
+        obstacle.x -=
+          speed * dt;
+
+
+        if (
+          obstacle.type === "bird" ||
+          obstacle.type === "topVine" ||
+          obstacle.type === "groundVine"
+        ) {
+
+          obstacle.animation +=
+            dt * 3;
+        }
+
+
+        /*
+          Actualizamos dinámicamente
+          la hitbox de las lianas superiores
+          para que coincida con su oscilación.
+        */
+
+        if (
+          obstacle.type === "topVine"
+        ) {
+
+          const sway =
+            Math.sin(
+              obstacle.animation
+            ) * 4;
+
+          obstacle.hitbox.x =
+            obstacle.width * 0.18 +
+            sway;
+
+          obstacle.hitbox.y =
+            35;
+
+          obstacle.hitbox.width =
+            obstacle.width * 0.64;
+
+          obstacle.hitbox.height =
+            obstacle.bottom - 35;
+        }
+
+
+        /*
+          Liana inferior.
+        */
+
+        if (
+          obstacle.type === "groundVine"
+        ) {
+
+          const sway =
+            Math.sin(
+              obstacle.animation
+            ) * 3;
+
+          obstacle.hitbox.x =
+            obstacle.width * 0.15 +
+            sway;
+        }
+
+
+        const obstacleBox =
+          getObstacleHitbox(
+            obstacle
+          );
+
+
+        if (
+          collision(
+            playerBox,
+            obstacleBox
+          )
+        ) {
+
+          gameOver();
+
+          return;
+        }
+
+
+        if (
+          !obstacle.passed &&
+          obstacle.x +
+          obstacle.width <
+          player.x
+        ) {
+
+          obstacle.passed = true;
+
+          score += 10;
+        }
+
+
+        if (
+          obstacle.x +
+          obstacle.width <
+          -180
+        ) {
+
+          obstacles.splice(i, 1);
+        }
+      }
+    }
+
+
+    /* =========================================================
+       DIFICULTAD
+    ========================================================= */
+
+    function updateDifficulty(dt) {
+
+      speed +=
+        2.8 * dt;
+
+
+      if (
+        speed >
+        MAX_SPEED
+      ) {
+
+        speed =
+          MAX_SPEED;
+      }
+
+
+      /*
+        El intervalo de aparición
+        disminuye gradualmente.
+      */
+
+      const difficulty =
+        Math.min(
+          score / 700,
+          1
+        );
+
+
+      spawnDelay =
+        1.55 -
+        difficulty * 0.40 +
+        Math.random() * 0.35;
+
+
+      if (
+        spawnDelay < 0.95
+      ) {
+
+        spawnDelay = 0.95;
+      }
+    }
+
+
+    /* =========================================================
+       FONDO
+    ========================================================= */
+
+    function drawBackground(time) {
+
+      /*
+        CIELO
+      */
+
+      const sky =
+        ctx.createLinearGradient(
+          0,
+          0,
+          0,
+          GROUND
+        );
+
+      sky.addColorStop(
+        0,
+        "#72bdd6"
+      );
+
+      sky.addColorStop(
+        0.55,
+        "#a8d4d0"
+      );
+
+      sky.addColorStop(
+        1,
+        "#d5e2c9"
+      );
+
+
+      ctx.fillStyle = sky;
+
+      ctx.fillRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+      );
+
+
+      /*
+        SOL
+      */
+
+      ctx.globalAlpha =
+        0.72;
+
+      ctx.font =
+        "72px Arial";
+
+      ctx.textAlign =
+        "center";
+
+      ctx.textBaseline =
+        "middle";
+
+      ctx.fillText(
+        "☀️",
+        1030,
+        82
+      );
+
+
+      /*
+        NUBES ESTÁTICAS
+      */
+
+      ctx.globalAlpha =
+        0.42;
+
+      drawCloud(
+        170,
+        80,
+        1
+      );
+
+      drawCloud(
+        580,
+        120,
+        0.75
+      );
+
+      drawCloud(
+        900,
+        65,
+        0.85
+      );
+
+
+      ctx.globalAlpha = 1;
+
+
+      /*
+        MONTAÑAS
+      */
+
+      drawMountains();
+
+
+      /*
+        VEGETACIÓN CON DESPLAZAMIENTO
+      */
+
+      drawBackgroundObjects();
+
+
+      /*
+        SUELO
+      */
+
+      ctx.fillStyle =
+        "#a9c58c";
+
+      ctx.fillRect(
+        0,
+        GROUND,
+        WIDTH,
+        HEIGHT - GROUND
+      );
+
+
+      ctx.fillStyle =
+        "#6d9164";
+
+      ctx.fillRect(
+        0,
+        GROUND,
+        WIDTH,
+        9
+      );
+
+
+      ctx.fillStyle =
+        "#536f50";
+
+      ctx.fillRect(
+        0,
+        GROUND + 9,
+        WIDTH,
+        3
+      );
+
+
+      /*
+        TEXTURA DEL SUELO
+      */
+
+      const offset =
+        worldOffset % 85;
+
+      ctx.fillStyle =
+        "#7d9f6d";
+
+
+      for (
+        let x = -offset;
+        x < WIDTH + 100;
+        x += 85
+      ) {
+
+        ctx.fillRect(
+          x,
+          GROUND + 28,
+          35,
+          4
+        );
+
+        ctx.fillRect(
+          x + 48,
+          GROUND + 58,
+          18,
+          3
+        );
+      }
+
+
+      /*
+        MOVIMIENTO DEL MUNDO.
+
+        El fondo se desplaza continuamente,
+        pero visualmente mantiene el mismo
+        plano.
+      */
+
+      worldOffset +=
+        speed * 0.016;
+    }
+
+
+    /* =========================================================
+       NUBES
+    ========================================================= */
+
+    function drawCloud(
+      x,
+      y,
+      scale
+    ) {
+
+      ctx.font =
+        `${54 * scale}px Arial`;
+
+      ctx.textAlign =
+        "center";
+
+      ctx.textBaseline =
+        "middle";
+
+      ctx.fillText(
+        EMOJI.cloud,
+        x,
+        y
+      );
+    }
+
+
+    /* =========================================================
+       MONTAÑAS
+    ========================================================= */
+
+    function drawMountains() {
+
+      ctx.fillStyle =
+        "#91ae98";
+
+      drawMountain(
+        -80,
+        310,
+        330,
+        90
+      );
+
+      drawMountain(
+        220,
+        325,
+        320,
+        65
+      );
+
+      drawMountain(
+        500,
+        305,
+        360,
+        85
+      );
+
+      drawMountain(
+        850,
+        320,
+        340,
+        70
+      );
+
+
+      ctx.fillStyle =
+        "#7c9d82";
+
+      drawMountain(
+        -100,
+        345,
+        320,
+        45
+      );
+
+      drawMountain(
+        250,
+        340,
+        290,
+        50
+      );
+
+      drawMountain(
+        570,
+        338,
+        310,
+        52
+      );
+
+      drawMountain(
+        900,
+        342,
+        300,
+        50
+      );
+    }
+
+
+    function drawMountain(
+      x,
+      y,
+      width,
+      height
+    ) {
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        x,
+        GROUND
+      );
+
+      ctx.lineTo(
+        x + width * 0.45,
+        y
+      );
+
+      ctx.lineTo(
+        x + width * 0.55,
+        y + height * 0.25
+      );
+
+      ctx.lineTo(
+        x + width,
+        GROUND
+      );
+
+      ctx.closePath();
+
+      ctx.fill();
+    }
+
+
+    /* =========================================================
+       VEGETACIÓN
+    ========================================================= */
+
+    function drawBackgroundObjects() {
+
+      /*
+        Un solo plano visual.
+      */
+
+      const offset =
+        worldOffset % 650;
+
+
+      ctx.globalAlpha =
+        0.48;
+
+      ctx.textAlign =
+        "center";
+
+      ctx.textBaseline =
+        "bottom";
+
+
+      for (
+        let x = -offset;
+        x < WIDTH + 650;
+        x += 650
+      ) {
+
+        /*
+          ÁRBOLES
+        */
+
+        ctx.font =
+          "65px Arial";
+
+        ctx.fillText(
+          EMOJI.tree2,
+          x + 80,
+          GROUND + 5
+        );
+
+        ctx.font =
+          "52px Arial";
+
+        ctx.fillText(
+          EMOJI.tree,
+          x + 330,
+          GROUND + 5
+        );
+
+
+        /*
+          VEGETACIÓN
+        */
+
+        ctx.font =
+          "42px Arial";
+
+        ctx.fillText(
+          EMOJI.bush,
+          x + 150,
+          GROUND + 5
+        );
+
+        ctx.fillText(
+          EMOJI.bush,
+          x + 470,
+          GROUND + 5
+        );
+
+
+        /*
+          ROCAS
+        */
+
+        ctx.font =
+          "31px Arial";
+
+        ctx.fillText(
+          EMOJI.rock,
+          x + 220,
+          GROUND + 5
+        );
+
+        ctx.fillText(
+          EMOJI.rock,
+          x + 550,
+          GROUND + 5
+        );
+
+
+        /*
+          HOJAS
+        */
+
+        ctx.font =
+          "28px Arial";
+
+        ctx.fillText(
+          EMOJI.leaves,
+          x + 270,
+          GROUND + 5
+        );
+
+        ctx.fillText(
+          EMOJI.leaves2,
+          x + 400,
+          GROUND + 5
+        );
+
+
+        /*
+          FLORES
+        */
+
+        ctx.font =
+          "23px Arial";
+
+        ctx.fillText(
+          EMOJI.flower,
+          x + 280,
+          GROUND + 5
+        );
+
+        ctx.fillText(
+          EMOJI.flower2,
+          x + 420,
+          GROUND + 5
+        );
+
+
+        /*
+          HIERBA
+        */
+
+        ctx.font =
+          "25px Arial";
+
+        ctx.fillText(
+          EMOJI.grass,
+          x + 120,
+          GROUND + 5
+        );
+
+        ctx.fillText(
+          EMOJI.grass2,
+          x + 360,
+          GROUND + 5
+        );
+
+
+        /*
+          SETAS Y TRONCOS
+        */
+
+        ctx.font =
+          "28px Arial";
+
+        ctx.fillText(
+          EMOJI.mushroom,
+          x + 510,
+          GROUND + 5
+        );
+
+        ctx.font =
+          "32px Arial";
+
+        ctx.fillText(
+          EMOJI.log,
+          x + 590,
+          GROUND + 5
+        );
+      }
+
+
+      ctx.globalAlpha = 1;
+    }
+
+
+    /* =========================================================
+       REX
+    ========================================================= */
+
+    function drawRex() {
+
+      const frame =
+        Math.floor(
+          player.animation
+        ) % 2;
+
+      const bob =
+        frame === 0
+          ? 0
+          : 2;
+
+
+      ctx.save();
+
+
+      if (
+        player.crouching
+      ) {
+
+        ctx.translate(
+          player.x + 32,
+          player.y - 2 + bob
+        );
+
+        ctx.scale(
+          -1.35,
+          0.68
+        );
+
+        ctx.font =
+          "62px Arial";
+
+      } else {
+
+        const tilt =
+          frame === 0
+            ? -0.025
+            : 0.025;
+
+        ctx.translate(
+          player.x + 30,
+          player.y - 1 + bob
+        );
+
+        ctx.rotate(
+          tilt
+        );
+
+        ctx.scale(
+          -1,
+          1
+        );
+
+        ctx.font =
+          "64px Arial";
+      }
+
+
+      ctx.textAlign =
+        "center";
+
+      ctx.textBaseline =
+        "bottom";
+
+
+      ctx.fillText(
+        EMOJI.rex,
+        0,
+        0
+      );
+
+
+      ctx.restore();
+
+
+      if (DEBUG) {
+
+        const box =
+          getPlayerHitbox();
+
+        ctx.strokeStyle =
+          "#00aa00";
+
+        ctx.lineWidth = 2;
+
+        ctx.strokeRect(
+          box.x,
+          box.y,
+          box.width,
+          box.height
+        );
+      }
+    }
+
+
+    /* =========================================================
+       CACTUS
+    ========================================================= */
+
+    function drawCactus(
+      obstacle
+    ) {
+
+      const x =
+        obstacle.x - 8;
+
+      const y =
+        obstacle.y;
+
+
+      ctx.font =
+        `${obstacle.fontSize}px Arial`;
+
+      ctx.textAlign =
+        "left";
+
+      ctx.textBaseline =
+        "bottom";
+
+
+      /*
+        Sombra
+      */
+
+      ctx.fillStyle =
+        "rgba(20,55,20,0.45)";
+
+      ctx.fillText(
+        EMOJI.cactus,
+        x + 4,
+        y + 5
+      );
+
+
+      /*
+        Sprite principal
+      */
+
+      ctx.fillStyle =
+        "#39a852";
+
+      ctx.fillText(
+        EMOJI.cactus,
+        x,
+        y
+      );
+
+
+      if (DEBUG) {
+
+        const box =
+          getObstacleHitbox(
+            obstacle
+          );
+
+        ctx.strokeStyle =
+          "#ff0000";
+
+        ctx.lineWidth = 3;
+
+        ctx.strokeRect(
+          box.x,
+          box.y,
+          box.width,
+          box.height
+        );
+      }
+    }
+
+
+    /* =========================================================
+       PÁJARO
+    ========================================================= */
+
+    function drawBird(
+      obstacle
+    ) {
+
+      const frame =
+        Math.floor(
+          obstacle.animation
+        ) % 3;
+
+
+      const rotation =
+        frame === 0
+          ? -0.08
+          : frame === 1
+            ? 0.06
+            : -0.03;
+
+
+      const bob =
+        Math.sin(
+          obstacle.animation
+        ) * 2;
+
+
+      ctx.save();
+
+
+      ctx.translate(
+        obstacle.x +
+        obstacle.width / 2,
+        obstacle.y +
+        bob
+      );
+
+
+      ctx.rotate(
+        rotation
+      );
+
+
+      ctx.font =
+        `${obstacle.fontSize}px Arial`;
+
+      ctx.textAlign =
+        "center";
+
+      ctx.textBaseline =
+        "middle";
+
+
+      /*
+        Sombra
+      */
+
+      ctx.fillStyle =
+        "rgba(20,40,55,0.42)";
+
+      ctx.fillText(
+        EMOJI.bird,
+        4,
+        5
+      );
+
+
+      /*
+        Pájaro
+      */
+
+      ctx.fillStyle =
+        "#ffffff";
+
+      ctx.fillText(
+        EMOJI.bird,
+        0,
+        0
+      );
+
+
+      ctx.restore();
+
+
+      if (DEBUG) {
+
+        const box =
+          getObstacleHitbox(
+            obstacle
+          );
+
+        ctx.strokeStyle =
+          "#ff0000";
+
+        ctx.lineWidth = 3;
+
+        ctx.strokeRect(
+          box.x,
+          box.y,
+          box.width,
+          box.height
+        );
+      }
+    }
+
+
+    /* =========================================================
+       LIANA SUPERIOR
+    ========================================================= */
+
+    function drawTopVine(
+      obstacle
+    ) {
+
+      const sway =
+        Math.sin(
+          obstacle.animation
+        ) * 4;
+
+
+      const center =
+        obstacle.x +
+        obstacle.width / 2;
+
+
+      /*
+        Dos tallos.
+      */
+
+      const left =
+        center -
+        obstacle.width * 0.23 +
+        sway;
+
+      const right =
+        center +
+        obstacle.width * 0.23 -
+        sway;
+
+
+      /*
+        Tallos
+      */
+
+      ctx.strokeStyle =
+        "#2f7438";
+
+      ctx.lineWidth = 7;
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        left,
+        0
+      );
+
+      ctx.quadraticCurveTo(
+        left - 8,
+        obstacle.height * 0.35,
+        left + 5,
+        obstacle.bottom
+      );
+
+      ctx.stroke();
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        right,
+        0
+      );
+
+      ctx.quadraticCurveTo(
+        right + 8,
+        obstacle.height * 0.35,
+        right - 5,
+        obstacle.bottom
+      );
+
+      ctx.stroke();
+
+
+      /*
+        CASCADA DE HOJAS.
+
+        Las hojas bajan hasta prácticamente
+        el final del obstáculo.
+      */
+
+      const leafSpacing = 35;
+
+      for (
+        let y = 35;
+        y < obstacle.bottom - 5;
+        y += leafSpacing
+      ) {
+
+        const wave =
+          Math.sin(
+            obstacle.animation +
+            y * 0.035
+          ) * 5;
+
+
+        ctx.font =
+          "30px Arial";
+
+        ctx.textAlign =
+          "center";
+
+        ctx.textBaseline =
+          "middle";
+
+
+        ctx.fillText(
+          EMOJI.leaves,
+          left + wave,
+          y
+        );
+
+
+        ctx.fillText(
+          EMOJI.leaves2,
+          right - wave,
+          y + 17
+        );
+      }
+
+
+      if (DEBUG) {
+
+        const box =
+          getObstacleHitbox(
+            obstacle
+          );
+
+        ctx.strokeStyle =
+          "#ff0000";
+
+        ctx.lineWidth = 3;
+
+        ctx.strokeRect(
+          box.x,
+          box.y,
+          box.width,
+          box.height
+        );
+      }
+    }
+
+
+    /* =========================================================
+       LIANA INFERIOR
+    ========================================================= */
+
+    function drawGroundVine(
+      obstacle
+    ) {
+
+      const sway =
+        Math.sin(
+          obstacle.animation
+        ) * 3;
+
+
+      const center =
+        obstacle.x +
+        obstacle.width / 2;
+
+
+      ctx.strokeStyle =
+        "#347b3b";
+
+      ctx.lineWidth = 6;
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        center,
+        GROUND
+      );
+
+      ctx.quadraticCurveTo(
+        center + sway,
+        obstacle.y +
+        obstacle.height * 0.5,
+        center - sway,
+        obstacle.y
+      );
+
+      ctx.stroke();
+
+
+      /*
+        Hojas ascendentes
+      */
+
+      for (
+        let y = GROUND - 18;
+        y > obstacle.y;
+        y -= 30
+      ) {
+
+        const wave =
+          Math.sin(
+            obstacle.animation +
+            y * 0.04
+          ) * 4;
+
+
+        ctx.font =
+          "29px Arial";
+
+        ctx.textAlign =
+          "center";
+
+        ctx.textBaseline =
+          "middle";
+
+
+        ctx.fillText(
+          EMOJI.leaves,
+          center - 18 + wave,
+          y
+        );
+
+        ctx.fillText(
+          EMOJI.leaves2,
+          center + 18 - wave,
+          y - 8
+        );
+      }
+
+
+      if (DEBUG) {
+
+        const box =
+          getObstacleHitbox(
+            obstacle
+          );
+
+        ctx.strokeStyle =
+          "#ff0000";
+
+        ctx.lineWidth = 3;
+
+        ctx.strokeRect(
+          box.x,
+          box.y,
+          box.width,
+          box.height
+        );
+      }
+    }
+
+
+    /* =========================================================
+       OBSTÁCULOS
+    ========================================================= */
+
+    function drawObstacles() {
+
+      for (
+        const obstacle of obstacles
+      ) {
+
+        if (
+          obstacle.type ===
+          "cactus"
+        ) {
+
+          drawCactus(
+            obstacle
+          );
+
+        } else if (
+          obstacle.type ===
+          "bird"
+        ) {
+
+          drawBird(
+            obstacle
+          );
+
+        } else if (
+          obstacle.type ===
+          "topVine"
+        ) {
+
+          drawTopVine(
+            obstacle
+          );
+
+        } else if (
+          obstacle.type ===
+          "groundVine"
+        ) {
+
+          drawGroundVine(
+            obstacle
+          );
+        }
+      }
+    }
+
+
+    /* =========================================================
+       HUD
+    ========================================================= */
+
+    function drawHUD() {
+
+      ctx.fillStyle =
+        "#24452d";
+
+      ctx.font =
+        "bold 16px Courier New";
+
+      ctx.textAlign =
+        "left";
+
+
+      ctx.fillText(
+        "SCORE " +
+        String(
+          Math.floor(score)
+        ).padStart(5, "0"),
+        25,
+        30
+      );
+
+
+      ctx.fillText(
+        "BEST " +
+        String(best)
+          .padStart(5, "0"),
+        170,
+        30
+      );
+    }
+
+
+    /* =========================================================
+       GAME OVER
+    ========================================================= */
+
+    function gameOver() {
+
+      running = false;
+
+
+      best =
+        Math.max(
+          best,
+          Math.floor(score)
+        );
+
+
+      localStorage.setItem(
+        "pixelRexBest",
+        best
+      );
+    }
+
+
+    function drawGameOver() {
+
+      ctx.fillStyle =
+        "rgba(15,35,25,0.90)";
+
+      ctx.fillRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+      );
+
+
+      ctx.fillStyle =
+        "#ffffff";
+
+      ctx.textAlign =
+        "center";
+
+
+      ctx.font =
+        "bold 46px Courier New";
+
+      ctx.fillText(
+        "GAME OVER",
+        WIDTH / 2,
+        215
+      );
+
+
+      ctx.font =
+        "bold 18px Courier New";
+
+      ctx.fillText(
+        "SCORE " +
+        String(
+          Math.floor(score)
+        ).padStart(5, "0"),
+        WIDTH / 2,
+        255
+      );
+
+
+      ctx.font =
+        "bold 14px Courier New";
+
+      ctx.fillText(
+        "PULSA ENTER PARA REINICIAR",
+        WIDTH / 2,
+        295
+      );
+
+
+      ctx.textAlign =
+        "left";
+    }
+
+
+    /* =========================================================
+       REINICIO
+    ========================================================= */
+
+    function resetGame() {
+
+      obstacles.length = 0;
+
+      score = 0;
+
+      speed =
+        INITIAL_SPEED;
+
+      spawnTimer = 0;
+
+      spawnDelay =
+        1.65;
+
+      worldOffset = 0;
+
+      lastPattern = "";
+
+
+      player.x = 150;
+
+      player.y = GROUND;
+
+      player.velocityY = 0;
+
+      player.jumping = false;
+
+      player.crouching = false;
+
+      player.animation = 0;
+
+      keys.down = false;
+
+      running = true;
+
+      lastTime =
+        performance.now();
+    }
+
+
+    /* =========================================================
+       GAME LOOP
+    ========================================================= */
+
+    function gameLoop(
+      timestamp
+    ) {
+
+      let dt =
+        (timestamp -
+          lastTime) /
+        1000;
+
+
+      if (
+        dt > 0.025
+      ) {
+
+        dt = 0.025;
+      }
+
+
+      lastTime =
+        timestamp;
+
+
+      if (running) {
+
+        updatePlayer(dt);
+
+        updateObstacles(dt);
+
+        updateDifficulty(dt);
+
+
+        spawnTimer += dt;
+
+
+        if (
+          spawnTimer >=
+          spawnDelay
+        ) {
+
+          spawnTimer = 0;
+
+          /*
+            Generamos patrones completos,
+            no obstáculos independientes.
+          */
+
+          spawnPattern();
+        }
+
+
+        score +=
+          dt * 7;
+      }
+
+
+      drawBackground(
+        timestamp
+      );
+
+      drawObstacles();
+
+      drawRex();
+
+      drawHUD();
+
+
+      if (!running) {
+
+        drawGameOver();
+      }
+
+
+      requestAnimationFrame(
+        gameLoop
+      );
+    }
+
+
+    /* =========================================================
+       INICIO
+    ========================================================= */
+
+    requestAnimationFrame(
+      gameLoop
+    );
+
+  </script>
 
 </body>
 
