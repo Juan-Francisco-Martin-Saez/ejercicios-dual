@@ -1,3 +1,10 @@
+const fuenteRoboto = document.createElement("link");
+
+fuenteRoboto.rel = "stylesheet";
+fuenteRoboto.href = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap";
+
+document.head.appendChild(fuenteRoboto);
+
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".menu");
 
