@@ -23,8 +23,8 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   overflow-x: clip;
-  background: #050505;
-  color: #ffffff;
+  background: hsl(0 0% 2%);
+  color: hsl(0 0% 100%);
   font-family: "Roboto", sans-serif;
 }
 
@@ -44,8 +44,8 @@ button {
   z-index: 1000;
   width: 100%;
   min-height: 5rem;
-  background: #050505;
-  border-bottom: 0.0625rem solid #242424;
+  background: hsl(0 0% 2%);
+  border-bottom: 0.0625rem solid hsl(0 0% 14%);
   overflow: visible;
   padding-left: 5%;
   padding-right: 5%;
@@ -80,7 +80,7 @@ button {
 }
 
 .logo span {
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
 }
 
 .menu {
@@ -93,7 +93,7 @@ button {
 
 .menu a {
   position: relative;
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08rem;
@@ -107,12 +107,12 @@ button {
   bottom: -0.5rem;
   width: 0;
   height: 0.125rem;
-  background: #c6ff00;
+  background: hsl(73 100% 50%);
   transition: width 0.3s ease;
 }
 
 .menu a:hover {
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
 }
 
 .menu a:hover::after {
@@ -140,11 +140,11 @@ button {
 .redes a {
   width: 3.1rem;
   height: 3.1rem;
-  border: 0.0625rem solid #3a3a3a;
+  border: 0.0625rem solid hsl(0 0% 23%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   transition: all 0.3s ease;
 }
 
@@ -157,9 +157,9 @@ button {
 }
 
 .redes a:hover {
-  background: #c6ff00;
-  border-color: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  border-color: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
   transform: translateY(-0.15rem);
 }
 
@@ -200,7 +200,7 @@ button {
   display: block;
   width: 1.7rem;
   height: 0.125rem;
-  background: #ffffff;
+  background: hsl(0 0% 100%);
   transition: all 0.3s ease;
 }
 
@@ -223,7 +223,7 @@ button {
   width: 100%;
   height: 78vh;
   min-height: 34rem;
-  background: #080808;
+  background: hsl(0 0% 3%);
   overflow: hidden;
 }
 
@@ -242,7 +242,7 @@ button {
   visibility: hidden;
   overflow: hidden;
   transition: opacity 0.5s ease;
-  background: #080808;
+  background: hsl(0 0% 3%);
 }
 
 .hero-slide.activo {
@@ -269,29 +269,29 @@ button {
   pointer-events: none;
   background:
     linear-gradient(90deg,
-      rgba(5, 5, 5, 0.95) 0%,
-      rgba(5, 5, 5, 0.82) 35%,
-      rgba(5, 5, 5, 0.35) 75%,
-      rgba(5, 5, 5, 0.75) 100%),
+      hsla(0 0% 2% / 0.95) 0%,
+      hsla(0 0% 2% / 0.82) 35%,
+      hsla(0 0% 2% / 0.35) 75%,
+      hsla(0 0% 2% / 0.75) 100%),
     linear-gradient(180deg,
-      rgba(0, 0, 0, 0.05),
-      rgba(5, 5, 5, 0.8));
+      hsla(0 0% 0% / 0.05),
+      hsla(0 0% 2% / 0.8));
 }
 
 .hero-slide:nth-child(1) {
-  background-color: #101010;
+  background-color: hsl(0 0% 6%);
 }
 
 .hero-slide:nth-child(2) {
-  background-color: #171717;
+  background-color: hsl(0 0% 9%);
 }
 
 .hero-slide:nth-child(3) {
-  background-color: #0d120d;
+  background-color: hsl(120 16% 6%);
 }
 
 .hero-slide:nth-child(4) {
-  background-color: #11100e;
+  background-color: hsl(40 10% 6%);
 }
 
 .hero-contenedor {
@@ -312,7 +312,7 @@ button {
 .etiqueta {
   display: inline-block;
   margin-bottom: 1.25rem;
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.15rem;
@@ -320,7 +320,7 @@ button {
 
 .hero h1 {
   margin: 0;
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: clamp(3rem, 6vw, 6rem);
   line-height: 1.1;
   font-weight: 900;
@@ -329,7 +329,7 @@ button {
 .hero p {
   max-width: 32rem;
   margin: 2rem 0;
-  color: #cccccc;
+  color: hsl(0 0% 80%);
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -340,8 +340,8 @@ button {
   justify-content: center;
   min-height: 3rem;
   padding: 0.8rem 1.8rem;
-  background: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
   font-size: 1.3rem;
   font-weight: 900;
   letter-spacing: 0.08rem;
@@ -349,7 +349,7 @@ button {
 }
 
 .boton:hover {
-  background: #ffffff;
+  background: hsl(0 0% 100%);
   transform: translateY(-0.15rem);
 }
 
@@ -369,18 +369,18 @@ button {
 .slider-controles button {
   width: 3rem;
   height: 3rem;
-  border: 0.0625rem solid #555555;
-  background: rgba(0, 0, 0, 0.65);
-  color: #ffffff;
+  border: 0.0625rem solid hsl(0 0% 33%);
+  background: hsla(0 0% 0% / 0.65);
+  color: hsl(0 0% 100%);
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .slider-controles button:hover {
-  background: #c6ff00;
-  border-color: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  border-color: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
 }
 
 .slider-indicadores {
@@ -392,7 +392,7 @@ button {
 .slider-indicadores span {
   width: 0.5rem;
   height: 0.5rem;
-  background: #555555;
+  background: hsl(0 0% 33%);
   border-radius: 50%;
   transition: all 0.3s ease;
 }
@@ -400,7 +400,7 @@ button {
 .slider-indicadores span.activo {
   width: 1.7rem;
   border-radius: 1rem;
-  background: #c6ff00;
+  background: hsl(73 100% 50%);
 }
 
 /* ESTRUCTURA GENERAL */
@@ -426,7 +426,7 @@ button {
 .subtitulo {
   display: block;
   margin-bottom: 0.75rem;
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.16rem;
@@ -434,7 +434,7 @@ button {
 
 .seccion-cabecera h2 {
   margin: 0;
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 0.95;
   font-weight: 900;
@@ -442,7 +442,7 @@ button {
 }
 
 .ver-mas {
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;
@@ -450,7 +450,7 @@ button {
 }
 
 .ver-mas:hover {
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
 }
 
 /* REVISTAS */
@@ -460,20 +460,29 @@ button {
   max-width: none;
   padding-left: 5%;
   padding-right: 5%;
-  background: #f4f4f0;
-  color: #080808;
+  background: hsl(60 15% 95%);
+  color: hsl(0 0% 3%);
+}
+
+.subtitulo-revistas {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: hsl(0 0% 0%);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.16rem;
 }
 
 .revistas .seccion-cabecera h2 {
-  color: #080808;
+  color: hsl(0 0% 3%);
 }
 
 .revistas .ver-mas {
-  color: #080808;
+  color: hsl(0 0% 3%);
 }
 
 .revistas .ver-mas:hover {
-  color: #5f8200;
+  color: hsl(76 100% 25%);
 }
 
 .revistas-wrapper {
@@ -520,14 +529,14 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 0.0625rem solid #333333;
-  color: #ffffff;
+  border: 0.0625rem solid hsl(0 0% 20%);
+  color: hsl(0 0% 100%);
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .revista:hover .portada {
   transform: translateY(-0.4rem);
-  border-color: #c6ff00;
+  border-color: hsl(73 100% 50%);
 }
 
 .portada span {
@@ -549,54 +558,54 @@ button {
 }
 
 .portada-1 {
-  background: linear-gradient(145deg, #152000, #080808);
+  background: linear-gradient(145deg, hsl(81 100% 6%), hsl(0 0% 3%));
 }
 
 .portada-2 {
-  background: linear-gradient(145deg, #001c24, #080808);
+  background: linear-gradient(145deg, hsl(193 100% 7%), hsl(0 0% 3%));
 }
 
 .portada-3 {
-  background: linear-gradient(145deg, #302000, #080808);
+  background: linear-gradient(145deg, hsl(40 100% 9%), hsl(0 0% 3%));
 }
 
 .portada-4 {
-  background: linear-gradient(145deg, #260012, #080808);
+  background: linear-gradient(145deg, hsl(332 100% 7%), hsl(0 0% 3%));
 }
 
 .portada-5 {
-  background: linear-gradient(145deg, #001b10, #080808);
+  background: linear-gradient(145deg, hsl(156 100% 5%), hsl(0 0% 3%));
 }
 
 .portada-6 {
-  background: linear-gradient(145deg, #251500, #080808);
+  background: linear-gradient(145deg, hsl(34 100% 7%), hsl(0 0% 3%));
 }
 
 .portada-7 {
-  background: linear-gradient(145deg, #151515, #303030);
+  background: linear-gradient(145deg, hsl(0 0% 8%), hsl(0 0% 19%));
 }
 
 .portada-8 {
-  background: linear-gradient(145deg, #210021, #080808);
+  background: linear-gradient(145deg, hsl(300 100% 6%), hsl(0 0% 3%));
 }
 
 .portada-9 {
-  background: linear-gradient(145deg, #00221f, #080808);
+  background: linear-gradient(145deg, hsl(175 100% 7%), hsl(0 0% 3%));
 }
 
 .portada-10 {
-  background: linear-gradient(145deg, #222000, #080808);
+  background: linear-gradient(145deg, hsl(56 100% 7%), hsl(0 0% 3%));
 }
 
 .revista h3 {
   margin: 1rem 0 0.5rem;
-  color: #080808;
+  color: hsl(0 0% 3%);
   font-size: 1rem;
   font-weight: 800;
 }
 
 .revista a {
-  color: #547000;
+  color: hsl(75 100% 22%);
   font-size: 0.7rem;
   font-weight: 900;
 }
@@ -605,18 +614,18 @@ button {
   flex-shrink: 0;
   width: 3rem;
   height: 3rem;
-  border: 0.0625rem solid #aaaaaa;
-  background: #ffffff;
-  color: #080808;
+  border: 0.0625rem solid hsl(0 0% 67%);
+  background: hsl(0 0% 100%);
+  color: hsl(0 0% 3%);
   cursor: pointer;
   z-index: 5;
   transition: all 0.3s ease;
 }
 
 .flecha:hover {
-  background: #c6ff00;
-  border-color: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  border-color: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
 }
 
 /* DESTACADOS */
@@ -626,7 +635,7 @@ button {
   max-width: none;
   padding-left: 5%;
   padding-right: 5%;
-  background: #050505;
+  background: hsl(0 0% 2%);
 }
 
 .destacados-grid {
@@ -638,8 +647,8 @@ button {
 
 .destacado {
   min-width: 0;
-  background: #0c0c0c;
-  border: 0.0625rem solid #222222;
+  background: hsl(0 0% 5%);
+  border: 0.0625rem solid hsl(0 0% 13%);
 }
 
 .destacado-grande {
@@ -651,7 +660,7 @@ button {
   display: flex;
   align-items: flex-end;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #1d1d1d, #080808);
+  background: linear-gradient(135deg, hsl(0 0% 11%), hsl(0 0% 3%));
 }
 
 .destacado-grande .imagen-placeholder {
@@ -659,18 +668,18 @@ button {
 }
 
 .imagen-placeholder span {
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.12rem;
 }
 
 .cine-imagen {
-  background: linear-gradient(135deg, #251515, #080808);
+  background: linear-gradient(135deg, hsl(0 28% 11%), hsl(0 0% 3%));
 }
 
 .comic-imagen {
-  background: linear-gradient(135deg, #151f25, #080808);
+  background: linear-gradient(135deg, hsl(202 28% 11%), hsl(0 0% 3%));
 }
 
 .destacado-texto {
@@ -680,7 +689,7 @@ button {
 .categoria {
   display: block;
   margin-bottom: 0.7rem;
-  color: #c6ff00;
+  color: hsl(0 0% 0%);
   font-size: 0.65rem;
   font-weight: 900;
   letter-spacing: 0.12rem;
@@ -688,19 +697,19 @@ button {
 
 .destacado h3 {
   margin: 0 0 1.5rem;
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: 1.3rem;
   line-height: 1.05;
 }
 
 .destacado a {
-  color: #ffffff;
+  color: hsl(0 0% 100%);
   font-size: 0.7rem;
   font-weight: 900;
 }
 
 .destacado a:hover {
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
 }
 
 /* MULTIMEDIA */
@@ -710,21 +719,30 @@ button {
   max-width: none;
   padding-left: 5%;
   padding-right: 5%;
-  background: #f4f4f0;
-  color: #080808;
+  background: hsl(60 15% 95%);
+  color: hsl(0 0% 3%);
   border-top: 0;
 }
 
 .multimedia .seccion-cabecera h2 {
-  color: #080808;
+  color: hsl(0 0% 3%);
+}
+
+.subtitulo-multimedia {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: hsl(0 0% 0%);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.16rem;
 }
 
 .multimedia .ver-mas {
-  color: #080808;
+  color: hsl(0 0% 3%);
 }
 
 .multimedia .ver-mas:hover {
-  color: #547000;
+  color: hsl(75 100% 22%);
 }
 
 .multimedia-grid {
@@ -734,8 +752,8 @@ button {
 }
 
 .video-principal {
-  background: #ffffff;
-  border: 0.0625rem solid #d5d5d5;
+  background: hsl(0 0% 100%);
+  border: 0.0625rem solid hsl(0 0% 84%);
 }
 
 .video-imagen {
@@ -744,14 +762,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, #d2d2d2 0%, #8b8b8b 40%, #202020 100%);
+  background: radial-gradient(circle, hsl(0 0% 82%) 0%, hsl(0 0% 55%) 40%, hsl(0 0% 13%) 100%);
 }
 
 .video-imagen>span {
   position: absolute;
   left: 1.5rem;
   bottom: 1.5rem;
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
   font-size: 0.7rem;
   font-weight: 900;
 }
@@ -761,8 +779,8 @@ button {
   height: 4.5rem;
   border: 0;
   border-radius: 50%;
-  background: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
   cursor: pointer;
   font-size: 1.3rem;
 }
@@ -773,7 +791,7 @@ button {
 
 .video-info h3 {
   margin: 0;
-  color: #080808;
+  color: hsl(0 0% 3%);
   font-size: 1.7rem;
 }
 
@@ -790,8 +808,8 @@ button {
   gap: 1rem;
   align-items: center;
   padding: 1rem;
-  background: #ffffff;
-  border: 0.0625rem solid #d5d5d5;
+  background: hsl(0 0% 100%);
+  border: 0.0625rem solid hsl(0 0% 84%);
 }
 
 .media-imagen {
@@ -801,20 +819,20 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #181818;
-  color: #c6ff00;
+  background: hsl(0 0% 9%);
+  color: hsl(73 100% 50%);
   font-size: 1.5rem;
 }
 
 .media-card small {
-  color: #547000;
+  color: hsl(75 100% 22%);
   font-size: 0.6rem;
   font-weight: 900;
 }
 
 .media-card h3 {
   margin: 0.5rem 0 0;
-  color: #080808;
+  color: hsl(0 0% 3%);
   font-size: 1rem;
 }
 
@@ -825,7 +843,7 @@ button {
   max-width: none;
   padding-left: 5%;
   padding-right: 5%;
-  background: #050505;
+  background: hsl(0 0% 2%);
   border-top: 0;
 }
 
@@ -842,15 +860,15 @@ button {
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  background: #0b0b0b;
-  border: 0.0625rem solid #222222;
+  background: hsl(0 0% 4%);
+  border: 0.0625rem solid hsl(0 0% 13%);
   transition: all 0.3s ease;
 }
 
 .categoria-card:hover {
-  background: #c6ff00;
-  border-color: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  border-color: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
   transform: translateY(-0.25rem);
 }
 
@@ -873,10 +891,10 @@ button {
   align-items: center;
   justify-content: center;
   padding: 6rem 5%;
-  background: radial-gradient(circle at center, #ffffff 0%, #ededeb 60%, #dcdcd8 100%);
-  color: #050505;
-  border-top: 0.0625rem solid #d0d0d0;
-  border-bottom: 0.0625rem solid #d0d0d0;
+  background: radial-gradient(circle at center, hsl(0 0% 100%) 0%, hsl(60 5% 93%) 60%, hsl(60 5% 85%) 100%);
+  color: hsl(0 0% 2%);
+  border-top: 0.0625rem solid hsl(0 0% 82%);
+  border-bottom: 0.0625rem solid hsl(0 0% 82%);
   text-align: center;
 }
 
@@ -885,12 +903,12 @@ button {
 }
 
 .comunidad .subtitulo {
-  color: #547000;
+  color: hsl(75 100% 22%);
 }
 
 .comunidad h2 {
   margin: 0;
-  color: #050505;
+  color: hsl(0 0% 2%);
   font-size: clamp(2.5rem, 6vw, 5.5rem);
   line-height: 0.9;
   font-weight: 900;
@@ -900,26 +918,46 @@ button {
 .comunidad p {
   margin: 2rem auto;
   max-width: 35rem;
-  color: #555555;
+  color: hsl(0 0% 33%);
   line-height: 1.6;
 }
 
 .boton-claro {
-  background: #050505;
-  color: #ffffff;
+  background: hsl(0 0% 2%);
+  color: hsl(0 0% 100%);
 }
 
 .boton-claro:hover {
-  background: #c6ff00;
-  color: #050505;
+  background: hsl(73 100% 50%);
+  color: hsl(0 0% 2%);
 }
 
 /* FOOTER */
 
 .footer {
   width: 100%;
-  background: #050505;
-  color: #ffffff;
+  background: hsl(0 0% 2%);
+  color: hsl(0 0% 100%);
+}
+
+.logo-pie {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  justify-self: start;
+}
+
+.logo-pie img {
+  display: block;
+  max-width: 14rem;
+  min-width: 8rem;
+  height: auto;
+}
+
+.logo-pie span {
+  color: hsl(73 100% 50%);
 }
 
 .footer-contenedor {
@@ -934,7 +972,7 @@ button {
 
 .footer-marca p {
   max-width: 16rem;
-  color: #777777;
+  color: hsl(0 0% 47%);
   font-size: 0.85rem;
   line-height: 1.6;
 }
@@ -947,20 +985,20 @@ button {
 
 .footer-columna h3 {
   margin: 0 0 0.75rem;
-  color: #c6ff00;
+  color: hsl(73 100% 50%);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.12rem;
 }
 
 .footer-columna a {
-  color: #888888;
+  color: hsl(0 0% 53%);
   font-size: 0.8rem;
   transition: color 0.3s ease;
 }
 
 .footer-columna a:hover {
-  color: #ffffff;
+  color: hsl(0 0% 100%);
 }
 
 .footer-bottom {
@@ -968,7 +1006,7 @@ button {
   max-width: 90rem;
   margin: 0 auto;
   padding: 1.5rem 0;
-  border-top: 0.0625rem solid #1c1c1c;
+  border-top: 0.0625rem solid hsl(0 0% 11%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -977,7 +1015,7 @@ button {
 
 .footer-bottom p {
   margin: 0;
-  color: #555555;
+  color: hsl(0 0% 33%);
   font-size: 0.7rem;
 }
 
@@ -995,8 +1033,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.0625rem solid #3a3a3a;
-  color: #777777;
+  border: 0.0625rem solid hsl(0 0% 23%);
+  color: hsl(0 0% 47%);
   transition: all 0.3s ease;
 }
 
@@ -1026,8 +1064,8 @@ button {
 }
 
 .footer-redes a:hover {
-  color: #c6ff00;
-  border-color: #c6ff00;
+  color: hsl(73 100% 50%);
+  border-color: hsl(73 100% 50%);
   transform: translateY(-0.15rem);
 }
 
@@ -1147,8 +1185,8 @@ button {
     flex-direction: column;
     align-items: center;
     gap: 1.35rem;
-    background: #050505;
-    border: 0.0625rem solid #222222;
+    background: hsl(0 0% 2%);
+    border: 0.0625rem solid hsl(0 0% 13%);
     border-top: 0;
     opacity: 0;
     visibility: hidden;
@@ -1194,7 +1232,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 0.65rem;
-    border-top: 0.0625rem solid #222222;
+    border-top: 0.0625rem solid hsl(0 0% 13%);
   }
 
   .menu .redes-movil a {
@@ -1208,9 +1246,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 0.0625rem solid #3a3a3a;
+    border: 0.0625rem solid hsl(0 0% 23%);
     background: transparent;
-    color: #ffffff;
+    color: hsl(0 0% 100%);
     font-size: 0;
     line-height: 0;
     letter-spacing: 0;
@@ -1223,9 +1261,9 @@ button {
   }
 
   .menu .redes-movil a:hover {
-    background: #c6ff00;
-    border-color: #c6ff00;
-    color: #050505;
+    background: hsl(73 100% 50%);
+    border-color: hsl(73 100% 50%);
+    color: hsl(0 0% 2%);
     transform: none;
   }
 
