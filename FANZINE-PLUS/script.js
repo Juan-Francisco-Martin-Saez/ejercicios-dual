@@ -871,6 +871,11 @@ if (revistasCarrusel) {
       }
 
 
+      if (revistaAnimando) {
+        return;
+      }
+
+
       revistaArrastrando = true;
 
       revistaInicioX =
@@ -904,34 +909,6 @@ if (revistasCarrusel) {
         evento.clientX -
         revistaInicioX;
 
-
-      const desplazamiento =
-        revistaMovimientoX * 0.12;
-
-
-      revistas.forEach(
-        (revista, indice) => {
-
-          const distancia =
-            distanciaCircular(
-              indice,
-              revistaActual,
-              revistas.length
-            );
-
-
-          if (
-            Math.abs(distancia) <= 2
-          ) {
-
-            revista.style.marginLeft =
-              `${desplazamiento}px`;
-
-          }
-
-        }
-      );
-
     }
   );
 
@@ -957,15 +934,14 @@ if (revistasCarrusel) {
       "grab";
 
 
-    revistas.forEach(
-      (revista) => {
+    /*
+       EL ARRASTRE NO MODIFICA
+       LA POSICIÓN DE LAS PORTADAS.
 
-        revista.style.marginLeft =
-          "0px";
-
-      }
-    );
-
+       SOLAMENTE DETECTA LA DIRECCIÓN
+       Y EJECUTA LA MISMA FUNCIÓN
+       QUE LAS FLECHAS.
+    */
 
     if (
       Math.abs(revistaMovimientoX) >
@@ -1012,6 +988,21 @@ if (revistasCarrusel) {
   revistasCarrusel.addEventListener(
     "pointercancel",
     finalizarArrastre
+  );
+
+
+  revistasCarrusel.addEventListener(
+    "lostpointercapture",
+    (evento) => {
+
+      if (!revistaArrastrando) {
+        return;
+      }
+
+
+      finalizarArrastre(evento);
+
+    }
   );
 
 
