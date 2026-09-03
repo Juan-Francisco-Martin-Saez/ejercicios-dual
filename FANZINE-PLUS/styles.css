@@ -482,7 +482,7 @@ button {
 .subtitulo-revistas {
   display: block;
   margin-bottom: 1.3rem;
-  color: hsl(0 0% 0%);
+  color: hsl(0, 0%, 100%);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.16rem;
