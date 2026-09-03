@@ -235,8 +235,8 @@ button {
 .hero {
   position: relative;
   width: 100%;
-  height: 78vh;
-  min-height: 34rem;
+  height: calc(100vh - 5rem);
+  min-height: 40rem;
   background: hsl(0 0% 3%);
   overflow: hidden;
 }
@@ -426,15 +426,15 @@ button {
   width: 90%;
   max-width: 90rem;
   margin: 0 auto;
-  padding: 7rem 0;
+  padding: 4rem 0;
 }
 
 .seccion-cabecera {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 2.7rem;
+  margin-bottom: 2.7rem;
 }
 
 .subtitulo {
@@ -481,7 +481,7 @@ button {
 
 .subtitulo-revistas {
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.3rem;
   color: hsl(0 0% 0%);
   font-size: 0.7rem;
   font-weight: 900;

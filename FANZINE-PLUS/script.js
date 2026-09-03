@@ -1442,6 +1442,16 @@ window.addEventListener(
   }
 );
 
+document.querySelectorAll('a[href="#inicio"]').forEach(enlace => {
+  enlace.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+});
 
 /* INICIALIZACIÓN */
 
