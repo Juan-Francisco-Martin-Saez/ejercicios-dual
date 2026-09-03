@@ -38,8 +38,9 @@ button {
 /* CABECERA */
 
 .cabecera {
-  position: relative;
-  z-index: 1000;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
   width: 100%;
   min-height: 5rem;
   background: hsl(0 0% 2%);
@@ -47,6 +48,9 @@ button {
   overflow: visible;
   padding-left: 5%;
   padding-right: 5%;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
 }
 
 .cabecera-contenedor {
@@ -147,35 +151,47 @@ button {
 }
 
 .redes svg {
+  display: block;
   width: 1.6rem;
   height: 1.6rem;
+  flex-shrink: 0;
+}
+
+.redes a .icon-youtube,
+.redes a .icon-tiktok {
   fill: currentColor;
+  stroke: none;
+}
+
+.redes a .icon-instagram {
+  fill: none;
   stroke: currentColor;
-  stroke-width: 1.5;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.redes a .icon-instagram rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.redes a .icon-instagram circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.redes a .icon-instagram circle:last-child {
+  fill: currentColor;
+  stroke: none;
 }
 
 .redes a:hover {
   background: hsl(73 100% 50%);
   border-color: hsl(73 100% 50%);
   color: hsl(0 0% 2%);
-  transform: translateY(-0.15rem);
-}
-
-.redes a:nth-child(2) svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-}
-
-.redes a:nth-child(2) svg circle {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-}
-
-.redes a:nth-child(2) svg circle:last-child {
-  fill: currentColor;
-  stroke: none;
 }
 
 /* MENU HAMBURGUESA */
@@ -540,10 +556,7 @@ button {
   position: relative;
   width: 100%;
   aspect-ratio: 0.72;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
   border: 0.0625rem solid hsl(0 0% 20%);
   color: hsl(0 0% 100%);
   box-shadow:
@@ -552,6 +565,36 @@ button {
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
+}
+
+.portada-imagen {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 1;
+  filter: none;
+}
+
+.portada::after {
+  display: none;
+  content: none;
+}
+
+.portada-contenido {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
 .revista.revista-centro .portada {
@@ -581,46 +624,6 @@ button {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08rem;
-}
-
-.portada-1 {
-  background: linear-gradient(145deg, hsl(81 100% 6%), hsl(0 0% 3%));
-}
-
-.portada-2 {
-  background: linear-gradient(145deg, hsl(193 100% 7%), hsl(0 0% 3%));
-}
-
-.portada-3 {
-  background: linear-gradient(145deg, hsl(40 100% 9%), hsl(0 0% 3%));
-}
-
-.portada-4 {
-  background: linear-gradient(145deg, hsl(332 100% 7%), hsl(0 0% 3%));
-}
-
-.portada-5 {
-  background: linear-gradient(145deg, hsl(156 100% 5%), hsl(0 0% 3%));
-}
-
-.portada-6 {
-  background: linear-gradient(145deg, hsl(34 100% 7%), hsl(0 0% 3%));
-}
-
-.portada-7 {
-  background: linear-gradient(145deg, hsl(0 0% 8%), hsl(0 0% 19%));
-}
-
-.portada-8 {
-  background: linear-gradient(145deg, hsl(300 100% 6%), hsl(0 0% 3%));
-}
-
-.portada-9 {
-  background: linear-gradient(145deg, hsl(175 100% 7%), hsl(0 0% 3%));
-}
-
-.portada-10 {
-  background: linear-gradient(145deg, hsl(56 100% 7%), hsl(0 0% 3%));
 }
 
 .revista h3 {
@@ -1075,26 +1078,39 @@ button {
 }
 
 .footer-redes svg {
+  display: block;
   width: 1.2rem;
   height: 1.2rem;
+  flex-shrink: 0;
+}
+
+.footer-redes a .icon-youtube,
+.footer-redes a .icon-tiktok {
   fill: currentColor;
-  stroke: currentColor;
-  stroke-width: 1.5;
+  stroke: none;
 }
 
-.footer-redes a:nth-child(2) svg {
+.footer-redes a .icon-instagram {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-redes a .icon-instagram rect {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
 }
 
-.footer-redes a:nth-child(2) svg circle {
+.footer-redes a .icon-instagram circle {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
 }
 
-.footer-redes a:nth-child(2) svg circle:last-child {
+.footer-redes a .icon-instagram circle:last-child {
   fill: currentColor;
   stroke: none;
 }
@@ -1155,6 +1171,11 @@ button {
   .redes svg {
     width: 1.3rem;
     height: 1.3rem;
+  }
+
+  .footer-redes svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
   .revistas-wrapper {
@@ -1316,19 +1337,33 @@ button {
     flex-shrink: 0;
   }
 
-  .menu .redes-movil a:nth-child(2) svg {
+  .menu .redes-movil a .icon-youtube,
+  .menu .redes-movil a .icon-tiktok {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .menu .redes-movil a .icon-instagram {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .menu .redes-movil a .icon-instagram rect {
     fill: none;
     stroke: currentColor;
     stroke-width: 1.7;
   }
 
-  .menu .redes-movil a:nth-child(2) svg circle {
+  .menu .redes-movil a .icon-instagram circle {
     fill: none;
     stroke: currentColor;
     stroke-width: 1.7;
   }
 
-  .menu .redes-movil a:nth-child(2) svg circle:last-child {
+  .menu .redes-movil a .icon-instagram circle:last-child {
     fill: currentColor;
     stroke: none;
   }
@@ -1396,6 +1431,14 @@ button {
     min-width: 19rem;
   }
 
+  .portada-contenido {
+    padding: 1.25rem;
+  }
+
+  .portada strong {
+    font-size: 4rem;
+  }
+
   .flecha {
     display: none;
   }
@@ -1457,6 +1500,11 @@ button {
 
   .footer-redes {
     gap: 0.75rem;
+  }
+
+  .footer-redes svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
 }
@@ -1532,6 +1580,19 @@ button {
     min-width: 16rem;
   }
 
+  .portada-contenido {
+    padding: 1rem;
+  }
+
+  .portada strong {
+    font-size: 3.2rem;
+  }
+
+  .portada span,
+  .portada small {
+    font-size: 0.7rem;
+  }
+
   .categorias-grid {
     grid-template-columns: 1fr;
   }
@@ -1542,6 +1603,214 @@ button {
 
   .footer-marca {
     grid-column: auto;
+  }
+
+}
+
+/* CABECERA DINÁMICA */
+
+.cabecera.cabecera-oculta {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* TOPO MÓVIL */
+
+.topo-interactivo {
+  display: none;
+}
+
+@media (max-width: 50rem) {
+
+  .topo-interactivo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    display: block;
+    pointer-events: none;
+  }
+
+  .topo-boton {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    padding: 0;
+    border: 0.125rem solid hsl(73 100% 50%);
+    border-radius: 50%;
+    background: hsl(0 0% 2%);
+    color: hsl(0 0% 100%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.5rem 1.5rem hsla(0 0% 0% / 0.45);
+    transform: translateY(-7rem);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: auto;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+      opacity 0.3s ease,
+      visibility 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .topo-interactivo.topo-visible .topo-boton {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .topo-cuerpo {
+    display: block;
+    font-size: 1.8rem;
+    line-height: 1;
+    transform: translateY(-0.05rem);
+  }
+
+  .topo-menu {
+    position: fixed;
+    top: 5.2rem;
+    right: 1rem;
+    width: min(17rem, calc(100vw - 2rem));
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    background: hsl(0 0% 2%);
+    border: 0.0625rem solid hsl(0 0% 20%);
+    box-shadow: 0 1rem 3rem hsla(0 0% 0% / 0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-0.75rem) scale(0.96);
+    transform-origin: top right;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .topo-interactivo.topo-menu-abierto .topo-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .topo-menu>a {
+    position: relative;
+    padding: 0.8rem 0.5rem;
+    color: hsl(0 0% 100%);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    border-bottom: 0.0625rem solid hsl(0 0% 11%);
+    transition:
+      color 0.25s ease,
+      padding-left 0.25s ease;
+  }
+
+  .topo-menu>a:hover {
+    color: hsl(73 100% 50%);
+    padding-left: 0.8rem;
+  }
+
+  .topo-redes {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 0.0625rem solid hsl(0 0% 20%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .topo-redes a {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.0625rem solid hsl(0 0% 20%);
+    color: hsl(0 0% 100%);
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .topo-redes a:hover {
+    background: hsl(73 100% 50%);
+    border-color: hsl(73 100% 50%);
+    color: hsl(0 0% 2%);
+  }
+
+  .topo-redes svg {
+    display: block;
+    width: 0.85rem;
+    height: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .topo-redes a .icon-youtube,
+  .topo-redes a .icon-tiktok {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .topo-redes a .icon-instagram {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .topo-redes a .icon-instagram rect {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+  }
+
+  .topo-redes a .icon-instagram circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+  }
+
+  .topo-redes a .icon-instagram circle:last-child {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .topo-interactivo.topo-menu-abierto .topo-boton {
+    background: hsl(73 100% 50%);
+    color: hsl(0 0% 2%);
+  }
+
+}
+
+/* TOPO MÓVIL PEQUEÑO */
+
+@media (max-width: 30rem) {
+
+  .topo-boton {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+
+  .topo-menu {
+    top: 4.6rem;
+    right: 0.75rem;
+    width: min(16rem, calc(100vw - 1.5rem));
   }
 
 }

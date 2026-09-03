@@ -338,22 +338,22 @@ const revistaNext =
    LA ÚLTIMA REVISTA DEL HTML
    SIEMPRE COMIENZA EN EL CENTRO.
 
-   Ejemplo:
+   Si el HTML está ordenado:
 
-   revista 01
-   revista 02
-   revista 03
-   revista 24
+   01
+   02
+   03
+   ...
+   10
 
-   Resultado inicial:
+   la posición inicial será:
 
-             24
-        23         01
+             10
+        09         01
 
-   Si se añade una revista 25 al final:
+   La navegación será:
 
-             25
-        24         01
+   10 → 09 → 08 → ... → 01 → 10
 */
 
 let revistaActual =
@@ -477,7 +477,7 @@ function obtenerConfiguracionCoverflow() {
 }
 
 
-/* DISTANCIA CIRCULAR */
+/* DISTANCIA CIRCULAR DESCENDENTE */
 
 function distanciaCircular(
   indice,
@@ -486,7 +486,7 @@ function distanciaCircular(
 ) {
 
   let distancia =
-    indice - centro;
+    centro - indice;
 
 
   if (
@@ -732,7 +732,7 @@ function actualizarCoverflow() {
 }
 
 
-/* SIGUIENTE */
+/* SIGUIENTE REVISTA */
 
 function siguienteRevista() {
 
@@ -749,9 +749,21 @@ function siguienteRevista() {
   revistaAnimando = true;
 
 
-  revistaActual =
-    (revistaActual + 1) %
-    revistas.length;
+  /*
+     AHORA AVANZAMOS EN ORDEN DESCENDENTE:
+
+     10 → 09 → 08 → ... → 02 → 01 → 10
+  */
+
+  revistaActual--;
+
+
+  if (revistaActual < 0) {
+
+    revistaActual =
+      revistas.length - 1;
+
+  }
 
 
   actualizarCoverflow();
@@ -769,7 +781,7 @@ function siguienteRevista() {
 }
 
 
-/* ANTERIOR */
+/* ANTERIOR REVISTA */
 
 function anteriorRevista() {
 
@@ -786,13 +798,21 @@ function anteriorRevista() {
   revistaAnimando = true;
 
 
-  revistaActual--;
+  /*
+     RETROCEDEMOS EN ORDEN:
+
+     01 → 02 → 03 → ... → 10
+  */
+
+  revistaActual++;
 
 
-  if (revistaActual < 0) {
+  if (
+    revistaActual >=
+    revistas.length
+  ) {
 
-    revistaActual =
-      revistas.length - 1;
+    revistaActual = 0;
 
   }
 
@@ -935,12 +955,13 @@ if (revistasCarrusel) {
 
 
     /*
-       EL ARRASTRE NO MODIFICA
-       LA POSICIÓN DE LAS PORTADAS.
+       ARRASTRE HACIA LA IZQUIERDA:
 
-       SOLAMENTE DETECTA LA DIRECCIÓN
-       Y EJECUTA LA MISMA FUNCIÓN
-       QUE LAS FLECHAS.
+       10 → 09 → 08 → ...
+
+       ARRASTRE HACIA LA DERECHA:
+
+       10 → 01 → 02 → ...
     */
 
     if (
@@ -1029,16 +1050,16 @@ if (revistasCarrusel) {
 
 
           if (
-            distancia === -1
-          ) {
-
-            anteriorRevista();
-
-          } else if (
             distancia === 1
           ) {
 
             siguienteRevista();
+
+          } else if (
+            distancia === -1
+          ) {
+
+            anteriorRevista();
 
           }
 
@@ -1051,6 +1072,344 @@ if (revistasCarrusel) {
 }
 
 
+/* =========================================================
+   CABECERA DINÁMICA + TOPO MÓVIL
+   ========================================================= */
+
+const cabecera =
+  document.querySelector(".cabecera");
+
+const topoInteractivo =
+  document.querySelector(".topo-interactivo");
+
+const topoBoton =
+  document.querySelector(".topo-boton");
+
+const topoMenu =
+  document.querySelector(".topo-menu");
+
+
+let ultimoScroll =
+  window.scrollY;
+
+
+let scrollPendiente = false;
+
+
+/* COMPROBAR SI ESTAMOS EN MÓVIL */
+
+function esMovil() {
+
+  return window.innerWidth <= 800;
+
+}
+
+
+/* CERRAR MENÚ DEL TOPO */
+
+function cerrarTopoMenu() {
+
+  if (!topoInteractivo || !topoBoton) {
+    return;
+  }
+
+
+  topoInteractivo.classList.remove(
+    "topo-menu-abierto"
+  );
+
+
+  topoBoton.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+/* ABRIR MENÚ DEL TOPO */
+
+function abrirTopoMenu() {
+
+  if (!topoInteractivo || !topoBoton) {
+    return;
+  }
+
+
+  topoInteractivo.classList.add(
+    "topo-menu-abierto"
+  );
+
+
+  topoBoton.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+/* CLICK EN EL TOPO */
+
+if (
+  topoBoton &&
+  topoInteractivo
+) {
+
+  topoBoton.addEventListener(
+    "click",
+    (evento) => {
+
+      evento.preventDefault();
+
+      evento.stopPropagation();
+
+
+      if (!esMovil()) {
+        return;
+      }
+
+
+      const menuAbierto =
+        topoInteractivo.classList.contains(
+          "topo-menu-abierto"
+        );
+
+
+      if (menuAbierto) {
+
+        cerrarTopoMenu();
+
+      } else {
+
+        abrirTopoMenu();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* CLICK EN LOS ENLACES DEL TOPO */
+
+if (topoMenu) {
+
+  topoMenu.addEventListener(
+    "click",
+    (evento) => {
+
+      evento.stopPropagation();
+
+
+      const enlace =
+        evento.target.closest("a");
+
+
+      if (enlace) {
+
+        cerrarTopoMenu();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* CLICK FUERA DEL TOPO */
+
+document.addEventListener(
+  "click",
+  (evento) => {
+
+    if (!topoInteractivo) {
+      return;
+    }
+
+
+    if (
+      !evento.target.closest(
+        ".topo-interactivo"
+      )
+    ) {
+
+      cerrarTopoMenu();
+
+    }
+
+  }
+);
+
+
+/* ACTUALIZAR CABECERA SEGÚN EL SCROLL */
+
+function actualizarCabeceraScroll() {
+
+  if (
+    !cabecera ||
+    !topoInteractivo
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+     ESCRITORIO:
+
+     La cabecera permanece siempre visible
+     y el topo desaparece.
+  */
+
+  if (!esMovil()) {
+
+    cabecera.classList.remove(
+      "cabecera-oculta"
+    );
+
+
+    topoInteractivo.classList.remove(
+      "topo-visible"
+    );
+
+
+    cerrarTopoMenu();
+
+
+    ultimoScroll =
+      window.scrollY;
+
+
+    return;
+
+  }
+
+
+  const scrollActual =
+    window.scrollY;
+
+
+  const diferencia =
+    scrollActual -
+    ultimoScroll;
+
+
+  /*
+     PARTE SUPERIOR:
+
+     La cabecera permanece visible
+     y el topo permanece oculto.
+  */
+
+  if (
+    scrollActual <= 20
+  ) {
+
+    cabecera.classList.remove(
+      "cabecera-oculta"
+    );
+
+
+    topoInteractivo.classList.remove(
+      "topo-visible"
+    );
+
+
+    cerrarTopoMenu();
+
+  }
+
+
+  /*
+     SCROLL HACIA ABAJO:
+
+     Ocultamos la cabecera
+     y mostramos el topo.
+  */
+
+  else if (
+    diferencia > 5
+  ) {
+
+    cabecera.classList.add(
+      "cabecera-oculta"
+    );
+
+
+    topoInteractivo.classList.add(
+      "topo-visible"
+    );
+
+  }
+
+
+  /*
+     SCROLL HACIA ARRIBA:
+
+     Recuperamos la cabecera
+     y ocultamos el topo.
+  */
+
+  else if (
+    diferencia < -5
+  ) {
+
+    cabecera.classList.remove(
+      "cabecera-oculta"
+    );
+
+
+    topoInteractivo.classList.remove(
+      "topo-visible"
+    );
+
+
+    cerrarTopoMenu();
+
+  }
+
+
+  ultimoScroll =
+    scrollActual;
+
+}
+
+
+/* SCROLL OPTIMIZADO */
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if (scrollPendiente) {
+      return;
+    }
+
+
+    scrollPendiente = true;
+
+
+    window.requestAnimationFrame(
+      () => {
+
+        actualizarCabeceraScroll();
+
+        scrollPendiente = false;
+
+      }
+    );
+
+  },
+  {
+    passive: true
+  }
+);
+
+
 /* RECALCULAR AL CAMBIAR RESOLUCIÓN */
 
 window.addEventListener(
@@ -1059,6 +1418,27 @@ window.addEventListener(
 
     actualizarCoverflow();
 
+
+    if (!esMovil()) {
+
+      cabecera?.classList.remove(
+        "cabecera-oculta"
+      );
+
+
+      topoInteractivo?.classList.remove(
+        "topo-visible"
+      );
+
+
+      cerrarTopoMenu();
+
+    }
+
+
+    ultimoScroll =
+      window.scrollY;
+
   }
 );
 
@@ -1066,3 +1446,5 @@ window.addEventListener(
 /* INICIALIZACIÓN */
 
 actualizarCoverflow();
+
+actualizarCabeceraScroll();
