@@ -451,7 +451,7 @@ button {
   color: hsl(73 100% 50%);
 }
 
-/* REVISTAS */
+/* REVISTAS / COVERFLOW 3D */
 
 .revistas {
   width: 100%;
@@ -460,6 +460,7 @@ button {
   padding-right: 5%;
   background: hsl(60 15% 95%);
   color: hsl(0 0% 3%);
+  overflow: hidden;
 }
 
 .subtitulo-revistas {
@@ -485,27 +486,26 @@ button {
 
 .revistas-wrapper {
   position: relative;
+  width: 100%;
+  height: 43rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  perspective: 2200px;
+  perspective-origin: center center;
 }
 
 .revistas-carrusel {
+  position: relative;
   width: 100%;
-  display: flex;
-  align-items: stretch;
-  gap: 1.5rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  cursor: grab;
+  max-width: 110rem;
+  height: 100%;
+  display: block;
+  transform-style: preserve-3d;
   touch-action: pan-y;
   user-select: none;
-}
-
-.revistas-carrusel::-webkit-scrollbar {
-  display: none;
+  cursor: grab;
+  overflow: visible;
 }
 
 .revistas-carrusel:active {
@@ -513,44 +513,72 @@ button {
 }
 
 .revista {
-  flex: 0 0 calc((100% - 4.5rem) / 4);
-  min-width: 14rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28rem;
+  min-width: 28rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.6s ease,
+    filter 0.6s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.revista .portada {
+  width: 100%;
+  aspect-ratio: 0.72;
 }
 
 .portada {
+  position: relative;
   width: 100%;
   aspect-ratio: 0.72;
-  padding: 1.5rem;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border: 0.0625rem solid hsl(0 0% 20%);
   color: hsl(0 0% 100%);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow:
+    0 1.5rem 3rem hsla(0 0% 0% / 0.16),
+    0 3rem 6rem hsla(0 0% 0% / 0.08);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.revista.revista-centro .portada {
+  border-color: hsl(73 100% 50%);
+  box-shadow:
+    0 2rem 3rem hsla(0 0% 0% / 0.24),
+    0 3rem 6rem hsla(0 0% 0% / 0.14);
 }
 
 .revista:hover .portada {
-  transform: translateY(-0.4rem);
   border-color: hsl(73 100% 50%);
 }
 
 .portada span {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.1rem;
 }
 
 .portada strong {
-  font-size: 4rem;
+  font-size: 5rem;
   line-height: 1;
   font-weight: 900;
 }
 
 .portada small {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08rem;
 }
@@ -609,15 +637,25 @@ button {
 }
 
 .flecha {
-  flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
+  position: absolute;
+  top: 50%;
+  z-index: 200;
+  width: 3.5rem;
+  height: 3.5rem;
   border: 0.0625rem solid hsl(0 0% 67%);
   background: hsl(0 0% 100%);
   color: hsl(0 0% 3%);
   cursor: pointer;
-  z-index: 5;
+  transform: translateY(-50%);
   transition: all 0.3s ease;
+}
+
+.revista-prev {
+  left: 0;
+}
+
+.revista-next {
+  right: 0;
 }
 
 .flecha:hover {
@@ -1067,7 +1105,7 @@ button {
   transform: translateY(-0.15rem);
 }
 
-/* TABLET / RESOLUCIONES INTERMEDIAS */
+/* TABLET */
 
 @media (max-width: 70rem) and (min-width: 50.01rem) {
 
@@ -1119,8 +1157,13 @@ button {
     height: 1.3rem;
   }
 
+  .revistas-wrapper {
+    height: 38rem;
+  }
+
   .revista {
-    flex-basis: calc((100% - 3rem) / 3);
+    width: 24rem;
+    min-width: 24rem;
   }
 
   .destacados-grid,
@@ -1338,16 +1381,19 @@ button {
   }
 
   .revistas-wrapper {
-    gap: 0.5rem;
+    height: 34rem;
+    width: 100%;
+    margin-left: 0;
   }
 
   .revistas-carrusel {
-    gap: 1rem;
+    width: 100%;
+    overflow: visible;
   }
 
   .revista {
-    flex: 0 0 calc(75% - 0.5rem);
-    min-width: 0;
+    width: 19rem;
+    min-width: 19rem;
   }
 
   .flecha {
@@ -1477,8 +1523,13 @@ button {
     gap: 0.3rem;
   }
 
+  .revistas-wrapper {
+    height: 31rem;
+  }
+
   .revista {
-    flex-basis: 82%;
+    width: 16rem;
+    min-width: 16rem;
   }
 
   .categorias-grid {
