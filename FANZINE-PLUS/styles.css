@@ -888,7 +888,7 @@ button {
   object-fit: cover;
   object-position: center;
   display: block;
-  opacity: 0.10;
+  opacity: 0.1;
   filter: grayscale(100%);
   pointer-events: none;
 }
@@ -1125,49 +1125,237 @@ button {
   font-size: 1rem;
 }
 
+
+/* ================================
+   EXPLORA
+================================ */
+
 .categorias {
+  position: relative;
   width: 100%;
   max-width: none;
-  padding-left: 5%;
-  padding-right: 5%;
+  height: calc(100vh - 5rem);
+  min-height: 0;
+  margin: 0;
+  padding: 2.5rem 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: hsl(0 0% 2%);
   border-top: 0;
+  overflow: hidden;
+  scroll-margin-top: 5rem;
+}
+
+.categorias-fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.categorias-fondo-imagen {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0.1;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+.categorias .seccion-cabecera {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 90rem;
+  margin: 0 auto 1.25rem;
+  flex: 0 0 auto;
 }
 
 .categorias-grid {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 90rem;
+  height: calc(100% - 5.5rem);
+  min-height: 0;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.35fr 1fr 1fr 1.15fr;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  grid-template-areas:
+    "grande grande cine comic"
+    "grande grande cine comic"
+    "grande grande manga retro"
+    "grande grande manga coleccion";
   gap: 1rem;
 }
 
 .categoria-card {
-  min-height: 11rem;
-  padding: 2rem;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: block;
+  overflow: hidden;
+  background: hsl(0 0% 5%);
+  border: 0.1rem solid hsl(0 0% 18%);
+  color: hsl(0 0% 100%);
+  isolation: isolate;
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.categoria-grande {
+  grid-area: grande;
+}
+
+.categoria-cine {
+  grid-area: cine;
+}
+
+.categoria-comic {
+  grid-area: comic;
+}
+
+.categoria-manga {
+  grid-area: manga;
+}
+
+.categoria-retro {
+  grid-area: retro;
+}
+
+.categoria-coleccionismo {
+  grid-area: coleccion;
+}
+
+.categoria-imagen {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+.categoria-capa {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      hsla(0 0% 0% / 0.02) 0%,
+      hsla(0 0% 0% / 0.08) 30%,
+      hsla(0 0% 0% / 0.55) 58%,
+      hsla(0 0% 0% / 0.94) 100%);
+}
+
+.categoria-contenido {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  min-height: 42%;
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  background: hsl(0 0% 4%);
-  border: 0.0625rem solid hsl(0 0% 13%);
-  transition: all 0.3s ease;
+  justify-content: flex-end;
+  background: transparent;
+  pointer-events: none;
+}
+
+.categoria-contenido small {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: hsl(73 100% 50%);
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.14rem;
+}
+
+.categoria-contenido h3 {
+  margin: 0;
+  color: hsl(0 0% 100%);
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  line-height: 0.95;
+  font-weight: 900;
+  transition: color 0.3s ease;
+}
+
+.categoria-grande .categoria-contenido {
+  min-height: 38%;
+  padding: 1.75rem;
+}
+
+.categoria-grande .categoria-contenido h3 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+}
+
+.categoria-coleccionismo .categoria-contenido {
+  min-height: 50%;
 }
 
 .categoria-card:hover {
-  background: hsl(73 100% 50%);
+  z-index: 5;
   border-color: hsl(73 100% 50%);
-  color: hsl(0 0% 2%);
-  transform: translateY(-0.25rem);
+  transform: translateY(-0.15rem);
+  box-shadow:
+    0 1rem 3rem hsla(0 0% 0% / 0.5),
+    0 0 0 0.0625rem hsl(73 100% 50%);
 }
 
-.categoria-card span {
-  font-size: 2rem;
+.categoria-card:hover .categoria-imagen {
+  transform: scale(1.05);
+  filter: brightness(0.85);
 }
 
-.categoria-card h3 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 900;
+.categoria-card:hover .categoria-contenido h3 {
+  color: hsl(73 100% 50%);
 }
+
+@media (min-width: 50.01rem) {
+
+  .categoria-contenido {
+    bottom: 7%;
+    min-height: 34%;
+    justify-content: center;
+  }
+
+  .categoria-grande .categoria-contenido {
+    bottom: 7%;
+    min-height: 30%;
+  }
+
+  .categoria-coleccionismo .categoria-contenido {
+    min-height: 40%;
+  }
+
+}
+
+
+/* ================================
+   COMUNIDAD
+================================ */
 
 .comunidad {
   width: 100%;
@@ -1220,6 +1408,11 @@ button {
   background: hsl(73 100% 50%);
   color: hsl(0 0% 2%);
 }
+
+
+/* ================================
+   FOOTER
+================================ */
 
 .footer {
   width: 100%;
@@ -1367,6 +1560,7 @@ button {
   transform: translateY(-0.15rem);
 }
 
+
 @media (max-width: 70rem) and (min-width: 50.01rem) {
 
   .cabecera-contenedor,
@@ -1498,11 +1692,75 @@ button {
     min-height: 6.5rem;
   }
 
+
+  /* EXPLORA TABLET */
+
+  .categorias {
+    height: calc(100vh - 5rem);
+    min-height: 0;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .categorias .seccion-cabecera {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+
   .categorias-grid {
-    grid-template-columns: repeat(2, 1fr);
+    height: calc(100% - 5.5rem);
+    grid-template-columns: 1.25fr 1fr 1fr;
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      "grande grande cine"
+      "grande grande cine"
+      "grande grande comic"
+      "manga retro coleccion";
+    gap: 0.8rem;
+  }
+
+  .categoria-grande {
+    grid-area: grande;
+  }
+
+  .categoria-cine {
+    grid-area: cine;
+  }
+
+  .categoria-comic {
+    grid-area: comic;
+  }
+
+  .categoria-manga {
+    grid-area: manga;
+  }
+
+  .categoria-retro {
+    grid-area: retro;
+  }
+
+  .categoria-coleccionismo {
+    grid-area: coleccion;
+  }
+
+  .categoria-contenido {
+    padding: 1rem;
+  }
+
+  .categoria-grande .categoria-contenido {
+    padding: 1.25rem;
+  }
+
+  .categoria-grande .categoria-contenido h3 {
+    font-size: 2.4rem;
+  }
+
+  .categoria-contenido h3 {
+    font-size: 1.2rem;
   }
 
 }
+
 
 @media (max-width: 50rem) {
 
@@ -1863,13 +2121,68 @@ button {
     font-size: 0.95rem;
   }
 
-  .categorias-grid {
-    grid-template-columns: 1fr 1fr;
+
+  /* EXPLORA MOVIL */
+
+  .categorias {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    overflow: visible;
   }
 
-  .categoria-card {
-    min-height: 9rem;
+  .categorias .seccion-cabecera {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  .categorias-grid {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .categoria-card,
+  .categoria-grande,
+  .categoria-cine,
+  .categoria-comic,
+  .categoria-manga,
+  .categoria-retro,
+  .categoria-coleccionismo {
+    width: 100%;
+    height: 16rem;
+    min-height: 16rem;
+    flex: none;
+  }
+
+  .categoria-grande {
+    height: 22rem;
+    min-height: 22rem;
+  }
+
+  .categoria-coleccionismo {
+    height: 16rem;
+    min-height: 16rem;
+  }
+
+  .categoria-contenido,
+  .categoria-grande .categoria-contenido {
+    min-height: 45%;
     padding: 1.25rem;
+  }
+
+  .categoria-grande .categoria-contenido h3 {
+    font-size: 2rem;
+  }
+
+  .categoria-contenido h3 {
+    font-size: 1.35rem;
   }
 
   .comunidad {
@@ -1905,6 +2218,7 @@ button {
   }
 
 }
+
 
 @media (max-width: 30rem) {
 
@@ -2052,8 +2366,40 @@ button {
     font-size: 0.9rem;
   }
 
-  .categorias-grid {
-    grid-template-columns: 1fr;
+
+  /* EXPLORA MOVIL PEQUEÑO */
+
+  .categorias {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .categoria-card,
+  .categoria-cine,
+  .categoria-comic,
+  .categoria-manga,
+  .categoria-retro,
+  .categoria-coleccionismo {
+    height: 14rem;
+    min-height: 14rem;
+  }
+
+  .categoria-grande {
+    height: 19rem;
+    min-height: 19rem;
+  }
+
+  .categoria-contenido,
+  .categoria-grande .categoria-contenido {
+    padding: 1rem;
+  }
+
+  .categoria-contenido h3 {
+    font-size: 1.2rem;
+  }
+
+  .categoria-grande .categoria-contenido h3 {
+    font-size: 1.7rem;
   }
 
   .footer-contenedor {
@@ -2066,6 +2412,7 @@ button {
 
 }
 
+
 .cabecera.cabecera-oculta {
   transform: translateY(-100%);
   opacity: 0;
@@ -2075,6 +2422,7 @@ button {
 .topo-interactivo {
   display: none;
 }
+
 
 @media (max-width: 50rem) {
 
@@ -2250,6 +2598,7 @@ button {
   }
 
 }
+
 
 @media (max-width: 30rem) {
 
