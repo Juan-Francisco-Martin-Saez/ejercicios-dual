@@ -11,6 +11,8 @@ const chatHistoryButton = document.querySelector("#chat-history-button");
 const fileInput = document.querySelector("#file-attach");
 const fileAttachContainer = document.querySelector(".file-attach-container");
 const messageInputContainer = document.querySelector(".message-input-container");
+const themeToggle = document.querySelector("#theme-toggle");
+const chatHeaderLogo = document.querySelector(".chat-header-logo");
 
 let selectedFile = null;
 
@@ -134,6 +136,21 @@ function handleFileSelection() {
 }
 
 
+// Actualiza el logotipo de la cabecera según el tema seleccionado.
+function updateChatHeaderLogo() {
+
+  if (!themeToggle || !chatHeaderLogo) {
+    return;
+  }
+
+  if (themeToggle.checked) {
+    chatHeaderLogo.src = "img/logo-cab-negro.svg";
+  } else {
+    chatHeaderLogo.src = "img/logo-cab.svg";
+  }
+}
+
+
 // Procesa el envío de un mensaje, un archivo o ambos.
 function sendMessage() {
   const message = messageInput.value.trim();
@@ -213,6 +230,16 @@ chatHistoryButton.addEventListener("click", function () {
 
 // Detecta cuándo se selecciona un archivo.
 fileInput.addEventListener("change", handleFileSelection);
+
+
+// Detecta el cambio de tema y actualiza el logotipo de la cabecera.
+if (themeToggle) {
+  themeToggle.addEventListener("change", updateChatHeaderLogo);
+}
+
+
+// Establece el logotipo correcto al cargar la página.
+updateChatHeaderLogo();
 
 
 // Mantiene cerrado el menú móvil al volver a escritorio.
