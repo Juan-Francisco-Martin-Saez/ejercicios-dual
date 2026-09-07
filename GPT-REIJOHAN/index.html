@@ -1,0 +1,954 @@
+<!-- Declara que el documento utiliza el estándar HTML5. -->
+<!DOCTYPE html>
+
+<!-- Elemento raíz del documento e indica que el contenido está escrito en español. -->
+<html lang="es">
+
+<!-- Contiene la configuración, metadatos y recursos externos del documento. -->
+
+<head>
+
+  <!-- Define la codificación de caracteres utilizada por el documento. -->
+  <meta charset="UTF-8">
+
+  <!-- Configura la adaptación de la página a móviles y diferentes resoluciones. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Define el título que aparece en la pestaña del navegador. -->
+  <title>ReijohanGPT</title>
+
+  <!-- Conecta este documento HTML con la hoja de estilos principal. -->
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<!-- Contiene todo el contenido visible y funcional de la página. -->
+
+<body>
+
+  <!-- Contenedor principal que agrupa toda la interfaz de ReijohanGPT. -->
+  <div class="chat-app">
+
+    <!-- Checkbox oculto que controla mediante CSS la apertura y cierre del menú lateral. -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-checkbox">
+
+
+    <!-- MENÚ LATERAL -->
+
+    <!-- Panel lateral que contiene la identidad, navegación, historial y usuario. -->
+    <aside class="sidebar">
+
+      <!-- Cabecera del menú lateral con el nombre de la aplicación y su botón de control. -->
+      <div class="sidebar-header">
+
+        <!-- Contenedor que muestra el nombre de ReijohanGPT en el menú lateral. -->
+        <div class="sidebar-logo">
+
+          <!-- Texto identificativo de la aplicación. -->
+          <span>ReijohanGPT</span>
+
+        </div>
+
+        <!-- Contenedor del botón que permite plegar o desplegar el menú lateral. -->
+        <div class="sidebar-toggle-container">
+
+          <!-- Etiqueta asociada al checkbox que actúa como botón de apertura/cierre del menú. -->
+          <label for="sidebar-toggle" class="sidebar-toggle-button" aria-label="Cerrar menú">
+
+            <!-- Primera línea visual del icono de menú. -->
+            <span></span>
+
+            <!-- Segunda línea visual del icono de menú. -->
+            <span></span>
+
+            <!-- Tercera línea visual del icono de menú. -->
+            <span></span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- Contenedor principal de los controles y contenidos del menú lateral. -->
+      <div class="sidebar-content">
+
+
+        <!-- NUEVO CHAT -->
+
+        <!-- Agrupa el botón utilizado para iniciar una nueva conversación. -->
+        <div class="new-chat-container">
+
+          <!-- Enlace que representa la acción de crear una nueva conversación. -->
+          <a href="#" class="new-chat-button" id="new-chat-button">
+
+            <!-- Contenedor del icono utilizado para identificar el nuevo chat. -->
+            <div class="new-chat-icon-container">
+
+              <!-- Símbolo visual de creación de una nueva conversación. -->
+              <span class="new-chat-icon">
+                +
+              </span>
+
+            </div>
+
+            <!-- Contenedor del texto descriptivo del botón de nuevo chat. -->
+            <div class="new-chat-text-container">
+
+              <!-- Texto visible del botón de nueva conversación. -->
+              <span class="new-chat-text">
+                Nueva conversación
+              </span>
+
+            </div>
+
+          </a>
+
+        </div>
+
+
+        <!-- CONVERSACIONES -->
+
+        <!-- Contenedor que agrupa el acceso al historial y la lista de conversaciones. -->
+        <div class="chat-history">
+
+          <!-- Botón que permite mostrar o gestionar el historial de conversaciones. -->
+          <button type="button" class="chat-history-button" id="chat-history-button" aria-label="Abrir conversaciones">
+
+            <!-- Icono visual que representa el historial de conversaciones. -->
+            <span class="chat-history-icon"></span>
+
+            <!-- Texto que identifica la sección de historial. -->
+            <span class="chat-history-title">
+              Historial de chats
+            </span>
+
+          </button>
+
+
+          <!-- Lista visual que contiene las diferentes conversaciones almacenadas. -->
+          <div class="chat-history-list">
+
+            <!-- Primer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Segundo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Tercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Cuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Quinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Sexto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Séptimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Octavo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Noveno elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Décimo elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Undécimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Duodécimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Decimotercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Decimocuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Decimoquinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Decimosexto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Decimoséptimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Decimoctavo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Decimonoveno elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Vigésimo elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Vigésimo primer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Vigésimo segundo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Vigésimo tercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Vigésimo cuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Vigésimo quinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- USUARIO -->
+
+      <!-- Zona inferior del menú lateral destinada a mostrar la información del usuario. -->
+      <div class="sidebar-user">
+
+        <!-- Contenedor circular que contiene el avatar del usuario. -->
+        <div class="user-avatar-container">
+
+          <!-- Imagen utilizada como avatar visual del usuario. -->
+          <img src="img/logo.svg" alt="Avatar del usuario" class="user-avatar">
+
+        </div>
+
+        <!-- Contenedor de la información textual del usuario. -->
+        <div class="user-info">
+
+          <!-- Nombre visible del usuario dentro del menú lateral. -->
+          <span class="user-name">
+            Juan Francisco Martín Sáez
+          </span>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <!-- Área principal donde se desarrolla la conversación. -->
+    <main class="chat-main">
+
+
+      <!-- CABECERA -->
+
+      <!-- Cabecera superior del área principal de conversación. -->
+      <header class="chat-header">
+
+
+        <!-- BOTÓN HAMBURGUESA -->
+
+        <!-- Contenedor del botón que aparece en tablet y móvil para abrir el menú lateral. -->
+        <div class="mobile-menu-container">
+
+          <!-- Etiqueta asociada al checkbox que actúa como botón hamburguesa. -->
+          <label for="sidebar-toggle" class="mobile-menu-button" aria-label="Abrir menú">
+
+            <!-- Primera línea visual del icono hamburguesa. -->
+            <span></span>
+
+            <!-- Segunda línea visual del icono hamburguesa. -->
+            <span></span>
+
+            <!-- Tercera línea visual del icono hamburguesa. -->
+            <span></span>
+
+          </label>
+
+        </div>
+
+
+        <!-- Contenedor del título situado en la cabecera de la conversación. -->
+        <div class="chat-header-title-container">
+
+          <!-- Título identificativo del área de conversación y de la versión actual. -->
+          <span class="chat-header-title">
+            Área de conversación - Chat EA (Versión Alpha 0.1)
+          </span>
+
+        </div>
+
+
+        <!-- LOGOTIPO -->
+
+        <!-- Contenedor reservado para el logotipo situado en la cabecera. -->
+        <div class="chat-header-logo-container">
+
+          <!-- Imagen que representa el logotipo principal de ReijohanGPT. -->
+          <img src="img/logo-cab.svg" alt="Logotipo de ReijohanGPT" class="chat-header-logo">
+
+        </div>
+
+      </header>
+
+
+      <!-- CONVERSACIÓN -->
+
+      <!-- Sección que contiene el área desplazable de la conversación. -->
+      <section class="chat-conversation">
+
+        <!-- Contenedor que centra y limita el ancho del contenido de la conversación. -->
+        <div class="conversation-container">
+
+
+          <!-- BIENVENIDA -->
+
+          <!-- Contenedor del mensaje inicial que aparece antes de comenzar una conversación. -->
+          <div class="welcome-container">
+
+            <!-- Título principal de bienvenida mostrado en el centro de la interfaz. -->
+            <h1 class="welcome-title">
+              ¿Qué quieres hacer? Pregúntame lo que necesites
+            </h1>
+
+          </div>
+
+
+          <!-- ESTADO DE PROCESAMIENTO -->
+
+          <!-- Contenedor de los mensajes visuales mostrados mientras se procesa una consulta. -->
+          <div class="search-status-container">
+
+            <!-- Texto principal que informa de que la consulta está siendo procesada. -->
+            <p class="search-status">
+              Tu consulta está en proceso...
+            </p>
+
+            <!-- Mensaje secundario utilizado como texto humorístico durante el procesamiento. -->
+            <p class="search-funny-message">
+              Estoy revolviendo mis neuronas digitales,
+              ordenando un ejército de unos y ceros y
+              preguntándole a mis circuitos si recuerdan
+              dónde guardaron la respuesta. Mientras tanto,
+              algunos bits están corriendo de un lado para
+              otro con cara de absoluta importancia, otros
+              están fingiendo que están trabajando y uno
+              probablemente se ha ido a por café. Dame un
+              momento y trataré de convertir todo este
+              espectáculo tecnológico en una respuesta que
+              parezca perfectamente normal. Si escuchas
+              pequeños ruidos de fondo, no te preocupes:
+              probablemente sea mi dignidad intentando
+              mantenerse conectada.
+            </p>
+
+          </div>
+
+
+          <!-- MENSAJES -->
+
+          <!-- Contenedor vacío destinado a recibir dinámicamente los mensajes de la conversación mediante JavaScript. -->
+          <div class="messages-container"></div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- BARRA DE CONSULTA -->
+
+      <!-- Sección fija que contiene el área desde la que el usuario escribe y envía consultas. -->
+      <section class="chat-input-section">
+
+        <!-- Contenedor general de los controles de entrada de la consulta. -->
+        <div class="chat-input-container">
+
+
+          <!-- ARCHIVO -->
+
+          <!-- Contenedor del sistema de selección y adjunto de archivos. -->
+          <div class="file-attach-container">
+
+            <!-- Campo real de selección de archivos, ocultado visualmente mediante CSS. -->
+            <input type="file" id="file-attach" class="file-attach-input">
+
+            <!-- Etiqueta asociada al campo de archivos que funciona como botón visual de adjuntar. -->
+            <label for="file-attach" class="file-attach-button" aria-label="Adjuntar archivo">
+
+              <!-- Contenedor del icono visual de adjuntar archivo. -->
+              <div class="file-attach-icon-container">
+
+                <!-- Símbolo utilizado actualmente como icono de archivo. -->
+                <span class="file-attach-icon">
+                  +
+                </span>
+
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <!-- TEXTO -->
+
+          <!-- Contenedor del campo donde el usuario introduce su consulta. -->
+          <div class="message-input-container">
+
+            <!-- Área de texto principal utilizada para escribir el mensaje. -->
+            <textarea class="message-input" placeholder="Escribe tu consulta..." rows="1"></textarea>
+
+          </div>
+
+
+          <!-- ENVIAR -->
+
+          <!-- Contenedor del botón utilizado para enviar la consulta. -->
+          <div class="message-send-container">
+
+            <!-- Botón que activa mediante JavaScript el envío del mensaje. -->
+            <button type="button" class="message-send-button" aria-label="Enviar consulta">
+
+              <!-- Contenedor del icono visual del botón de envío. -->
+              <div class="message-send-icon-container">
+
+                <!-- Flecha que representa visualmente la acción de enviar. -->
+                <span class="message-send-icon">
+                  ↑
+                </span>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- Carga el archivo JavaScript responsable de la interacción y funcionalidad de la interfaz. -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>
+
+
+
+<!--.chat-app
+│
+├── sidebar
+│   ├── sidebar-header       → Cabecera
+│   ├── sidebar-content      → Navegación
+│   │   ├── new-chat         → Nueva conversación
+│   │   └── chat-history     → Historial
+│   └── sidebar-user         → Usuario
+│
+└── chat-main
+    ├── chat-header          → Cabecera principal
+    ├── chat-conversation    → Conversación
+    │   ├── welcome          → Bienvenida
+    │   ├── search-status    → Procesamiento
+    │   └── messages         → Mensajes
+    │
+    └── chat-input-section   → Entrada
+        ├── file-attach      → Adjuntar archivos
+        ├── message-input    → Escribir
+        └── message-send     → Enviar -->
+
+<!--HTML
+│
+├── <!DOCTYPE html>
+│   └── HTML5 → indica la versión de HTML utilizada.
+│
+├── <html lang="es">
+│   └── Documento raíz → establece español como idioma.
+│
+├── <head>
+│   │
+│   ├── <meta charset="UTF-8">
+│   │   └── Codificación → permite ñ, tildes, símbolos, etc.
+│   │
+│   ├── <meta name="viewport">
+│   │   └── Responsive → adapta la página a móvil/tablet.
+│   │
+│   ├── <title>ReijohanGPT</title>
+│   │   └── Título → nombre mostrado en la pestaña.
+│   │
+│   └── <link rel="stylesheet" href="styles.css">
+│       └── CSS → conecta el HTML con los estilos.
+│
+│
+└── <body>
+    │
+    └── .chat-app
+        └── Aplicación → contenedor general de todo ReijohanGPT.
+        │
+        ├── #sidebar-toggle
+        │   └── Interruptor → checkbox oculto que controla
+        │       el estado del sidebar mediante CSS y JavaScript.
+        │       │
+        │       ├── Escritorio
+        │       │   └── Controla el estado plegado/desplegado
+        │       │       del menú lateral.
+        │       │
+        │       └── Tablet/móvil
+        │           └── Controla la apertura/cierre
+        │               del menú lateral.
+        │
+        ├── .sidebar
+        │   └── Menú lateral → navegación principal.
+        │   │
+        │   ├── .sidebar-header
+        │   │   └── Cabecera del menú.
+        │   │   │
+        │   │   ├── .sidebar-logo
+        │   │   │   └── Nombre → "ReijohanGPT".
+        │   │   │
+        │   │   └── .sidebar-toggle-container
+        │   │       └── Contenedor → botón para controlar
+        │   │           el estado del sidebar.
+        │   │           │
+        │   │           └── .sidebar-toggle-button
+        │   │               └── Botón → icono de tres líneas.
+        │   │                   Utiliza <label> para controlar
+        │   │                   #sidebar-toggle.
+        │   │
+        │   │
+        │   ├── .sidebar-content
+        │   │   └── Contenido → opciones principales del menú.
+        │   │   │
+        │   │   ├── .new-chat-container
+        │   │   │   └── Contenedor → nueva conversación.
+        │   │   │   │
+        │   │   │   └── .new-chat-button
+        │   │   │       └── Botón/enlace → inicia o reinicia
+        │   │   │           una conversación.
+        │   │   │           │
+        │   │   │           ├── .new-chat-icon-container
+        │   │   │           │   └── Contenedor → icono "+".
+        │   │   │           │
+        │   │   │           └── .new-chat-text-container
+        │   │   │               └── Contenedor → texto
+        │   │   │                   "Nueva conversación".
+        │   │   │
+        │   │   │
+        │   │   └── .chat-history
+        │   │       └── Historial → conversaciones anteriores.
+        │   │       │
+        │   │       ├── #chat-history-button
+        │   │       │   └── Botón → acceso al historial
+        │   │       │       de conversaciones.
+        │   │       │       │
+        │   │       │       ├── Sidebar plegado en escritorio
+        │   │       │       │   └── Permite volver a desplegar
+        │   │       │       │       el sidebar.
+        │   │       │       │       La acción de desplegarlo
+        │   │       │       │       la realiza JavaScript.
+        │   │       │       │
+        │   │       │       └── Sidebar desplegado
+        │   │       │           └── Mantiene visible el acceso
+        │   │       │               al historial.
+        │   │       │
+        │   │       ├── .chat-history-icon
+        │   │       │   └── Icono → representa visualmente
+        │   │       │       el historial.
+        │   │       │
+        │   │       ├── .chat-history-title
+        │   │       │   └── Texto → título del historial.
+        │   │       │
+        │   │       └── .chat-history-list
+        │   │           └── Lista → contiene las conversaciones.
+        │   │           │
+        │   │           ├── .chat-history-item
+        │   │           │   └── Conversación → elemento individual.
+        │   │           │   │
+        │   │           │   └── .chat-history-link
+        │   │           │       └── Enlace → acceso a la conversación.
+        │   │           │
+        │   │           └── .chat-history-item
+        │   │               └── Las conversaciones restantes utilizan
+        │   │                   la misma estructura.
+        │
+        │
+        ├── .sidebar-user
+        │   └── Usuario → información situada en la parte inferior.
+        │   │
+        │   ├── .user-avatar-container
+        │   │   └── Contenedor → avatar.
+        │   │
+        │   │   └── .user-avatar
+        │   │       └── Imagen → avatar del usuario.
+        │   │
+        │   └── .user-info
+        │       └── Información → datos del usuario.
+        │       │
+        │       └── .user-name
+        │           └── Nombre → nombre mostrado.
+        │
+        │
+        └── .chat-main
+            └── Área principal → zona de conversación.
+            │
+            ├── .chat-header
+            │   └── Cabecera → parte superior del chat.
+            │   │
+            │   ├── .mobile-menu-container
+            │   │   └── Contenedor → menú móvil/tablet.
+            │   │
+            │   │   └── .mobile-menu-button
+            │   │       └── Botón → hamburguesa para abrir
+            │   │           el sidebar.
+            │   │           Utiliza <label> para controlar
+            │   │           #sidebar-toggle.
+            │   │
+            │   ├── .chat-header-title-container
+            │   │   └── Contenedor → título de la cabecera.
+            │   │
+            │   ├── .chat-header-title
+            │   │   └── Texto → título del área de conversación.
+            │   │
+            │   └── .chat-header-logo-container
+            │       └── Contenedor → logotipo.
+            │       │
+            │       └── .chat-header-logo
+            │           └── Imagen → logotipo de ReijohanGPT.
+            │
+            │
+            ├── .chat-conversation
+            │   └── Conversación → zona donde se muestra
+            │       y desarrolla el chat.
+            │   │
+            │   └── .conversation-container
+            │       └── Contenedor → organiza el contenido.
+            │       │
+            │       ├── .welcome-container
+            │       │   └── Bienvenida → mensaje inicial.
+            │       │   │
+            │       │   └── .welcome-title
+            │       │       └── Título → mensaje principal.
+            │       │
+            │       ├── .search-status-container
+            │       │   └── Procesamiento → estado mientras
+            │       │       se procesa la consulta.
+            │       │   │
+            │       │   ├── .search-status
+            │       │   │   └── Mensaje → indica que la consulta
+            │       │   │       está en proceso.
+            │       │   │
+            │       │   └── .search-funny-message
+            │       │       └── Mensaje → texto humorístico
+            │       │           de espera.
+            │       │
+            │       └── .messages-container
+            │           └── Mensajes → espacio preparado para
+            │               contenido dinámico.
+            │
+            │
+            └── .chat-input-section
+                └── Entrada → zona para escribir y enviar consultas.
+                │
+                └── .chat-input-container
+                    └── Contenedor → organiza los controles
+                        de entrada.
+                        │
+                        ├── .file-attach-container
+                        │   └── Archivos → sistema para seleccionar
+                        │       archivos que acompañarán a la consulta.
+                        │       │
+                        │       ├── #file-attach
+                        │       │   └── Input → selector de archivos
+                        │       │       real mediante <input type="file">.
+                        │       │       Está oculto visualmente y es
+                        │       │       activado mediante el botón personalizado.
+                        │       │
+                        │       └── .file-attach-button
+                        │           └── Botón → botón visual personalizado
+                        │               para abrir el selector de archivos.
+                        │               │
+                        │               └── .file-attach-icon-container
+                        │                   └── Contenedor → icono "+".
+                        │
+                        ├── .message-input-container
+                        │   └── Texto → contenedor del campo de escritura.
+                        │       │
+                        │       └── .message-input
+                        │           └── Textarea → campo donde se escribe
+                        │               la consulta.
+                        │               │
+                        │               ├── Permite introducir varias líneas.
+                        │               │
+                        │               ├── Puede aumentar automáticamente
+                        │               │   su altura mediante JavaScript.
+                        │               │
+                        │               └── Dispone de una altura máxima;
+                        │                   cuando se supera, aparece
+                        │                   desplazamiento vertical.
+                        │
+                        └── .message-send-container
+                            └── Envío → contenedor del botón enviar.
+                            │
+                            └── .message-send-button
+                                └── Botón → envía la consulta.
+                                │
+                                └── .message-send-icon-container
+                                    └── Contenedor → icono del botón.
+                                    │
+                                    └── .message-send-icon
+                                        └── Icono → flecha ↑.
+
+
+FUNCIONAMIENTO DE ARCHIVOS
+│
+└── Selección de archivo
+    └── Al seleccionar un archivo mediante #file-attach,
+        JavaScript guarda temporalmente el archivo seleccionado.
+        │
+        ├── Se genera una previsualización dinámica.
+        │
+        ├── La previsualización muestra:
+        │   ├── Icono de archivo.
+        │   ├── Nombre del archivo.
+        │   └── Tamaño del archivo.
+        │
+        ├── Se incluye un botón "×" para eliminar
+        │   el archivo seleccionado.
+        │
+        ├── Si se selecciona otro archivo,
+        │   la previsualización anterior se sustituye.
+        │
+        └── El archivo todavía no se envía a ningún servidor
+            ni API. El sistema queda preparado para añadir
+            posteriormente esa funcionalidad.
+
+
+SCRIPT
+│
+└── <script src="script.js">
+    └── JavaScript → añade la interacción y comportamiento.
+        │
+        ├── Controla el textarea.
+        │   ├── Ajusta automáticamente su altura al escribir.
+        │   └── Limita su crecimiento a una altura máxima.
+        │
+        ├── Controla el envío de consultas.
+        │   ├── Permite enviar mediante el botón.
+        │   └── Permite enviar pulsando Enter.
+        │       Shift + Enter permite escribir una nueva línea.
+        │
+        ├── Controla los archivos adjuntos.
+        │   ├── Detecta el archivo seleccionado.
+        │   ├── Guarda temporalmente el archivo.
+        │   ├── Genera la previsualización.
+        │   ├── Muestra nombre y tamaño.
+        │   ├── Permite eliminar el archivo.
+        │   └── Permite enviar una consulta únicamente
+        │       con un archivo seleccionado.
+        │
+        ├── Controla "Nueva conversación".
+        │   ├── Limpia los mensajes.
+        │   ├── Limpia el campo de texto.
+        │   └── Elimina cualquier archivo seleccionado.
+        │
+        ├── Controla el estado del sidebar.
+        │   └── Gestiona su apertura y cierre según
+        │       el dispositivo y la interacción.
+        │
+        ├── Permite desplegar el sidebar desde
+        │   el botón de conversaciones en escritorio
+        │   cuando está plegado.
+        │
+        └── Controla el comportamiento responsive.
+            ├── Cierra el menú móvil después de determinadas acciones.
+            └── Restablece el estado del sidebar al cambiar
+                entre escritorio y tablet/móvil.
+-->
