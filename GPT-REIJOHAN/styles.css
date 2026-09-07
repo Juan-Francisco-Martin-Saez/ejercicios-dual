@@ -487,6 +487,7 @@ body {
   overflow: hidden;
   border-radius: 50%;
   background: hsl(0, 0%, 20%);
+  border: 0.15rem solid hsl(0, 1%, 76%);
 }
 
 /* Imagen del avatar del usuario. */
@@ -1112,7 +1113,7 @@ body {
 
 /* TABLET Y MÓVIL - MENÚ HAMBURGUESA */
 
-/* Adapta toda la interfaz para pantallas de 1024 px o menos. */
+/* Adapta toda la interfaz para pantallas de 64rem o menos. */
 @media (max-width: 64rem) {
 
   /* Cambia la aplicación a una estructura de una sola columna. */
@@ -1356,7 +1357,7 @@ body {
 
 /* TABLET PEQUEÑA */
 
-/* Ajustes específicos para pantallas de hasta 768 px. */
+/* Ajustes específicos para pantallas de hasta 48rem. */
 @media (max-width: 48rem) {
 
   /* Reduce el ancho máximo del menú lateral. */
@@ -1425,7 +1426,7 @@ body {
 
 /* MÓVIL */
 
-/* Ajustes específicos para pantallas de hasta 480 px. */
+/* Ajustes específicos para pantallas de hasta 30rem. */
 @media (max-width: 30rem) {
 
   /* Reduce el ancho del menú lateral móvil. */
@@ -1619,7 +1620,7 @@ body {
 
 /* MÓVIL PEQUEÑO */
 
-/* Ajustes específicos para pantallas de hasta 352 px. */
+/* Ajustes específicos para pantallas de hasta 22rem. */
 @media (max-width: 22rem) {
 
   /* Reduce todavía más el ancho del menú lateral. */
@@ -1875,7 +1876,7 @@ body {
 
 /* PANTALLAS MUY GRANDES */
 
-/* Ajustes para pantallas de 1920 px o más. */
+/* Ajustes para pantallas de 120rem o más. */
 @media (min-width: 120rem) {
 
   /* Aumenta el ancho del sidebar en pantallas muy grandes. */
