@@ -32,6 +32,9 @@
     <!-- Checkbox oculto que controla mediante CSS la apertura y cierre del menú lateral. -->
     <input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-checkbox">
 
+    <!-- Checkbox oculto que controla mediante CSS el cambio entre tema oscuro y tema claro. -->
+    <input type="checkbox" id="theme-toggle" class="theme-toggle-checkbox">
+
 
     <!-- MENÚ LATERAL -->
 
@@ -384,6 +387,37 @@
 
         </div>
 
+
+        <!-- CAMBIO DE TEMA -->
+
+        <!-- Contenedor del selector que permite alternar entre los dos estados visuales. -->
+        <div class="theme-switch-container">
+
+          <!-- Texto que identifica la función de cambio de apariencia. -->
+          <span class="theme-switch-label">
+            Apariencia
+          </span>
+
+          <!-- Control visual asociado al checkbox del cambio de tema. -->
+          <label for="theme-toggle" class="theme-switch" aria-label="Cambiar entre tema oscuro y tema claro">
+
+            <!-- Icono que representa el estado oscuro. -->
+            <span class="theme-icon theme-icon-dark">
+              ☾
+            </span>
+
+            <!-- Elemento móvil que se desplaza dentro del interruptor. -->
+            <span class="theme-switch-slider"></span>
+
+            <!-- Icono que representa el estado claro. -->
+            <span class="theme-icon theme-icon-light">
+              ☀
+            </span>
+
+          </label>
+
+        </div>
+
       </div>
 
 
@@ -621,334 +655,3 @@
 </body>
 
 </html>
-
-
-
-<!--.chat-app
-│
-├── sidebar
-│   ├── sidebar-header       → Cabecera
-│   ├── sidebar-content      → Navegación
-│   │   ├── new-chat         → Nueva conversación
-│   │   └── chat-history     → Historial
-│   └── sidebar-user         → Usuario
-│
-└── chat-main
-    ├── chat-header          → Cabecera principal
-    ├── chat-conversation    → Conversación
-    │   ├── welcome          → Bienvenida
-    │   ├── search-status    → Procesamiento
-    │   └── messages         → Mensajes
-    │
-    └── chat-input-section   → Entrada
-        ├── file-attach      → Adjuntar archivos
-        ├── message-input    → Escribir
-        └── message-send     → Enviar -->
-
-<!--HTML
-│
-├── <!DOCTYPE html>
-│   └── HTML5 → indica la versión de HTML utilizada.
-│
-├── <html lang="es">
-│   └── Documento raíz → establece español como idioma.
-│
-├── <head>
-│   │
-│   ├── <meta charset="UTF-8">
-│   │   └── Codificación → permite ñ, tildes, símbolos, etc.
-│   │
-│   ├── <meta name="viewport">
-│   │   └── Responsive → adapta la página a móvil/tablet.
-│   │
-│   ├── <title>ReijohanGPT</title>
-│   │   └── Título → nombre mostrado en la pestaña.
-│   │
-│   └── <link rel="stylesheet" href="styles.css">
-│       └── CSS → conecta el HTML con los estilos.
-│
-│
-└── <body>
-    │
-    └── .chat-app
-        └── Aplicación → contenedor general de todo ReijohanGPT.
-        │
-        ├── #sidebar-toggle
-        │   └── Interruptor → checkbox oculto que controla
-        │       el estado del sidebar mediante CSS y JavaScript.
-        │       │
-        │       ├── Escritorio
-        │       │   └── Controla el estado plegado/desplegado
-        │       │       del menú lateral.
-        │       │
-        │       └── Tablet/móvil
-        │           └── Controla la apertura/cierre
-        │               del menú lateral.
-        │
-        ├── .sidebar
-        │   └── Menú lateral → navegación principal.
-        │   │
-        │   ├── .sidebar-header
-        │   │   └── Cabecera del menú.
-        │   │   │
-        │   │   ├── .sidebar-logo
-        │   │   │   └── Nombre → "ReijohanGPT".
-        │   │   │
-        │   │   └── .sidebar-toggle-container
-        │   │       └── Contenedor → botón para controlar
-        │   │           el estado del sidebar.
-        │   │           │
-        │   │           └── .sidebar-toggle-button
-        │   │               └── Botón → icono de tres líneas.
-        │   │                   Utiliza <label> para controlar
-        │   │                   #sidebar-toggle.
-        │   │
-        │   │
-        │   ├── .sidebar-content
-        │   │   └── Contenido → opciones principales del menú.
-        │   │   │
-        │   │   ├── .new-chat-container
-        │   │   │   └── Contenedor → nueva conversación.
-        │   │   │   │
-        │   │   │   └── .new-chat-button
-        │   │   │       └── Botón/enlace → inicia o reinicia
-        │   │   │           una conversación.
-        │   │   │           │
-        │   │   │           ├── .new-chat-icon-container
-        │   │   │           │   └── Contenedor → icono "+".
-        │   │   │           │
-        │   │   │           └── .new-chat-text-container
-        │   │   │               └── Contenedor → texto
-        │   │   │                   "Nueva conversación".
-        │   │   │
-        │   │   │
-        │   │   └── .chat-history
-        │   │       └── Historial → conversaciones anteriores.
-        │   │       │
-        │   │       ├── #chat-history-button
-        │   │       │   └── Botón → acceso al historial
-        │   │       │       de conversaciones.
-        │   │       │       │
-        │   │       │       ├── Sidebar plegado en escritorio
-        │   │       │       │   └── Permite volver a desplegar
-        │   │       │       │       el sidebar.
-        │   │       │       │       La acción de desplegarlo
-        │   │       │       │       la realiza JavaScript.
-        │   │       │       │
-        │   │       │       └── Sidebar desplegado
-        │   │       │           └── Mantiene visible el acceso
-        │   │       │               al historial.
-        │   │       │
-        │   │       ├── .chat-history-icon
-        │   │       │   └── Icono → representa visualmente
-        │   │       │       el historial.
-        │   │       │
-        │   │       ├── .chat-history-title
-        │   │       │   └── Texto → título del historial.
-        │   │       │
-        │   │       └── .chat-history-list
-        │   │           └── Lista → contiene las conversaciones.
-        │   │           │
-        │   │           ├── .chat-history-item
-        │   │           │   └── Conversación → elemento individual.
-        │   │           │   │
-        │   │           │   └── .chat-history-link
-        │   │           │       └── Enlace → acceso a la conversación.
-        │   │           │
-        │   │           └── .chat-history-item
-        │   │               └── Las conversaciones restantes utilizan
-        │   │                   la misma estructura.
-        │
-        │
-        ├── .sidebar-user
-        │   └── Usuario → información situada en la parte inferior.
-        │   │
-        │   ├── .user-avatar-container
-        │   │   └── Contenedor → avatar.
-        │   │
-        │   │   └── .user-avatar
-        │   │       └── Imagen → avatar del usuario.
-        │   │
-        │   └── .user-info
-        │       └── Información → datos del usuario.
-        │       │
-        │       └── .user-name
-        │           └── Nombre → nombre mostrado.
-        │
-        │
-        └── .chat-main
-            └── Área principal → zona de conversación.
-            │
-            ├── .chat-header
-            │   └── Cabecera → parte superior del chat.
-            │   │
-            │   ├── .mobile-menu-container
-            │   │   └── Contenedor → menú móvil/tablet.
-            │   │
-            │   │   └── .mobile-menu-button
-            │   │       └── Botón → hamburguesa para abrir
-            │   │           el sidebar.
-            │   │           Utiliza <label> para controlar
-            │   │           #sidebar-toggle.
-            │   │
-            │   ├── .chat-header-title-container
-            │   │   └── Contenedor → título de la cabecera.
-            │   │
-            │   ├── .chat-header-title
-            │   │   └── Texto → título del área de conversación.
-            │   │
-            │   └── .chat-header-logo-container
-            │       └── Contenedor → logotipo.
-            │       │
-            │       └── .chat-header-logo
-            │           └── Imagen → logotipo de ReijohanGPT.
-            │
-            │
-            ├── .chat-conversation
-            │   └── Conversación → zona donde se muestra
-            │       y desarrolla el chat.
-            │   │
-            │   └── .conversation-container
-            │       └── Contenedor → organiza el contenido.
-            │       │
-            │       ├── .welcome-container
-            │       │   └── Bienvenida → mensaje inicial.
-            │       │   │
-            │       │   └── .welcome-title
-            │       │       └── Título → mensaje principal.
-            │       │
-            │       ├── .search-status-container
-            │       │   └── Procesamiento → estado mientras
-            │       │       se procesa la consulta.
-            │       │   │
-            │       │   ├── .search-status
-            │       │   │   └── Mensaje → indica que la consulta
-            │       │   │       está en proceso.
-            │       │   │
-            │       │   └── .search-funny-message
-            │       │       └── Mensaje → texto humorístico
-            │       │           de espera.
-            │       │
-            │       └── .messages-container
-            │           └── Mensajes → espacio preparado para
-            │               contenido dinámico.
-            │
-            │
-            └── .chat-input-section
-                └── Entrada → zona para escribir y enviar consultas.
-                │
-                └── .chat-input-container
-                    └── Contenedor → organiza los controles
-                        de entrada.
-                        │
-                        ├── .file-attach-container
-                        │   └── Archivos → sistema para seleccionar
-                        │       archivos que acompañarán a la consulta.
-                        │       │
-                        │       ├── #file-attach
-                        │       │   └── Input → selector de archivos
-                        │       │       real mediante <input type="file">.
-                        │       │       Está oculto visualmente y es
-                        │       │       activado mediante el botón personalizado.
-                        │       │
-                        │       └── .file-attach-button
-                        │           └── Botón → botón visual personalizado
-                        │               para abrir el selector de archivos.
-                        │               │
-                        │               └── .file-attach-icon-container
-                        │                   └── Contenedor → icono "+".
-                        │
-                        ├── .message-input-container
-                        │   └── Texto → contenedor del campo de escritura.
-                        │       │
-                        │       └── .message-input
-                        │           └── Textarea → campo donde se escribe
-                        │               la consulta.
-                        │               │
-                        │               ├── Permite introducir varias líneas.
-                        │               │
-                        │               ├── Puede aumentar automáticamente
-                        │               │   su altura mediante JavaScript.
-                        │               │
-                        │               └── Dispone de una altura máxima;
-                        │                   cuando se supera, aparece
-                        │                   desplazamiento vertical.
-                        │
-                        └── .message-send-container
-                            └── Envío → contenedor del botón enviar.
-                            │
-                            └── .message-send-button
-                                └── Botón → envía la consulta.
-                                │
-                                └── .message-send-icon-container
-                                    └── Contenedor → icono del botón.
-                                    │
-                                    └── .message-send-icon
-                                        └── Icono → flecha ↑.
-
-
-FUNCIONAMIENTO DE ARCHIVOS
-│
-└── Selección de archivo
-    └── Al seleccionar un archivo mediante #file-attach,
-        JavaScript guarda temporalmente el archivo seleccionado.
-        │
-        ├── Se genera una previsualización dinámica.
-        │
-        ├── La previsualización muestra:
-        │   ├── Icono de archivo.
-        │   ├── Nombre del archivo.
-        │   └── Tamaño del archivo.
-        │
-        ├── Se incluye un botón "×" para eliminar
-        │   el archivo seleccionado.
-        │
-        ├── Si se selecciona otro archivo,
-        │   la previsualización anterior se sustituye.
-        │
-        └── El archivo todavía no se envía a ningún servidor
-            ni API. El sistema queda preparado para añadir
-            posteriormente esa funcionalidad.
-
-
-SCRIPT
-│
-└── <script src="script.js">
-    └── JavaScript → añade la interacción y comportamiento.
-        │
-        ├── Controla el textarea.
-        │   ├── Ajusta automáticamente su altura al escribir.
-        │   └── Limita su crecimiento a una altura máxima.
-        │
-        ├── Controla el envío de consultas.
-        │   ├── Permite enviar mediante el botón.
-        │   └── Permite enviar pulsando Enter.
-        │       Shift + Enter permite escribir una nueva línea.
-        │
-        ├── Controla los archivos adjuntos.
-        │   ├── Detecta el archivo seleccionado.
-        │   ├── Guarda temporalmente el archivo.
-        │   ├── Genera la previsualización.
-        │   ├── Muestra nombre y tamaño.
-        │   ├── Permite eliminar el archivo.
-        │   └── Permite enviar una consulta únicamente
-        │       con un archivo seleccionado.
-        │
-        ├── Controla "Nueva conversación".
-        │   ├── Limpia los mensajes.
-        │   ├── Limpia el campo de texto.
-        │   └── Elimina cualquier archivo seleccionado.
-        │
-        ├── Controla el estado del sidebar.
-        │   └── Gestiona su apertura y cierre según
-        │       el dispositivo y la interacción.
-        │
-        ├── Permite desplegar el sidebar desde
-        │   el botón de conversaciones en escritorio
-        │   cuando está plegado.
-        │
-        └── Controla el comportamiento responsive.
-            ├── Cierra el menú móvil después de determinadas acciones.
-            └── Restablece el estado del sidebar al cambiar
-                entre escritorio y tablet/móvil.
--->

@@ -1,10 +1,10 @@
 /* Todos los elementos: elimina márgenes y rellenos y aplica box-sizing uniforme. */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 
 /* Documento HTML y cuerpo de la página: tamaño general, fuente, fondo y color. */
 html,
@@ -18,12 +18,10 @@ body {
   color: hsl(0, 0%, 96%);
 }
 
-
 /* Cuerpo de la página: evita el desplazamiento general del navegador. */
 body {
   overflow: hidden;
 }
-
 
 /* Aplicación completa del chat: organiza sidebar y contenido principal. */
 .chat-app {
@@ -38,15 +36,17 @@ body {
   background: hsl(0, 0%, 9%);
 }
 
-
 /* Checkbox que controla la apertura y plegado del sidebar: permanece oculto. */
 .sidebar-toggle-checkbox {
   display: none;
 }
 
+/* Checkbox que controla el cambio entre tema oscuro y tema claro: permanece oculto. */
+.theme-toggle-checkbox {
+  display: none;
+}
 
 /* MENÚ LATERAL */
-
 
 /* Barra lateral principal: estructura, tamaño, fondo y transición. */
 .sidebar {
@@ -64,7 +64,6 @@ body {
     transform 0.35s ease;
 }
 
-
 /* Cabecera del sidebar: contiene el logo y el botón de plegado. */
 .sidebar-header {
   width: 100%;
@@ -78,7 +77,6 @@ body {
   border-bottom: 1px solid hsl(0, 0%, 19%);
 }
 
-
 /* Texto/logo de ReijohanGPT dentro del sidebar. */
 .sidebar-logo {
   min-width: 0;
@@ -89,7 +87,6 @@ body {
   white-space: nowrap;
 }
 
-
 /* Contenedor del botón que pliega el sidebar. */
 .sidebar-toggle-container {
   display: flex;
@@ -97,7 +94,6 @@ body {
   justify-content: center;
   flex-shrink: 0;
 }
-
 
 /* Botón visual utilizado para plegar y desplegar el sidebar. */
 .sidebar-toggle-button {
@@ -113,12 +109,10 @@ body {
   cursor: pointer;
 }
 
-
 /* Fondo del botón del sidebar al pasar el ratón. */
 .sidebar-toggle-button:hover {
   background: hsl(0, 0%, 16%);
 }
-
 
 /* Líneas del icono de plegado del sidebar. */
 .sidebar-toggle-button span {
@@ -129,7 +123,6 @@ body {
   background: hsl(0, 0%, 96%);
   border-radius: 0.125rem;
 }
-
 
 /* Contenido interno del sidebar: nuevo chat, historial y usuario. */
 .sidebar-content {
@@ -143,9 +136,7 @@ body {
   overflow: hidden;
 }
 
-
 /* NUEVO CHAT */
-
 
 /* Contenedor del botón de nueva conversación. */
 .new-chat-container {
@@ -155,7 +146,6 @@ body {
   flex-shrink: 0;
   font-weight: 700;
 }
-
 
 /* Botón "Nueva conversación". */
 .new-chat-button {
@@ -173,12 +163,10 @@ body {
   transition: background 0.2s ease;
 }
 
-
 /* Estado del botón "Nueva conversación" al pasar el ratón. */
 .new-chat-button:hover {
   background: hsl(0, 0%, 17%);
 }
-
 
 /* Contenedor del icono "+" de nueva conversación. */
 .new-chat-icon-container {
@@ -188,7 +176,6 @@ body {
   flex-shrink: 0;
 }
 
-
 /* Icono "+" del botón de nueva conversación. */
 .new-chat-icon {
   color: hsl(0, 0%, 100%);
@@ -196,13 +183,11 @@ body {
   line-height: 1;
 }
 
-
 /* Contenedor del texto "Nueva conversación". */
 .new-chat-text-container {
   min-width: 0;
   overflow: hidden;
 }
-
 
 /* Texto del botón "Nueva conversación". */
 .new-chat-text {
@@ -215,9 +200,7 @@ body {
   text-overflow: ellipsis;
 }
 
-
 /* HISTORIAL */
-
 
 /* Contenedor completo de la sección de historial. */
 .chat-history {
@@ -228,7 +211,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 
 /* Botón "Historial de chats". */
 .chat-history-button {
@@ -252,13 +234,11 @@ body {
     color 0.2s ease;
 }
 
-
 /* Estado del botón de historial al pasar el ratón. */
 .chat-history-button:hover {
   background: hsl(0, 0%, 14%);
   color: hsl(0, 0%, 100%);
 }
-
 
 /* Texto del título "Historial de chats". */
 .chat-history-title {
@@ -271,7 +251,6 @@ body {
   text-overflow: ellipsis;
 }
 
-
 /* Icono visual del historial de conversaciones. */
 .chat-history-icon {
   position: relative;
@@ -283,7 +262,6 @@ body {
   border-radius: 0.25rem;
   color: inherit;
 }
-
 
 /* Parte inferior del icono del historial. */
 .chat-history-icon::after {
@@ -298,7 +276,6 @@ body {
   border-bottom: 0.125rem solid currentColor;
   transform: skewY(-35deg);
 }
-
 
 /* Lista de conversaciones del historial y su barra de desplazamiento. */
 .chat-history-list {
@@ -315,19 +292,16 @@ body {
   scrollbar-color: hsl(0, 0%, 32%) transparent;
 }
 
-
 /* Anchura de la barra de desplazamiento del historial en navegadores WebKit. */
 .chat-history-list::-webkit-scrollbar {
   width: 0.45rem;
 }
-
 
 /* Fondo de la barra de desplazamiento del historial. */
 .chat-history-list::-webkit-scrollbar-track {
   background: transparent;
   margin: 0.25rem 0;
 }
-
 
 /* Parte móvil de la barra de desplazamiento del historial. */
 .chat-history-list::-webkit-scrollbar-thumb {
@@ -337,7 +311,6 @@ body {
   background-clip: padding-box;
 }
 
-
 /* Parte móvil de la barra de desplazamiento al pasar el ratón. */
 .chat-history-list::-webkit-scrollbar-thumb:hover {
   background: hsl(0, 0%, 45%);
@@ -345,14 +318,12 @@ body {
   background-clip: padding-box;
 }
 
-
 /* Cada elemento individual de la lista de conversaciones. */
 .chat-history-item {
   width: 100%;
   min-width: 0;
   flex-shrink: 0;
 }
-
 
 /* Enlace de cada conversación guardada en el historial. */
 .chat-history-link {
@@ -372,16 +343,128 @@ body {
     color 0.2s ease;
 }
 
-
 /* Estado de una conversación del historial al pasar el ratón. */
 .chat-history-link:hover {
   background: hsl(0, 0%, 14%);
   color: hsl(0, 0%, 100%);
 }
 
+/* CAMBIO DE TEMA */
+
+/* Contenedor del selector de apariencia situado dentro del sidebar. */
+.theme-switch-container {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  margin-top: 1rem;
+  padding: 0.375rem 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Texto que identifica el selector de apariencia. */
+.theme-switch-label {
+  min-width: 0;
+  overflow: hidden;
+  color: hsl(0, 0%, 70%);
+  font-size: 0.9rem;
+  font-weight: 800;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Interruptor visual que permite alternar entre tema oscuro y tema claro. */
+.theme-switch {
+  position: relative;
+  width: 3.5rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 0 0.3rem;
+  background: hsl(0, 0%, 15%);
+  border: 1px solid hsl(0, 0%, 28%);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Iconos que identifican visualmente los dos estados del tema. */
+.theme-icon {
+  position: relative;
+  z-index: 2;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(0, 0%, 75%);
+  font-size: 0.75rem;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.25s ease;
+}
+
+/* Icono que representa el tema oscuro activo inicialmente. */
+.theme-icon-dark {
+  color: hsl(0, 0%, 100%);
+}
+
+/* Icono que representa el tema claro cuando se activa el interruptor. */
+.theme-icon-light {
+  color: hsl(0, 0%, 55%);
+}
+
+/* Elemento deslizante que indica visualmente el estado activo del interruptor. */
+.theme-switch-slider {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  z-index: 1;
+  width: 1.375rem;
+  height: 1.375rem;
+  background: hsl(0, 0%, 90%);
+  border-radius: 50%;
+  box-shadow: 0 0.125rem 0.35rem hsla(0, 0%, 0%, 0.3);
+  transition:
+    left 0.25s ease,
+    right 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Posición del deslizador cuando se activa el tema claro. */
+.theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+  left: auto;
+  right: 0.1875rem;
+}
+
+/* Cambia el fondo del interruptor cuando se activa el tema claro. */
+.theme-toggle-checkbox:checked~.sidebar .theme-switch {
+  background: hsl(0, 0%, 88%);
+  border-color: hsl(0, 0%, 70%);
+}
+
+/* Cambia el color del icono oscuro cuando el tema claro está activo. */
+.theme-toggle-checkbox:checked~.sidebar .theme-icon-dark {
+  color: hsl(0, 0%, 55%);
+}
+
+/* Cambia el color del icono claro cuando el tema claro está activo. */
+.theme-toggle-checkbox:checked~.sidebar .theme-icon-light {
+  color: hsl(0, 0%, 10%);
+}
+
+/* Cambia el color del deslizador cuando el tema claro está activo. */
+.theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+  background: hsl(0, 0%, 100%);
+}
 
 /* USUARIO */
-
 
 /* Zona inferior del sidebar que contiene el usuario. */
 .sidebar-user {
@@ -396,7 +479,6 @@ body {
   border-top: 1px solid hsl(0, 0%, 19%);
 }
 
-
 /* Contenedor circular del avatar del usuario. */
 .user-avatar-container {
   width: 2.75rem;
@@ -407,7 +489,6 @@ body {
   background: hsl(0, 0%, 20%);
 }
 
-
 /* Imagen del avatar del usuario. */
 .user-avatar {
   display: block;
@@ -416,13 +497,11 @@ body {
   object-fit: cover;
 }
 
-
 /* Contenedor de la información textual del usuario. */
 .user-info {
   min-width: 0;
   overflow: hidden;
 }
-
 
 /* Nombre del usuario mostrado en el sidebar. */
 .user-name {
@@ -436,9 +515,7 @@ body {
   text-overflow: ellipsis;
 }
 
-
 /* CONTENIDO PRINCIPAL */
-
 
 /* Zona principal del chat situada junto al sidebar. */
 .chat-main {
@@ -454,9 +531,7 @@ body {
   background: hsl(0, 0%, 9%);
 }
 
-
 /* CABECERA */
-
 
 /* Cabecera superior del área principal del chat. */
 .chat-header {
@@ -473,12 +548,10 @@ body {
   border-bottom: 1px solid hsl(0, 0%, 19%);
 }
 
-
 /* Contenedor del botón hamburguesa para tablet y móvil. */
 .mobile-menu-container {
   display: none;
 }
-
 
 /* Contenedor del título de la cabecera principal. */
 .chat-header-title-container {
@@ -487,7 +560,6 @@ body {
   margin-left: 0.3125rem;
   overflow: hidden;
 }
-
 
 /* Título de la conversación mostrado en la cabecera. */
 .chat-header-title {
@@ -502,9 +574,7 @@ body {
   text-overflow: ellipsis;
 }
 
-
 /* LOGOTIPO */
-
 
 /* Contenedor del logotipo situado a la derecha de la cabecera. */
 .chat-header-logo-container {
@@ -517,7 +587,6 @@ body {
   overflow: hidden;
 }
 
-
 /* Imagen del logotipo principal de la cabecera. */
 .chat-header-logo {
   display: block;
@@ -526,9 +595,7 @@ body {
   object-fit: contain;
 }
 
-
 /* CONVERSACIÓN */
-
 
 /* Área donde se desarrolla la conversación y aparecen los mensajes. */
 .chat-conversation {
@@ -541,7 +608,6 @@ body {
   overflow-y: auto;
 }
 
-
 /* Contenedor central que limita el ancho del contenido de conversación. */
 .conversation-container {
   position: relative;
@@ -551,9 +617,7 @@ body {
   padding: 1rem 1.25rem 8rem;
 }
 
-
 /* TÍTULO CENTRAL */
-
 
 /* Contenedor del mensaje de bienvenida situado inicialmente en el centro. */
 .welcome-container {
@@ -573,7 +637,6 @@ body {
     transform 0.35s ease;
 }
 
-
 /* Texto principal de bienvenida del chat. */
 .welcome-title {
   width: min(100%, 48rem);
@@ -585,9 +648,7 @@ body {
   text-wrap: balance;
 }
 
-
 /* ESTADO DE PROCESAMIENTO */
-
 
 /* Contenedor del mensaje que indica que la consulta está en proceso. */
 .search-status-container {
@@ -604,7 +665,6 @@ body {
     visibility 0.4s ease;
 }
 
-
 /* Texto principal del estado de procesamiento. */
 .search-status {
   color: hsl(0, 0%, 94%);
@@ -612,7 +672,6 @@ body {
   font-weight: 500;
   line-height: 1.4;
 }
-
 
 /* Texto secundario o mensaje humorístico durante la espera. */
 .search-funny-message {
@@ -624,16 +683,13 @@ body {
   text-align: left;
 }
 
-
 /* ESTADO CON CONSULTA */
-
 
 /* Oculta y desplaza el mensaje de bienvenida cuando el chat ya tiene mensajes. */
 .chat-app.chat-has-messages .welcome-container {
   opacity: 0;
   transform: translateY(-1.5rem);
 }
-
 
 /* Muestra el estado de procesamiento cuando el chat ya tiene mensajes. */
 .chat-app.chat-has-messages .search-status-container {
@@ -642,9 +698,7 @@ body {
   transform: translateY(0);
 }
 
-
 /* MENSAJES */
-
 
 /* Contenedor donde JavaScript podrá insertar los mensajes del chat. */
 .messages-container {
@@ -653,9 +707,7 @@ body {
   min-height: 100%;
 }
 
-
 /* BARRA DE CONSULTA */
-
 
 /* Barra completa de escritura: inicialmente centrada en la pantalla. */
 .chat-input-section {
@@ -673,7 +725,6 @@ body {
     transform 0.6s ease;
 }
 
-
 /* Barra de consulta cuando ya se ha enviado una consulta: se desplaza hacia abajo. */
 .chat-app.chat-has-messages .chat-input-section {
   top: auto;
@@ -681,9 +732,7 @@ body {
   transform: translateX(-50%);
 }
 
-
 /* CONTENEDOR DE LA BARRA */
-
 
 /* Contenedor visual que agrupa adjuntar archivo, textarea y botón enviar. */
 .chat-input-container {
@@ -701,21 +750,17 @@ body {
   box-shadow: 0 0.5rem 1.875rem hsla(0, 0%, 0%, 0.35);
 }
 
-
 /* ARCHIVO */
-
 
 /* Contenedor del sistema para adjuntar archivos. */
 .file-attach-container {
   flex-shrink: 0;
 }
 
-
 /* Input real de selección de archivos: permanece oculto. */
 .file-attach-input {
   display: none;
 }
-
 
 /* Botón visual que abre el selector de archivos. */
 .file-attach-button {
@@ -731,12 +776,10 @@ body {
   transition: background 0.2s ease;
 }
 
-
 /* Estado del botón de archivos al pasar el ratón. */
 .file-attach-button:hover {
   background: hsl(0, 0%, 27%);
 }
-
 
 /* Contenedor del icono de archivo. */
 .file-attach-icon-container {
@@ -745,7 +788,6 @@ body {
   justify-content: center;
 }
 
-
 /* Icono "+" utilizado para adjuntar archivos. */
 .file-attach-icon {
   color: hsl(0, 0%, 93%);
@@ -753,9 +795,7 @@ body {
   line-height: 1;
 }
 
-
 /* PREVISUALIZACIÓN DEL ARCHIVO ADJUNTO */
-
 
 /* Previsualización compacta del archivo seleccionado. */
 .file-preview {
@@ -773,7 +813,6 @@ body {
   border-radius: 0.5rem;
 }
 
-
 /* Zona de información de la previsualización del archivo. */
 .file-preview-info {
   display: flex;
@@ -783,7 +822,6 @@ body {
   max-width: 100%;
   overflow: hidden;
 }
-
 
 /* Icono visual de la previsualización del archivo. */
 .file-preview-icon {
@@ -798,7 +836,6 @@ body {
   font-size: 0.75rem;
 }
 
-
 /* Contenedor del nombre y tamaño del archivo. */
 .file-preview-details {
   display: flex;
@@ -808,7 +845,6 @@ body {
   gap: 0.05rem;
   overflow: hidden;
 }
-
 
 /* Nombre del archivo seleccionado. */
 .file-preview-name {
@@ -823,7 +859,6 @@ body {
   line-height: 1.15;
 }
 
-
 /* Tamaño del archivo seleccionado. */
 .file-preview-size {
   display: block;
@@ -831,7 +866,6 @@ body {
   font-size: 0.58rem;
   line-height: 1.1;
 }
-
 
 /* Botón para eliminar el archivo seleccionado. */
 .file-preview-remove {
@@ -856,16 +890,13 @@ body {
     color 0.2s ease;
 }
 
-
 /* Estado del botón para eliminar el archivo al pasar el ratón. */
 .file-preview-remove:hover {
   background: hsl(0, 0%, 22%);
   color: hsl(0, 0%, 100%);
 }
 
-
 /* CAMPO DE TEXTO */
-
 
 /* Contenedor del textarea de escritura. */
 .message-input-container {
@@ -873,7 +904,6 @@ body {
   min-width: 0;
   max-width: 100%;
 }
-
 
 /* Campo donde el usuario escribe la consulta. */
 .message-input {
@@ -895,18 +925,15 @@ body {
   scrollbar-color: hsl(0, 0%, 32%) transparent;
 }
 
-
 /* Texto de ayuda que aparece cuando el textarea está vacío. */
 .message-input::placeholder {
   color: hsl(0, 0%, 52%);
 }
 
-
 /* Anchura de la barra de desplazamiento del textarea en navegadores WebKit. */
 .message-input::-webkit-scrollbar {
   width: 0.45rem;
 }
-
 
 /* Fondo de la barra de desplazamiento del textarea. */
 .message-input::-webkit-scrollbar-track {
@@ -914,15 +941,13 @@ body {
   margin: 0.25rem 0;
 }
 
-
-/* Parte móvil de la barra de desplazamiento del textarea. */
+/* Parte móvil de la barra del textarea. */
 .message-input::-webkit-scrollbar-thumb {
   background: hsl(0, 0%, 28%);
   border: 0.1rem solid transparent;
   border-radius: 1rem;
   background-clip: padding-box;
 }
-
 
 /* Parte móvil de la barra del textarea al pasar el ratón. */
 .message-input::-webkit-scrollbar-thumb:hover {
@@ -931,15 +956,12 @@ body {
   background-clip: padding-box;
 }
 
-
 /* BOTÓN ENVIAR */
-
 
 /* Contenedor del botón de envío del mensaje. */
 .message-send-container {
   flex-shrink: 0;
 }
-
 
 /* Botón circular utilizado para enviar la consulta. */
 .message-send-button {
@@ -959,13 +981,11 @@ body {
     transform 0.2s ease;
 }
 
-
 /* Estado del botón enviar al pasar el ratón. */
 .message-send-button:hover {
   background: hsl(0, 0%, 100%);
   transform: scale(1.04);
 }
-
 
 /* Contenedor del icono de envío. */
 .message-send-icon-container {
@@ -974,28 +994,23 @@ body {
   justify-content: center;
 }
 
-
 /* Icono de envío del mensaje. */
 .message-send-icon {
   font-size: 1.375rem;
   line-height: 1;
 }
 
-
 /* SIDEBAR PLEGADO - SOLO ESCRITORIO */
-
 
 /* Cuando el checkbox está marcado, el sidebar se reduce a su versión plegada. */
 .sidebar-toggle-checkbox:checked~.sidebar {
   width: 4.25rem;
 }
 
-
 /* Oculta el logo del sidebar cuando está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .sidebar-logo {
   display: none;
 }
-
 
 /* Centra el botón de plegado cuando el sidebar está reducido. */
 .sidebar-toggle-checkbox:checked~.sidebar .sidebar-header {
@@ -1003,18 +1018,15 @@ body {
   padding: 0;
 }
 
-
 /* Reduce el espacio interior del contenido cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .sidebar-content {
   padding: 0.625rem;
 }
 
-
 /* Reduce el margen inferior del botón de nueva conversación cuando está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .new-chat-container {
   margin-bottom: 0.9375rem;
 }
-
 
 /* Convierte "Nueva conversación" en un botón circular compacto. */
 .sidebar-toggle-checkbox:checked~.sidebar .new-chat-button {
@@ -1025,12 +1037,10 @@ body {
   margin: 0 auto;
 }
 
-
 /* Oculta el texto de "Nueva conversación" cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .new-chat-text-container {
   display: none;
 }
-
 
 /* Reduce el botón del historial a su versión de icono. */
 .sidebar-toggle-checkbox:checked~.sidebar .chat-history-button {
@@ -1041,18 +1051,53 @@ body {
   padding: 0;
 }
 
-
 /* Oculta el título del historial cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .chat-history-title {
   display: none;
 }
-
 
 /* Oculta la lista de conversaciones cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .chat-history-list {
   display: none;
 }
 
+/* Centra el selector de apariencia cuando el sidebar está plegado. */
+.sidebar-toggle-checkbox:checked~.sidebar .theme-switch-container {
+  justify-content: center;
+  padding: 0.375rem 0;
+}
+
+/* Oculta el texto "Apariencia" cuando el sidebar está plegado. */
+.sidebar-toggle-checkbox:checked~.sidebar .theme-switch-label {
+  display: none;
+}
+
+/* Reduce el interruptor para que pueda quedar completamente centrado dentro del sidebar plegado. */
+.sidebar-toggle-checkbox:checked~.sidebar .theme-switch {
+  width: 2.75rem;
+  height: 1.625rem;
+}
+
+/* Reduce ligeramente los iconos cuando el sidebar está plegado. */
+.sidebar-toggle-checkbox:checked~.sidebar .theme-icon {
+  width: 0.8rem;
+  height: 0.8rem;
+  font-size: 0.65rem;
+}
+
+/* Reduce y centra el deslizador del interruptor en el sidebar plegado. */
+.sidebar-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+  top: 0.1625rem;
+  left: 0.1625rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Ajusta el deslizador cuando el tema claro está activo y el sidebar permanece plegado. */
+.chat-app:has(#sidebar-toggle:checked):has(#theme-toggle:checked) .theme-switch-slider {
+  left: auto;
+  right: 0.1625rem;
+}
 
 /* Centra el avatar del usuario cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .sidebar-user {
@@ -1060,15 +1105,12 @@ body {
   padding: 0.75rem 0.625rem;
 }
 
-
 /* Oculta la información textual del usuario cuando el sidebar está plegado. */
 .sidebar-toggle-checkbox:checked~.sidebar .user-info {
   display: none;
 }
 
-
 /* TABLET Y MÓVIL - MENÚ HAMBURGUESA */
-
 
 /* Adapta toda la interfaz para pantallas de 1024 px o menos. */
 @media (max-width: 64rem) {
@@ -1152,14 +1194,51 @@ body {
     display: flex;
   }
 
-  /* Recupera la distribución normal de la zona de usuario. */
-  .sidebar-toggle-checkbox:checked~.sidebar .sidebar-user {
-    justify-content: flex-start;
-    padding: 0.9375rem;
+  /* Recupera la distribución normal del selector de apariencia. */
+  .sidebar-toggle-checkbox:checked~.sidebar .theme-switch-container {
+    justify-content: space-between;
+    padding: 0.375rem 0.25rem;
   }
 
-  /* Vuelve a mostrar la información textual del usuario. */
+  /* Vuelve a mostrar el texto de apariencia. */
+  .sidebar-toggle-checkbox:checked~.sidebar .theme-switch-label {
+    display: block;
+  }
+
+  /* Recupera el tamaño normal del selector de apariencia dentro del menú hamburguesa. */
+  .sidebar-toggle-checkbox:checked~.sidebar .theme-switch {
+    width: 3.5rem;
+    height: 1.75rem;
+  }
+
+  /* Recupera el tamaño normal de los iconos del selector dentro del menú hamburguesa. */
+  .sidebar-toggle-checkbox:checked~.sidebar .theme-icon {
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.75rem;
+  }
+
+  /* Recupera el tamaño normal del deslizador dentro del menú hamburguesa. */
+  .sidebar-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+    width: 1.375rem;
+    height: 1.375rem;
+    top: 0.1875rem;
+    left: 0.1875rem;
+  }
+
+  /* Recupera la posición del deslizador cuando el tema claro está activo dentro del menú hamburguesa. */
+  .theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+    left: auto;
+    right: 0.1875rem;
+  }
+
+  /* Vuelve a mostrar el bloque de información del usuario dentro del menú hamburguesa. */
   .sidebar-toggle-checkbox:checked~.sidebar .user-info {
+    display: block;
+  }
+
+  /* Mantiene el nombre del usuario visible dentro del menú hamburguesa. */
+  .sidebar-toggle-checkbox:checked~.sidebar .user-name {
     display: block;
   }
 
@@ -1275,9 +1354,7 @@ body {
   }
 }
 
-
 /* TABLET PEQUEÑA */
-
 
 /* Ajustes específicos para pantallas de hasta 768 px. */
 @media (max-width: 48rem) {
@@ -1346,9 +1423,7 @@ body {
   }
 }
 
-
 /* MÓVIL */
-
 
 /* Ajustes específicos para pantallas de hasta 480 px. */
 @media (max-width: 30rem) {
@@ -1513,11 +1588,36 @@ body {
     height: 1.25rem;
     font-size: 0.9rem;
   }
+
+  /* Reduce ligeramente el selector de apariencia en móvil. */
+  .theme-switch {
+    width: 3.375rem;
+    height: 1.6875rem;
+  }
+
+  /* Reduce el tamaño de los iconos del selector en móvil. */
+  .theme-icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    font-size: 0.7rem;
+  }
+
+  /* Reduce el tamaño del deslizador del selector en móvil. */
+  .theme-switch-slider {
+    width: 1.3125rem;
+    height: 1.3125rem;
+    top: 0.1875rem;
+    left: 0.1875rem;
+  }
+
+  /* Ajusta la posición del deslizador cuando el tema claro está activo en móvil. */
+  .theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+    left: auto;
+    right: 0.1875rem;
+  }
 }
 
-
 /* MÓVIL PEQUEÑO */
-
 
 /* Ajustes específicos para pantallas de hasta 352 px. */
 @media (max-width: 22rem) {
@@ -1670,11 +1770,36 @@ body {
     margin-left: 0;
     font-size: 0.85rem;
   }
+
+  /* Reduce el selector de apariencia en móviles extremadamente pequeños. */
+  .theme-switch {
+    width: 3.25rem;
+    height: 1.625rem;
+  }
+
+  /* Reduce el tamaño de los iconos del selector en móviles muy pequeños. */
+  .theme-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.65rem;
+  }
+
+  /* Reduce el tamaño del deslizador en móviles muy pequeños. */
+  .theme-switch-slider {
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 0.1875rem;
+    left: 0.1875rem;
+  }
+
+  /* Ajusta la posición del deslizador del tema claro en móviles muy pequeños. */
+  .theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+    left: auto;
+    right: 0.1875rem;
+  }
 }
 
-
 /* POCA ALTURA */
-
 
 /* Ajustes para pantallas con poca altura vertical. */
 @media (max-height: 40rem) {
@@ -1705,9 +1830,7 @@ body {
   }
 }
 
-
 /* POCA ALTURA + MÓVIL */
-
 
 /* Combina los ajustes de poca altura con los de móvil. */
 @media (max-width: 30rem) and (max-height: 40rem) {
@@ -1750,9 +1873,7 @@ body {
   }
 }
 
-
 /* PANTALLAS MUY GRANDES */
-
 
 /* Ajustes para pantallas de 1920 px o más. */
 @media (min-width: 120rem) {
@@ -1773,748 +1894,295 @@ body {
   }
 }
 
+/* ========================================================= */
+/* TEMA CLARO */
+/* ========================================================= */
 
+/* Fondo general del documento cuando el tema claro está activo. */
+body:has(#theme-toggle:checked),
+html:has(#theme-toggle:checked) {
+  background: hsl(0, 0%, 97%);
+  color: hsl(0, 0%, 10%);
+}
 
-/* CSS
+/* Fondo general de la aplicación cuando el tema claro está activo. */
+.chat-app:has(#theme-toggle:checked) {
+  background: hsl(0, 0%, 97%);
+}
 
-│
-├── RESET GENERAL
-│
-├── *
-│   └── Reset → elimina márgenes y rellenos predeterminados
-│       y activa box-sizing: border-box.
-│
-├── html, body
-│   └── Documento → ocupa toda la pantalla y define
-│       fuente, fondo y color general.
-│
-└── body
-└── overflow: hidden → evita desplazamiento general
-de la página.
-│
-│
-├── .chat-app
-│   └── Aplicación → contenedor principal de toda la interfaz.
-│       Usa Flexbox para colocar sidebar + chat.
-│
-├── .sidebar-toggle-checkbox
-│   └── Interruptor → permanece oculto y controla el menú
-│       mediante el selector :checked.
-│       En escritorio controla el estado plegado/desplegado
-│       del sidebar.
-│       En tablet y móvil controla la apertura/cierre
-│       del menú lateral.
-│
-│
-├── MENÚ LATERAL
-│
-├── .sidebar
-│   └── Sidebar → menú lateral completo.
-│       Define anchura, altura, fondo y comportamiento Flex.
-│
-├── .sidebar-header
-│   └── Cabecera → zona superior del sidebar.
-│
-├── .sidebar-logo
-│   └── Logo/texto → muestra "ReijohanGPT".
-│
-├── .sidebar-toggle-container
-│   └── Contenedor → centra el botón del menú.
-│
-├── .sidebar-toggle-button
-│   └── Botón → controla visualmente el plegado del sidebar
-│       en escritorio.
-│       En tablet y móvil forma parte del menú lateral.
-│
-├── .sidebar-toggle-button:hover
-│   └── Hover → cambia el fondo al pasar el ratón.
-│
-├── .sidebar-toggle-button span
-│   └── Líneas → dibuja las tres líneas del icono hamburguesa.
-│
-├── .sidebar-content
-│   └── Contenido → zona central del sidebar.
-│       Contiene nueva conversación e historial.
-│
-│
-├── NUEVO CHAT
-│
-├── .new-chat-container
-│   └── Contenedor → agrupa el botón de nueva conversación.
-│
-├── .new-chat-button
-│   └── Botón → aspecto y distribución de "Nueva conversación".
-│
-├── .new-chat-button:hover
-│   └── Hover → cambia el fondo al pasar el ratón.
-│
-├── .new-chat-icon-container
-│   └── Contenedor → centra el icono "+".
-│
-├── .new-chat-icon
-│   └── Icono → símbolo "+" de nueva conversación.
-│
-├── .new-chat-text-container
-│   └── Contenedor → controla el espacio disponible para el texto.
-│
-└── .new-chat-text
-└── Texto → nombre "Nueva conversación".
-Usa ellipsis si no hay espacio.
+/* Sidebar del tema claro: fondo blanco y separación gris suave. */
+.chat-app:has(#theme-toggle:checked) .sidebar {
+  background: hsl(0, 0%, 98%);
+  border-right-color: hsl(0, 0%, 84%);
+}
 
-HISTORIAL
-│
-├── .chat-history
-│   └── Historial → agrupa botón y lista de conversaciones.
-│
-├── .chat-history-button
-│   └── Botón → título "Historial de conversaciones".
-│       Permanece visible cuando el sidebar está plegado
-│       en escritorio.
-│       Al pulsarlo con el sidebar plegado, JavaScript
-│       puede desplegar nuevamente el sidebar.
-│
-├── .chat-history-button:hover
-│   └── Hover → cambia fondo y color.
-│
-├── .chat-history-title
-│   └── Texto → nombre del historial.
-│       Se oculta cuando el sidebar está plegado
-│       en escritorio.
-│
-├── .chat-history-icon
-│   └── Icono → crea visualmente el icono mediante CSS.
-│
-├── .chat-history-icon::after
-│   └── Pseudo-elemento → crea la parte inferior del icono.
-│
-├── .chat-history-list
-│   └── Lista → organiza verticalmente las conversaciones.
-│       Permite desplazamiento vertical independiente.
-│       El desplazamiento horizontal permanece oculto.
-│       Utiliza una barra de desplazamiento fina y discreta.
-│       Su aspecto se adapta mediante scrollbar-width,
-│       scrollbar-color y reglas específicas para WebKit.
-│
-├── .chat-history-list::-webkit-scrollbar
-│   └── Scrollbar → define el grosor de la barra en
-│       navegadores basados en WebKit.
-│
-├── .chat-history-list::-webkit-scrollbar-track
-│   └── Track → mantiene el fondo de la barra transparente.
-│
-├── .chat-history-list::-webkit-scrollbar-thumb
-│   └── Thumb → define el elemento desplazable de la barra.
-│       Utiliza un diseño fino, redondeado y discreto.
-│
-├── .chat-history-list::-webkit-scrollbar-thumb:hover
-│   └── Hover → aumenta ligeramente la visibilidad del thumb.
-│
-├── .chat-history-item
-│   └── Elemento → representa una conversación individual.
-│
-├── .chat-history-link
-│   └── Enlace → texto/enlace de cada conversación.
-│
-└── .chat-history-link:hover
-└── Hover → cambia fondo y color del enlace.
+/* Cabecera del sidebar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar-header {
+  background: hsl(0, 0%, 98%);
+  border-bottom-color: hsl(0, 0%, 84%);
+}
 
-USUARIO
-│
-├── .sidebar-user
-│   └── Usuario → zona inferior del menú.
-│
-├── .user-avatar-container
-│   └── Contenedor → limita y redondea el avatar.
-│
-├── .user-avatar
-│   └── Imagen → adapta la imagen al contenedor.
-│
-├── .user-info
-│   └── Información → contiene los datos del usuario.
-│
-└── .user-name
-└── Nombre → muestra el nombre y utiliza ellipsis
-cuando no cabe.
+/* Logo textual del sidebar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar-logo {
+  color: hsl(0, 0%, 10%);
+}
 
-CONTENIDO PRINCIPAL
-│
-└── .chat-main
-└── Área principal → contiene toda la zona de conversación.
-Usa Flexbox y ocupa el espacio restante.
+/* Líneas del botón de plegado en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar-toggle-button span {
+  background: hsl(0, 0%, 15%);
+}
 
-CABECERA
-│
-├── .chat-header
-│   └── Cabecera → barra superior del área principal.
-│
-├── .mobile-menu-container
-│   └── Contenedor → hamburguesa visible en tablet/móvil.
-│
-├── .mobile-menu-button
-│   └── Botón → hamburguesa para abrir el sidebar.
-│
-├── .mobile-menu-button:hover
-│   └── Hover → cambia el fondo.
-│
-├── .mobile-menu-button span
-│   └── Líneas → dibuja las tres líneas del icono.
-│
-├── .chat-header-title-container
-│   └── Contenedor → reserva y controla el espacio del título.
-│
-└── .chat-header-title
-└── Título → "Área de conversación".
-Usa ellipsis si no cabe.
+/* Fondo del botón de plegado al pasar el ratón en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar-toggle-button:hover {
+  background: hsl(0, 0%, 91%);
+}
 
-LOGOTIPO
-│
-├── .chat-header-logo-container
-│   └── Contenedor → controla tamaño y posición del logo.
-│
-└── .chat-header-logo
-└── Imagen → logotipo de ReijohanGPT.
+/* Botón de nueva conversación en tema claro. */
+.chat-app:has(#theme-toggle:checked) .new-chat-button {
+  color: hsl(0, 0%, 12%);
+  background: hsl(0, 0%, 94%);
+  border-color: hsl(0, 0%, 80%);
+}
 
-CONVERSACIÓN
-│
-├── .chat-conversation
-│   └── Área → zona desplazable donde se desarrolla el chat.
-│
-└── .conversation-container
-└── Contenedor → limita anchura y organiza el contenido.
+/* Estado hover del botón de nueva conversación en tema claro. */
+.chat-app:has(#theme-toggle:checked) .new-chat-button:hover {
+  background: hsl(0, 0%, 89%);
+}
 
-TÍTULO CENTRAL
-│
-├── .welcome-container
-│   └── Bienvenida → centra el mensaje inicial verticalmente.
-│       También contiene la animación de desaparición.
-│
-└── .welcome-title
-└── Título → mensaje principal de bienvenida.
+/* Icono "+" de nueva conversación en tema claro. */
+.chat-app:has(#theme-toggle:checked) .new-chat-icon {
+  color: hsl(0, 0%, 8%);
+}
 
-ESTADO DE PROCESAMIENTO
-│
-├── .search-status-container
-│   └── Contenedor → inicialmente oculto.
-│       Aparece cuando existe .chat-has-messages.
-│
-├── .search-status
-│   └── Estado → muestra el estado de procesamiento.
-│
-└── .search-funny-message
-└── Mensaje → texto humorístico durante el procesamiento.
+/* Texto de nueva conversación en tema claro. */
+.chat-app:has(#theme-toggle:checked) .new-chat-text {
+  color: hsl(0, 0%, 12%);
+}
 
-ESTADO CON CONSULTA
-│
-├── .chat-app.chat-has-messages .welcome-container
-│   └── Estado → oculta y desplaza la bienvenida
-│       después de enviar una consulta.
-│
-└── .chat-app.chat-has-messages .search-status-container
-└── Estado → muestra el mensaje de procesamiento.
+/* Botón de historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-button {
+  color: hsl(0, 0%, 35%);
+}
 
-MENSAJES
-│
-└── .messages-container
-└── Mensajes → espacio preparado para introducir
-contenido dinámicamente mediante JavaScript.
+/* Estado hover del botón de historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-button:hover {
+  background: hsl(0, 0%, 91%);
+  color: hsl(0, 0%, 8%);
+}
 
-BARRA DE CONSULTA
-│
-├── .chat-input-section
-│   └── Barra → posición inicial de la caja de consulta.
-│       Inicialmente aparece centrada verticalmente.
-│
-├── .chat-app.chat-has-messages .chat-input-section
-│   └── Estado → mueve la barra hacia la parte inferior
-│       después de enviar una consulta.
-│
-└── .chat-input-container
-└── Contenedor → organiza archivo + texto + enviar.
+/* Conversaciones del historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-link {
+  color: hsl(0, 0%, 38%);
+}
 
-ARCHIVOS
-│
-├── .file-attach-container
-│   └── Contenedor → agrupa el sistema de archivos.
-│
-├── .file-attach-input
-│   └── Input → selector de archivos real, oculto visualmente.
-│
-├── .file-attach-button
-│   └── Botón → botón visual personalizado para seleccionar archivo.
-│
-├── .file-attach-button:hover
-│   └── Hover → cambia el fondo.
-│
-├── .file-attach-icon-container
-│   └── Contenedor → centra el icono.
-│
-├── .file-attach-icon
-│   └── Icono → símbolo "+".
-│
-├── .file-preview
-│   └── Previsualización → muestra el archivo seleccionado
-│       antes de enviarlo.
-│       Utiliza un formato compacto para ocupar poco
-│       espacio horizontal y vertical.
-│       Su anchura se adapta al contenido hasta un máximo.
-│
-├── .file-preview-info
-│   └── Información → agrupa icono, nombre y tamaño.
-│       Utiliza el espacio disponible sin provocar
-│       desbordamiento horizontal.
-│
-├── .file-preview-icon
-│   └── Icono → representa visualmente el archivo.
-│
-├── .file-preview-details
-│   └── Detalles → agrupa nombre y tamaño del archivo.
-│
-├── .file-preview-name
-│   └── Nombre → muestra el nombre del archivo.
-│       Utiliza ellipsis si no existe espacio suficiente.
-│
-├── .file-preview-size
-│   └── Tamaño → muestra el tamaño del archivo.
-│
-├── .file-preview-remove
-│   └── Eliminar → botón circular para quitar
-│       el archivo seleccionado.
-│
-└── .file-preview-remove:hover
-└── Hover → cambia fondo y color del botón.
+/* Estado hover de las conversaciones del historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-link:hover {
+  background: hsl(0, 0%, 91%);
+  color: hsl(0, 0%, 5%);
+}
 
-CAMPO DE TEXTO
-│
-├── .message-input-container
-│   └── Contenedor → ocupa el espacio central disponible.
-│
-├── .message-input
-│   └── Textarea → campo donde se escribe la consulta.
-│       Permite varias líneas y tiene una altura máxima.
-│       Su altura puede modificarse automáticamente
-│       mediante JavaScript.
-│       Cuando alcanza su altura máxima y necesita
-│       desplazamiento vertical, utiliza una barra
-│       de desplazamiento fina y discreta.
-│       El estilo del scrollbar mantiene la misma estética
-│       utilizada en el historial de chats.
-│
-├── .message-input::-webkit-scrollbar
-│   └── Scrollbar → define el grosor del desplazamiento
-│       en navegadores basados en WebKit.
-│
-├── .message-input::-webkit-scrollbar-track
-│   └── Track → mantiene el fondo transparente.
-│
-├── .message-input::-webkit-scrollbar-thumb
-│   └── Thumb → define la barra desplazable fina,
-│       redondeada y discreta.
-│
-├── .message-input::-webkit-scrollbar-thumb:hover
-│   └── Hover → aumenta ligeramente la visibilidad del thumb.
-│
-└── .message-input::placeholder
-└── Placeholder → texto de ayuda del campo.
+/* Barra de desplazamiento del historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-list {
+  scrollbar-color: hsl(0, 0%, 65%) transparent;
+}
 
-BOTÓN ENVIAR
-│
-├── .message-send-container
-│   └── Contenedor → agrupa el botón.
-│
-├── .message-send-button
-│   └── Botón → botón circular para enviar.
-│
-├── .message-send-button:hover
-│   └── Hover → cambia el fondo y aumenta ligeramente el tamaño.
-│
-├── .message-send-icon-container
-│   └── Contenedor → centra el icono.
-│
-└── .message-send-icon
-└── Icono → flecha de envío.
+/* Parte móvil de la barra del historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-list::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 68%);
+}
 
-SIDEBAR PLEGADO — ESCRITORIO
-│
-├── .sidebar-toggle-checkbox:checked ~ .sidebar
-│   └── Estado → reduce el sidebar a 4.25rem.
-│       En escritorio, :checked representa el estado plegado.
-│
-├── ... .sidebar-logo
-│   └── Oculta el nombre del sidebar.
-│
-├── ... .sidebar-header
-│   └── Centra el botón de plegado.
-│
-├── ... .sidebar-content
-│   └── Reduce el padding.
-│
-├── ... .new-chat-container
-│   └── Ajusta el espacio inferior.
-│
-├── ... .new-chat-button
-│   └── Convierte el botón en formato compacto.
-│
-├── ... .new-chat-text-container
-│   └── Oculta el texto.
-│
-├── ... .chat-history-button
-│   └── Convierte el historial en botón compacto.
-│       El botón permanece visible para poder acceder
-│       nuevamente al historial.
-│       Si se pulsa estando el sidebar plegado,
-│       JavaScript puede desplegar el sidebar.
-│
-├── ... .chat-history-title
-│   └── Oculta el texto del historial.
-│
-├── ... .chat-history-list
-│   └── Oculta las conversaciones mientras el sidebar
-│       permanece plegado.
-│
-├── ... .sidebar-user
-│   └── Centra el avatar.
-│
-└── ... .user-info
-└── Oculta el nombre del usuario.
+/* Parte móvil de la barra del historial al pasar el ratón en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-list::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 52%);
+}
 
-TABLET Y MÓVIL — max-width: 64rem
-│
-├── .chat-app
-│   └── Cambia a estructura de bloque.
-│
-├── .chat-main
-│   └── Ocupa el 100 % de la pantalla.
-│
-├── .sidebar
-│   └── Se convierte en menú lateral flotante.
-│       Inicialmente queda fuera de pantalla.
-│
-├── :checked ~ .sidebar
-│   └── Abre el sidebar mediante transform.
-│       En tablet y móvil, :checked representa
-│       el estado abierto.
-│
-├── Estados :checked del sidebar
-│   └── Recuperan logo, textos, botones e historial
-│       cuando el menú está abierto.
-│
-├── .sidebar::after
-│   └── Overlay → crea fondo oscuro detrás del menú.
-│
-├── :checked ~ .sidebar::after
-│   └── Muestra el overlay cuando el menú está abierto.
-│
-├── .mobile-menu-container
-│   └── Muestra la hamburguesa en tablet/móvil.
-│
-├── .mobile-menu-button
-│   └── Botón hamburguesa.
-│
-├── .mobile-menu-button:hover
-│   └── Hover del botón.
-│
-├── .mobile-menu-button span
-│   └── Líneas del icono.
-│
-├── .chat-header
-│   └── Reduce tamaño y padding de la cabecera.
-│
-├── .chat-header-title
-│   └── Reduce tamaño del título.
-│
-├── .chat-header-logo-container
-│   └── Reduce tamaño del logo.
-│
-├── .conversation-container
-│   └── Utiliza toda la anchura disponible.
-│
-├── .welcome-container
-│   └── Ajusta su espacio para tablet/móvil.
-│
-├── .chat-input-section
-│   └── Ajusta su anchura.
-│
-├── .file-preview
-│   └── Reduce ligeramente su tamaño y padding
-│       para adaptarse a tablet.
-│
-└── .chat-app.chat-has-messages .chat-input-section
-└── Ajusta la posición inferior de la barra.
+/* Fondo del icono inferior del historial en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-history-icon::after {
+  background: hsl(0, 0%, 98%);
+}
 
-TABLET PEQUEÑA — max-width: 48rem
-│
-├── .sidebar
-│   └── Reduce ligeramente su anchura.
-│
-├── .chat-header
-│   └── Reduce altura y padding.
-│
-├── .mobile-menu-button
-│   └── Reduce tamaño.
-│
-├── .chat-header-logo-container
-│   └── Reduce logo.
-│
-├── .chat-header-title
-│   └── Reduce título.
-│
-├── .conversation-container
-│   └── Reduce espacios interiores.
-│
-├── .welcome-container
-│   └── Ajusta posición y tamaño.
-│
-├── .welcome-title
-│   └── Reduce tamaño de fuente.
-│
-├── .chat-input-section
-│   └── Reduce anchura.
-│
-└── .file-preview
-└── Reduce anchura máxima, padding y margen.
+/* Texto "Apariencia" en tema claro. */
+.chat-app:has(#theme-toggle:checked) .theme-switch-label {
+  color: hsl(0, 0%, 35%);
+}
 
-MÓVIL — max-width: 30rem
-│
-├── .sidebar
-│   └── Reduce nuevamente su anchura.
-│
-├── .sidebar-header
-│   └── Reduce altura.
-│
-├── .chat-header
-│   └── Reduce altura, separación y padding.
-│
-├── .mobile-menu-button
-│   └── Reduce tamaño.
-│
-├── .mobile-menu-button span
-│   └── Reduce anchura de las líneas.
-│
-├── .chat-header-title
-│   └── Reduce tamaño del título.
-│
-├── .chat-header-logo-container
-│   └── Reduce tamaño del logo.
-│
-├── .conversation-container
-│   └── Reduce padding.
-│
-├── .welcome-container
-│   └── Reduce espacio disponible.
-│
-├── .welcome-title
-│   └── Reduce tamaño del texto.
-│
-├── .search-status-container
-│   └── Reduce espacio superior.
-│
-├── .search-status
-│   └── Ajusta tamaño del texto.
-│
-├── .search-funny-message
-│   └── Ajusta tamaño y separación.
-│
-├── .chat-input-section
-│   └── Reduce anchura.
-│
-├── .chat-app.chat-has-messages .chat-input-section
-│   └── Acerca la barra al borde inferior.
-│
-├── .chat-input-container
-│   └── Reduce altura, separación y bordes.
-│
-├── .file-attach-button
-│   └── Reduce botón.
-│
-├── .message-send-button
-│   └── Reduce botón.
-│
-├── .message-input
-│   └── Reduce campo, altura máxima y fuente.
-│
-├── .file-attach-icon
-│   └── Reduce icono.
-│
-├── .message-send-icon
-│   └── Reduce icono.
-│
-└── .file-preview
-└── Reduce anchura máxima, padding, separación
-y tamaño de sus elementos internos.
+/* Zona del usuario en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar-user {
+  background: hsl(0, 0%, 98%);
+  border-top-color: hsl(0, 0%, 84%);
+}
 
-MÓVIL PEQUEÑO — max-width: 22rem
-│
-├── .sidebar
-│   └── Reduce aún más su anchura.
-│
-├── .chat-header
-│   └── Reduce al mínimo altura y padding.
-│
-├── .mobile-menu-button
-│   └── Reduce tamaño.
-│
-├── .chat-header-logo-container
-│   └── Reduce logo.
-│
-├── .chat-header-title
-│   └── Reduce título.
-│
-├── .conversation-container
-│   └── Reduce padding.
-│
-├── .welcome-container
-│   └── Reduce espacio.
-│
-├── .welcome-title
-│   └── Tamaño mínimo del título.
-│
-├── .search-status-container
-│   └── Reduce espacio superior.
-│
-├── .search-status
-│   └── Reduce fuente.
-│
-├── .search-funny-message
-│   └── Reduce fuente y altura de línea.
-│
-├── .chat-input-section
-│   └── Reduce anchura.
-│
-├── .chat-app.chat-has-messages .chat-input-section
-│   └── Acerca la barra al borde.
-│
-├── .chat-input-container
-│   └── Reduce altura y separación.
-│
-├── .file-attach-button
-│   └── Reduce botón.
-│
-├── .message-send-button
-│   └── Reduce botón.
-│
-├── .message-input
-│   └── Reduce altura, tamaño y fuente.
-│
-├── .file-attach-icon
-│   └── Reduce icono.
-│
-├── .message-send-icon
-│   └── Reduce icono.
-│
-└── .file-preview
-└── Reduce todavía más anchura máxima, padding,
-separación y tamaño de sus elementos.
+/* Fondo del avatar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .user-avatar-container {
+  background: hsl(0, 0%, 88%);
+}
 
-POCA ALTURA — max-height: 40rem
-│
-├── .chat-header
-│   └── Reduce altura.
-│
-├── .conversation-container
-│   └── Reduce padding superior.
-│
-├── .welcome-container
-│   └── Ajusta espacio inferior.
-│
-├── .welcome-title
-│   └── Reduce altura de línea.
-│
-└── .chat-app.chat-has-messages .chat-input-section
-└── Ajusta posición inferior.
+/* Nombre del usuario en tema claro. */
+.chat-app:has(#theme-toggle:checked) .user-name {
+  color: hsl(0, 0%, 12%);
+}
 
-POCA ALTURA + MÓVIL
-— max-width: 30rem + max-height: 40rem
-│
-├── .chat-header
-│   └── Reduce todavía más la altura.
-│
-├── .conversation-container
-│   └── Reduce padding inferior.
-│
-├── .welcome-container
-│   └── Reduce espacio inferior.
-│
-├── .welcome-title
-│   └── Ajusta tamaño.
-│
-├── .chat-input-container
-│   └── Reduce altura.
-│
-├── .file-attach-button
-│   └── Mantiene botones compactos.
-│
-├── .message-send-button
-│   └── Mantiene botones compactos.
-│
-└── .message-input
-└── Mantiene campo compacto.
+/* Área principal del chat en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-main {
+  background: hsl(0, 0%, 97%);
+}
 
-PANTALLAS MUY GRANDES — min-width: 120rem
-│
-├── .sidebar
-│   └── Aumenta la anchura del menú.
-│
-├── .conversation-container
-│   └── Permite una zona de conversación más ancha.
-│
-└── .chat-input-section
-└── Permite una barra de consulta más ancha. */
+/* Cabecera principal del chat en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-header {
+  background: hsl(0, 0%, 97%);
+  border-bottom-color: hsl(0, 0%, 84%);
+}
 
-/* styles.css
+/* Título de la cabecera en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-header-title {
+  color: hsl(0, 0%, 10%);
+}
 
-│
-├── RESET
-│   └── Limpia valores predeterminados.
-│
-├── ESTRUCTURA
-│   ├── .chat-app
-│   ├── .sidebar
-│   └── .chat-main
-│
-├── SIDEBAR
-│   ├── Cabecera
-│   ├── Logo
-│   ├── Nueva conversación
-│   ├── Historial
-│   └── Usuario
-│
-├── CHAT
-│   ├── Cabecera
-│   ├── Logo
-│   ├── Bienvenida
-│   ├── Procesamiento
-│   └── Mensajes
-│
-├── INPUT
-│   ├── Adjuntar
-│   ├── Previsualización del archivo
-│   ├── Escribir
-│   └── Enviar
-│
-├── SCROLLBARS
-│   ├── Historial de chats
-│   │   └── Scrollbar vertical fino y discreto.
-│   │
-│   └── Campo de texto
-│       └── Scrollbar vertical con el mismo estilo
-│           visual que el historial.
-│
-├── ESTADOS
-│   ├── Sidebar plegado
-│   │   ├── En escritorio → :checked = sidebar plegado
-│   │   └── Historial → permite volver a desplegarlo mediante JS
-│   │
-│   └── .chat-has-messages
-│       ├── Oculta bienvenida
-│       ├── Muestra procesamiento
-│       └── Baja la barra de consulta
-│
-└── RESPONSIVE
-├── ≤ 64rem → Tablet / móvil
-│   └── :checked = sidebar abierto
-│
-├── ≤ 48rem → Tablet pequeña
-├── ≤ 30rem → Móvil
-├── ≤ 22rem → Móvil pequeño
-├── ≤ 40rem alto → Poca altura
-└── ≥ 120rem → Pantallas muy grandes */
+/* Botón hamburguesa en tema claro. */
+.chat-app:has(#theme-toggle:checked) .mobile-menu-button:hover {
+  background: hsl(0, 0%, 91%);
+}
+
+/* Líneas del botón hamburguesa en tema claro. */
+.chat-app:has(#theme-toggle:checked) .mobile-menu-button span {
+  background: hsl(0, 0%, 12%);
+}
+
+/* Título central de bienvenida en tema claro. */
+.chat-app:has(#theme-toggle:checked) .welcome-title {
+  color: hsl(0, 0%, 12%);
+}
+
+/* Estado de procesamiento en tema claro. */
+.chat-app:has(#theme-toggle:checked) .search-status {
+  color: hsl(0, 0%, 18%);
+}
+
+/* Mensaje secundario de procesamiento en tema claro. */
+.chat-app:has(#theme-toggle:checked) .search-funny-message {
+  color: hsl(0, 0%, 45%);
+}
+
+/* Barra principal de escritura en tema claro. */
+.chat-app:has(#theme-toggle:checked) .chat-input-container {
+  background: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 78%);
+  box-shadow: 0 0.5rem 1.875rem hsla(0, 0%, 0%, 0.12);
+}
+
+/* Botón para adjuntar archivos en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-attach-button {
+  background: hsl(0, 0%, 92%);
+}
+
+/* Estado hover del botón de archivos en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-attach-button:hover {
+  background: hsl(0, 0%, 85%);
+}
+
+/* Icono de adjuntar archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-attach-icon {
+  color: hsl(0, 0%, 12%);
+}
+
+/* Previsualización del archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview {
+  background: hsl(0, 0%, 94%);
+  border-color: hsl(0, 0%, 80%);
+}
+
+/* Icono de la previsualización del archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview-icon {
+  background: hsl(0, 0%, 86%);
+}
+
+/* Nombre del archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview-name {
+  color: hsl(0, 0%, 15%);
+}
+
+/* Tamaño del archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview-size {
+  color: hsl(0, 0%, 45%);
+}
+
+/* Botón para eliminar archivo en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview-remove {
+  color: hsl(0, 0%, 40%);
+}
+
+/* Estado hover del botón eliminar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .file-preview-remove:hover {
+  background: hsl(0, 0%, 84%);
+  color: hsl(0, 0%, 5%);
+}
+
+/* Campo de texto en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-input {
+  color: hsl(0, 0%, 10%);
+  scrollbar-color: hsl(0, 0%, 65%) transparent;
+}
+
+/* Placeholder del campo de texto en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-input::placeholder {
+  color: hsl(0, 0%, 50%);
+}
+
+/* Barra de desplazamiento del textarea en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-input::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 68%);
+}
+
+/* Barra de desplazamiento del textarea al pasar el ratón en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-input::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 52%);
+}
+
+/* Botón enviar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-send-button {
+  background: hsl(0, 0%, 12%);
+  color: hsl(0, 0%, 96%);
+}
+
+/* Estado hover del botón enviar en tema claro. */
+.chat-app:has(#theme-toggle:checked) .message-send-button:hover {
+  background: hsl(0, 0%, 5%);
+}
+
+/* Sombra del sidebar desplegable en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar {
+  box-shadow: 0.5rem 0 2rem hsla(0, 0%, 0%, 0.16);
+}
+
+/* Capa posterior del sidebar abierto en tema claro. */
+.chat-app:has(#theme-toggle:checked) .sidebar::after {
+  background: hsla(0, 0%, 0%, 0.28);
+}
+
+/* ========================================================= */
+/* TRANSICIONES DEL CAMBIO DE TEMA */
+/* ========================================================= */
+
+/* Transición de los fondos principales al cambiar de tema. */
+html,
+body,
+.chat-app,
+.sidebar,
+.sidebar-header,
+.sidebar-user,
+.chat-main,
+.chat-header,
+.chat-input-container,
+.new-chat-button,
+.chat-history-button,
+.chat-history-link,
+.file-attach-button,
+.file-preview,
+.file-preview-icon,
+.message-send-button {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
