@@ -1,9 +1,8 @@
 export default (() => {
-  alert('Hola')
-  alert('¿Cómo lo llevamos?')
-  alert('Espero que bien')
-  alert('¿Preparado para empezar?')
-  alert('¡Venga, a tope!')
-  alert('¡Vamos allá!')
-  alert('¿Empezamos?')
+  const sidebarToggleButton = document.querySelector(".sidebar-toggle-button")
+  const sidebar = document.querySelector(".sidebar")
+
+  sidebarToggleButton.addEventListener("click", () => {
+    sidebar.classList.toggle("active")
+  })
 })()

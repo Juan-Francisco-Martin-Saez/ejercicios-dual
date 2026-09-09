@@ -1,0 +1,1091 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  font-family: Arial, sans-serif;
+  background: hsl(0, 0%, 9%);
+  color: hsl(0, 0%, 96%);
+}
+
+body {
+  overflow: hidden;
+}
+
+
+/* ========================================================= */
+/* CHECKBOXES DE CONTROL */
+/* ========================================================= */
+
+.sidebar-toggle-checkbox,
+.theme-toggle-checkbox {
+  display: none;
+}
+
+
+/* ========================================================= */
+/* MENÚ LATERAL */
+/* ========================================================= */
+
+.sidebar {
+  width: 17.5rem;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: hidden;
+  background: hsl(0, 0%, 6%);
+  border-right: 1px solid hsl(0, 0%, 19%);
+
+  /*
+    CAMBIO:
+    Se utiliza una única transición para el sidebar.
+    Se incluyen width y transform para evitar que otras
+    transiciones posteriores sobrescriban el plegado.
+  */
+  transition:
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* ========================================================= */
+/* CABECERA DEL SIDEBAR */
+/* ========================================================= */
+
+.sidebar-header {
+  width: 100%;
+  height: 4.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 0 0.9375rem 0 1.25rem;
+  background: hsl(0, 0%, 6%);
+  border-bottom: 1px solid hsl(0, 0%, 19%);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-logo {
+  min-width: 0;
+  overflow: hidden;
+  color: hsl(0, 0%, 96%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+
+  /*
+    CAMBIO:
+    El logo utiliza opacity y visibility para poder
+    desaparecer progresivamente al plegar el sidebar.
+  */
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.sidebar-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-toggle-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3125rem;
+  flex-shrink: 0;
+  border-radius: 0.4375rem;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease;
+}
+
+.sidebar-toggle-button:hover {
+  background: hsl(0, 0%, 16%);
+}
+
+.sidebar-toggle-button span {
+  display: block;
+  width: 1.25rem;
+  height: 0.125rem;
+  flex-shrink: 0;
+  background: hsl(0, 0%, 96%);
+  border-radius: 0.125rem;
+}
+
+
+/* ========================================================= */
+/* CONTENIDO DEL SIDEBAR */
+/* ========================================================= */
+
+.sidebar-content {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0.9375rem;
+  overflow: hidden;
+
+  transition:
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* ========================================================= */
+/* NUEVO CHAT */
+/* ========================================================= */
+
+.new-chat-container {
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+  font-weight: 700;
+
+  transition:
+    margin 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.new-chat-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem 0.9375rem;
+  gap: 0.625rem;
+  color: hsl(0, 0%, 96%);
+  background: hsl(0, 0%, 13%);
+  border: 1px solid hsl(0, 0%, 22%);
+  border-radius: 0.5rem;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.new-chat-button:hover {
+  background: hsl(0, 0%, 17%);
+}
+
+.new-chat-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.new-chat-icon {
+  color: hsl(0, 0%, 100%);
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+.new-chat-text-container {
+  min-width: 0;
+  overflow: hidden;
+
+  /*
+    CAMBIO:
+    Se evita display:none para que el texto pueda
+    desaparecer suavemente durante el plegado.
+  */
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    width 0.3s ease;
+}
+
+.new-chat-text {
+  display: block;
+  min-width: 0;
+  color: hsl(0, 0%, 96%);
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ========================================================= */
+/* HISTORIAL */
+/* ========================================================= */
+
+.chat-history {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-history-button {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.625rem;
+  padding: 0.5rem 0.625rem;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 0.4375rem;
+  background: transparent;
+  color: hsl(0, 0%, 78%);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chat-history-button:hover {
+  background: hsl(0, 0%, 14%);
+  color: hsl(0, 0%, 100%);
+}
+
+.chat-history-title {
+  min-width: 0;
+  overflow: hidden;
+  color: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    width 0.3s ease;
+}
+
+.chat-history-icon {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  border: 0.125rem solid currentColor;
+  border-radius: 0.25rem;
+  color: inherit;
+}
+
+.chat-history-icon::after {
+  content: "";
+  position: absolute;
+  left: 0.125rem;
+  bottom: -0.3125rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  background: hsl(0, 0%, 6%);
+  border-left: 0.125rem solid currentColor;
+  border-bottom: 0.125rem solid currentColor;
+  transform: skewY(-35deg);
+}
+
+.chat-history-list {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1875rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0, 0%, 32%) transparent;
+
+  /*
+    CAMBIO:
+    La lista se desvanece al plegar el menú en lugar
+    de desaparecer instantáneamente.
+  */
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.chat-history-list::-webkit-scrollbar {
+  width: 0.45rem;
+}
+
+.chat-history-list::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 0.25rem 0;
+}
+
+.chat-history-list::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 28%);
+  border: 0.1rem solid transparent;
+  border-radius: 1rem;
+  background-clip: padding-box;
+}
+
+.chat-history-list::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 45%);
+}
+
+.chat-history-item {
+  width: 100%;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.chat-history-link {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0.625rem;
+  color: hsl(0, 0%, 70%);
+  border-radius: 0.4375rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.chat-history-link:hover {
+  background: hsl(0, 0%, 14%);
+  color: hsl(0, 0%, 100%);
+}
+
+
+/* ========================================================= */
+/* CAMBIO DE TEMA */
+/* ========================================================= */
+
+.theme-switch-container {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  margin-top: 1rem;
+  padding: 0.375rem 0.25rem;
+  flex-shrink: 0;
+
+  transition:
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-switch-label {
+  min-width: 0;
+  overflow: hidden;
+  color: hsl(0, 0%, 70%);
+  font-size: 0.9rem;
+  font-weight: 800;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    width 0.3s ease,
+    color 0.25s ease;
+}
+
+.theme-switch {
+  position: relative;
+  width: 3.5rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 0 0.3rem;
+  background: hsl(0, 0%, 15%);
+  border: 1px solid hsl(0, 0%, 28%);
+  border-radius: 2rem;
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-icon {
+  position: relative;
+  z-index: 2;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(0, 0%, 75%);
+  font-size: 0.75rem;
+  line-height: 1;
+  pointer-events: none;
+
+  transition:
+    color 0.25s ease,
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    font-size 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-icon-dark {
+  color: hsl(0, 0%, 100%);
+}
+
+.theme-icon-light {
+  color: hsl(0, 0%, 55%);
+}
+
+.theme-switch-slider {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  z-index: 1;
+  width: 1.375rem;
+  height: 1.375rem;
+  background: hsl(0, 0%, 90%);
+  border-radius: 50%;
+  box-shadow: 0 0.125rem 0.35rem hsla(0, 0%, 0%, 0.3);
+
+  transition:
+    left 0.25s ease,
+    right 0.25s ease,
+    background-color 0.25s ease,
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+  left: auto;
+  right: 0.1875rem;
+}
+
+.theme-toggle-checkbox:checked~.sidebar .theme-switch {
+  background: hsl(0, 0%, 88%);
+  border-color: hsl(0, 0%, 70%);
+}
+
+.theme-toggle-checkbox:checked~.sidebar .theme-icon-dark {
+  color: hsl(0, 0%, 55%);
+}
+
+.theme-toggle-checkbox:checked~.sidebar .theme-icon-light {
+  color: hsl(0, 0%, 10%);
+}
+
+.theme-toggle-checkbox:checked~.sidebar .theme-switch-slider {
+  background: hsl(0, 0%, 100%);
+}
+
+
+/* ========================================================= */
+/* USUARIO */
+/* ========================================================= */
+
+.sidebar-user {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  padding: 0.9375rem;
+  background: hsl(0, 0%, 6%);
+  border-top: 1px solid hsl(0, 0%, 19%);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar-container {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background: hsl(0, 0%, 20%);
+  border: 0.15rem solid hsl(0, 0%, 41%);
+}
+
+.user-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-info {
+  min-width: 0;
+  overflow: hidden;
+
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    width 0.3s ease;
+}
+
+.user-name {
+  display: block;
+  min-width: 0;
+  color: hsl(0, 0%, 96%);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ========================================================= */
+/* SIDEBAR PLEGADO */
+/* ========================================================= */
+
+.sidebar.active {
+  width: 4.25rem;
+}
+
+/* Cabecera */
+
+.sidebar.active .sidebar-header {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar.active .sidebar-logo {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Botón de cerrar */
+
+.sidebar.active .sidebar-toggle-container {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.sidebar.active .sidebar-toggle-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenido */
+
+.sidebar.active .sidebar-content {
+  padding: 0.75rem;
+  align-items: center;
+}
+
+/* Nueva conversación */
+
+.sidebar.active .new-chat-container {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 0 1rem 0;
+}
+
+.sidebar.active .new-chat-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.active .new-chat-icon-container {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar.active .new-chat-text-container {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+/* Historial */
+
+.sidebar.active .chat-history {
+  width: 2.75rem;
+  align-items: center;
+}
+
+.sidebar.active .chat-history-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.active .chat-history-title {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.sidebar.active .chat-history-list {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Apariencia */
+
+.sidebar.active .theme-switch-container {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.active .theme-switch-label {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.sidebar.active .theme-switch {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar.active .theme-icon {
+  display: none;
+}
+
+.sidebar.active .theme-switch-slider {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  width: 1.375rem;
+  height: 1.375rem;
+  transform: translate(-50%, -50%);
+}
+
+/* Usuario */
+
+.sidebar.active .sidebar-user {
+  width: 100%;
+  height: 4.5rem;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.sidebar.active .user-avatar-container {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.sidebar.active .user-info {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+/* ========================================================= */
+/* TEMA CLARO */
+/* ========================================================= */
+
+body:has(#theme-toggle:checked),
+html:has(#theme-toggle:checked) {
+  background: hsl(0, 0%, 97%);
+  color: hsl(0, 0%, 10%);
+}
+
+.sidebar:has(#theme-toggle:checked) {
+  background: hsl(0, 0%, 98%);
+  border-right-color: hsl(0, 0%, 84%);
+}
+
+.sidebar:has(#theme-toggle:checked) .sidebar-header {
+  background: hsl(0, 0%, 98%);
+  border-bottom-color: hsl(0, 0%, 84%);
+}
+
+.sidebar:has(#theme-toggle:checked) .sidebar-logo {
+  color: hsl(0, 0%, 10%);
+}
+
+.sidebar:has(#theme-toggle:checked) .sidebar-toggle-button span {
+  background: hsl(0, 0%, 15%);
+}
+
+.sidebar:has(#theme-toggle:checked) .sidebar-toggle-button:hover {
+  background: hsl(0, 0%, 91%);
+}
+
+.sidebar:has(#theme-toggle:checked) .new-chat-button {
+  color: hsl(0, 0%, 12%);
+  background: hsl(0, 0%, 94%);
+  border-color: hsl(0, 0%, 80%);
+}
+
+.sidebar:has(#theme-toggle:checked) .new-chat-button:hover {
+  background: hsl(0, 0%, 89%);
+}
+
+.sidebar:has(#theme-toggle:checked) .new-chat-icon {
+  color: hsl(0, 0%, 8%);
+}
+
+.sidebar:has(#theme-toggle:checked) .new-chat-text {
+  color: hsl(0, 0%, 12%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-button {
+  color: hsl(0, 0%, 35%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-button:hover {
+  background: hsl(0, 0%, 91%);
+  color: hsl(0, 0%, 8%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-link {
+  color: hsl(0, 0%, 38%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-link:hover {
+  background: hsl(0, 0%, 91%);
+  color: hsl(0, 0%, 5%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-list {
+  scrollbar-color: hsl(0, 0%, 65%) transparent;
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-list::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 68%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-list::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 52%);
+}
+
+.sidebar:has(#theme-toggle:checked) .chat-history-icon::after {
+  background: hsl(0, 0%, 98%);
+}
+
+.sidebar:has(#theme-toggle:checked) .theme-switch-label {
+  color: hsl(0, 0%, 35%);
+}
+
+.sidebar:has(#theme-toggle:checked) .sidebar-user {
+  background: hsl(0, 0%, 98%);
+  border-top-color: hsl(0, 0%, 84%);
+}
+
+.sidebar:has(#theme-toggle:checked) .user-avatar-container {
+  background: hsl(0, 0%, 88%);
+}
+
+.sidebar:has(#theme-toggle:checked) .user-name {
+  color: hsl(0, 0%, 12%);
+}
+
+
+/* ========================================================= */
+/* TABLET Y MÓVIL */
+/* ========================================================= */
+
+@media (max-width: 64rem) {
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: min(20rem, 85vw);
+    height: 100dvh;
+    transform: translateX(-100%);
+    box-shadow: 0.5rem 0 2rem hsla(0, 0%, 0%, 0.5);
+
+    /*
+      CAMBIO:
+      En móvil se anima principalmente transform,
+      manteniendo el desplazamiento lateral fluido.
+    */
+    transition:
+      transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .sidebar.active {
+    width: min(20rem, 85vw);
+    transform: translateX(0);
+  }
+
+  .sidebar::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100dvh;
+    background: hsla(0, 0%, 0%, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity 0.45s ease,
+      visibility 0.45s ease;
+  }
+
+  .sidebar.active::after {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* ========================================================= */
+/* TABLET PEQUEÑA */
+/* ========================================================= */
+
+@media (max-width: 48rem) {
+
+  .sidebar {
+    width: min(19rem, 88vw);
+  }
+
+  .sidebar.active {
+    width: min(19rem, 88vw);
+  }
+
+  .sidebar-header {
+    height: 4rem;
+  }
+
+  .sidebar-content {
+    padding: 0.875rem;
+  }
+}
+
+
+/* ========================================================= */
+/* MÓVIL */
+/* ========================================================= */
+
+@media (max-width: 30rem) {
+
+  .sidebar {
+    width: min(18rem, 90vw);
+  }
+
+  .sidebar.active {
+    width: min(18rem, 90vw);
+  }
+
+  .sidebar-header {
+    height: 3.75rem;
+  }
+
+  .sidebar-content {
+    padding: 0.75rem;
+  }
+
+  .new-chat-button {
+    padding: 0.6875rem 0.8125rem;
+  }
+
+  .chat-history-link {
+    padding: 0.5625rem;
+    font-size: 0.8125rem;
+  }
+
+  .theme-switch {
+    width: 3.375rem;
+    height: 1.6875rem;
+  }
+
+  .theme-icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    font-size: 0.7rem;
+  }
+
+  .theme-switch-slider {
+    width: 1.3125rem;
+    height: 1.3125rem;
+    top: 0.1875rem;
+    left: 0.1875rem;
+  }
+}
+
+
+/* ========================================================= */
+/* MÓVIL PEQUEÑO */
+/* ========================================================= */
+
+@media (max-width: 22rem) {
+
+  .sidebar {
+    width: min(16.5rem, 92vw);
+  }
+
+  .sidebar.active {
+    width: min(16.5rem, 92vw);
+  }
+
+  .sidebar-header {
+    height: 3.5rem;
+  }
+
+  .sidebar-content {
+    padding: 0.625rem;
+  }
+
+  .new-chat-button {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .chat-history-link {
+    padding: 0.5rem;
+    font-size: 0.78rem;
+  }
+
+  .theme-switch {
+    width: 3.25rem;
+    height: 1.625rem;
+  }
+
+  .theme-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.65rem;
+  }
+
+  .theme-switch-slider {
+    width: 1.25rem;
+    height: 1.25rem;
+    top: 0.1875rem;
+    left: 0.1875rem;
+  }
+}
+
+
+/* ========================================================= */
+/* POCA ALTURA */
+/* ========================================================= */
+
+@media (max-height: 40rem) {
+
+  .sidebar-header {
+    height: 3.5rem;
+  }
+
+  .sidebar-content {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  .new-chat-container {
+    margin-bottom: 0.875rem;
+  }
+}
+
+
+/* ========================================================= */
+/* PANTALLAS MUY GRANDES */
+/* ========================================================= */
+
+@media (min-width: 120rem) {
+
+  .sidebar {
+    width: 19rem;
+  }
+
+  .sidebar.active {
+    width: 4.25rem;
+  }
+
+  .sidebar-content {
+    padding: 1rem;
+  }
+}

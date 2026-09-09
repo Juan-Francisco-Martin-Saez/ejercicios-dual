@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: hsl(0, 0%, 93%);
+
+      font-family: Arial, sans-serif;
+    }
+
+    .calculadora {
+      width: 320px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 15px;
+
+      padding: 15px;
+
+      background: hsl(0, 0%, 100%);
+
+      border: 2px solid hsl(0, 0%, 0%);
+    }
+
+    .pantalla {
+      height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      padding: 10px;
+
+      background: hsl(0, 0%, 96%);
+
+      border: 2px solid hsl(0, 0%, 0%);
+
+      font-size: 30px;
+    }
+
+    .panel {
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      gap: 8px;
+    }
+
+    .tecla {
+      height: 55px;
+
+      background: hsl(0, 0%, 100%);
+
+      border: 2px solid hsl(0, 0%, 0%);
+
+      font-size: 18px;
+
+      cursor: pointer;
+
+      transition: background 0.1s, transform 0.1s;
+    }
+
+    .tecla:hover {
+      background: hsl(96, 96%, 72%);
+    }
+
+    .tecla:active {
+      background: hsl(0, 0%, 80%);
+
+      transform: scale(0.95);
+    }
+
+    .control {
+      background: hsl(0, 0%, 87%);
+    }
+
+    .operador {
+      background: hsl(0, 0%, 18%);
+
+      color: hsl(0, 0%, 100%);
+    }
+
+    .operador:hover {
+      background: hsl(96, 90%, 31%);
+    }
+
+    .operador:active {
+      background: hsl(0, 0%, 33%);
+    }
+
+    .cero {
+      grid-column: span 2;
+    }
+
+    .igual {
+      grid-column: 1 / -1;
+      background: hsl(0, 0%, 80%);
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="calculadora">
+
+    <div class="pantalla">
+      0
+    </div>
+
+    <div class="panel">
+
+      <button class="tecla control">C</button>
+      <button class="tecla control">⌫</button>
+      <button class="tecla operador">(</button>
+      <button class="tecla operador">)</button>
+
+      <button class="tecla">7</button>
+      <button class="tecla">8</button>
+      <button class="tecla">9</button>
+      <button class="tecla operador">÷</button>
+
+      <button class="tecla">4</button>
+      <button class="tecla">5</button>
+      <button class="tecla">6</button>
+      <button class="tecla operador">×</button>
+
+      <button class="tecla">1</button>
+      <button class="tecla">2</button>
+      <button class="tecla">3</button>
+      <button class="tecla operador">−</button>
+
+      <button class="tecla cero">0</button>
+      <button class="tecla">.</button>
+      <button class="tecla operador">+</button>
+
+      <button class="tecla igual">=</button>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

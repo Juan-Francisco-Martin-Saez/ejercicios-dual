@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Reijohan Calculator Project</title>
+  <meta name="description" content="Calculadora científica avanzada desarrollada con HTML, CSS y JavaScript">
+
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./script.js" defer></script>
+</head>
+
+<body>
+
+  <main class="calculator">
+
+    <header class="calculator-header">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="8" y="5" width="48" height="54" rx="8"></rect>
+            <rect x="15" y="12" width="34" height="12" rx="3"></rect>
+            <circle cx="19" cy="33" r="3"></circle>
+            <circle cx="32" cy="33" r="3"></circle>
+            <circle cx="45" cy="33" r="3"></circle>
+            <circle cx="19" cy="45" r="3"></circle>
+            <circle cx="32" cy="45" r="3"></circle>
+            <circle cx="45" cy="45" r="3"></circle>
+          </svg>
+        </div>
+
+        <div class="brand-text">
+          <span class="brand-name">RCP-001</span>
+          <span class="brand-subtitle">Scientific Cool Calculator</span>
+        </div>
+
+      </div>
+
+      <div class="header-controls">
+
+        <button class="header-button" type="button" aria-label="Historial">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+            <path d="M3 4v5h5"></path>
+            <path d="M12 7v5l3 2"></path>
+          </svg>
+        </button>
+
+        <button class="header-button" type="button" aria-label="Configuración">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"></path>
+            <path d="M4.9 4.9 7 7"></path>
+            <path d="m17 7 2.1-2.1"></path>
+            <path d="M7 17 4.9 19.1"></path>
+            <path d="M17 17l2.1 2.1"></path>
+            <path d="M12 3v3"></path>
+            <path d="M12 18v3"></path>
+            <path d="M3 12h3"></path>
+            <path d="M18 12h3"></path>
+          </svg>
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="display">
+
+      <div class="display-mode">
+        <span>SCIENTIFIC</span>
+        <span class="mode-separator">•</span>
+        <span>DEG</span>
+      </div>
+
+      <div class="display-expression"></div>
+
+      <div class="display-result">0</div>
+
+      <div class="display-status">
+        <span>Ans</span>
+        <span>MEM</span>
+        <span>FIX</span>
+      </div>
+
+    </section>
+
+
+    <section class="toolbar">
+
+      <button class="toolbar-button" type="button">DEG</button>
+      <button class="toolbar-button" type="button">RAD</button>
+      <button class="toolbar-button" type="button">GRAD</button>
+
+      <button class="toolbar-button" type="button">F-E</button>
+      <button class="toolbar-button" type="button">FIX</button>
+
+      <button class="toolbar-button" type="button">SCI</button>
+
+    </section>
+
+
+    <section class="scientific-section">
+
+      <button class="scientific-toggle" id="scientific-toggle" type="button" aria-expanded="true"
+        aria-controls="scientific-panel">
+
+        <span class="scientific-toggle-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 10l5 5 5-5"></path>
+          </svg>
+        </span>
+
+        <span class="scientific-toggle-text">
+          Funciones científicas
+        </span>
+
+        <span class="scientific-toggle-status">
+          SCI
+        </span>
+
+      </button>
+
+
+      <div class="scientific-panel" id="scientific-panel">
+
+        <div class="function-row">
+
+          <button class="function-button" type="button" data-function="sin">
+            sin
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="asin">
+            sin⁻¹
+          </button>
+
+          <button class="function-button" type="button" data-function="cos">
+            cos
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="acos">
+            cos⁻¹
+          </button>
+
+          <button class="function-button" type="button" data-function="tan">
+            tan
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="atan">
+            tan⁻¹
+          </button>
+
+        </div>
+
+
+        <div class="function-row">
+
+          <button class="function-button" type="button" data-function="sinh">
+            sinh
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="asinh">
+            sinh⁻¹
+          </button>
+
+          <button class="function-button" type="button" data-function="cosh">
+            cosh
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="acosh">
+            cosh⁻¹
+          </button>
+
+          <button class="function-button" type="button" data-function="tanh">
+            tanh
+          </button>
+
+          <button class="function-button inverse-button" type="button" data-function="atanh">
+            tanh⁻¹
+          </button>
+
+        </div>
+
+
+        <div class="function-row">
+
+          <button class="function-button" type="button" data-function="ln">
+            ln
+          </button>
+
+          <button class="function-button" type="button" data-function="log">
+            log
+          </button>
+
+          <button class="function-button" type="button" data-function="log2">
+            log₂
+          </button>
+
+          <button class="function-button" type="button" data-function="pow10">
+            10ˣ
+          </button>
+
+          <button class="function-button" type="button" data-function="exp">
+            eˣ
+          </button>
+
+          <button class="function-button" type="button" data-function="sqrt">
+            √
+          </button>
+
+        </div>
+
+
+        <div class="function-row">
+
+          <button class="function-button" type="button" data-function="square">
+            x²
+          </button>
+
+          <button class="function-button" type="button" data-function="cube">
+            x³
+          </button>
+
+          <button class="function-button" type="button" data-function="power">
+            xʸ
+          </button>
+
+          <button class="function-button" type="button" data-function="sqrt">
+            √x
+          </button>
+
+          <button class="function-button" type="button" data-function="cbrt">
+            ∛x
+          </button>
+
+          <button class="function-button" type="button" data-function="inverse">
+            1/x
+          </button>
+
+        </div>
+
+
+        <div class="function-row">
+
+          <button class="function-button" type="button" data-function="factorial">
+            x!
+          </button>
+
+          <button class="function-button" type="button" data-function="percent">
+            %
+          </button>
+
+          <button class="function-button" type="button" data-function="pi">
+            π
+          </button>
+
+          <button class="function-button" type="button" data-function="e">
+            e
+          </button>
+
+          <button class="function-button" type="button" data-function="phi">
+            φ
+          </button>
+
+          <button class="function-button" type="button" data-function="ans">
+            Ans
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="memory-panel">
+
+      <button class="memory-button" type="button">MC</button>
+      <button class="memory-button" type="button">MR</button>
+      <button class="memory-button" type="button">M+</button>
+      <button class="memory-button" type="button">M−</button>
+      <button class="memory-button" type="button">MS</button>
+
+    </section>
+
+
+    <section class="keypad">
+
+      <div class="keypad-row">
+
+        <button class="key control-button" type="button">AC</button>
+        <button class="key control-button" type="button">⌫</button>
+        <button class="key operator-button" type="button">(</button>
+        <button class="key operator-button" type="button">)</button>
+        <button class="key operator-button" type="button">÷</button>
+
+      </div>
+
+
+      <div class="keypad-row">
+
+        <button class="key number-button" type="button">7</button>
+        <button class="key number-button" type="button">8</button>
+        <button class="key number-button" type="button">9</button>
+        <button class="key operator-button" type="button">×</button>
+        <button class="key operator-button" type="button">−</button>
+
+      </div>
+
+
+      <div class="keypad-row">
+
+        <button class="key number-button" type="button">4</button>
+        <button class="key number-button" type="button">5</button>
+        <button class="key number-button" type="button">6</button>
+        <button class="key operator-button" type="button">+</button>
+        <button class="key operator-button" type="button">±</button>
+
+      </div>
+
+
+      <div class="keypad-row">
+
+        <button class="key number-button" type="button">1</button>
+        <button class="key number-button" type="button">2</button>
+        <button class="key number-button" type="button">3</button>
+        <button class="key operator-button" type="button">%</button>
+        <button class="key special-button" type="button">EXP</button>
+
+      </div>
+
+
+      <div class="keypad-row">
+
+        <button class="key number-button zero-button" type="button">0</button>
+        <button class="key number-button" type="button">.</button>
+        <button class="key constant-button" type="button">π</button>
+        <button class="key equals-button" type="button">=</button>
+
+      </div>
+
+    </section>
+
+
+    <footer class="calculator-footer">
+
+      <span>Scientific Marvelous Engine</span>
+
+      <span class="footer-status">
+        <span class="status-dot"></span>
+        A tope de power
+      </span>
+
+    </footer>
+
+  </main>
+
+</body>
+
+</html>

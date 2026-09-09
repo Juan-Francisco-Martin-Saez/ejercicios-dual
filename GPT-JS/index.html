@@ -9,11 +9,419 @@
     <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
     <meta name="keywords" content="palabras clave, separadas, por comas">
 
-    <link href="main.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
     <script type="module" src="./scr/index.js"></script>
   </head>
 
   <body>
+    <aside class="sidebar">
+
+      <!-- Cabecera del menú lateral con el nombre de la aplicación y su botón de control. -->
+      <div class="sidebar-header">
+
+        <!-- Contenedor que muestra el nombre de ReijohanGPT en el menú lateral. -->
+        <div class="sidebar-logo">
+
+          <!-- Texto identificativo de la aplicación. -->
+          <span>ReijohanGPT</span>
+
+        </div>
+
+        <!-- Contenedor del botón que permite plegar o desplegar el menú lateral. -->
+        <div class="sidebar-toggle-container">
+
+          <!-- Etiqueta asociada al checkbox que actúa como botón de apertura/cierre del menú. -->
+          <label for="sidebar-toggle" class="sidebar-toggle-button" aria-label="Cerrar menú">
+
+            <!-- Primera línea visual del icono de menú. -->
+            <span></span>
+
+            <!-- Segunda línea visual del icono de menú. -->
+            <span></span>
+
+            <!-- Tercera línea visual del icono de menú. -->
+            <span></span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- Contenedor principal de los controles y contenidos del menú lateral. -->
+      <div class="sidebar-content">
+
+
+        <!-- NUEVO CHAT -->
+
+        <!-- Agrupa el botón utilizado para iniciar una nueva conversación. -->
+        <div class="new-chat-container">
+
+          <!-- Enlace que representa la acción de crear una nueva conversación. -->
+          <a href="#" class="new-chat-button" id="new-chat-button">
+
+            <!-- Contenedor del icono utilizado para identificar el nuevo chat. -->
+            <div class="new-chat-icon-container">
+
+              <!-- Símbolo visual de creación de una nueva conversación. -->
+              <span class="new-chat-icon">
+                +
+              </span>
+
+            </div>
+
+            <!-- Contenedor del texto descriptivo del botón de nuevo chat. -->
+            <div class="new-chat-text-container">
+
+              <!-- Texto visible del botón de nueva conversación. -->
+              <span class="new-chat-text">
+                Nueva conversación
+              </span>
+
+            </div>
+
+          </a>
+
+        </div>
+
+
+        <!-- CONVERSACIONES -->
+
+        <!-- Contenedor que agrupa el acceso al historial y la lista de conversaciones. -->
+        <div class="chat-history">
+
+          <!-- Botón que permite mostrar o gestionar el historial de conversaciones. -->
+          <button type="button" class="chat-history-button" id="chat-history-button" aria-label="Abrir conversaciones">
+
+            <!-- Icono visual que representa el historial de conversaciones. -->
+            <span class="chat-history-icon"></span>
+
+            <!-- Texto que identifica la sección de historial. -->
+            <span class="chat-history-title">
+              Historial de chats
+            </span>
+
+          </button>
+
+
+          <!-- Lista visual que contiene las diferentes conversaciones almacenadas. -->
+          <div class="chat-history-list">
+
+            <!-- Primer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Segundo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Tercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Cuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Quinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Sexto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Séptimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Octavo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Noveno elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Décimo elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Undécimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Duodécimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Decimotercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Decimocuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Decimoquinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Decimosexto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Decimoséptimo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Decimoctavo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Decimonoveno elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Vigésimo elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+            <!-- Vigésimo primer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Conversación sobre desarrollo web y user-avatar-container
+              </a>
+
+            </div>
+
+            <!-- Vigésimo segundo elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Ideas para mi nuevo proyecto de iniciación a la programación en Python.
+              </a>
+
+            </div>
+
+            <!-- Vigésimo tercer elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Preguntas sobre HTML y CSS
+              </a>
+
+            </div>
+
+            <!-- Vigésimo cuarto elemento individual del historial de conversaciones. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace que representa una conversación concreta del historial. -->
+              <a href="#" class="chat-history-link">
+                Diseño de interfaz para aplicación
+              </a>
+
+            </div>
+
+            <!-- Vigésimo quinto elemento individual del historial utilizado para comprobar el truncado de textos largos. -->
+            <div class="chat-history-item">
+
+              <!-- Enlace con un título largo para comprobar el comportamiento responsive y ellipsis. -->
+              <a href="#" class="chat-history-link">
+                Conversación especialmente larga cuyo nombre debe cortarse automáticamente
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CAMBIO DE TEMA -->
+
+        <!-- Contenedor del selector que permite alternar entre los dos estados visuales. -->
+        <div class="theme-switch-container">
+
+          <!-- Texto que identifica la función de cambio de apariencia. -->
+          <span class="theme-switch-label">
+            Apariencia
+          </span>
+
+          <!-- Control visual asociado al checkbox del cambio de tema. -->
+          <label for="theme-toggle" class="theme-switch" aria-label="Cambiar entre tema oscuro y tema claro">
+
+            <!-- Icono que representa el estado oscuro. -->
+            <span class="theme-icon theme-icon-dark">
+              ☾
+            </span>
+
+            <!-- Elemento móvil que se desplaza dentro del interruptor. -->
+            <span class="theme-switch-slider"></span>
+
+            <!-- Icono que representa el estado claro. -->
+            <span class="theme-icon theme-icon-light">
+              ☀
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- USUARIO -->
+
+      <!-- Zona inferior del menú lateral destinada a mostrar la información del usuario. -->
+      <div class="sidebar-user">
+
+        <!-- Contenedor circular que contiene el avatar del usuario. -->
+        <div class="user-avatar-container">
+
+          <!-- Imagen utilizada como avatar visual del usuario. -->
+          <img src="img/logo.svg" alt="Avatar del usuario" class="user-avatar">
+
+        </div>
+
+        <!-- Contenedor de la información textual del usuario. -->
+        <div class="user-info">
+
+          <!-- Nombre visible del usuario dentro del menú lateral. -->
+          <span class="user-name">
+            Juan Francisco Martín Sáez
+          </span>
+
+        </div>
+
+      </div>
+
+    </aside>
 
   </body>
 
