@@ -1,0 +1,93 @@
+<doctype html>
+  <html lang="es">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Título</title>
+    <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
+    <meta name="keywords" content="palabras clave, separadas, por comas">
+
+    <link href="./styles.css" rel="stylesheet">
+    <script type="module" src="./scr/index.js"></script>
+  </head>
+
+  <body>
+
+    <!-- ENCABEZADO -->
+
+    <div class="encabezado">
+      <p>FORMULARIO DE CONTACTO</p>
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <form class="formulario">
+
+      <!-- CAMPO NOMBRE -->
+
+      <div class="campo-nombre">
+
+        <label for="nombre">
+          Nombre
+        </label>
+
+        <input type="text" id="nombre" name="nombre" required>
+
+      </div>
+
+
+      <!-- CAMPO EMAIL -->
+
+      <div class="campo-email">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input type="email" id="email" name="email" required>
+
+      </div>
+
+
+      <!-- CAMPO TELEFONO -->
+
+      <div class="campo-telefono">
+
+        <label for="telefono">
+          Teléfono
+        </label>
+
+        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" minlength="9" maxlength="9" required>
+
+      </div>
+
+      <!-- CAMPO DIRECCIÓN -->
+
+      <div class="campo-direccion">
+
+        <label for="direccion">
+          Dirección
+        </label>
+
+        <input type="text" id="direccion" name="direccion" autocomplete="street-address" required>
+
+      </div>
+
+
+      <!-- BOTÓN DE ENVÍO -->
+
+      <div class="campo-envio">
+
+        <button type="submit">
+          ENVIAR
+        </button>
+
+      </div>
+
+    </form>
+
+  </body>
+
+  </html>

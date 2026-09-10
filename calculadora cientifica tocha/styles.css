@@ -25,17 +25,17 @@
   --border: rgba(255, 255, 255, 0.07);
   --border-light: rgba(255, 255, 255, 0.11);
 
-  --radius-main: 22px;
-  --radius-medium: 14px;
-  --radius-small: 10px;
+  --radius-main: 1.375rem;
+  --radius-medium: 0.875rem;
+  --radius-small: 0.625rem;
 
   --shadow-main:
-    0 24px 70px rgba(0, 0, 0, 0.55),
-    0 8px 25px rgba(0, 0, 0, 0.35);
+    0 1.5rem 4.375rem rgba(0, 0, 0, 0.55),
+    0 0.5rem 1.5625rem rgba(0, 0, 0, 0.35);
 
   --shadow-button:
-    inset 0 1px 0 rgba(255, 255, 255, 0.035),
-    0 4px 10px rgba(0, 0, 0, 0.2);
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.035),
+    0 0.25rem 0.625rem rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -57,7 +57,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  padding: 30px;
+  padding: 1.875rem;
 
   overflow: hidden;
 
@@ -85,17 +85,17 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: 0.125rem solid var(--accent);
+  outline-offset: 0.125rem;
 }
 
 /* CALCULATOR */
 
 .calculator {
-  width: min(100%, 520px);
+  width: min(100%, 32.5rem);
 
-  height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  height: calc(100vh - 3.75rem);
+  max-height: calc(100vh - 3.75rem);
 
   min-height: 0;
 
@@ -106,7 +106,7 @@ button:focus-visible {
 
   background: var(--calculator-bg);
 
-  border: 1px solid var(--border-light);
+  border: 0.0625rem solid var(--border-light);
   border-radius: var(--radius-main);
 
   box-shadow: var(--shadow-main);
@@ -115,7 +115,7 @@ button:focus-visible {
 /* HEADER */
 
 .calculator-header {
-  min-height: 66px;
+  min-height: 4.125rem;
 
   flex-shrink: 0;
 
@@ -123,14 +123,14 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
 
-  padding: 11px 18px;
+  padding: 0.6875rem 1.125rem;
 
   background:
     linear-gradient(180deg,
       rgba(255, 255, 255, 0.025),
       transparent);
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .brand {
@@ -139,12 +139,12 @@ button:focus-visible {
   display: flex;
   align-items: center;
 
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .brand-icon {
-  width: 39px;
-  height: 39px;
+  width: 2.4375rem;
+  height: 2.4375rem;
 
   flex-shrink: 0;
 
@@ -174,11 +174,11 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
 
-  gap: 2px;
+  gap: 0.125rem;
 }
 
 .brand-name {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
 
   letter-spacing: 0.08em;
@@ -189,7 +189,7 @@ button:focus-visible {
 
   color: var(--text-muted);
 
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 500;
 
   letter-spacing: 0.04em;
@@ -204,12 +204,12 @@ button:focus-visible {
   display: flex;
   align-items: center;
 
-  gap: 7px;
+  gap: 0.4375rem;
 }
 
 .header-button {
-  width: 37px;
-  height: 37px;
+  width: 2.3125rem;
+  height: 2.3125rem;
 
   display: flex;
   align-items: center;
@@ -217,8 +217,8 @@ button:focus-visible {
 
   background: transparent;
 
-  border: 1px solid transparent;
-  border-radius: 10px;
+  border: 0.0625rem solid transparent;
+  border-radius: 0.625rem;
 
   color: var(--text-muted);
 
@@ -242,8 +242,8 @@ button:focus-visible {
 }
 
 .header-button svg {
-  width: 19px;
-  height: 19px;
+  width: 1.1875rem;
+  height: 1.1875rem;
 
   fill: none;
 
@@ -259,14 +259,14 @@ button:focus-visible {
 .display {
   min-height: 0;
 
-  flex: 0 0 150px;
+  flex: 0 0 9.375rem;
 
   display: flex;
   flex-direction: column;
 
   justify-content: space-between;
 
-  padding: 13px 20px 11px;
+  padding: 0.8125rem 1.25rem 0.6875rem;
 
   background:
     linear-gradient(145deg,
@@ -274,20 +274,20 @@ button:focus-visible {
       transparent),
     var(--display-bg);
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .display-mode {
   display: flex;
   align-items: center;
 
-  gap: 7px;
+  gap: 0.4375rem;
 
   color: var(--accent);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 9px;
+  font-size: 0.5625rem;
   font-weight: 600;
 
   letter-spacing: 0.08em;
@@ -298,7 +298,7 @@ button:focus-visible {
 }
 
 .display-expression {
-  min-height: 20px;
+  min-height: 2rem;
 
   overflow: hidden;
 
@@ -306,7 +306,7 @@ button:focus-visible {
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 12px;
+  font-size: 1.5rem;
 
   text-align: right;
 
@@ -321,7 +321,7 @@ button:focus-visible {
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: clamp(32px, 7vw, 44px);
+  font-size: clamp(2rem, 7vw, 2.75rem);
   font-weight: 500;
 
   line-height: 1;
@@ -336,13 +336,13 @@ button:focus-visible {
   display: flex;
   justify-content: flex-end;
 
-  gap: 10px;
+  gap: 0.625rem;
 
   color: var(--text-muted);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 8px;
+  font-size: 0.5rem;
   font-weight: 600;
 
   letter-spacing: 0.06em;
@@ -351,7 +351,7 @@ button:focus-visible {
 /* TOOLBAR */
 
 .toolbar {
-  min-height: 38px;
+  min-height: 2.375rem;
 
   flex-shrink: 0;
 
@@ -359,29 +359,29 @@ button:focus-visible {
 
   grid-template-columns: repeat(6, 1fr);
 
-  gap: 5px;
+  gap: 0.3125rem;
 
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
 
   background: var(--panel);
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .toolbar-button {
   min-width: 0;
-  min-height: 27px;
+  min-height: 1.6875rem;
 
   background: transparent;
 
-  border: 1px solid transparent;
-  border-radius: 7px;
+  border: 0.0625rem solid transparent;
+  border-radius: 0.4375rem;
 
   color: var(--text-muted);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 9px;
+  font-size: 0.5625rem;
   font-weight: 600;
 
   transition:
@@ -413,20 +413,20 @@ button:focus-visible {
 
   background: var(--panel);
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .scientific-toggle {
   width: 100%;
 
-  min-height: 42px;
+  min-height: 2.625rem;
 
   display: flex;
   align-items: center;
 
-  gap: 10px;
+  gap: 0.625rem;
 
-  padding: 8px 13px;
+  padding: 0.5rem 0.8125rem;
 
   background: transparent;
 
@@ -446,8 +446,8 @@ button:focus-visible {
 }
 
 .scientific-toggle-icon {
-  width: 22px;
-  height: 22px;
+  width: 1.375rem;
+  height: 1.375rem;
 
   flex-shrink: 0;
 
@@ -457,7 +457,7 @@ button:focus-visible {
 
   background: var(--button);
 
-  border-radius: 6px;
+  border-radius: 0.375rem;
 
   color: var(--accent);
 
@@ -465,8 +465,8 @@ button:focus-visible {
 }
 
 .scientific-toggle-icon svg {
-  width: 15px;
-  height: 15px;
+  width: 0.9375rem;
+  height: 0.9375rem;
 
   fill: none;
 
@@ -480,44 +480,44 @@ button:focus-visible {
 .scientific-toggle-text {
   flex: 1;
 
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
 .scientific-toggle-status {
-  padding: 4px 8px;
+  padding: 0.25rem 0.5rem;
 
   background: rgba(82, 224, 154, 0.08);
 
-  border: 1px solid rgba(82, 224, 154, 0.12);
+  border: 0.0625rem solid rgba(82, 224, 154, 0.12);
 
-  border-radius: 5px;
+  border-radius: 0.3125rem;
 
   color: var(--accent);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 9px;
+  font-size: 0.5625rem;
   font-weight: 600;
 }
 
 .scientific-panel {
   min-height: 0;
 
-  max-height: 500px;
+  max-height: 31.25rem;
 
   display: flex;
   flex-direction: column;
 
-  gap: 7px;
+  gap: 0.4375rem;
 
   overflow: hidden;
 
-  padding: 10px 11px 11px;
+  padding: 0.625rem 0.6875rem 0.6875rem;
 
   opacity: 1;
 
-  border-top: 1px solid var(--border);
+  border-top: 0.0625rem solid var(--border);
 
   transition:
     max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -547,28 +547,28 @@ button:focus-visible {
 
   grid-template-columns: repeat(6, minmax(0, 1fr));
 
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .function-button {
   min-width: 0;
-  min-height: 32px;
+  min-height: 2rem;
 
-  padding: 4px 3px;
+  padding: 0.25rem 0.1875rem;
 
   overflow: hidden;
 
   background: var(--button);
 
-  border: 1px solid var(--border);
+  border: 0.0625rem solid var(--border);
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
 
   color: var(--text-secondary);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 500;
 
   text-overflow: ellipsis;
@@ -604,7 +604,7 @@ button:focus-visible {
 /* MEMORY */
 
 .memory-panel {
-  min-height: 35px;
+  min-height: 2.1875rem;
 
   flex-shrink: 0;
 
@@ -612,29 +612,29 @@ button:focus-visible {
 
   grid-template-columns: repeat(5, 1fr);
 
-  gap: 5px;
+  gap: 0.3125rem;
 
-  padding: 4px 10px;
+  padding: 0.25rem 0.625rem;
 
   background: var(--panel);
 
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .memory-button {
-  min-height: 26px;
+  min-height: 1.625rem;
 
   background: transparent;
 
-  border: 1px solid transparent;
+  border: 0.0625rem solid transparent;
 
-  border-radius: 6px;
+  border-radius: 0.375rem;
 
   color: var(--text-muted);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 8px;
+  font-size: 0.5rem;
   font-weight: 600;
 
   transition:
@@ -661,9 +661,9 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
 
-  gap: 7px;
+  gap: 0.4375rem;
 
-  padding: 10px;
+  padding: 0.625rem;
 
   overflow: hidden;
 
@@ -679,7 +679,7 @@ button:focus-visible {
 
   grid-template-columns: repeat(5, minmax(0, 1fr));
 
-  gap: 7px;
+  gap: 0.4375rem;
 }
 
 .key {
@@ -695,13 +695,13 @@ button:focus-visible {
 
   padding: 0;
 
-  border: 1px solid var(--border);
+  border: 0.0625rem solid var(--border);
 
-  border-radius: 12px;
+  border-radius: 0.75rem;
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: clamp(14px, 3.4vw, 18px);
+  font-size: clamp(0.875rem, 3.4vw, 1.125rem);
 
   font-weight: 500;
 
@@ -725,7 +725,7 @@ button:focus-visible {
   transform: scale(0.96);
 
   box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    inset 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.25);
 }
 
 .number-button {
@@ -797,8 +797,8 @@ button:focus-visible {
   font-weight: 700;
 
   box-shadow:
-    0 5px 16px rgba(35, 155, 98, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 0.3125rem 1rem rgba(35, 155, 98, 0.22),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.2);
 }
 
 .equals-button:hover {
@@ -817,7 +817,7 @@ button:focus-visible {
 /* FOOTER */
 
 .calculator-footer {
-  min-height: 28px;
+  min-height: 1.75rem;
 
   flex-shrink: 0;
 
@@ -825,17 +825,17 @@ button:focus-visible {
   align-items: center;
   justify-content: space-between;
 
-  padding: 4px 13px;
+  padding: 0.25rem 0.8125rem;
 
   background: var(--display-bg);
 
-  border-top: 1px solid var(--border);
+  border-top: 0.0625rem solid var(--border);
 
   color: var(--text-muted);
 
   font-family: "Roboto Mono", monospace;
 
-  font-size: 7px;
+  font-size: 0.4375rem;
   font-weight: 500;
 
   letter-spacing: 0.04em;
@@ -847,12 +847,12 @@ button:focus-visible {
   display: flex;
   align-items: center;
 
-  gap: 5px;
+  gap: 0.3125rem;
 }
 
 .status-dot {
-  width: 5px;
-  height: 5px;
+  width: 0.3125rem;
+  height: 0.3125rem;
 
   flex-shrink: 0;
 
@@ -861,33 +861,33 @@ button:focus-visible {
   background: var(--accent);
 
   box-shadow:
-    0 0 8px rgba(82, 224, 154, 0.65);
+    0 0 0.5rem rgba(82, 224, 154, 0.65);
 }
 
 /* TABLET */
 
-@media (max-width: 760px) {
+@media (max-width: 47.5rem) {
 
   body {
     align-items: flex-start;
 
-    padding: 15px 10px;
+    padding: 0.9375rem 0.625rem;
   }
 
   .calculator {
-    height: calc(100vh - 30px);
+    height: calc(100vh - 1.875rem);
 
-    max-height: calc(100vh - 30px);
+    max-height: calc(100vh - 1.875rem);
   }
 
   .calculator-header {
-    min-height: 61px;
+    min-height: 3.8125rem;
 
-    padding: 9px 15px;
+    padding: 0.5625rem 0.9375rem;
   }
 
   .display {
-    flex-basis: 142px;
+    flex-basis: 8.875rem;
   }
 
   .key {
@@ -898,227 +898,227 @@ button:focus-visible {
 
 /* MOBILE */
 
-@media (max-width: 560px) {
+@media (max-width: 35rem) {
 
   body {
     align-items: flex-start;
 
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   .calculator {
-    height: calc(100vh - 16px);
+    height: calc(100vh - 1rem);
 
-    max-height: calc(100vh - 16px);
+    max-height: calc(100vh - 1rem);
 
-    border-radius: 17px;
+    border-radius: 1.0625rem;
   }
 
   .calculator-header {
-    min-height: 55px;
+    min-height: 3.4375rem;
 
-    padding: 8px 12px;
+    padding: 0.5rem 0.75rem;
   }
 
   .brand {
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .brand-icon {
-    width: 33px;
-    height: 33px;
+    width: 2.0625rem;
+    height: 2.0625rem;
   }
 
   .brand-name {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .brand-subtitle {
-    font-size: 8px;
+    font-size: 0.5rem;
   }
 
   .header-button {
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
   }
 
   .display {
-    flex-basis: 128px;
+    flex-basis: 8rem;
 
-    padding: 10px 15px 9px;
+    padding: 0.625rem 0.9375rem 0.5625rem;
   }
 
   .display-result {
-    font-size: clamp(28px, 8vw, 38px);
+    font-size: clamp(1.75rem, 8vw, 2.375rem);
   }
 
   .toolbar {
-    min-height: 34px;
+    min-height: 2.125rem;
 
-    padding: 4px 7px;
+    padding: 0.25rem 0.4375rem;
 
-    gap: 3px;
+    gap: 0.1875rem;
   }
 
   .toolbar-button {
-    min-height: 24px;
+    min-height: 1.5rem;
 
-    font-size: 8px;
+    font-size: 0.5rem;
   }
 
   /* SCIENTIFIC MOBILE */
 
   .scientific-toggle {
-    min-height: 37px;
+    min-height: 2.3125rem;
 
-    padding: 7px 10px;
+    padding: 0.4375rem 0.625rem;
   }
 
   .scientific-toggle-icon {
-    width: 21px;
-    height: 21px;
+    width: 1.3125rem;
+    height: 1.3125rem;
   }
 
   .scientific-toggle-text {
-    font-size: 11px;
+    font-size: 0.6875rem;
   }
 
   .scientific-toggle-status {
-    padding: 3px 7px;
+    padding: 0.1875rem 0.4375rem;
 
-    font-size: 8px;
+    font-size: 0.5rem;
   }
 
   .scientific-panel {
-    gap: 6px;
+    gap: 0.375rem;
 
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   .function-row {
-    gap: 5px;
+    gap: 0.3125rem;
   }
 
   .function-button {
-    min-height: 28px;
+    min-height: 1.75rem;
 
-    padding: 3px 2px;
+    padding: 0.1875rem 0.125rem;
 
-    font-size: 8.5px;
+    font-size: 0.53125rem;
 
-    border-radius: 7px;
+    border-radius: 0.4375rem;
   }
 
   /* MEMORY MOBILE */
 
   .memory-panel {
-    min-height: 31px;
+    min-height: 1.9375rem;
 
-    padding: 4px 7px;
+    padding: 0.25rem 0.4375rem;
 
-    gap: 3px;
+    gap: 0.1875rem;
   }
 
   .memory-button {
-    min-height: 23px;
+    min-height: 1.4375rem;
 
-    font-size: 7px;
+    font-size: 0.4375rem;
   }
 
   /* KEYPAD MOBILE */
 
   .keypad {
-    gap: 6px;
+    gap: 0.375rem;
 
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   .keypad-row {
-    gap: 6px;
+    gap: 0.375rem;
   }
 
   .key {
-    border-radius: 10px;
+    border-radius: 0.625rem;
 
-    font-size: clamp(13px, 4vw, 17px);
+    font-size: clamp(0.8125rem, 4vw, 1.0625rem);
   }
 
   /* FOOTER MOBILE */
 
   .calculator-footer {
-    min-height: 25px;
+    min-height: 1.5625rem;
 
-    padding: 4px 9px;
+    padding: 0.25rem 0.5625rem;
 
-    font-size: 6px;
+    font-size: 0.375rem;
   }
 
 }
 
 /* SMALL MOBILE */
 
-@media (max-width: 380px) {
+@media (max-width: 23.75rem) {
 
   .calculator-header {
-    min-height: 51px;
+    min-height: 3.1875rem;
   }
 
   .display {
-    flex-basis: 116px;
+    flex-basis: 7.25rem;
   }
 
   .display-mode {
-    font-size: 8px;
+    font-size: 0.5rem;
   }
 
   .display-expression {
-    font-size: 10px;
+    font-size: 1.05rem;
   }
 
   .display-result {
-    font-size: 25px;
+    font-size: 1.5625rem;
   }
 
   .scientific-toggle {
-    min-height: 35px;
+    min-height: 2.1875rem;
   }
 
   .scientific-toggle-text {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 
   .scientific-panel {
-    gap: 5px;
+    gap: 0.3125rem;
 
-    padding: 7px;
+    padding: 0.4375rem;
   }
 
   .function-row {
-    gap: 4px;
+    gap: 0.25rem;
   }
 
   .function-button {
-    min-height: 27px;
+    min-height: 1.6875rem;
 
-    font-size: 7.5px;
+    font-size: 0.46875rem;
 
-    border-radius: 6px;
+    border-radius: 0.375rem;
   }
 
   .keypad {
-    gap: 5px;
+    gap: 0.3125rem;
 
-    padding: 7px;
+    padding: 0.4375rem;
   }
 
   .keypad-row {
-    gap: 5px;
+    gap: 0.3125rem;
   }
 
   .key {
-    border-radius: 9px;
+    border-radius: 0.5625rem;
 
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .calculator-footer {
