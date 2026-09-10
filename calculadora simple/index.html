@@ -17,66 +17,54 @@
 
     body {
       min-height: 100vh;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       background: hsl(0, 0%, 93%);
-
       font-family: Arial, sans-serif;
     }
 
     .calculadora {
       width: 20rem;
-
       display: flex;
       flex-direction: column;
-
       gap: 1rem;
-
       padding: 1rem;
-
       background: hsl(0, 0%, 100%);
-
       border: 0.125rem solid hsl(0, 0%, 0%);
     }
 
     .pantalla {
       height: 4.5rem;
-
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-
+      justify-content: center;
       padding: 0.625rem;
-
       background: hsl(0, 0%, 96%);
-
       border: 0.125rem solid hsl(0, 0%, 0%);
+      overflow: hidden;
+    }
 
+    .valor-pantalla {
+      width: 15ch;
+      font-family: 'Roboto Mono', monospace;
       font-size: 1.875rem;
+      text-align: right;
+      white-space: nowrap;
     }
 
     .panel {
       display: grid;
-
       grid-template-columns: repeat(4, 1fr);
-
       gap: 0.5rem;
     }
 
     .tecla {
       height: 3.5rem;
-
       background: hsl(0, 0%, 100%);
-
       border: 0.125rem solid hsl(0, 0%, 0%);
-
       font-size: 1.125rem;
-
       cursor: pointer;
-
       transition: background 0.1s, transform 0.1s;
     }
 
@@ -86,7 +74,6 @@
 
     .tecla:active {
       background: hsl(0, 0%, 80%);
-
       transform: scale(0.95);
     }
 
@@ -96,7 +83,6 @@
 
     .operador {
       background: hsl(0, 0%, 18%);
-
       color: hsl(0, 0%, 100%);
     }
 
@@ -114,7 +100,6 @@
 
     .igual {
       grid-column: 1 / -1;
-
       background: hsl(0, 0%, 80%);
     }
   </style>
@@ -126,7 +111,7 @@
   <div class="calculadora">
 
     <div class="pantalla">
-      0
+      <div class="valor-pantalla">0</div>
     </div>
 
     <div class="panel">
@@ -160,6 +145,71 @@
     </div>
 
   </div>
+
+  <script>
+
+    let expresion = '' // Guarda la operación que estamos introduciendo
+
+    const calculadora = document.querySelector('.calculadora') // Selecciona la calculadora
+    const pantalla = document.querySelector('.valor-pantalla') // Selecciona la zona donde se muestra la operación
+
+    calculadora.addEventListener('click', (event) => { // Detecta cuando pulsamos una tecla
+
+      if (!event.target.classList.contains('tecla')) { // Comprueba que hemos pulsado una tecla
+        return
+      }
+
+      const valor = event.target.textContent // Obtiene el contenido de la tecla pulsada
+
+      console.log(valor) // Muestra en consola la tecla pulsada
+
+      if (valor === 'C') { // Comprueba si hemos pulsado C
+
+        expresion = '' // Borra la operación guardada
+        pantalla.textContent = '0' // Muestra 0 en pantalla
+
+        return
+      }
+
+      if (valor === '⌫') { // Comprueba si hemos pulsado borrar
+
+        expresion = expresion.slice(0, -1) // Elimina el último carácter
+
+        pantalla.textContent = expresion || '0' // Muestra la expresión o 0 si queda vacía
+
+        return
+      }
+
+      if (valor === '+') { // Comprueba si hemos pulsado +
+
+        if (expresion === '') { // Comprueba si todavía no hay ningún número
+          return
+        }
+
+        const ultimo = expresion.slice(-1) // Obtiene el último carácter
+
+        if (expresion.endsWith('+') || expresion.endsWith('−') || expresion.endsWith('×') || expresion.endsWith('÷')) { // Comprueba si ya hay un operador al final
+          return
+        }
+
+        expresion += valor // Añade el + a la expresión
+
+        pantalla.textContent = expresion // Muestra la expresión en pantalla
+
+        return
+      }
+
+      if (expresion.length >= 15) { // Comprueba si ya hay 15 caracteres
+        return
+      }
+
+      expresion += valor // Añade la tecla pulsada a la operación
+
+      pantalla.textContent = expresion // Muestra la operación en pantalla
+
+    })
+
+  </script>
 
 </body>
 
