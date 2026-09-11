@@ -185,7 +185,10 @@
       }
 
       if ('+−×÷'.includes(valor)) {
-        if (!expresion || '+−×÷'.includes(expresion.slice(-1))) return
+
+        if (!expresion && valor !== '−') return
+
+        if (expresion && '+−×÷'.includes(expresion.slice(-1))) return
       }
 
       if (valor === '.') {
