@@ -1,0 +1,152 @@
+/* ================================
+   CONFIGURACIÓN GENERAL
+================================ */
+
+@import url('https://googleapis.com');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(0, 0%, 94%);
+}
+
+
+/* ================================
+   ZONA DE MOVIMIENTO
+================================ */
+
+.zona-movimiento {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ================================
+   TABLERO
+================================ */
+
+.tablero {
+  width: 36rem;
+  height: 36rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  background-color: hsl(0, 0%, 100%);
+  outline: 0.15rem solid hsl(0, 0%, 0%);
+
+  /*
+    Cuadrícula 5 × 5.
+    Cada celda ocupa el 20% del tablero.
+  */
+
+  background-image:
+    linear-gradient(to right,
+      hsla(0, 0%, 0%, 0.12) 0.08rem,
+      transparent 0.08rem),
+    linear-gradient(to bottom,
+      hsla(0, 0%, 0%, 0.12) 0.08rem,
+      transparent 0.08rem);
+  background-size:
+    20% 100%,
+    100% 20%;
+}
+
+
+/* ================================
+   CUBO
+================================ */
+
+.cubo {
+  width: 100%;
+  height: 100%;
+
+  /*
+    Posición inicial:
+    columna central y fila inferior.
+  */
+
+  grid-column: 3;
+  grid-row: 3;
+  background-color: hsl(174, 100%, 82%);
+  border: 0.15rem solid hsl(174, 100%, 40%);
+}
+
+
+/* ================================
+   INTERACCIÓN
+================================ */
+
+.interaccion {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ================================
+   PANEL DE DIRECCIONES
+================================ */
+
+.panel-direcciones {
+  display: grid;
+  grid-template-columns: repeat(3, 3.2rem);
+  grid-template-rows: repeat(3, 3.2rem);
+  gap: 0.3rem;
+}
+
+
+/* ================================
+   BOTÓN
+================================ */
+
+.boton-mover {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background-color: hsl(0, 0%, 100%);
+  border: 0.15rem solid hsl(174, 100%, 40%);
+  border-radius: 0.4rem;
+  font-size: 2rem;
+  color: hsl(174, 100%, 40%);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ================================
+   EFECTO AL PASAR EL RATÓN
+================================ */
+
+.boton-mover:hover {
+  background-color: hsl(174, 100%, 40%);
+  color: hsl(0, 0%, 100%);
+  border: 0.15rem solid hsl(0, 0%, 100%);
+}
+
+
+/* ================================
+   EFECTO AL PULSAR
+================================ */
+
+.boton-mover:active {
+  background-color: hsl(174, 92%, 67%);
+}
