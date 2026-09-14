@@ -6,52 +6,45 @@
 
 body {
   min-height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-family: Arial, sans-serif;
-
   background: hsl(0, 0%, 8%);
-  color: hsl(0, 0%, 95%);
+  color: hsl(120, 100%, 45%);
 }
 
 main {
   width: 100%;
-
   display: flex;
   justify-content: center;
 }
 
 .tabs {
-  width: 90%;
-
+  width: 100vw;
+  height: 100vh;
   border: 0.15rem solid hsl(120, 100%, 45%);
   background: hsl(0, 0%, 5%);
+  font-weight: 700;
 }
 
 .tabs-buttons {
   border-bottom: 0.15rem solid hsl(120, 100%, 45%);
+  font-weight: 700;
 }
 
 .tabs-buttons ul {
   display: flex;
-  justify-content: center;
-
+  justify-content: flex-start;
   list-style: none;
 }
 
 .tab-button {
   padding: 1rem 1.5rem;
-
   cursor: pointer;
-
   color: hsl(120, 100%, 45%);
   background: hsl(0, 0%, 5%);
-
   border-right: 0.1rem solid hsl(120, 100%, 45%);
-
   transition: 0.2s;
 }
 
@@ -66,6 +59,8 @@ main {
 }
 
 .tabs-contents {
+  height: calc(100% - 4rem);
+
   padding: 3%;
 }
 
@@ -73,7 +68,10 @@ main {
   display: none;
 
   line-height: 1.6;
-  color: hsl(0, 0%, 85%);
+
+  color: hsl(120, 100%, 45%);
+
+  text-align: left;
 }
 
 .tab-content.active {
