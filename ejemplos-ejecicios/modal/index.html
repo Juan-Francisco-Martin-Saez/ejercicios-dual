@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./src/index.js"></script>
+</head>
+
+<body>
+  <main>
+    <div class="modal-button">
+      <button>Abrir modal</button>
+    </div>
+    <div class="overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-header-button close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>close</title>
+              <path
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body-message">
+            <p>¿estás seguro?</p>
+          </div>
+          <div class="modal-body-buttons">
+            <div class="modal-body-button confirm-button">
+              <button>Aceptar</button>
+            </div>
+            <div class="modal-body-button close-button">
+              <button>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
