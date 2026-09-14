@@ -51,7 +51,19 @@ body {
 }
 
 .marcador {
-  min-width: 3rem;
+  width: 3rem;
   text-align: center;
   font-size: 2rem;
+  color: hsl(120, 100%, 25%);
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: textfield;
+}
+
+.marcador::-webkit-inner-spin-button,
+.marcador::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

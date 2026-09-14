@@ -8,7 +8,7 @@ export default (() => {
 
   mas.addEventListener('click', () => {
     contador = contador + 1
-    marcador.textContent = contador
+    marcador.value = contador
   })
 
   menos.addEventListener('click', () => {
@@ -16,7 +16,8 @@ export default (() => {
     if (contador > 1) {
       contador = contador - 1
     }
-    marcador.textContent = contador
+
+    marcador.value = contador
   })
 
 })()
