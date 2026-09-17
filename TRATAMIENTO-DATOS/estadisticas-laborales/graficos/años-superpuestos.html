@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Desempleo por año</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .chart-container {
+      width: 95%;
+      height: 650px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chart-container">
+    <canvas id="grafica"></canvas>
+  </div>
+
+  <script>
+    fetch('../data/parados-por-año-baleares.json')
+      .then(response => response.json())
+      .then(datos => {
+
+        const meses = [
+          'Enero',
+          'Febrero',
+          'Marzo',
+          'Abril',
+          'Mayo',
+          'Junio',
+          'Julio',
+          'Agosto',
+          'Septiembre',
+          'Octubre',
+          'Noviembre',
+          'Diciembre'
+        ];
+
+        const datasets = Object.entries(datos)
+
+          // Quitamos la clave "undefined"
+          .filter(([año]) => año !== 'undefined')
+
+          .map(([año, datosMeses]) => {
+
+            // Ordenamos los meses: 01, 02, 03...
+            datosMeses.sort((a, b) => {
+              return Number(a.mes) - Number(b.mes);
+            });
+
+            return {
+              label: año,
+
+              data: datosMeses.map(dato => dato.cantidad),
+
+              borderWidth: 2,
+
+              tension: 0.2,
+
+              pointRadius: 2,
+
+              fill: false
+            };
+
+          });
+
+
+        new Chart(
+          document.querySelector('#grafica'),
+          {
+            type: 'line',
+
+            data: {
+              labels: meses,
+
+              datasets: datasets
+            },
+
+            options: {
+
+              responsive: true,
+
+              maintainAspectRatio: false,
+
+              interaction: {
+                mode: 'index',
+                intersect: false
+              },
+
+              plugins: {
+
+                title: {
+                  display: true,
+                  text: 'Evolución mensual del desempleo por año'
+                },
+
+                legend: {
+                  position: 'bottom'
+                },
+
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+
+                      const cantidad =
+                        context.raw.toLocaleString('es-ES');
+
+                      return `${context.dataset.label}: ${cantidad} parados`;
+                    }
+                  }
+                }
+              },
+
+              scales: {
+
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Mes'
+                  }
+                },
+
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Número de parados'
+                  },
+
+                  ticks: {
+                    callback: function(value) {
+                      return value.toLocaleString('es-ES');
+                    }
+                  }
+                }
+
+              }
+
+            }
+          }
+        );
+
+      });
+  </script>
+
+</body>
+
+</html>

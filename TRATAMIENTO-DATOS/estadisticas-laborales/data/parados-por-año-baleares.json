@@ -1,0 +1,1164 @@
+{
+  "2005": [
+    {
+      "mes": "12",
+      "cantidad": 27081
+    },
+    {
+      "mes": "11",
+      "cantidad": 27050
+    },
+    {
+      "mes": "10",
+      "cantidad": 19313
+    },
+    {
+      "mes": "09",
+      "cantidad": 15433
+    },
+    {
+      "mes": "08",
+      "cantidad": 14784
+    },
+    {
+      "mes": "07",
+      "cantidad": 14873
+    },
+    {
+      "mes": "06",
+      "cantidad": 15048
+    },
+    {
+      "mes": "05",
+      "cantidad": 16226
+    },
+    {
+      "mes": "04",
+      "cantidad": 22536
+    },
+    {
+      "mes": "03",
+      "cantidad": 25337
+    },
+    {
+      "mes": "02",
+      "cantidad": 26858
+    },
+    {
+      "mes": "01",
+      "cantidad": 28177
+    }
+  ],
+  "2006": [
+    {
+      "mes": "12",
+      "cantidad": 25448
+    },
+    {
+      "mes": "11",
+      "cantidad": 25039
+    },
+    {
+      "mes": "10",
+      "cantidad": 18523
+    },
+    {
+      "mes": "09",
+      "cantidad": 15176
+    },
+    {
+      "mes": "08",
+      "cantidad": 14474
+    },
+    {
+      "mes": "07",
+      "cantidad": 14371
+    },
+    {
+      "mes": "06",
+      "cantidad": 14627
+    },
+    {
+      "mes": "05",
+      "cantidad": 16159
+    },
+    {
+      "mes": "04",
+      "cantidad": 20275
+    },
+    {
+      "mes": "03",
+      "cantidad": 24625
+    },
+    {
+      "mes": "02",
+      "cantidad": 25856
+    },
+    {
+      "mes": "01",
+      "cantidad": 26928
+    }
+  ],
+  "2007": [
+    {
+      "mes": "12",
+      "cantidad": 26493
+    },
+    {
+      "mes": "11",
+      "cantidad": 26059
+    },
+    {
+      "mes": "10",
+      "cantidad": 19689
+    },
+    {
+      "mes": "09",
+      "cantidad": 15988
+    },
+    {
+      "mes": "08",
+      "cantidad": 15145
+    },
+    {
+      "mes": "07",
+      "cantidad": 15210
+    },
+    {
+      "mes": "06",
+      "cantidad": 15153
+    },
+    {
+      "mes": "05",
+      "cantidad": 15821
+    },
+    {
+      "mes": "04",
+      "cantidad": 19719
+    },
+    {
+      "mes": "03",
+      "cantidad": 23187
+    },
+    {
+      "mes": "02",
+      "cantidad": 25131
+    },
+    {
+      "mes": "01",
+      "cantidad": 26675
+    }
+  ],
+  "2008": [
+    {
+      "mes": "12",
+      "cantidad": 33393
+    },
+    {
+      "mes": "11",
+      "cantidad": 32897
+    },
+    {
+      "mes": "10",
+      "cantidad": 25758
+    },
+    {
+      "mes": "09",
+      "cantidad": 20315
+    },
+    {
+      "mes": "08",
+      "cantidad": 18349
+    },
+    {
+      "mes": "07",
+      "cantidad": 17751
+    },
+    {
+      "mes": "06",
+      "cantidad": 17453
+    },
+    {
+      "mes": "05",
+      "cantidad": 18098
+    },
+    {
+      "mes": "04",
+      "cantidad": 21807
+    },
+    {
+      "mes": "03",
+      "cantidad": 24490
+    },
+    {
+      "mes": "02",
+      "cantidad": 26461
+    },
+    {
+      "mes": "01",
+      "cantidad": 27432
+    }
+  ],
+  "2009": [
+    {
+      "mes": "12",
+      "cantidad": 41114
+    },
+    {
+      "mes": "11",
+      "cantidad": 41434
+    },
+    {
+      "mes": "10",
+      "cantidad": 36818
+    },
+    {
+      "mes": "09",
+      "cantidad": 31644
+    },
+    {
+      "mes": "08",
+      "cantidad": 28581
+    },
+    {
+      "mes": "07",
+      "cantidad": 27786
+    },
+    {
+      "mes": "06",
+      "cantidad": 28685
+    },
+    {
+      "mes": "05",
+      "cantidad": 30683
+    },
+    {
+      "mes": "04",
+      "cantidad": 33699
+    },
+    {
+      "mes": "03",
+      "cantidad": 35494
+    },
+    {
+      "mes": "02",
+      "cantidad": 34838
+    },
+    {
+      "mes": "01",
+      "cantidad": 34497
+    }
+  ],
+  "2010": [
+    {
+      "mes": "12",
+      "cantidad": 42666
+    },
+    {
+      "mes": "11",
+      "cantidad": 43480
+    },
+    {
+      "mes": "10",
+      "cantidad": 39469
+    },
+    {
+      "mes": "09",
+      "cantidad": 34789
+    },
+    {
+      "mes": "08",
+      "cantidad": 32182
+    },
+    {
+      "mes": "07",
+      "cantidad": 32262
+    },
+    {
+      "mes": "06",
+      "cantidad": 33814
+    },
+    {
+      "mes": "05",
+      "cantidad": 36390
+    },
+    {
+      "mes": "04",
+      "cantidad": 39775
+    },
+    {
+      "mes": "03",
+      "cantidad": 41476
+    },
+    {
+      "mes": "02",
+      "cantidad": 42040
+    },
+    {
+      "mes": "01",
+      "cantidad": 41760
+    }
+  ],
+  "2011": [
+    {
+      "mes": "12",
+      "cantidad": 46310
+    },
+    {
+      "mes": "11",
+      "cantidad": 46194
+    },
+    {
+      "mes": "10",
+      "cantidad": 40418
+    },
+    {
+      "mes": "09",
+      "cantidad": 34528
+    },
+    {
+      "mes": "08",
+      "cantidad": 31889
+    },
+    {
+      "mes": "07",
+      "cantidad": 32109
+    },
+    {
+      "mes": "06",
+      "cantidad": 32868
+    },
+    {
+      "mes": "05",
+      "cantidad": 35676
+    },
+    {
+      "mes": "04",
+      "cantidad": 39381
+    },
+    {
+      "mes": "03",
+      "cantidad": 42459
+    },
+    {
+      "mes": "02",
+      "cantidad": 42915
+    },
+    {
+      "mes": "01",
+      "cantidad": 43080
+    }
+  ],
+  "2012": [
+    {
+      "mes": "12",
+      "cantidad": 46156
+    },
+    {
+      "mes": "11",
+      "cantidad": 46584
+    },
+    {
+      "mes": "10",
+      "cantidad": 41359
+    },
+    {
+      "mes": "09",
+      "cantidad": 36121
+    },
+    {
+      "mes": "08",
+      "cantidad": 34348
+    },
+    {
+      "mes": "07",
+      "cantidad": 34869
+    },
+    {
+      "mes": "06",
+      "cantidad": 36214
+    },
+    {
+      "mes": "05",
+      "cantidad": 39700
+    },
+    {
+      "mes": "04",
+      "cantidad": 44011
+    },
+    {
+      "mes": "03",
+      "cantidad": 47034
+    },
+    {
+      "mes": "02",
+      "cantidad": 47815
+    },
+    {
+      "mes": "01",
+      "cantidad": 47575
+    }
+  ],
+  "2013": [
+    {
+      "mes": "12",
+      "cantidad": 44493
+    },
+    {
+      "mes": "11",
+      "cantidad": 44686
+    },
+    {
+      "mes": "10",
+      "cantidad": 39670
+    },
+    {
+      "mes": "09",
+      "cantidad": 34176
+    },
+    {
+      "mes": "08",
+      "cantidad": 32590
+    },
+    {
+      "mes": "07",
+      "cantidad": 32870
+    },
+    {
+      "mes": "06",
+      "cantidad": 33856
+    },
+    {
+      "mes": "05",
+      "cantidad": 37241
+    },
+    {
+      "mes": "04",
+      "cantidad": 41784
+    },
+    {
+      "mes": "03",
+      "cantidad": 44997
+    },
+    {
+      "mes": "02",
+      "cantidad": 46443
+    },
+    {
+      "mes": "01",
+      "cantidad": 46731
+    }
+  ],
+  "2014": [
+    {
+      "mes": "12",
+      "cantidad": 42597
+    },
+    {
+      "mes": "11",
+      "cantidad": 43075
+    },
+    {
+      "mes": "10",
+      "cantidad": 37782
+    },
+    {
+      "mes": "09",
+      "cantidad": 31927
+    },
+    {
+      "mes": "08",
+      "cantidad": 30294
+    },
+    {
+      "mes": "07",
+      "cantidad": 30543
+    },
+    {
+      "mes": "06",
+      "cantidad": 30970
+    },
+    {
+      "mes": "05",
+      "cantidad": 34144
+    },
+    {
+      "mes": "04",
+      "cantidad": 38781
+    },
+    {
+      "mes": "03",
+      "cantidad": 43994
+    },
+    {
+      "mes": "02",
+      "cantidad": 45209
+    },
+    {
+      "mes": "01",
+      "cantidad": 45199
+    }
+  ],
+  "2015": [
+    {
+      "mes": "12",
+      "cantidad": 39896
+    },
+    {
+      "mes": "11",
+      "cantidad": 40786
+    },
+    {
+      "mes": "10",
+      "cantidad": 34834
+    },
+    {
+      "mes": "09",
+      "cantidad": 28796
+    },
+    {
+      "mes": "08",
+      "cantidad": 27447
+    },
+    {
+      "mes": "07",
+      "cantidad": 27701
+    },
+    {
+      "mes": "06",
+      "cantidad": 28739
+    },
+    {
+      "mes": "05",
+      "cantidad": 31258
+    },
+    {
+      "mes": "04",
+      "cantidad": 36200
+    },
+    {
+      "mes": "03",
+      "cantidad": 40848
+    },
+    {
+      "mes": "02",
+      "cantidad": 42921
+    },
+    {
+      "mes": "01",
+      "cantidad": 43532
+    }
+  ],
+  "2016": [
+    {
+      "mes": "12",
+      "cantidad": 35690
+    },
+    {
+      "mes": "11",
+      "cantidad": 36651
+    },
+    {
+      "mes": "10",
+      "cantidad": 29938
+    },
+    {
+      "mes": "09",
+      "cantidad": 25050
+    },
+    {
+      "mes": "08",
+      "cantidad": 23908
+    },
+    {
+      "mes": "07",
+      "cantidad": 24048
+    },
+    {
+      "mes": "06",
+      "cantidad": 24614
+    },
+    {
+      "mes": "05",
+      "cantidad": 27226
+    },
+    {
+      "mes": "04",
+      "cantidad": 32331
+    },
+    {
+      "mes": "03",
+      "cantidad": 36448
+    },
+    {
+      "mes": "02",
+      "cantidad": 39272
+    },
+    {
+      "mes": "01",
+      "cantidad": 40445
+    }
+  ],
+  "2017": [
+    {
+      "mes": "12",
+      "cantidad": 34403
+    },
+    {
+      "mes": "11",
+      "cantidad": 34987
+    },
+    {
+      "mes": "10",
+      "cantidad": 27898
+    },
+    {
+      "mes": "09",
+      "cantidad": 22572
+    },
+    {
+      "mes": "08",
+      "cantidad": 21400
+    },
+    {
+      "mes": "07",
+      "cantidad": 21141
+    },
+    {
+      "mes": "06",
+      "cantidad": 21302
+    },
+    {
+      "mes": "05",
+      "cantidad": 23168
+    },
+    {
+      "mes": "04",
+      "cantidad": 27581
+    },
+    {
+      "mes": "03",
+      "cantidad": 33198
+    },
+    {
+      "mes": "02",
+      "cantidad": 35769
+    },
+    {
+      "mes": "01",
+      "cantidad": 36661
+    }
+  ],
+  "2018": [
+    {
+      "mes": "12",
+      "cantidad": 32838
+    },
+    {
+      "mes": "11",
+      "cantidad": 33026
+    },
+    {
+      "mes": "10",
+      "cantidad": 27534
+    },
+    {
+      "mes": "09",
+      "cantidad": 22116
+    },
+    {
+      "mes": "08",
+      "cantidad": 21027
+    },
+    {
+      "mes": "07",
+      "cantidad": 20798
+    },
+    {
+      "mes": "06",
+      "cantidad": 20536
+    },
+    {
+      "mes": "05",
+      "cantidad": 22233
+    },
+    {
+      "mes": "04",
+      "cantidad": 26132
+    },
+    {
+      "mes": "03",
+      "cantidad": 30827
+    },
+    {
+      "mes": "02",
+      "cantidad": 33589
+    },
+    {
+      "mes": "01",
+      "cantidad": 34969
+    }
+  ],
+  "2019": [
+    {
+      "mes": "12",
+      "cantidad": 33191
+    },
+    {
+      "mes": "11",
+      "cantidad": 34016
+    },
+    {
+      "mes": "10",
+      "cantidad": 27558
+    },
+    {
+      "mes": "09",
+      "cantidad": 21839
+    },
+    {
+      "mes": "08",
+      "cantidad": 20909
+    },
+    {
+      "mes": "07",
+      "cantidad": 20662
+    },
+    {
+      "mes": "06",
+      "cantidad": 20452
+    },
+    {
+      "mes": "05",
+      "cantidad": 22151
+    },
+    {
+      "mes": "04",
+      "cantidad": 25659
+    },
+    {
+      "mes": "03",
+      "cantidad": 31484
+    },
+    {
+      "mes": "02",
+      "cantidad": 33209
+    },
+    {
+      "mes": "01",
+      "cantidad": 33811
+    }
+  ],
+  "2020": [
+    {
+      "mes": "12",
+      "cantidad": 44932
+    },
+    {
+      "mes": "11",
+      "cantidad": 45684
+    },
+    {
+      "mes": "10",
+      "cantidad": 43799
+    },
+    {
+      "mes": "09",
+      "cantidad": 41293
+    },
+    {
+      "mes": "08",
+      "cantidad": 39656
+    },
+    {
+      "mes": "07",
+      "cantidad": 38842
+    },
+    {
+      "mes": "06",
+      "cantidad": 40302
+    },
+    {
+      "mes": "05",
+      "cantidad": 40239
+    },
+    {
+      "mes": "04",
+      "cantidad": 38869
+    },
+    {
+      "mes": "03",
+      "cantidad": 34735
+    },
+    {
+      "mes": "02",
+      "cantidad": 32449
+    },
+    {
+      "mes": "01",
+      "cantidad": 33704
+    }
+  ],
+  "2021": [
+    {
+      "mes": "12",
+      "cantidad": 31180
+    },
+    {
+      "mes": "11",
+      "cantidad": 32259
+    },
+    {
+      "mes": "10",
+      "cantidad": 29118
+    },
+    {
+      "mes": "09",
+      "cantidad": 27464
+    },
+    {
+      "mes": "08",
+      "cantidad": 27165
+    },
+    {
+      "mes": "07",
+      "cantidad": 29594
+    },
+    {
+      "mes": "06",
+      "cantidad": 34883
+    },
+    {
+      "mes": "05",
+      "cantidad": 41522
+    },
+    {
+      "mes": "04",
+      "cantidad": 45024
+    },
+    {
+      "mes": "03",
+      "cantidad": 45366
+    },
+    {
+      "mes": "02",
+      "cantidad": 45801
+    },
+    {
+      "mes": "01",
+      "cantidad": 44734
+    }
+  ],
+  "2022": [
+    {
+      "mes": "12",
+      "cantidad": 20704
+    },
+    {
+      "mes": "11",
+      "cantidad": 21085
+    },
+    {
+      "mes": "10",
+      "cantidad": 20104
+    },
+    {
+      "mes": "09",
+      "cantidad": 20931
+    },
+    {
+      "mes": "08",
+      "cantidad": 20488
+    },
+    {
+      "mes": "07",
+      "cantidad": 20259
+    },
+    {
+      "mes": "06",
+      "cantidad": 19699
+    },
+    {
+      "mes": "05",
+      "cantidad": 20934
+    },
+    {
+      "mes": "04",
+      "cantidad": 24203
+    },
+    {
+      "mes": "03",
+      "cantidad": 28737
+    },
+    {
+      "mes": "02",
+      "cantidad": 30370
+    },
+    {
+      "mes": "01",
+      "cantidad": 30894
+    }
+  ],
+  "2023": [
+    {
+      "mes": "12",
+      "cantidad": 18161
+    },
+    {
+      "mes": "11",
+      "cantidad": 18885
+    },
+    {
+      "mes": "10",
+      "cantidad": 18039
+    },
+    {
+      "mes": "09",
+      "cantidad": 17182
+    },
+    {
+      "mes": "08",
+      "cantidad": 17304
+    },
+    {
+      "mes": "07",
+      "cantidad": 16869
+    },
+    {
+      "mes": "06",
+      "cantidad": 16572
+    },
+    {
+      "mes": "05",
+      "cantidad": 17094
+    },
+    {
+      "mes": "04",
+      "cantidad": 18426
+    },
+    {
+      "mes": "03",
+      "cantidad": 19934
+    },
+    {
+      "mes": "02",
+      "cantidad": 20708
+    },
+    {
+      "mes": "01",
+      "cantidad": 20733
+    }
+  ],
+  "2024": [
+    {
+      "mes": "12",
+      "cantidad": 16983
+    },
+    {
+      "mes": "11",
+      "cantidad": 17563
+    },
+    {
+      "mes": "10",
+      "cantidad": 16540
+    },
+    {
+      "mes": "09",
+      "cantidad": 15620
+    },
+    {
+      "mes": "08",
+      "cantidad": 15866
+    },
+    {
+      "mes": "07",
+      "cantidad": 15584
+    },
+    {
+      "mes": "06",
+      "cantidad": 15086
+    },
+    {
+      "mes": "05",
+      "cantidad": 15400
+    },
+    {
+      "mes": "04",
+      "cantidad": 16360
+    },
+    {
+      "mes": "03",
+      "cantidad": 17235
+    },
+    {
+      "mes": "02",
+      "cantidad": 17818
+    },
+    {
+      "mes": "01",
+      "cantidad": 17957
+    }
+  ],
+  "2025": [
+    {
+      "mes": "12",
+      "cantidad": 16472
+    },
+    {
+      "mes": "11",
+      "cantidad": 16972
+    },
+    {
+      "mes": "10",
+      "cantidad": 15539
+    },
+    {
+      "mes": "09",
+      "cantidad": 14645
+    },
+    {
+      "mes": "08",
+      "cantidad": 14784
+    },
+    {
+      "mes": "07",
+      "cantidad": 14445
+    },
+    {
+      "mes": "06",
+      "cantidad": 14152
+    },
+    {
+      "mes": "05",
+      "cantidad": 14563
+    },
+    {
+      "mes": "04",
+      "cantidad": 15267
+    },
+    {
+      "mes": "03",
+      "cantidad": 16491
+    },
+    {
+      "mes": "02",
+      "cantidad": 16773
+    },
+    {
+      "mes": "01",
+      "cantidad": 16765
+    }
+  ],
+  "2026": [
+    {
+      "mes": "06",
+      "cantidad": 13468
+    },
+    {
+      "mes": "05",
+      "cantidad": 13485
+    },
+    {
+      "mes": "04",
+      "cantidad": 14024
+    },
+    {
+      "mes": "03",
+      "cantidad": 15156
+    },
+    {
+      "mes": "02",
+      "cantidad": 15560
+    },
+    {
+      "mes": "01",
+      "cantidad": 15842
+    }
+  ],
+  "undefined": [
+    {
+      "mes": "2025",
+      "cantidad": 15572
+    },
+    {
+      "mes": "2024",
+      "cantidad": 16501
+    },
+    {
+      "mes": "2023",
+      "cantidad": 18326
+    },
+    {
+      "mes": "2022",
+      "cantidad": 23201
+    },
+    {
+      "mes": "2021",
+      "cantidad": 36176
+    },
+    {
+      "mes": "2020",
+      "cantidad": 39542
+    },
+    {
+      "mes": "2019",
+      "cantidad": 27078
+    },
+    {
+      "mes": "2018",
+      "cantidad": 27135
+    },
+    {
+      "mes": "2017",
+      "cantidad": 28340
+    },
+    {
+      "mes": "2016",
+      "cantidad": 31302
+    },
+    {
+      "mes": "2015",
+      "cantidad": 35247
+    },
+    {
+      "mes": "2014",
+      "cantidad": 37876
+    },
+    {
+      "mes": "2013",
+      "cantidad": 39961
+    },
+    {
+      "mes": "2012",
+      "cantidad": 41816
+    },
+    {
+      "mes": "2011",
+      "cantidad": 38986
+    },
+    {
+      "mes": "2010",
+      "cantidad": 38342
+    },
+    {
+      "mes": "2009",
+      "cantidad": 33773
+    },
+    {
+      "mes": "2008",
+      "cantidad": 23684
+    },
+    {
+      "mes": "2007",
+      "cantidad": 20356
+    },
+    {
+      "mes": "2006",
+      "cantidad": 20125
+    },
+    {
+      "mes": "2005",
+      "cantidad": 21060
+    }
+  ]
+}

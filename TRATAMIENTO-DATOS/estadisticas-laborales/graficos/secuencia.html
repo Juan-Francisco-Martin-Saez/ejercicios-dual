@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Evolución del desempleo</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .chart-container {
+      width: 95%;
+      height: 600px;
+      margin: 40px auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chart-container">
+    <canvas id="grafica"></canvas>
+  </div>
+
+  <script>
+    fetch('../data/parados-por-año-baleares.json')
+      .then(response => response.json())
+      .then(datos => {
+
+        // Convertimos el objeto en una única serie cronológica
+        const serie = [];
+
+        Object.entries(datos).forEach(([año, meses]) => {
+
+          // Evitamos la propiedad "undefined"
+          if (año === 'undefined') return;
+
+          meses.forEach(dato => {
+            serie.push({
+              fecha: `${año}-${dato.mes}`,
+              año: Number(año),
+              mes: Number(dato.mes),
+              cantidad: dato.cantidad
+            });
+          });
+
+        });
+
+        // Orden cronológico
+        serie.sort((a, b) => {
+          if (a.año !== b.año) {
+            return a.año - b.año;
+          }
+
+          return a.mes - b.mes;
+        });
+
+        console.log(serie);
+
+        const labels = serie.map(dato => dato.fecha);
+        const cantidades = serie.map(dato => dato.cantidad);
+
+        const ctx = document
+          .querySelector('#grafica')
+          .getContext('2d');
+
+        new Chart(ctx, {
+          type: 'line',
+
+          data: {
+            labels: labels,
+
+            datasets: [
+              {
+                label: 'Número de desempleados',
+                data: cantidades,
+
+                borderWidth: 2,
+                pointRadius: 1,
+
+                tension: 0.2
+              }
+            ]
+          },
+
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            interaction: {
+              mode: 'index',
+              intersect: false
+            },
+
+            plugins: {
+              title: {
+                display: true,
+                text: 'Evolución mensual del desempleo'
+              },
+
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return `${context.raw.toLocaleString('es-ES')} desempleados`;
+                  }
+                }
+              }
+            },
+
+            scales: {
+              x: {
+                ticks: {
+                  maxTicksLimit: 22,
+                  maxRotation: 45,
+                  minRotation: 45
+                },
+
+                title: {
+                  display: true,
+                  text: 'Fecha'
+                }
+              },
+
+              y: {
+                beginAtZero: false,
+
+                title: {
+                  display: true,
+                  text: 'Desempleados'
+                },
+
+                ticks: {
+                  callback: function(value) {
+                    return value.toLocaleString('es-ES');
+                  }
+                }
+              }
+            }
+          }
+        });
+
+      });
+  </script>
+
+</body>
+
+</html>
