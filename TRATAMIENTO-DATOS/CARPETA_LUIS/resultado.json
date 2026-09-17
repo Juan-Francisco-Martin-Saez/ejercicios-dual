@@ -1,0 +1,1443 @@
+{
+  "2005": [
+    {
+      "cantidad": 21822,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20946,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15885,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13929,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14464,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13283,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12688,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13288,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17172,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19572,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20998,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23279,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2006": [
+    {
+      "cantidad": 20836,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19451,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15181,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13549,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13864,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12561,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11717,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12100,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14795,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17606,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19337,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21108,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2007": [
+    {
+      "cantidad": 23511,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22060,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17411,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15233,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15755,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14124,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12560,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12424,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14534,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16668,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18222,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20149,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2008": [
+    {
+      "cantidad": 39905,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37247,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 31224,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26492,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25191,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22176,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19476,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18341,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19426,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20694,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21874,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23086,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2009": [
+    {
+      "cantidad": 49984,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 48518,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 44865,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40472,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38215,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36237,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 35475,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36106,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38247,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39659,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39529,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39950,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2010": [
+    {
+      "cantidad": 48622,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 48569,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45292,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41854,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40825,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39853,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40103,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41405,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 44489,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 46649,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 47986,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 48828,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2011": [
+    {
+      "cantidad": 51777,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 51126,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 46506,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41539,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39476,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38871,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38626,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40096,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 43245,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45668,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 46747,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 47646,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2012": [
+    {
+      "cantidad": 49679,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 49793,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45792,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41556,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40612,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40655,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41063,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 42814,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45796,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 49088,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 50537,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 51352,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2013": [
+    {
+      "cantidad": 46722,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 46812,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 42816,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38222,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36910,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36484,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36878,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38883,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 42257,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45579,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 47504,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 48778,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2014": [
+    {
+      "cantidad": 40963,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41236,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37731,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33166,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 32088,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 31580,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 31608,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33693,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37008,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 41724,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 44009,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45536,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2015": [
+    {
+      "cantidad": 35888,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 36401,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 32510,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27735,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26990,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26706,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26769,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27574,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 30556,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 34243,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37374,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39534,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2016": [
+    {
+      "cantidad": 31218,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 31744,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27069,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23220,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22256,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21482,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21664,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22760,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26110,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 29686,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 32438,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 34528,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2017": [
+    {
+      "cantidad": 28966,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 28994,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23497,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19843,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18951,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18013,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17564,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18261,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20713,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25097,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27861,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 30055,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2018": [
+    {
+      "cantidad": 27040,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26846,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22683,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18631,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17600,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16445,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16051,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16835,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19492,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22904,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25792,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27750,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2019": [
+    {
+      "cantidad": 27930,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 28127,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23028,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 18538,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17932,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16843,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15920,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16746,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 19071,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23277,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 24916,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 26405,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2020": [
+    {
+      "cantidad": 39407,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 39646,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37914,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 35819,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 34097,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 32705,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33990,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 34449,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33673,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 28034,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25116,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27151,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2021": [
+    {
+      "cantidad": 24794,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25451,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22821,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21822,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21434,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23241,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27866,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33829,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37042,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37622,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38780,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 38607,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2022": [
+    {
+      "cantidad": 15147,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15402,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14796,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15923,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15270,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14747,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14549,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 15269,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17712,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 20753,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 22134,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23541,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2023": [
+    {
+      "cantidad": 13548,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14057,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13576,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12972,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12827,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12309,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11752,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11706,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12585,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13797,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14492,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 14821,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2024": [
+    {
+      "cantidad": 13209,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13734,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12949,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12342,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12246,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11815,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11283,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11342,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11865,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12427,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12925,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13170,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2025": [
+    {
+      "cantidad": 12833,
+      "mes": "12",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13247,
+      "mes": "11",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12146,
+      "mes": "10",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11409,
+      "mes": "09",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11184,
+      "mes": "08",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 10941,
+      "mes": "07",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 10570,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 10796,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11359,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12365,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12634,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12795,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "2026": [
+    {
+      "cantidad": 10239,
+      "mes": "06",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 10122,
+      "mes": "05",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 10522,
+      "mes": "04",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11362,
+      "mes": "03",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 11779,
+      "mes": "02",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12203,
+      "mes": "01",
+      "sexo": "M"
+    }
+  ],
+  "undefined": [
+    {
+      "cantidad": 11857,
+      "mes": "2025",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 12442,
+      "mes": "2024",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 13204,
+      "mes": "2023",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17104,
+      "mes": "2022",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 29442,
+      "mes": "2021",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 33500,
+      "mes": "2020",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21561,
+      "mes": "2019",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 21506,
+      "mes": "2018",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 23151,
+      "mes": "2017",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 27015,
+      "mes": "2016",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 31857,
+      "mes": "2015",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 37529,
+      "mes": "2014",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 42320,
+      "mes": "2013",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 45728,
+      "mes": "2012",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 44277,
+      "mes": "2011",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 44540,
+      "mes": "2010",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 40605,
+      "mes": "2009",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 25428,
+      "mes": "2008",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16888,
+      "mes": "2007",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 16009,
+      "mes": "2006",
+      "sexo": "M"
+    },
+    {
+      "cantidad": 17277,
+      "mes": "2005",
+      "sexo": "M"
+    }
+  ]
+}
