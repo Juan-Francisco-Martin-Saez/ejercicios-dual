@@ -1,93 +1,94 @@
-<doctype html>
-  <html lang="es">
+<!doctype html>
+<html lang="es">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
 
-    <title>Título</title>
-    <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
-    <meta name="keywords" content="palabras clave, separadas, por comas">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="./styles.css" rel="stylesheet">
-    <script type="module" src="./src/index.js"></script>
-  </head>
+  <title>Título</title>
 
-  <body>
+  <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
+  <meta name="keywords" content="palabras clave, separadas, por comas">
 
-    <!-- ENCABEZADO -->
+  <link href="./styles.css" rel="stylesheet">
+  <script type="module" src="./src/index.js"></script>
 
-    <div class="encabezado">
-      <p>FORMULARIO DE CONTACTO</p>
+</head>
+
+<body>
+
+  <!-- ENCABEZADO -->
+
+  <div class="encabezado">
+    <p>FORMULARIO DE CONTACTO</p>
+  </div>
+
+
+  <!-- FORMULARIO -->
+
+  <form class="formulario">
+
+    <!-- CAMPO NOMBRE -->
+
+    <div class="campo-nombre">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre">
     </div>
 
-    <!-- FORMULARIO -->
 
-    <form class="formulario">
+    <!-- CAMPO EMAIL -->
 
-      <!-- CAMPO NOMBRE -->
-
-      <div class="campo-nombre">
-
-        <label for="nombre">
-          Nombre
-        </label>
-
-        <input type="text" id="nombre" name="nombre" required>
-
-      </div>
+    <div class="campo-email">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email">
+    </div>
 
 
-      <!-- CAMPO EMAIL -->
+    <!-- CAMPO TELEFONO -->
 
-      <div class="campo-email">
-
-        <label for="email">
-          Email
-        </label>
-
-        <input type="email" id="email" name="email" required>
-
-      </div>
+    <div class="campo-telefono">
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono">
+    </div>
 
 
-      <!-- CAMPO TELEFONO -->
+    <!-- CAMPO DIRECCIÓN -->
 
-      <div class="campo-telefono">
-
-        <label for="telefono">
-          Teléfono
-        </label>
-
-        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" minlength="9" maxlength="9" required>
-
-      </div>
-
-      <!-- CAMPO DIRECCIÓN -->
-
-      <div class="campo-direccion">
-
-        <label for="direccion">
-          Dirección
-        </label>
-
-        <input type="text" id="direccion" name="direccion" autocomplete="street-address" required>
-
-      </div>
+    <div class="campo-direccion">
+      <label for="direccion">Dirección</label>
+      <input type="text" id="direccion" name="direccion" autocomplete="street-address">
+    </div>
 
 
-      <!-- BOTÓN DE ENVÍO -->
+    <!-- BOTÓN DE ENVÍO -->
 
-      <div class="campo-envio">
+    <div class="campo-envio">
+      <button type="submit">ENVIAR</button>
+    </div>
 
-        <button type="submit">
-          ENVIAR
-        </button>
+  </form>
 
-      </div>
 
-    </form>
+  <!-- VENTANAS DE EVENTO -->
 
-  </body>
+  <div class="eventos">
 
-  </html>
+    <!-- SUCCESS -->
+
+    <div class="evento evento-success">
+      <p>El formulario se ha enviado correctamente.</p>
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div class="evento evento-error">
+      <p>El formulario no se ha enviado correctamente.</p>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

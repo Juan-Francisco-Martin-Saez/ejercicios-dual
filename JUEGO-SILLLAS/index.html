@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Juego de las sillas</title>
+
+  <link rel="stylesheet" href="./styles.css">
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================
+       PANTALLA DE JUEGO
+  ====================================== -->
+
+  <main id="pantalla-juego" class="pantalla-juego">
+
+
+    <!-- =================================
+         CABECERA
+    ================================== -->
+
+    <header class="cabecera">
+
+      <div class="marcador">
+
+        <span>
+          SILLAS:
+          <strong id="numero-sillas">6</strong>
+        </span>
+
+        <span>
+          JUGADORES:
+          <strong id="numero-jugadores">7</strong>
+        </span>
+
+        <span>
+          TÚ:
+          <strong id="tu-jugador">-</strong>
+        </span>
+
+        <span>
+          <strong id="ronda">ELECCIÓN</strong>
+        </span>
+
+      </div>
+
+
+      <div id="estado" class="estado">
+        ELIGE JUGADOR
+      </div>
+
+    </header>
+
+
+    <!-- =================================
+         ARENA
+    ================================== -->
+
+    <section class="arena">
+
+      <div id="sillas" class="sillas"></div>
+
+
+      <div id="personajes" class="personajes"></div>
+
+
+      <!-- =================================
+           SELECCIÓN DENTRO DEL JUEGO
+      ================================== -->
+
+      <div id="selector-juego" class="selector-juego">
+
+        <div class="selector-contenido">
+
+          <h1>
+            JUEGO DE LAS SILLAS
+          </h1>
+
+          <p>
+            Elige tu personaje
+          </p>
+
+
+          <div id="seleccion-jugadores" class="seleccion-jugadores"></div>
+
+
+          <button id="comenzar" class="boton boton-principal" disabled>
+            EMPEZAR PARTIDA
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================
+         CONTROLES
+    ================================== -->
+
+    <footer class="controles">
+
+      <div id="mensaje" class="mensaje">
+        Elige tu personaje
+      </div>
+
+
+      <button id="comenzar-ronda" class="boton boton-principal" disabled>
+        EMPEZAR RONDA
+      </button>
+
+    </footer>
+
+
+  </main>
+
+
+  <!-- =====================================
+       PANTALLA FINAL
+  ====================================== -->
+
+  <section id="pantalla-final" class="pantalla-final">
+
+    <div id="resultado" class="resultado"></div>
+
+
+    <button id="reiniciar" class="boton boton-principal">
+      NUEVA PARTIDA
+    </button>
+
+  </section>
+
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

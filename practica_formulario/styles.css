@@ -8,27 +8,29 @@
   padding: 0;
 }
 
+
 body {
   min-height: 100vh;
-
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
   font-family: Arial, sans-serif;
   background-color: hsl(0, 0%, 95%);
 }
+
 
 /* ------------------------------ */
 /* ENCABEZADO                     */
 /* ------------------------------ */
 
 .encabezado {
-  text-align: center;
   padding-bottom: 2rem;
+  text-align: center;
   font-size: 1.3rem;
   font-weight: 700;
 }
+
 
 /* ------------------------------ */
 /* FORMULARIO                     */
@@ -36,17 +38,11 @@ body {
 
 .formulario {
   width: 20rem;
-
   display: flex;
   flex-direction: column;
-
   gap: 1rem;
 }
 
-
-/* ------------------------------ */
-/* CAMPOS                         */
-/* ------------------------------ */
 
 .campo-nombre,
 .campo-email,
@@ -54,21 +50,15 @@ body {
 .campo-direccion {
   display: flex;
   flex-direction: column;
-
   gap: 0.3rem;
 }
 
-
-/* ------------------------------ */
-/* INPUTS                         */
-/* ------------------------------ */
 
 .campo-nombre input,
 .campo-email input,
 .campo-telefono input,
 .campo-direccion input {
   padding: 0.5rem;
-
   border: 1px solid hsl(0, 0%, 70%);
 }
 
@@ -82,13 +72,105 @@ body {
   justify-content: center;
 }
 
+
 .campo-envio button {
   padding: 0.5rem 1rem;
-
   border: none;
-
   background-color: hsl(0, 0%, 20%);
   color: hsl(0, 0%, 100%);
-
   cursor: pointer;
+}
+
+
+/* ------------------------------ */
+/* CONTENEDOR DE EVENTOS          */
+/* ------------------------------ */
+
+.eventos {
+  position: relative;
+  width: 20rem;
+  height: 7rem;
+  margin-top: 4rem;
+}
+
+
+/* ------------------------------ */
+/* VENTANAS DE EVENTO             */
+/* ------------------------------ */
+
+.evento {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 20rem;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 45%);
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+}
+
+
+.evento.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* ------------------------------ */
+/* CABECERAS                      */
+/* ------------------------------ */
+
+.evento-success {
+  border-color: hsl(130, 60%, 35%);
+}
+
+
+.evento-error {
+  border-color: hsl(0, 65%, 40%);
+}
+
+
+.evento-success::before,
+.evento-error::before {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+  color: hsl(0, 0%, 100%);
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+
+.evento-success::before {
+  content: "ÉXITO";
+  background-color: hsl(130, 60%, 40%);
+}
+
+
+.evento-error::before {
+  content: "ERROR";
+  background-color: hsl(0, 70%, 50%);
+}
+
+
+/* ------------------------------ */
+/* TEXTO DEL EVENTO               */
+/* ------------------------------ */
+
+.evento p {
+  width: 100%;
+  padding: 1.2rem;
+  text-align: center;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 20%);
+  line-height: 1.5;
 }

@@ -1,0 +1,1056 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html,
+body {
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+}
+
+
+body {
+
+  min-height: 100dvh;
+
+  background:
+    hsl(0, 0%, 9%);
+
+  color:
+    hsl(0, 0%, 96%);
+
+  font-family:
+    'Courier New',
+    monospace;
+
+}
+
+
+/* =====================================
+   PANTALLA DE JUEGO
+===================================== */
+
+.pantalla-juego {
+
+  width: 100%;
+  height: 100dvh;
+
+  display: grid;
+
+  grid-template-rows:
+    auto 1fr auto;
+
+  padding:
+    1vh 2vw;
+
+  overflow: hidden;
+
+}
+
+
+/* =====================================
+   CABECERA
+===================================== */
+
+.cabecera {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    1rem;
+
+}
+
+
+.marcador {
+
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    0.5rem 1rem;
+
+  font-size:
+    clamp(0.65rem, 1vw, 0.9rem);
+
+}
+
+
+.marcador span {
+
+  padding:
+    0.3rem 0.5rem;
+
+  background:
+    hsl(0, 0%, 14%);
+
+  border:
+    0.1rem solid hsl(0, 0%, 25%);
+
+}
+
+
+.estado {
+
+  color:
+    hsl(73, 100%, 50%);
+
+  font-weight:
+    900;
+
+  font-size:
+    clamp(0.7rem, 1.2vw, 1rem);
+
+}
+
+
+/* =====================================
+   ARENA
+===================================== */
+
+.arena {
+
+  position:
+    relative;
+
+  width:
+    min(72vh, 75vw);
+
+  aspect-ratio:
+    1;
+
+  max-width:
+    100%;
+
+  max-height:
+    100%;
+
+  margin:
+    auto;
+
+  border:
+    0.25rem solid hsl(0, 0%, 25%);
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(circle,
+      hsl(0, 0%, 17%),
+      hsl(0, 0%, 10%));
+
+  box-shadow:
+    inset 0 0 0 0.5rem hsl(0, 0%, 7%),
+
+    0 0 2rem hsl(0, 0%, 0%);
+
+}
+
+
+/* =====================================
+   CONTENEDORES
+===================================== */
+
+.personajes,
+.sillas {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+}
+
+
+/* =====================================
+   SELECTOR DENTRO DE LA ARENA
+===================================== */
+
+.selector-juego {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    100;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    hsla(0, 0%, 5%, 0.82);
+
+  border-radius:
+    50%;
+
+  transition:
+    opacity 0.25s ease;
+
+}
+
+
+.selector-juego.oculto {
+
+  opacity:
+    0;
+
+  pointer-events:
+    none;
+
+}
+
+
+.selector-contenido {
+
+  width:
+    min(92%, 52rem);
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    1rem;
+
+  text-align:
+    center;
+
+}
+
+
+.selector-contenido h1 {
+
+  font-size:
+    clamp(1.2rem, 3vw, 2.2rem);
+
+  color:
+    hsl(73, 100%, 50%);
+
+  text-shadow:
+    0.2rem 0.2rem 0 hsl(0, 0%, 0%);
+
+}
+
+
+.selector-contenido p {
+
+  font-size:
+    clamp(0.7rem, 1.3vw, 1rem);
+
+}
+
+
+/* =====================================
+   PERSONAJES DE SELECCIÓN
+===================================== */
+
+.seleccion-jugadores {
+
+  width:
+    100%;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap:
+    0.5rem;
+
+}
+
+
+.jugador-eleccion {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    0.3rem;
+
+  padding:
+    0.45rem 0.2rem;
+
+  background:
+    hsl(0, 0%, 15%);
+
+  color:
+    hsl(0, 0%, 96%);
+
+  border:
+    0.15rem solid hsl(0, 0%, 30%);
+
+  cursor:
+    pointer;
+
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+
+}
+
+
+.jugador-eleccion:hover {
+
+  transform:
+    translateY(-0.25rem);
+
+  border-color:
+    hsl(73, 100%, 50%);
+
+}
+
+
+.jugador-eleccion.seleccionado {
+
+  background:
+    hsl(73, 100%, 50%);
+
+  color:
+    hsl(0, 0%, 5%);
+
+  border-color:
+    hsl(0, 0%, 5%);
+
+  transform:
+    translateY(-0.3rem);
+
+}
+
+
+/* =====================================
+   MINI PERSONAJE
+===================================== */
+
+.mini-personaje {
+
+  position:
+    relative;
+
+  width:
+    2.8rem;
+
+  height:
+    3.6rem;
+
+}
+
+
+.mini-cabeza {
+
+  position:
+    absolute;
+
+  width:
+    1.5rem;
+
+  height:
+    1.5rem;
+
+  left:
+    0.65rem;
+
+  top:
+    0;
+
+  background:
+    var(--piel);
+
+  border:
+    0.15rem solid hsl(0, 0%, 5%);
+
+  border-radius:
+    0.3rem;
+
+}
+
+
+.mini-cuerpo {
+
+  position:
+    absolute;
+
+  width:
+    2rem;
+
+  height:
+    1.7rem;
+
+  left:
+    0.4rem;
+
+  top:
+    1.45rem;
+
+  background:
+    var(--color);
+
+  border:
+    0.15rem solid hsl(0, 0%, 5%);
+
+}
+
+
+/* =====================================
+   BOTONES
+===================================== */
+
+.boton {
+
+  border:
+    0.2rem solid hsl(0, 0%, 5%);
+
+  background:
+    hsl(73, 100%, 50%);
+
+  color:
+    hsl(0, 0%, 5%);
+
+  padding:
+    0.7rem 1.4rem;
+
+  font-size:
+    clamp(0.7rem, 1.2vw, 1rem);
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0.3rem 0.3rem 0 hsl(0, 0%, 0%);
+
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+
+}
+
+
+.boton:hover:not(:disabled) {
+
+  transform:
+    translate(-0.1rem, -0.1rem);
+
+  box-shadow:
+    0.4rem 0.4rem 0 hsl(0, 0%, 0%);
+
+}
+
+
+.boton:active:not(:disabled) {
+
+  transform:
+    translate(0.2rem, 0.2rem);
+
+  box-shadow:
+    0.1rem 0.1rem 0 hsl(0, 0%, 0%);
+
+}
+
+
+.boton:disabled {
+
+  opacity:
+    0.35;
+
+  cursor:
+    not-allowed;
+
+}
+
+
+/* =====================================
+   PERSONAJE
+===================================== */
+
+.personaje {
+
+  position:
+    absolute;
+
+  width:
+    3.5rem;
+
+  height:
+    5rem;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index:
+    10;
+
+}
+
+
+.nombre-jugador {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    -1.2rem;
+
+  transform:
+    translateX(-50%);
+
+  font-size:
+    0.65rem;
+
+  font-weight:
+    900;
+
+  white-space:
+    nowrap;
+
+  color:
+    hsl(0, 0%, 100%);
+
+  text-shadow:
+    0.1rem 0.1rem 0 hsl(0, 0%, 0%);
+
+}
+
+
+.cabeza {
+
+  position:
+    absolute;
+
+  width:
+    1.8rem;
+
+  height:
+    1.8rem;
+
+  left:
+    0.85rem;
+
+  top:
+    0;
+
+  background:
+    var(--piel);
+
+  border:
+    0.15rem solid hsl(0, 0%, 5%);
+
+  border-radius:
+    0.3rem;
+
+}
+
+
+.cuerpo {
+
+  position:
+    absolute;
+
+  width:
+    2.4rem;
+
+  height:
+    2rem;
+
+  left:
+    0.55rem;
+
+  top:
+    1.7rem;
+
+  background:
+    var(--color);
+
+  border:
+    0.15rem solid hsl(0, 0%, 5%);
+
+}
+
+
+.pierna {
+
+  position:
+    absolute;
+
+  width:
+    0.55rem;
+
+  height:
+    1.5rem;
+
+  top:
+    3.5rem;
+
+  background:
+    hsl(0, 0%, 15%);
+
+  border:
+    0.1rem solid hsl(0, 0%, 5%);
+
+}
+
+
+.pierna-1 {
+  left:
+    0.8rem;
+}
+
+
+.pierna-2 {
+  right:
+    0.8rem;
+}
+
+
+.personaje.usuario {
+
+  filter:
+    drop-shadow(0 0 0.5rem hsl(73, 100%, 50%));
+
+}
+
+
+/* =====================================
+   SILLAS
+===================================== */
+
+.silla {
+
+  position:
+    absolute;
+
+  width:
+    3.8rem;
+
+  height:
+    4rem;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index:
+    3;
+
+}
+
+
+.silla-respaldo {
+
+  position:
+    absolute;
+
+  width:
+    2.2rem;
+
+  height:
+    2rem;
+
+  left:
+    0.8rem;
+
+  top:
+    0;
+
+  background:
+    var(--silla);
+
+  border:
+    0.2rem solid hsl(0, 0%, 8%);
+
+  border-radius:
+    0.35rem 0.35rem 0 0;
+
+}
+
+
+.silla-asiento {
+
+  position:
+    absolute;
+
+  width:
+    3rem;
+
+  height:
+    0.8rem;
+
+  left:
+    0.4rem;
+
+  top:
+    1.8rem;
+
+  background:
+    var(--silla);
+
+  border:
+    0.2rem solid hsl(0, 0%, 8%);
+
+  border-radius:
+    0.2rem;
+
+  z-index:
+    2;
+
+}
+
+
+.silla-pata {
+
+  position:
+    absolute;
+
+  width:
+    0.45rem;
+
+  height:
+    1.6rem;
+
+  top:
+    2.45rem;
+
+  background:
+    hsl(0, 0%, 12%);
+
+  z-index:
+    1;
+
+}
+
+
+.pata-1 {
+
+  left:
+    0.7rem;
+
+  transform:
+    rotate(7deg);
+
+}
+
+
+.pata-2 {
+
+  right:
+    0.7rem;
+
+  transform:
+    rotate(-7deg);
+
+}
+
+
+/* =====================================
+   TACHADO
+===================================== */
+
+.silla.tachado::after,
+.personaje.tachado::after {
+
+  content:
+    '✕';
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  transform:
+    translate(-50%, -50%) rotate(-12deg);
+
+  color:
+    hsl(0, 90%, 55%);
+
+  font-size:
+    3rem;
+
+  font-weight:
+    900;
+
+  line-height:
+    1;
+
+  text-shadow:
+    0.12rem 0.12rem 0 hsl(0, 0%, 5%);
+
+  z-index:
+    20;
+
+  animation:
+    aparecer-tachado 0.25s ease-out;
+
+}
+
+
+@keyframes aparecer-tachado {
+
+  from {
+
+    opacity:
+      0;
+
+    transform:
+      translate(-50%, -50%) rotate(-12deg) scale(1.8);
+
+  }
+
+  to {
+
+    opacity:
+      1;
+
+    transform:
+      translate(-50%, -50%) rotate(-12deg) scale(1);
+
+  }
+
+}
+
+
+/* =====================================
+   CONTROLES
+===================================== */
+
+.controles {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    0.6rem;
+
+  padding:
+    1vh 0;
+
+}
+
+
+.mensaje {
+
+  min-height:
+    1.4rem;
+
+  text-align:
+    center;
+
+  font-size:
+    clamp(0.7rem, 1.2vw, 1rem);
+
+  font-weight:
+    900;
+
+}
+
+
+.mensaje.peligro {
+
+  color:
+    hsl(0, 90%, 60%);
+
+}
+
+
+.mensaje.exito {
+
+  color:
+    hsl(73, 100%, 50%);
+
+}
+
+
+/* =====================================
+   PANTALLA FINAL
+===================================== */
+
+.pantalla-final {
+
+  width:
+    100%;
+
+  height:
+    100dvh;
+
+  display:
+    none;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    2rem;
+
+  text-align:
+    center;
+
+  background:
+    hsl(0, 0%, 9%);
+
+}
+
+
+.resultado h2 {
+
+  font-size:
+    clamp(2rem, 6vw, 4rem);
+
+  color:
+    hsl(73, 100%, 50%);
+
+  text-shadow:
+    0.25rem 0.25rem 0 hsl(0, 0%, 0%);
+
+}
+
+
+.resultado p {
+
+  margin-top:
+    0.8rem;
+
+  font-size:
+    clamp(0.8rem, 1.5vw, 1.1rem);
+
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 55rem) {
+
+  .seleccion-jugadores {
+
+    grid-template-columns:
+      repeat(4, 1fr);
+
+  }
+
+
+  .arena {
+
+    width:
+      min(62vh, 82vw);
+
+  }
+
+}
+
+
+@media (max-width: 35rem) {
+
+  .seleccion-jugadores {
+
+    grid-template-columns:
+      repeat(4, 1fr);
+
+    gap:
+      0.3rem;
+
+  }
+
+
+  .jugador-eleccion {
+
+    padding:
+      0.3rem 0.15rem;
+
+  }
+
+
+  .mini-personaje {
+
+    transform:
+      scale(0.75);
+
+  }
+
+
+  .arena {
+
+    width:
+      min(58vh, 88vw);
+
+  }
+
+
+  .personaje {
+
+    transform:
+      translate(-50%, -50%) scale(0.8);
+
+  }
+
+
+  .silla {
+
+    transform:
+      translate(-50%, -50%) scale(0.75);
+
+  }
+
+}
