@@ -28,10 +28,10 @@
               codigoPostal: element.codigoPostal,
               sexo: element.sexo,
               periodo: element.periodo,
+              afiliados: afiliados,
               parados: parados,
-              porcentaje: porcentaje
+              porcentaje: Number(porcentaje.toFixed(2))
             })
-
           }
 
         }

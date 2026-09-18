@@ -45,7 +45,7 @@
         municipio,
         codigoPostal,
         sexo,
-        cantidad: Number(elemento.valor)
+        cantidad: Number(elemento.valor.replace(/\./g, ""))
       }
       return acumulador
 
