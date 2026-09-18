@@ -494,9 +494,6 @@ body {
   height: .48rem;
 }
 
-
-/* Brazos sentados */
-
 .personaje.sentado .brazo-1 {
   top: 1.65rem;
   left: .55rem;
@@ -510,9 +507,6 @@ body {
   height: 1.15rem;
   transform: rotate(-32deg);
 }
-
-
-/* Piernas sentadas */
 
 .personaje.sentado .pierna {
   top: 2.9rem;
@@ -559,12 +553,10 @@ body {
 }
 
 @keyframes aparece-tachado {
-
   to {
     transform:
       translate(-50%, -50%) scale(1);
   }
-
 }
 
 .personaje.eliminado {
@@ -784,6 +776,25 @@ body {
     0 .65rem 1.5rem hsl(43, 80%, 50%, .25);
 }
 
+
+/* =====================================
+   BOTÓN PARAR
+===================================== */
+
+.boton-parar {
+  min-width: 7rem;
+  background: var(--amarillo);
+  color: hsl(222, 25%, 8%);
+  box-shadow:
+    0 .45rem 1.2rem hsl(43, 80%, 50%, .18);
+}
+
+.boton-parar:hover:not(:disabled) {
+  transform: translateY(-.12rem);
+  box-shadow:
+    0 .65rem 1.5rem hsl(43, 80%, 50%, .25);
+}
+
 .boton:disabled {
   opacity: .3;
   cursor: not-allowed;
@@ -836,6 +847,13 @@ body {
   transition:
     opacity .45s ease,
     visibility .45s ease;
+}
+
+.pantalla-final::before,
+.pantalla-final::after,
+.gameover-panel::before,
+.gameover-panel::after {
+  content: none;
 }
 
 .pantalla-final.visible {
@@ -964,6 +982,12 @@ body {
   .mensaje {
     min-width: 0;
     flex: 1;
+  }
+
+  .boton-parar {
+    min-width: 6rem;
+    padding-left: .7rem;
+    padding-right: .7rem;
   }
 
   .boton-ronda {

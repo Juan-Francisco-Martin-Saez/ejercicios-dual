@@ -98,6 +98,12 @@ let animacion = null
 
 let temporizadores = []
 
+let movimientoActivo = false
+
+let finalizarMovimiento = null
+
+let anguloMovimiento = 0
+
 
 /* =====================================
    DOM
@@ -120,6 +126,9 @@ const comenzar =
 
 const comenzarRonda =
   document.querySelector('#comenzar-ronda')
+
+const parar =
+  document.querySelector('#parar')
 
 const reiniciar =
   document.querySelector('#reiniciar')
@@ -211,6 +220,13 @@ function cancelarTodo() {
     animacion = null
 
   }
+
+
+  movimientoActivo = false
+
+  finalizarMovimiento = null
+
+  parar.disabled = true
 
 }
 
@@ -305,6 +321,10 @@ function nuevaPartida() {
 
 
   comenzarRonda.disabled =
+    true
+
+
+  parar.disabled =
     true
 
 
@@ -468,29 +488,16 @@ function posicionSilla(
   total
 ) {
 
-  /* -------------------------------
-     UNA SILLA
-  ------------------------------- */
-
   if (total === 1) {
 
     return {
-
       x: 50,
-
       y: 50,
-
       angulo: 0
-
     }
 
   }
 
-
-  /* -------------------------------
-     DOS SILLAS
-     Enfrentadas
-  ------------------------------- */
 
   if (total === 2) {
 
@@ -503,11 +510,6 @@ function posicionSilla(
 
   }
 
-
-  /* -------------------------------
-     TRES SILLAS
-     Triángulo equilátero
-  ------------------------------- */
 
   if (total === 3) {
 
@@ -536,16 +538,10 @@ function posicionSilla(
 
     ]
 
-
     return posiciones[indice]
 
   }
 
-
-  /* -------------------------------
-     CUATRO, CINCO Y SEIS
-     Círculo normal
-  ------------------------------- */
 
   return posicionCircular(
     indice,
@@ -800,7 +796,7 @@ function distanciaAngular(a, b) {
 
 
 /* =====================================
-   GIRAR
+   GIRAR CON VELOCIDAD VARIABLE
 ===================================== */
 
 function animarMovimiento(
@@ -810,95 +806,194 @@ function animarMovimiento(
 
   return new Promise(resolve => {
 
+    movimientoActivo = true
+
+    parar.disabled = false
+
+
     const inicio =
       performance.now()
 
 
-    const anguloInicial =
+    let ultimoTiempo =
+      inicio
+
+
+    let angulo =
       aleatorioDecimal(
         0,
         Math.PI * 2
       )
 
 
-    const vueltas =
-      2.5 +
+    let velocidadActual =
       aleatorioDecimal(
-        0,
-        1.5
+        2.8,
+        4.8
       )
 
 
-    const direccion =
-      aleatorio(2) === 0
-        ? 1
-        : -1
+    let velocidadObjetivo =
+      velocidadActual
 
 
-    const animar =
-      tiempo => {
-
-        if (
-          !partidaValida(id)
-        ) {
-
-          resolve(null)
-
-          return
-
-        }
+    let siguienteCambio =
+      inicio +
+      aleatorioDecimal(
+        450,
+        1100
+      )
 
 
-        const progreso =
-          Math.min(
-            (tiempo - inicio) /
-            duracion,
-            1
-          )
+    anguloMovimiento =
+      angulo
 
 
-        const suavizado =
-          1 -
-          Math.pow(
-            1 - progreso,
-            3
-          )
+    let finalizado = false
 
 
-        const angulo =
-          anguloInicial +
-          direccion *
-          vueltas *
-          Math.PI *
-          2 *
-          suavizado
+    function terminar(
+      anguloFinal
+    ) {
+
+      if (finalizado) return
+
+      finalizado = true
+
+      movimientoActivo = false
+
+      parar.disabled = true
+
+      finalizarMovimiento = null
 
 
-        dibujarJugadores(
-          angulo
+      if (animacion) {
+
+        cancelAnimationFrame(
+          animacion
         )
 
-
-        if (
-          progreso < 1
-        ) {
-
-          animacion =
-            requestAnimationFrame(
-              animar
-            )
-
-        } else {
-
-          animacion = null
-
-          resolve({
-            angulo
-          })
-
-        }
+        animacion = null
 
       }
+
+
+      anguloMovimiento =
+        anguloFinal
+
+
+      dibujarJugadores(
+        anguloFinal
+      )
+
+
+      resolve({
+        angulo:
+          anguloFinal
+      })
+
+    }
+
+
+    finalizarMovimiento =
+      terminar
+
+
+    function animar(tiempo) {
+
+      if (
+        finalizado
+      ) return
+
+
+      if (
+        !partidaValida(id)
+      ) {
+
+        terminar(angulo)
+
+        return
+
+      }
+
+
+      const tiempoTranscurrido =
+        tiempo - inicio
+
+
+      if (
+        tiempoTranscurrido >= duracion
+      ) {
+
+        terminar(angulo)
+
+        return
+
+      }
+
+
+      if (
+        tiempo >= siguienteCambio
+      ) {
+
+        velocidadObjetivo =
+          aleatorioDecimal(
+            2.2,
+            6.2
+          )
+
+
+        siguienteCambio =
+          tiempo +
+          aleatorioDecimal(
+            450,
+            1100
+          )
+
+      }
+
+
+      const diferenciaVelocidad =
+        velocidadObjetivo -
+        velocidadActual
+
+
+      velocidadActual +=
+        diferenciaVelocidad *
+        .035
+
+
+      const deltaTiempo =
+        Math.min(
+          tiempo - ultimoTiempo,
+          50
+        ) / 1000
+
+
+      angulo +=
+        velocidadActual *
+        deltaTiempo
+
+
+      ultimoTiempo =
+        tiempo
+
+
+      anguloMovimiento =
+        angulo
+
+
+      dibujarJugadores(
+        angulo
+      )
+
+
+      animacion =
+        requestAnimationFrame(
+          animar
+        )
+
+    }
 
 
     animacion =
@@ -907,6 +1002,25 @@ function animarMovimiento(
       )
 
   })
+
+}
+
+
+/* =====================================
+   PARAR MANUALMENTE
+===================================== */
+
+function pararMovimiento() {
+
+  if (
+    !movimientoActivo ||
+    !finalizarMovimiento
+  ) return
+
+
+  finalizarMovimiento(
+    anguloMovimiento
+  )
 
 }
 
@@ -1092,6 +1206,86 @@ async function sentarJugadores(
     !partidaValida(id)
   ) return
 
+
+  /*
+   * PRIMERA FASE:
+   * los personajes llegan de pie
+   * junto a la silla que les corresponde.
+   */
+
+  asignaciones.forEach(
+    ({ jugador, silla }) => {
+
+      const personaje =
+        buscarJugadorDOM(
+          jugador.jugador.id
+        )
+
+
+      if (!personaje) return
+
+
+      const posicion =
+        posicionSilla(
+          silla.indice,
+          sillasActivas.length
+        )
+
+
+      /*
+       * Los colocamos un poco hacia fuera
+       * de la silla para que se vea
+       * claramente que todavía están de pie.
+       */
+
+      const distancia =
+        5
+
+
+      const posicionDePieX =
+        posicion.x +
+        Math.cos(posicion.angulo) *
+        distancia
+
+
+      const posicionDePieY =
+        posicion.y +
+        Math.sin(posicion.angulo) *
+        distancia
+
+
+      personaje.style.left =
+        `${posicionDePieX}%`
+
+
+      personaje.style.top =
+        `${posicionDePieY}%`
+
+    }
+  )
+
+
+  /*
+   * Dejamos un pequeño instante
+   * para que se vea la posición
+   * de pie junto a la silla.
+   */
+
+  const continua =
+    await esperar(
+      500,
+      id
+    )
+
+
+  if (!continua) return
+
+
+  /*
+   * SEGUNDA FASE:
+   * ahora se desplazan a la silla
+   * y adoptan la postura sentada.
+   */
 
   asignaciones.forEach(
     ({ jugador, silla }) => {
@@ -1329,6 +1523,10 @@ async function ejecutarRonda() {
     true
 
 
+  parar.disabled =
+    false
+
+
   const id =
     idPartida
 
@@ -1343,7 +1541,7 @@ async function ejecutarRonda() {
 
   const movimiento =
     await animarMovimiento(
-      4200,
+      7000,
       id
     )
 
@@ -1532,6 +1730,10 @@ comenzar.addEventListener(
       false
 
 
+    parar.disabled =
+      true
+
+
     dibujarJugadores()
 
   }
@@ -1541,6 +1743,12 @@ comenzar.addEventListener(
 comenzarRonda.addEventListener(
   'click',
   ejecutarRonda
+)
+
+
+parar.addEventListener(
+  'click',
+  pararMovimiento
 )
 
 
