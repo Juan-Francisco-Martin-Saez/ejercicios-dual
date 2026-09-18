@@ -7,37 +7,37 @@ const personajes = [
   {
     id: 1,
     nombre: 'P1',
-    piel: 'hsl(28, 55%, 68%)'
+    piel: 'hsla(26, 66%, 15%, 1.00)'
   },
 
   {
     id: 2,
     nombre: 'P2',
-    piel: 'hsl(20, 42%, 58%)'
+    piel: 'hsla(56, 85%, 79%, 1.00)'
   },
 
   {
     id: 3,
     nombre: 'P3',
-    piel: 'hsl(34, 65%, 76%)'
+    piel: 'hsla(33, 100%, 94%, 1.00)'
   },
 
   {
     id: 4,
     nombre: 'P4',
-    piel: 'hsl(16, 45%, 48%)'
+    piel: 'hsla(16, 48%, 67%, 1.00)'
   },
 
   {
     id: 5,
     nombre: 'P5',
-    piel: 'hsl(30, 50%, 62%)'
+    piel: 'hsla(30, 30%, 47%, 1.00)'
   },
 
   {
     id: 6,
     nombre: 'P6',
-    piel: 'hsl(25, 35%, 72%)'
+    piel: 'hsla(24, 83%, 84%, 1.00)'
   },
 
   {
@@ -533,6 +533,8 @@ function dibujarJugadores(
           ${jugador.nombre}
         </div>
 
+        <div class="cuello"></div>
+
         <div class="cabeza"></div>
 
         <div class="cuerpo"></div>
@@ -1022,8 +1024,21 @@ async function sentarJugadores(
         `${posicion.x}%`
 
 
+      /*
+        Solo se modifica la posición
+        vertical mientras está sentado.
+
+        Se sube ligeramente respecto
+        a la posición anterior para que
+        quede apoyado sobre el asiento.
+      */
+
+      const posicionSentado =
+        posicion.y - 2.4
+
+
       personaje.style.top =
-        `${posicion.y}%`
+        `${posicionSentado}%`
 
 
       personaje.classList.add(
@@ -1329,10 +1344,6 @@ async function ejecutarRonda() {
   actualizarMarcadores()
 
 
-  /* =================================
-     EL USUARIO HA PERDIDO
-  ================================= */
-
   if (
     jugadorHaPerdido
   ) {
@@ -1345,10 +1356,6 @@ async function ejecutarRonda() {
 
   }
 
-
-  /* =================================
-     ÚLTIMA RONDA
-  ================================= */
 
   if (
     esUltimaRonda
@@ -1365,10 +1372,6 @@ async function ejecutarRonda() {
 
   }
 
-
-  /* =================================
-     QUITAR SILLA
-  ================================= */
 
   await quitarSilla(
     resultadoAsientos.sillaAEliminar,
