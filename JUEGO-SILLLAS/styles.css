@@ -1,56 +1,104 @@
+/* =====================================
+   RESET
+===================================== */
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
+  box-sizing:
+    border-box;
 
-html,
-body {
+  margin:
+    0;
 
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
+  padding:
+    0;
 
 }
 
 
+:root {
+
+  --fondo:
+    hsl(222, 22%, 7%);
+
+  --fondo-2:
+    hsl(222, 21%, 10%);
+
+  --tablero:
+    hsl(219, 19%, 15%);
+
+  --tablero-claro:
+    hsl(219, 17%, 19%);
+
+  --linea:
+    hsl(218, 14%, 28%);
+
+  --texto:
+    hsl(40, 20%, 94%);
+
+  --texto-suave:
+    hsl(218, 10%, 62%);
+
+  --amarillo:
+    hsl(43, 95%, 58%);
+
+  --rojo:
+    hsl(4, 78%, 56%);
+
+}
+
+
 body {
 
-  min-height: 100dvh;
+  min-height:
+    100dvh;
+
+  overflow:
+    hidden;
 
   background:
-    hsl(0, 0%, 9%);
+
+    linear-gradient(135deg,
+      hsl(222, 25%, 9%),
+      hsl(222, 22%, 6%));
 
   color:
-    hsl(0, 0%, 96%);
+    var(--texto);
 
   font-family:
-    'Courier New',
-    monospace;
+    Arial,
+    Helvetica,
+    sans-serif;
 
 }
 
 
 /* =====================================
-   PANTALLA DE JUEGO
+   PANTALLA
 ===================================== */
 
 .pantalla-juego {
 
-  width: 100%;
-  height: 100dvh;
+  width:
+    100%;
 
-  display: grid;
+  height:
+    100dvh;
+
+  display:
+    grid;
 
   grid-template-rows:
     auto 1fr auto;
 
+  align-items:
+    center;
+
   padding:
     1vh 2vw;
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
 }
 
@@ -62,141 +110,106 @@ body {
 .cabecera {
 
   display:
+    grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items:
+    center;
+
+  gap:
+    2rem;
+
+  min-height:
+    4.5rem;
+
+}
+
+
+.logo-juego {
+
+  display:
     flex;
 
   align-items:
     center;
 
-  justify-content:
-    space-between;
-
   gap:
-    1rem;
+    .6rem;
+
+  font-size:
+    .7rem;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    .15em;
 
 }
 
+
+.logo-punto {
+
+  width:
+    .65rem;
+
+  height:
+    .65rem;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--amarillo);
+
+  box-shadow:
+    0 0 .8rem hsl(43, 95%, 58%, .45);
+
+}
+
+
+/* =====================================
+   MARCADOR
+===================================== */
 
 .marcador {
 
   display:
     flex;
 
-  flex-wrap:
-    wrap;
-
-  gap:
-    0.5rem 1rem;
-
-  font-size:
-    clamp(0.65rem, 1vw, 0.9rem);
-
-}
-
-
-.marcador span {
+  align-items:
+    stretch;
 
   padding:
-    0.3rem 0.5rem;
+    .25rem;
 
-  background:
-    hsl(0, 0%, 14%);
-
-  border:
-    0.1rem solid hsl(0, 0%, 25%);
-
-}
-
-
-.estado {
-
-  color:
-    hsl(73, 100%, 50%);
-
-  font-weight:
-    900;
-
-  font-size:
-    clamp(0.7rem, 1.2vw, 1rem);
-
-}
-
-
-/* =====================================
-   ARENA
-===================================== */
-
-.arena {
-
-  position:
-    relative;
-
-  width:
-    min(72vh, 75vw);
-
-  aspect-ratio:
-    1;
-
-  max-width:
-    100%;
-
-  max-height:
-    100%;
-
-  margin:
-    auto;
+  gap:
+    .15rem;
 
   border:
-    0.25rem solid hsl(0, 0%, 25%);
+    .1rem solid hsl(218, 14%, 25%);
 
   border-radius:
-    50%;
+    .7rem;
 
   background:
-    radial-gradient(circle,
-      hsl(0, 0%, 17%),
-      hsl(0, 0%, 10%));
-
-  box-shadow:
-    inset 0 0 0 0.5rem hsl(0, 0%, 7%),
-
-    0 0 2rem hsl(0, 0%, 0%);
+    hsl(222, 20%, 9%, .9);
 
 }
 
 
-/* =====================================
-   CONTENEDORES
-===================================== */
+.marcador-dato {
 
-.personajes,
-.sillas {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-}
-
-
-/* =====================================
-   SELECTOR DENTRO DE LA ARENA
-===================================== */
-
-.selector-juego {
-
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  z-index:
-    100;
+  min-width:
+    5rem;
 
   display:
     flex;
+
+  flex-direction:
+    column;
 
   align-items:
     center;
@@ -204,22 +217,152 @@ body {
   justify-content:
     center;
 
-  background:
-    hsla(0, 0%, 5%, 0.82);
+  gap:
+    .15rem;
+
+  padding:
+    .4rem .7rem;
 
   border-radius:
-    50%;
-
-  transition:
-    opacity 0.25s ease;
+    .45rem;
 
 }
 
 
-.selector-juego.oculto {
+.marcador-dato small {
 
-  opacity:
-    0;
+  font-size:
+    .45rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .13em;
+
+  color:
+    var(--texto-suave);
+
+}
+
+
+.marcador-dato strong {
+
+  font-size:
+    .85rem;
+
+}
+
+
+.tu-dato strong,
+.ronda-dato strong {
+
+  color:
+    var(--amarillo);
+
+}
+
+
+/* =====================================
+   ESTADO
+===================================== */
+
+.estado {
+
+  justify-self:
+    end;
+
+  padding:
+    .55rem .8rem;
+
+  border:
+    .1rem solid hsl(218, 14%, 25%);
+
+  border-radius:
+    .45rem;
+
+  color:
+    var(--texto-suave);
+
+  background:
+    hsl(222, 20%, 9%, .8);
+
+  font-size:
+    .55rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .1em;
+
+}
+
+
+/* =====================================
+   TABLERO CUADRADO
+===================================== */
+
+.tablero {
+
+  position:
+    relative;
+
+  width:
+    min(72vh, 78vw);
+
+  aspect-ratio:
+    1;
+
+  margin:
+    auto;
+
+  transform:
+    translateY(-3vh);
+
+  overflow:
+    hidden;
+
+  border:
+    .15rem solid hsl(218, 15%, 29%);
+
+  border-radius:
+    1.5rem;
+
+  background:
+
+    linear-gradient(135deg,
+      hsl(220, 20%, 19%),
+      hsl(220, 19%, 14%));
+
+  box-shadow:
+
+    0 2rem 5rem hsl(0, 0%, 0%, .5),
+
+    inset 0 0 0 .35rem hsl(0, 0%, 100%, .025),
+
+    inset 0 0 5rem hsl(0, 0%, 0%, .4);
+
+}
+
+
+/* =====================================
+   BORDE INTERIOR
+===================================== */
+
+.tablero-borde {
+
+  position:
+    absolute;
+
+  inset:
+    1.1rem;
+
+  border:
+    .08rem solid hsl(218, 14%, 30%, .7);
+
+  border-radius:
+    1rem;
 
   pointer-events:
     none;
@@ -227,188 +370,125 @@ body {
 }
 
 
-.selector-contenido {
-
-  width:
-    min(92%, 52rem);
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  gap:
-    1rem;
-
-  text-align:
-    center;
-
-}
-
-
-.selector-contenido h1 {
-
-  font-size:
-    clamp(1.2rem, 3vw, 2.2rem);
-
-  color:
-    hsl(73, 100%, 50%);
-
-  text-shadow:
-    0.2rem 0.2rem 0 hsl(0, 0%, 0%);
-
-}
-
-
-.selector-contenido p {
-
-  font-size:
-    clamp(0.7rem, 1.3vw, 1rem);
-
-}
-
-
 /* =====================================
-   PERSONAJES DE SELECCIÓN
+   ZONA CENTRAL
 ===================================== */
 
-.seleccion-jugadores {
-
-  width:
-    100%;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(7, 1fr);
-
-  gap:
-    0.5rem;
-
-}
-
-
-.jugador-eleccion {
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  gap:
-    0.3rem;
-
-  padding:
-    0.45rem 0.2rem;
-
-  background:
-    hsl(0, 0%, 15%);
-
-  color:
-    hsl(0, 0%, 96%);
-
-  border:
-    0.15rem solid hsl(0, 0%, 30%);
-
-  cursor:
-    pointer;
-
-  transition:
-    transform 0.15s,
-    border-color 0.15s,
-    background 0.15s;
-
-}
-
-
-.jugador-eleccion:hover {
-
-  transform:
-    translateY(-0.25rem);
-
-  border-color:
-    hsl(73, 100%, 50%);
-
-}
-
-
-.jugador-eleccion.seleccionado {
-
-  background:
-    hsl(73, 100%, 50%);
-
-  color:
-    hsl(0, 0%, 5%);
-
-  border-color:
-    hsl(0, 0%, 5%);
-
-  transform:
-    translateY(-0.3rem);
-
-}
-
-
-/* =====================================
-   MINI PERSONAJE
-===================================== */
-
-.mini-personaje {
-
-  position:
-    relative;
-
-  width:
-    2.8rem;
-
-  height:
-    3.6rem;
-
-}
-
-
-.mini-cabeza {
+.zona-juego {
 
   position:
     absolute;
 
-  width:
-    1.5rem;
-
-  height:
-    1.5rem;
-
   left:
-    0.65rem;
+    50%;
 
   top:
-    0;
+    50%;
 
-  background:
-    var(--piel);
+  width:
+    64%;
+
+  height:
+    64%;
+
+  transform:
+    translate(-50%, -50%);
 
   border:
-    0.15rem solid hsl(0, 0%, 5%);
+    .08rem solid hsl(43, 65%, 50%, .13);
 
   border-radius:
-    0.3rem;
+    50%;
+
+  background:
+    radial-gradient(circle,
+      hsl(43, 50%, 45%, .055),
+      transparent 65%);
 
 }
 
 
-.mini-cuerpo {
+/* =====================================
+   LÍNEAS DECORATIVAS
+===================================== */
+
+.linea-horizontal,
+.linea-vertical {
+
+  position:
+    absolute;
+
+  background:
+    hsl(218, 14%, 30%, .22);
+
+}
+
+
+.linea-horizontal {
+
+  left:
+    7%;
+
+  right:
+    7%;
+
+  height:
+    .05rem;
+
+}
+
+
+.linea-vertical {
+
+  top:
+    7%;
+
+  bottom:
+    7%;
+
+  width:
+    .05rem;
+
+}
+
+
+.linea-1 {
+
+  top:
+    16%;
+
+}
+
+
+.linea-2 {
+
+  bottom:
+    16%;
+
+}
+
+
+.linea-3 {
+
+  left:
+    16%;
+
+}
+
+
+.linea-4 {
+
+  right:
+    16%;
+
+}
+
+
+/* =====================================
+   ESQUINAS
+===================================== */
+
+.tablero-esquina {
 
   position:
     absolute;
@@ -417,89 +497,253 @@ body {
     2rem;
 
   height:
-    1.7rem;
+    2rem;
 
-  left:
-    0.4rem;
+  border-color:
+    hsl(43, 75%, 55%, .35);
+
+  border-style:
+    solid;
+
+}
+
+
+.esquina-1 {
 
   top:
-    1.45rem;
+    2rem;
 
-  background:
-    var(--color);
+  left:
+    2rem;
 
-  border:
-    0.15rem solid hsl(0, 0%, 5%);
+  border-width:
+    .1rem 0 0 .1rem;
+
+}
+
+
+.esquina-2 {
+
+  top:
+    2rem;
+
+  right:
+    2rem;
+
+  border-width:
+    .1rem .1rem 0 0;
+
+}
+
+
+.esquina-3 {
+
+  bottom:
+    2rem;
+
+  left:
+    2rem;
+
+  border-width:
+    0 0 .1rem .1rem;
+
+}
+
+
+.esquina-4 {
+
+  right:
+    2rem;
+
+  bottom:
+    2rem;
+
+  border-width:
+    0 .1rem .1rem 0;
 
 }
 
 
 /* =====================================
-   BOTONES
+   CONTENEDORES
 ===================================== */
 
-.boton {
+.sillas,
+.personajes {
 
-  border:
-    0.2rem solid hsl(0, 0%, 5%);
+  position:
+    absolute;
 
-  background:
-    hsl(73, 100%, 50%);
+  inset:
+    0;
 
-  color:
-    hsl(0, 0%, 5%);
+}
 
-  padding:
-    0.7rem 1.4rem;
 
-  font-size:
-    clamp(0.7rem, 1.2vw, 1rem);
+/* =====================================
+   SILLA
+===================================== */
 
-  font-weight:
-    900;
+.silla {
 
-  cursor:
-    pointer;
+  position:
+    absolute;
 
-  box-shadow:
-    0.3rem 0.3rem 0 hsl(0, 0%, 0%);
+  width:
+    4.3rem;
+
+  height:
+    4.7rem;
+
+  transform:
+    translate(-50%, -50%);
 
   transition:
-    transform 0.12s,
-    box-shadow 0.12s;
+    opacity .5s ease,
+    transform .5s ease;
+
+  z-index:
+    5;
 
 }
 
 
-.boton:hover:not(:disabled) {
+/* respaldo */
+
+.silla-respaldo {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    .1rem;
+
+  width:
+    2.5rem;
+
+  height:
+    2rem;
 
   transform:
-    translate(-0.1rem, -0.1rem);
+    translateX(-50%);
+
+  border-radius:
+    .45rem .45rem .2rem .2rem;
+
+  background:
+    linear-gradient(160deg,
+      hsl(0, 0%, 100%, .14),
+      var(--silla) 45%,
+      hsl(0, 0%, 0%, .16));
+
+  border:
+    .08rem solid hsl(0, 0%, 0%, .18);
 
   box-shadow:
-    0.4rem 0.4rem 0 hsl(0, 0%, 0%);
+    0 .35rem .5rem hsl(0, 0%, 0%, .3);
 
 }
 
 
-.boton:active:not(:disabled) {
+/* asiento */
+
+.silla-asiento {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    1.8rem;
+
+  width:
+    3rem;
+
+  height:
+    .9rem;
 
   transform:
-    translate(0.2rem, 0.2rem);
+    translateX(-50%);
+
+  border-radius:
+    .25rem;
+
+  background:
+    linear-gradient(180deg,
+      hsl(0, 0%, 100%, .12),
+      var(--silla));
+
+  border:
+    .08rem solid hsl(0, 0%, 0%, .18);
 
   box-shadow:
-    0.1rem 0.1rem 0 hsl(0, 0%, 0%);
+    0 .25rem .4rem hsl(0, 0%, 0%, .35);
 
 }
 
 
-.boton:disabled {
+/* patas */
+
+.silla-pata {
+
+  position:
+    absolute;
+
+  top:
+    2.55rem;
+
+  width:
+    .3rem;
+
+  height:
+    1.7rem;
+
+  border-radius:
+    .15rem;
+
+  background:
+    linear-gradient(90deg,
+      hsl(220, 8%, 25%),
+      hsl(220, 8%, 42%),
+      hsl(220, 8%, 25%));
+
+}
+
+
+.pata-1 {
+
+  left:
+    .75rem;
+
+  transform:
+    rotate(4deg);
+
+}
+
+
+.pata-2 {
+
+  right:
+    .75rem;
+
+  transform:
+    rotate(-4deg);
+
+}
+
+
+.silla.oculta {
 
   opacity:
-    0.35;
+    0;
 
-  cursor:
-    not-allowed;
+  transform:
+    translate(-50%, -50%) scale(.8);
 
 }
 
@@ -514,19 +758,27 @@ body {
     absolute;
 
   width:
-    3.5rem;
+    4.6rem;
 
   height:
-    5rem;
+    6.8rem;
 
   transform:
     translate(-50%, -50%);
+
+  transition:
+    left .65s cubic-bezier(.2, .8, .2, 1),
+    top .65s cubic-bezier(.2, .8, .2, 1);
 
   z-index:
     10;
 
 }
 
+
+/* =====================================
+   NOMBRE
+===================================== */
 
 .nombre-jugador {
 
@@ -537,144 +789,70 @@ body {
     50%;
 
   top:
-    -1.2rem;
+    -.9rem;
 
   transform:
     translateX(-50%);
 
-  font-size:
-    0.65rem;
+  padding:
+    .15rem .4rem;
 
-  font-weight:
-    900;
+  border-radius:
+    .25rem;
 
-  white-space:
-    nowrap;
+  background:
+    hsl(222, 20%, 8%, .7);
 
   color:
-    hsl(0, 0%, 100%);
+    hsl(220, 10%, 65%);
 
-  text-shadow:
-    0.1rem 0.1rem 0 hsl(0, 0%, 0%);
+  font-size:
+    .45rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .08em;
 
 }
 
+
+/* =====================================
+   CABEZA
+===================================== */
 
 .cabeza {
 
   position:
     absolute;
 
-  width:
-    1.8rem;
-
-  height:
-    1.8rem;
-
   left:
-    0.85rem;
+    50%;
 
   top:
-    0;
-
-  background:
-    var(--piel);
-
-  border:
-    0.15rem solid hsl(0, 0%, 5%);
-
-  border-radius:
-    0.3rem;
-
-}
-
-
-.cuerpo {
-
-  position:
-    absolute;
+    .2rem;
 
   width:
-    2.4rem;
-
-  height:
-    2rem;
-
-  left:
-    0.55rem;
-
-  top:
     1.7rem;
 
-  background:
-    var(--color);
-
-  border:
-    0.15rem solid hsl(0, 0%, 5%);
-
-}
-
-
-.pierna {
-
-  position:
-    absolute;
-
-  width:
-    0.55rem;
-
   height:
-    1.5rem;
-
-  top:
-    3.5rem;
-
-  background:
-    hsl(0, 0%, 15%);
-
-  border:
-    0.1rem solid hsl(0, 0%, 5%);
-
-}
-
-
-.pierna-1 {
-  left:
-    0.8rem;
-}
-
-
-.pierna-2 {
-  right:
-    0.8rem;
-}
-
-
-.personaje.usuario {
-
-  filter:
-    drop-shadow(0 0 0.5rem hsl(73, 100%, 50%));
-
-}
-
-
-/* =====================================
-   SILLAS
-===================================== */
-
-.silla {
-
-  position:
-    absolute;
-
-  width:
-    3.8rem;
-
-  height:
-    4rem;
+    1.75rem;
 
   transform:
-    translate(-50%, -50%);
+    translateX(-50%);
+
+  border-radius:
+    42% 42% 38% 38%;
+
+  background:
+    linear-gradient(135deg,
+      hsl(0, 0%, 100%, .1),
+      var(--piel) 55%,
+      hsl(0, 0%, 0%, .1));
+
+  border:
+    .07rem solid hsl(0, 0%, 0%, .15);
 
   z-index:
     3;
@@ -682,60 +860,77 @@ body {
 }
 
 
-.silla-respaldo {
+/* =====================================
+   CUELLO
+===================================== */
+
+.cabeza::after {
+
+  content:
+    "";
 
   position:
     absolute;
 
+  left:
+    50%;
+
+  bottom:
+    -.35rem;
+
   width:
-    2.2rem;
+    .72rem;
 
   height:
-    2rem;
+    .45rem;
 
-  left:
-    0.8rem;
-
-  top:
-    0;
+  transform:
+    translateX(-50%);
 
   background:
-    var(--silla);
+    var(--piel);
 
-  border:
-    0.2rem solid hsl(0, 0%, 8%);
-
-  border-radius:
-    0.35rem 0.35rem 0 0;
+  z-index:
+    -1;
 
 }
 
 
-.silla-asiento {
+/* =====================================
+   CUERPO
+===================================== */
+
+.cuerpo {
 
   position:
     absolute;
 
-  width:
-    3rem;
-
-  height:
-    0.8rem;
-
   left:
-    0.4rem;
+    50%;
 
   top:
-    1.8rem;
+    1.7rem;
 
-  background:
-    var(--silla);
+  width:
+    2.15rem;
 
-  border:
-    0.2rem solid hsl(0, 0%, 8%);
+  height:
+    2.65rem;
+
+  transform:
+    translateX(-50%);
 
   border-radius:
-    0.2rem;
+    .55rem .55rem .35rem .35rem;
+
+  background:
+    linear-gradient(135deg,
+      hsl(0, 0%, 100%, .13),
+      var(--color) 48%,
+      hsl(0, 0%, 0%, .16));
+
+  border:
+    .07rem solid hsl(0, 0%, 0%, .18);
 
   z-index:
     2;
@@ -743,22 +938,32 @@ body {
 }
 
 
-.silla-pata {
+/* =====================================
+   BRAZOS
+===================================== */
+
+.brazo {
 
   position:
     absolute;
 
+  top:
+    1.95rem;
+
   width:
-    0.45rem;
+    .58rem;
 
   height:
-    1.6rem;
+    2rem;
 
-  top:
-    2.45rem;
+  border-radius:
+    .28rem;
 
   background:
-    hsl(0, 0%, 12%);
+    linear-gradient(90deg,
+      hsl(0, 0%, 0%, .1),
+      var(--piel),
+      hsl(0, 0%, 100%, .08));
 
   z-index:
     1;
@@ -766,24 +971,251 @@ body {
 }
 
 
-.pata-1 {
+.brazo-1 {
 
   left:
-    0.7rem;
+    .92rem;
 
   transform:
     rotate(7deg);
 
+  transform-origin:
+    top center;
+
 }
 
 
-.pata-2 {
+.brazo-2 {
 
   right:
-    0.7rem;
+    .92rem;
 
   transform:
     rotate(-7deg);
+
+  transform-origin:
+    top center;
+
+}
+
+
+.mano {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  bottom:
+    -.12rem;
+
+  width:
+    .58rem;
+
+  height:
+    .5rem;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    50%;
+
+  background:
+    var(--piel);
+
+}
+
+
+/* =====================================
+   PIERNAS
+===================================== */
+
+.pierna {
+
+  position:
+    absolute;
+
+  top:
+    4.1rem;
+
+  width:
+    .7rem;
+
+  height:
+    2rem;
+
+  border-radius:
+    .25rem;
+
+  background:
+    linear-gradient(90deg,
+      hsl(220, 12%, 27%),
+      hsl(220, 12%, 39%),
+      hsl(220, 12%, 25%));
+
+  z-index:
+    1;
+
+}
+
+
+.pierna-1 {
+
+  left:
+    1.1rem;
+
+}
+
+
+.pierna-2 {
+
+  right:
+    1.1rem;
+
+}
+
+
+.pie {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  bottom:
+    -.12rem;
+
+  width:
+    .85rem;
+
+  height:
+    .4rem;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    .25rem;
+
+  background:
+    hsl(220, 12%, 21%);
+
+}
+
+
+/* =====================================
+   JUGADOR
+===================================== */
+
+.personaje.usuario {
+
+  filter:
+    drop-shadow(0 0 .55rem hsl(43, 95%, 58%, .4));
+
+}
+
+
+/* =====================================
+   SENTARSE
+===================================== */
+
+.personaje.sentado {
+
+  transition:
+    left .65s cubic-bezier(.2, .8, .2, 1),
+    top .65s cubic-bezier(.2, .8, .2, 1);
+
+}
+
+
+/*
+   En vez de abrir las piernas,
+   el personaje baja el cuerpo
+   y dobla las piernas hacia delante.
+*/
+
+.personaje.sentado .cuerpo {
+
+  top:
+    2rem;
+
+  height:
+    2rem;
+
+  transform:
+    translateX(-50%) translateY(.25rem) rotate(2deg);
+
+}
+
+
+.personaje.sentado .cabeza {
+
+  transform:
+    translateX(-50%) translateY(.25rem);
+
+}
+
+
+.personaje.sentado .brazo-1 {
+
+  top:
+    2.2rem;
+
+  transform:
+    rotate(25deg);
+
+}
+
+
+.personaje.sentado .brazo-2 {
+
+  top:
+    2.2rem;
+
+  transform:
+    rotate(-25deg);
+
+}
+
+
+.personaje.sentado .pierna {
+
+  top:
+    3.65rem;
+
+  height:
+    1.25rem;
+
+}
+
+
+.personaje.sentado .pierna-1 {
+
+  left:
+    1rem;
+
+  transform:
+    rotate(70deg);
+
+  transform-origin:
+    top center;
+
+}
+
+
+.personaje.sentado .pierna-2 {
+
+  right:
+    1rem;
+
+  transform:
+    rotate(-70deg);
+
+  transform-origin:
+    top center;
 
 }
 
@@ -792,11 +1224,10 @@ body {
    TACHADO
 ===================================== */
 
-.silla.tachado::after,
 .personaje.tachado::after {
 
   content:
-    '✕';
+    "×";
 
   position:
     absolute;
@@ -805,16 +1236,34 @@ body {
     50%;
 
   top:
-    50%;
+    42%;
+
+  width:
+    3.2rem;
+
+  height:
+    3.2rem;
+
+  display:
+    grid;
+
+  place-items:
+    center;
 
   transform:
-    translate(-50%, -50%) rotate(-12deg);
+    translate(-50%, -50%) scale(.5);
+
+  border:
+    .15rem solid var(--rojo);
+
+  border-radius:
+    50%;
 
   color:
-    hsl(0, 90%, 55%);
+    var(--rojo);
 
   font-size:
-    3rem;
+    2.5rem;
 
   font-weight:
     900;
@@ -822,37 +1271,18 @@ body {
   line-height:
     1;
 
-  text-shadow:
-    0.12rem 0.12rem 0 hsl(0, 0%, 5%);
-
-  z-index:
-    20;
-
   animation:
-    aparecer-tachado 0.25s ease-out;
+    aparece-tachado .18s ease forwards;
 
 }
 
 
-@keyframes aparecer-tachado {
-
-  from {
-
-    opacity:
-      0;
-
-    transform:
-      translate(-50%, -50%) rotate(-12deg) scale(1.8);
-
-  }
+@keyframes aparece-tachado {
 
   to {
 
-    opacity:
-      1;
-
     transform:
-      translate(-50%, -50%) rotate(-12deg) scale(1);
+      translate(-50%, -50%) scale(1);
 
   }
 
@@ -860,10 +1290,199 @@ body {
 
 
 /* =====================================
-   CONTROLES
+   DESAPARECER
 ===================================== */
 
-.controles {
+.personaje.eliminado {
+
+  opacity:
+    0;
+
+  transform:
+    translate(-50%, -50%) translateY(.7rem) scale(.9);
+
+  transition:
+    opacity .55s ease,
+    transform .55s ease;
+
+}
+
+
+.personaje.eliminado .cabeza {
+
+  transform:
+    translateX(-50%) rotate(12deg);
+
+  transform-origin:
+    bottom center;
+
+}
+
+
+/* =====================================
+   SELECTOR
+===================================== */
+
+.selector-juego {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  z-index:
+    50;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  padding:
+    2rem;
+
+  background:
+    hsl(222, 22%, 6%, .72);
+
+  backdrop-filter:
+    blur(.6rem);
+
+  transition:
+    opacity .4s ease,
+    visibility .4s ease;
+
+}
+
+
+.selector-juego.oculto {
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+}
+
+
+/* =====================================
+   PANEL SELECCIÓN
+===================================== */
+
+.selector-panel {
+
+  width:
+    min(92%, 48rem);
+
+  padding:
+    2rem;
+
+  text-align:
+    center;
+
+  border:
+    .1rem solid hsl(218, 14%, 29%);
+
+  border-radius:
+    1rem;
+
+  background:
+    linear-gradient(145deg,
+      hsl(222, 20%, 17%),
+      hsl(222, 20%, 11%));
+
+  box-shadow:
+    0 2rem 4rem hsl(0, 0%, 0%, .5);
+
+}
+
+
+.selector-etiqueta {
+
+  color:
+    var(--amarillo);
+
+  font-size:
+    .5rem;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    .18em;
+
+}
+
+
+.selector-panel h1 {
+
+  margin-top:
+    .55rem;
+
+  font-size:
+    clamp(1.5rem,
+      3vh,
+      2.1rem);
+
+}
+
+
+.selector-panel p {
+
+  max-width:
+    30rem;
+
+  margin:
+    .6rem auto 1.6rem;
+
+  color:
+    var(--texto-suave);
+
+  font-size:
+    .68rem;
+
+  line-height:
+    1.5;
+
+}
+
+
+/* =====================================
+   SELECCIÓN JUGADORES
+===================================== */
+
+.seleccion-jugadores {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(7, minmax(0, 1fr));
+
+  gap:
+    .45rem;
+
+  width:
+    100%;
+
+  margin-bottom:
+    1.6rem;
+
+}
+
+
+.jugador-eleccion {
+
+  min-width:
+    0;
+
+  padding:
+    .55rem .25rem;
 
   display:
     flex;
@@ -875,64 +1494,285 @@ body {
     center;
 
   gap:
-    0.6rem;
+    .3rem;
 
-  padding:
-    1vh 0;
+  border:
+    .1rem solid hsl(218, 14%, 25%);
+
+  border-radius:
+    .6rem;
+
+  background:
+    hsl(222, 19%, 13%);
+
+  cursor:
+    pointer;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
 
 }
 
 
-.mensaje {
+.jugador-eleccion:hover {
 
-  min-height:
-    1.4rem;
+  transform:
+    translateY(-.2rem);
 
-  text-align:
-    center;
+  border-color:
+    hsl(43, 70%, 50%);
+
+}
+
+
+.jugador-eleccion.seleccionado {
+
+  border-color:
+    var(--amarillo);
+
+  background:
+    hsl(43, 35%, 14%);
+
+  transform:
+    translateY(-.25rem);
+
+}
+
+
+.jugador-eleccion strong {
 
   font-size:
-    clamp(0.7rem, 1.2vw, 1rem);
+    .45rem;
 
-  font-weight:
-    900;
+  color:
+    var(--texto-suave);
 
 }
 
 
-.mensaje.peligro {
+.jugador-eleccion.seleccionado strong {
 
   color:
-    hsl(0, 90%, 60%);
-
-}
-
-
-.mensaje.exito {
-
-  color:
-    hsl(73, 100%, 50%);
+    var(--amarillo);
 
 }
 
 
 /* =====================================
-   PANTALLA FINAL
+   MINI PERSONAJE
 ===================================== */
 
-.pantalla-final {
+.mini-personaje {
+
+  position:
+    relative;
 
   width:
-    100%;
+    2.4rem;
 
   height:
-    100dvh;
+    3.25rem;
+
+}
+
+
+.mini-cabeza {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    0;
+
+  width:
+    1rem;
+
+  height:
+    1.05rem;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    40%;
+
+  background:
+    var(--piel);
+
+}
+
+
+.mini-cuerpo {
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    .95rem;
+
+  width:
+    1.15rem;
+
+  height:
+    1.45rem;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    .3rem;
+
+  background:
+    var(--color);
+
+}
+
+
+.mini-personaje::before,
+.mini-personaje::after {
+
+  content:
+    "";
+
+  position:
+    absolute;
+
+  top:
+    1.05rem;
+
+  width:
+    .3rem;
+
+  height:
+    1.25rem;
+
+  border-radius:
+    .2rem;
+
+  background:
+    var(--piel);
+
+}
+
+
+.mini-personaje::before {
+
+  left:
+    .43rem;
+
+  transform:
+    rotate(8deg);
+
+}
+
+
+.mini-personaje::after {
+
+  right:
+    .43rem;
+
+  transform:
+    rotate(-8deg);
+
+}
+
+
+/* =====================================
+   BOTONES
+===================================== */
+
+.boton {
+
+  min-height:
+    2.7rem;
+
+  padding:
+    .7rem 1.3rem;
+
+  border:
+    0;
+
+  border-radius:
+    .5rem;
+
+  font-family:
+    inherit;
+
+  font-size:
+    .6rem;
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    .1em;
+
+  cursor:
+    pointer;
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.boton-principal {
+
+  background:
+    var(--amarillo);
+
+  color:
+    hsl(222, 25%, 8%);
+
+  box-shadow:
+    0 .45rem 1.2rem hsl(43, 80%, 50%, .18);
+
+}
+
+
+.boton-principal:hover:not(:disabled) {
+
+  transform:
+    translateY(-.12rem);
+
+  box-shadow:
+    0 .65rem 1.5rem hsl(43, 80%, 50%, .25);
+
+}
+
+
+.boton:disabled {
+
+  opacity:
+    .3;
+
+  cursor:
+    not-allowed;
+
+}
+
+
+/* =====================================
+   CONTROLES
+===================================== */
+
+.controles {
+
+  min-height:
+    4.5rem;
 
   display:
-    none;
-
-  flex-direction:
-    column;
+    flex;
 
   align-items:
     center;
@@ -941,38 +1781,191 @@ body {
     center;
 
   gap:
+    1rem;
+
+}
+
+
+.mensaje {
+
+  min-width:
+    16rem;
+
+  padding:
+    .65rem 1rem;
+
+  text-align:
+    center;
+
+  border:
+    .1rem solid hsl(218, 14%, 25%);
+
+  border-radius:
+    .5rem;
+
+  background:
+    hsl(222, 20%, 9%);
+
+  color:
+    var(--texto-suave);
+
+  font-size:
+    .58rem;
+
+}
+
+
+.boton-ronda {
+
+  min-width:
+    11rem;
+
+}
+
+
+/* =====================================
+   GAME OVER / FINAL
+===================================== */
+
+.pantalla-final {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    100;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  background:
+    hsl(222, 25%, 4%, .9);
+
+  backdrop-filter:
+    blur(.5rem);
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+  transition:
+    opacity .45s ease,
+    visibility .45s ease;
+
+}
+
+
+.pantalla-final.visible {
+
+  opacity:
+    1;
+
+  visibility:
+    visible;
+
+  pointer-events:
+    auto;
+
+}
+
+
+.gameover-panel {
+
+  width:
+    min(88vw, 30rem);
+
+  padding:
+    3rem 2rem;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
     2rem;
 
   text-align:
     center;
 
+  border:
+    .1rem solid hsl(218, 14%, 28%);
+
+  border-radius:
+    1rem;
+
   background:
-    hsl(0, 0%, 9%);
+    linear-gradient(145deg,
+      hsl(222, 20%, 17%),
+      hsl(222, 20%, 9%));
+
+  box-shadow:
+    0 2rem 5rem hsl(0, 0%, 0%, .6);
 
 }
 
 
-.resultado h2 {
+.resultado {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    .5rem;
+
+  font-weight:
+    900;
+
+}
+
+
+.resultado .icono-final {
 
   font-size:
-    clamp(2rem, 6vw, 4rem);
+    4rem;
+
+}
+
+
+.resultado .titulo-final {
+
+  font-size:
+    2rem;
+
+  letter-spacing:
+    .08em;
+
+}
+
+
+.resultado .subtitulo-final {
 
   color:
-    hsl(73, 100%, 50%);
-
-  text-shadow:
-    0.25rem 0.25rem 0 hsl(0, 0%, 0%);
-
-}
-
-
-.resultado p {
-
-  margin-top:
-    0.8rem;
+    var(--texto-suave);
 
   font-size:
-    clamp(0.8rem, 1.5vw, 1.1rem);
+    .65rem;
 
 }
 
@@ -981,59 +1974,63 @@ body {
    RESPONSIVE
 ===================================== */
 
-@media (max-width: 55rem) {
+@media (max-width: 900px) {
 
-  .seleccion-jugadores {
+  .cabecera {
 
     grid-template-columns:
-      repeat(4, 1fr);
+      1fr;
+
+    gap:
+      .4rem;
 
   }
 
 
-  .arena {
+  .logo-juego,
+  .estado {
+
+    display:
+      none;
+
+  }
+
+
+  .marcador {
+
+    justify-self:
+      center;
+
+  }
+
+
+  .tablero {
 
     width:
-      min(62vh, 82vw);
+      min(70vh, 90vw);
 
   }
 
 }
 
 
-@media (max-width: 35rem) {
+@media (max-width: 600px) {
 
-  .seleccion-jugadores {
-
-    grid-template-columns:
-      repeat(4, 1fr);
-
-    gap:
-      0.3rem;
-
-  }
-
-
-  .jugador-eleccion {
+  .pantalla-juego {
 
     padding:
-      0.3rem 0.15rem;
+      .5rem 1vw;
 
   }
 
 
-  .mini-personaje {
-
-    transform:
-      scale(0.75);
-
-  }
-
-
-  .arena {
+  .tablero {
 
     width:
-      min(58vh, 88vw);
+      min(67vh, 94vw);
+
+    transform:
+      translateY(-1vh);
 
   }
 
@@ -1041,7 +2038,7 @@ body {
   .personaje {
 
     transform:
-      translate(-50%, -50%) scale(0.8);
+      translate(-50%, -50%) scale(.8);
 
   }
 
@@ -1049,7 +2046,85 @@ body {
   .silla {
 
     transform:
-      translate(-50%, -50%) scale(0.75);
+      translate(-50%, -50%) scale(.8);
+
+  }
+
+
+  .selector-panel {
+
+    padding:
+      1.2rem .7rem;
+
+  }
+
+
+  .seleccion-jugadores {
+
+    gap:
+      .15rem;
+
+  }
+
+
+  .jugador-eleccion {
+
+    padding:
+      .4rem .1rem;
+
+  }
+
+
+  .mini-personaje {
+
+    transform:
+      scale(.72);
+
+  }
+
+
+  .jugador-eleccion strong {
+
+    font-size:
+      .38rem;
+
+  }
+
+
+  .marcador-dato {
+
+    min-width:
+      3.7rem;
+
+    padding:
+      .35rem .3rem;
+
+  }
+
+
+  .controles {
+
+    gap:
+      .4rem;
+
+  }
+
+
+  .mensaje {
+
+    min-width:
+      0;
+
+    flex:
+      1;
+
+  }
+
+
+  .boton-ronda {
+
+    min-width:
+      8rem;
 
   }
 

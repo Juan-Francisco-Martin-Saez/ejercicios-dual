@@ -18,38 +18,75 @@
 
 
   <!-- =====================================
-       PANTALLA DE JUEGO
+       JUEGO
   ====================================== -->
 
   <main id="pantalla-juego" class="pantalla-juego">
 
 
-    <!-- =================================
-         CABECERA
-    ================================== -->
+    <!-- CABECERA -->
 
     <header class="cabecera">
 
+      <div class="logo-juego">
+
+        <span class="logo-punto"></span>
+
+        <span>
+          LAS SILLAS
+        </span>
+
+      </div>
+
+
       <div class="marcador">
 
-        <span>
-          SILLAS:
-          <strong id="numero-sillas">6</strong>
-        </span>
+        <div class="marcador-dato">
 
-        <span>
-          JUGADORES:
-          <strong id="numero-jugadores">7</strong>
-        </span>
+          <small>
+            SILLAS
+          </small>
 
-        <span>
-          TÚ:
-          <strong id="tu-jugador">-</strong>
-        </span>
+          <strong id="numero-sillas">
+            6
+          </strong>
 
-        <span>
-          <strong id="ronda">ELECCIÓN</strong>
-        </span>
+        </div>
+
+
+        <div class="marcador-dato">
+
+          <small>
+            JUGADORES
+          </small>
+
+          <strong id="numero-jugadores">
+            7
+          </strong>
+
+        </div>
+
+
+        <div class="marcador-dato tu-dato">
+
+          <small>
+            TÚ
+          </small>
+
+          <strong id="tu-jugador">
+            -
+          </strong>
+
+        </div>
+
+
+        <div class="marcador-dato ronda-dato">
+
+          <strong id="ronda">
+            ELECCIÓN
+          </strong>
+
+        </div>
 
       </div>
 
@@ -61,32 +98,70 @@
     </header>
 
 
-    <!-- =================================
-         ARENA
-    ================================== -->
+    <!-- =====================================
+         TABLERO
+    ====================================== -->
 
-    <section class="arena">
+    <section class="tablero">
+
+
+      <!-- Decoración del escenario -->
+
+      <div class="tablero-borde"></div>
+
+      <div class="tablero-esquina esquina-1"></div>
+
+      <div class="tablero-esquina esquina-2"></div>
+
+      <div class="tablero-esquina esquina-3"></div>
+
+      <div class="tablero-esquina esquina-4"></div>
+
+
+      <div class="linea-horizontal linea-1"></div>
+
+      <div class="linea-horizontal linea-2"></div>
+
+      <div class="linea-vertical linea-3"></div>
+
+      <div class="linea-vertical linea-4"></div>
+
+
+      <div class="zona-juego"></div>
+
+
+      <!-- SILLAS -->
 
       <div id="sillas" class="sillas"></div>
 
+
+      <!-- JUGADORES -->
 
       <div id="personajes" class="personajes"></div>
 
 
       <!-- =================================
-           SELECCIÓN DENTRO DEL JUEGO
+           SELECCIÓN
       ================================== -->
 
       <div id="selector-juego" class="selector-juego">
 
-        <div class="selector-contenido">
+        <div class="selector-panel">
+
+
+          <div class="selector-etiqueta">
+            NUEVA PARTIDA
+          </div>
+
 
           <h1>
-            JUEGO DE LAS SILLAS
+            Elige tu jugador
           </h1>
 
+
           <p>
-            Elige tu personaje
+            Escoge una ficha y prepárate para
+            encontrar una silla.
           </p>
 
 
@@ -97,16 +172,18 @@
             EMPEZAR PARTIDA
           </button>
 
+
         </div>
 
       </div>
 
+
     </section>
 
 
-    <!-- =================================
+    <!-- =====================================
          CONTROLES
-    ================================== -->
+    ====================================== -->
 
     <footer class="controles">
 
@@ -115,7 +192,7 @@
       </div>
 
 
-      <button id="comenzar-ronda" class="boton boton-principal" disabled>
+      <button id="comenzar-ronda" class="boton boton-ronda" disabled>
         EMPEZAR RONDA
       </button>
 
@@ -131,12 +208,16 @@
 
   <section id="pantalla-final" class="pantalla-final">
 
-    <div id="resultado" class="resultado"></div>
+    <div class="gameover-panel">
+
+      <div id="resultado" class="resultado"></div>
 
 
-    <button id="reiniciar" class="boton boton-principal">
-      NUEVA PARTIDA
-    </button>
+      <button id="reiniciar" class="boton boton-principal">
+        NUEVA PARTIDA
+      </button>
+
+    </div>
 
   </section>
 
