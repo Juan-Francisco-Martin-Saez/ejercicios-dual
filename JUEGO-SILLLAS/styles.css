@@ -58,7 +58,8 @@ body {
   height: .65rem;
   border-radius: 50%;
   background: var(--amarillo);
-  box-shadow: 0 0 .8rem hsl(43, 95%, 58%, .45);
+  box-shadow:
+    0 0 .8rem hsl(43, 95%, 58%, .45);
 }
 
 .marcador {
@@ -305,17 +306,23 @@ body {
   z-index: 10;
 }
 
+
+/* =====================================
+   INDICADOR DEL JUGADOR
+===================================== */
+
 .nombre-jugador {
   position: absolute;
   left: 50%;
-  top: -1.15rem;
+  top: -1.88rem;
   transform: translateX(-50%);
-  padding: .15rem .4rem;
-  border-radius: .25rem;
-  background: hsl(222, 20%, 8%, .7);
-  color: hsl(220, 10%, 65%);
-  font-size: .45rem;
-  font-weight: 800;
+  padding: .15rem .42rem;
+  border: .1rem solid var(--amarillo);
+  border-radius: .3rem;
+  background: transparent;
+  color: var(--amarillo);
+  font-size: .48rem;
+  font-weight: 900;
   letter-spacing: .08em;
   white-space: nowrap;
   z-index: 30;
@@ -460,12 +467,12 @@ body {
 
 
 /* =====================================
-   JUGADOR
+   JUGADOR SELECCIONADO
 ===================================== */
 
 .personaje.usuario {
   filter:
-    drop-shadow(0 0 .55rem hsl(43, 95%, 58%, .4));
+    drop-shadow(0 0 .3rem hsl(43, 95%, 58%, .95)) drop-shadow(0 0 .8rem hsl(43, 95%, 58%, .8)) drop-shadow(0 0 1.5rem hsl(43, 95%, 58%, .55)) drop-shadow(0 0 2.5rem hsl(43, 95%, 58%, .3));
 }
 
 

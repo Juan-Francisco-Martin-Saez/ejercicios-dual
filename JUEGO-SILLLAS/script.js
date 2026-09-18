@@ -422,7 +422,7 @@ function crearSeleccion() {
 
 
 /* =====================================
-   POSICIÓN
+   POSICIÓN CIRCULAR
 ===================================== */
 
 function posicionCircular(
@@ -455,6 +455,104 @@ function posicionCircular(
       posicion
 
   }
+
+}
+
+
+/* =====================================
+   POSICIÓN DE LAS SILLAS
+===================================== */
+
+function posicionSilla(
+  indice,
+  total
+) {
+
+  /* -------------------------------
+     UNA SILLA
+  ------------------------------- */
+
+  if (total === 1) {
+
+    return {
+
+      x: 50,
+
+      y: 50,
+
+      angulo: 0
+
+    }
+
+  }
+
+
+  /* -------------------------------
+     DOS SILLAS
+     Enfrentadas
+  ------------------------------- */
+
+  if (total === 2) {
+
+    return posicionCircular(
+      indice,
+      total,
+      27,
+      0
+    )
+
+  }
+
+
+  /* -------------------------------
+     TRES SILLAS
+     Triángulo equilátero
+  ------------------------------- */
+
+  if (total === 3) {
+
+    const posiciones = [
+
+      {
+        x: 50,
+        y: 23,
+        angulo:
+          -Math.PI / 2
+      },
+
+      {
+        x: 26.6,
+        y: 63.5,
+        angulo:
+          (Math.PI * 5) / 6
+      },
+
+      {
+        x: 73.4,
+        y: 63.5,
+        angulo:
+          Math.PI / 6
+      }
+
+    ]
+
+
+    return posiciones[indice]
+
+  }
+
+
+  /* -------------------------------
+     CUATRO, CINCO Y SEIS
+     Círculo normal
+  ------------------------------- */
+
+  return posicionCircular(
+    indice,
+    total,
+    27,
+    0
+  )
 
 }
 
@@ -581,11 +679,9 @@ function dibujarSillas() {
     (silla, indice) => {
 
       const posicion =
-        posicionCircular(
+        posicionSilla(
           indice,
-          sillasActivas.length,
-          27,
-          0
+          sillasActivas.length
         )
 
 
@@ -854,11 +950,9 @@ function asignarAsientos(
       (silla, indice) => {
 
         const posicion =
-          posicionCircular(
+          posicionSilla(
             indice,
-            sillasActivas.length,
-            27,
-            0
+            sillasActivas.length
           )
 
 
@@ -1012,26 +1106,15 @@ async function sentarJugadores(
 
 
       const posicion =
-        posicionCircular(
+        posicionSilla(
           silla.indice,
-          sillasActivas.length,
-          27,
-          0
+          sillasActivas.length
         )
 
 
       personaje.style.left =
         `${posicion.x}%`
 
-
-      /*
-        Solo se modifica la posición
-        vertical mientras está sentado.
-
-        Se sube ligeramente respecto
-        a la posición anterior para que
-        quede apoyado sobre el asiento.
-      */
 
       const posicionSentado =
         posicion.y - 2.4
