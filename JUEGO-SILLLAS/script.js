@@ -1018,9 +1018,318 @@ function pararMovimiento() {
   ) return
 
 
-  finalizarMovimiento(
-    anguloMovimiento
+  /*
+   * Guardamos la función original
+   * antes de iniciar el movimiento
+   * caótico.
+   */
+
+  const finalizar =
+    finalizarMovimiento
+
+
+  movimientoCaotico(
+    anguloMovimiento,
+    finalizar
   )
+
+}
+
+
+/* =====================================
+   MOVIMIENTO CAÓTICO AL PARAR
+===================================== */
+
+function movimientoCaotico(
+  anguloInicial,
+  finalizar
+) {
+
+  if (!movimientoActivo) return
+
+
+  const inicio =
+    performance.now()
+
+
+  let ultimoTiempo =
+    inicio
+
+
+  let angulo =
+    anguloInicial
+
+
+  /*
+   * Duración aleatoria del caos.
+   */
+
+  const duracion =
+    aleatorioDecimal(
+      550,
+      1050
+    )
+
+
+  /*
+   * Puede empezar acelerando,
+   * frenando o incluso retrocediendo.
+   */
+
+  let velocidad =
+    aleatorioDecimal(
+      -1.8,
+      1.8
+    )
+
+
+  let objetivo =
+    aleatorioDecimal(
+      -6.5,
+      7.5
+    )
+
+
+  /*
+   * Primer cambio de comportamiento.
+   */
+
+  let siguienteCambio =
+    inicio +
+    aleatorioDecimal(
+      100,
+      240
+    )
+
+
+  let finalizado =
+    false
+
+
+  /*
+   * Mientras está en este estado
+   * no se puede volver a pulsar PARAR.
+   */
+
+  parar.disabled = true
+
+
+  function terminar() {
+
+    if (finalizado) return
+
+
+    finalizado = true
+
+
+    /*
+     * Dejamos que la función original
+     * termine oficialmente el movimiento.
+     */
+
+    finalizar(
+      angulo
+    )
+
+  }
+
+
+  function animar(tiempo) {
+
+    if (finalizado) return
+
+
+    /*
+     * Si la partida ya no es válida,
+     * terminamos el movimiento.
+     */
+
+    if (
+      !partidaValida(idPartida)
+    ) {
+
+      terminar()
+
+      return
+
+    }
+
+
+    const transcurrido =
+      tiempo - inicio
+
+
+    /*
+     * Final del pequeño caos.
+     */
+
+    if (
+      transcurrido >= duracion
+    ) {
+
+      /*
+       * Último pequeño cambio aleatorio
+       * antes de detenerse.
+       */
+
+      velocidad =
+        aleatorioDecimal(
+          -2,
+          3
+        )
+
+
+      angulo +=
+        velocidad *
+        .08
+
+
+      terminar()
+
+      return
+
+    }
+
+
+    /*
+     * Cada poco tiempo decidimos
+     * qué hace el movimiento.
+     */
+
+    if (
+      tiempo >= siguienteCambio
+    ) {
+
+      const tipo =
+        aleatorio(4)
+
+
+      if (
+        tipo === 0
+      ) {
+
+        /*
+         * ACELERÓN HACIA DELANTE
+         */
+
+        objetivo =
+          aleatorioDecimal(
+            5,
+            9
+          )
+
+      }
+
+
+      else if (
+        tipo === 1
+      ) {
+
+        /*
+         * FRENADA BRUSCA
+         */
+
+        objetivo =
+          aleatorioDecimal(
+            -.8,
+            .8
+          )
+
+      }
+
+
+      else if (
+        tipo === 2
+      ) {
+
+        /*
+         * REBOBINADO
+         */
+
+        objetivo =
+          aleatorioDecimal(
+            -6,
+            -2
+          )
+
+      }
+
+
+      else {
+
+        /*
+         * ACELERACIÓN NORMAL
+         */
+
+        objetivo =
+          aleatorioDecimal(
+            2,
+            7
+          )
+
+      }
+
+
+      siguienteCambio =
+        tiempo +
+        aleatorioDecimal(
+          80,
+          230
+        )
+
+    }
+
+
+    /*
+     * La velocidad se acerca
+     * progresivamente al nuevo objetivo.
+     */
+
+    velocidad +=
+      (
+        objetivo -
+        velocidad
+      ) *
+      .12
+
+
+    const deltaTiempo =
+      Math.min(
+        tiempo - ultimoTiempo,
+        40
+      ) / 1000
+
+
+    angulo +=
+      velocidad *
+      deltaTiempo
+
+
+    ultimoTiempo =
+      tiempo
+
+
+    anguloMovimiento =
+      angulo
+
+
+    dibujarJugadores(
+      angulo
+    )
+
+
+    animacion =
+      requestAnimationFrame(
+        animar
+      )
+
+  }
+
+
+  animacion =
+    requestAnimationFrame(
+      animar
+    )
 
 }
 
