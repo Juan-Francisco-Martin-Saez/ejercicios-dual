@@ -1,0 +1,5 @@
+import './components/logo.js'
+import './components/cabecera.js'
+import './components/menu-movil.js'
+import './components/hero.js'
+import './components/revistas.js'

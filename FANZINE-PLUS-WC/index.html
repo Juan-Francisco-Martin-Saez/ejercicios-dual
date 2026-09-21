@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FANZINE WEB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css_global.css">
+  <script type="module" src="./src/index.js"></script>
+</head>
+
+<body>
+  <cabecera-component>
+    <logo-component slot="logo"></logo-component>
+    <menu-component slot="menu"></menu-component>
+    <redes-component slot="redes"></redes-component>
+  </cabecera-component>
+  <menu-movil-component></menu-movil-component>
+  <hero-component></hero-component>
+  <revistas-component></revistas-component>
+  <noticias-component></noticias-component>
+  <multimedia-component></multimedia-component>
+  <categorias-component></categorias-component>
+  <footer-component>
+    <logopie-component slot="logo-footer"></logopie-component>
+    <enlaces-component slot="enlaces-footer"></enlaces-component>
+    <info-component slot="informacion-footer"></info-component>
+    <redes-component slot="redes-footer"></redes-component>
+    <copyright-component slot="copyright-footer"></copyright-component>
+  </footer-component>
+</body>
+
+</html>
