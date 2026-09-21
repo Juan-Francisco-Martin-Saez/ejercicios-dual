@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Muestra</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link
+    href="https://googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles-baseweb.css">
+  <!--IMPORTO LOS COMPONENTES-->
+  <script type="module" src="./src/index.js"></script>
+</head>
+
+<body>
+  <!--WEB COMPONENTE CABECERA-->
+  <cabecera-component>
+    <logo-component slot="logo"></logo-component>
+    <menu-component slot="menu"></menu-component>
+    <redes-component slot="redes"></redes-component>
+  </cabecera-component>
+
+  <!--WEB COMPONENTE MENU MOVIL-->
+  <menu-movil-component>
+    <logo-component slot="logo"></logo-component>
+    <menu-component slot="menu"></menu-component>
+    <redes-component slot="redes"></redes-component>
+  </menu-movil-component>
+
+  <!--WEB COMPONENTE HERO-->
+  <hero-component></hero-component>
+
+  <!--WEB COMPONENTE REVISTAS-->
+  <revistas-component></revistas-component>
+
+  <!--WEB COMPONENTE NOTICIAS-->
+  <noticias-component></noticias-component>
+
+  <!--WEB COMPONENTE MULTIMEDIA-->
+  <multimedia-component></multimedia-component>
+
+  <!--WEB COMPONENTE CATEGORIAS-->
+  <categorias-component></categorias-component>
+
+  <!--WEB COMPONENTE FOOTER-->
+  <footer-component>
+    <logo-footer-component slot="logo-footer"></logo-footer-component>
+    <enlaces-footer-component slot="enlaces-footer"></enlaces-footer-component>
+    <informacion-footer-component slot="informacion-footer"></informacion-footer-component>
+    <redes-footer-component slot="redes-footer"></redes-footer-component>
+    <copyright-footer-component slot="copyright-footer"></copyright-footer-component>
+  </footer-component>
+
+</body>
+
+</html>
