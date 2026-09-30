@@ -53,8 +53,6 @@
 //49. ¿Cuál es el promedio de ranking mundial de las universidades de México? (Solución: 132.5)
 //50. Si ordenas las universidades por año de fundación (de menor a mayor), ¿cuál queda en la tercera posición (índice 2)? (Solución: "Universidad de Buenos Aires")
 
-
-
 (() => {
 
   const universidades = [
@@ -257,6 +255,37 @@
   //19 console.log(universidades.filter(u => u.carreras.some(c => c.facultad === "Ciencias Exactas")).map(u => u.nombre))
   //20 console.log(universidades.filter(u => u.carreras.some(c => c.nombre === "Animación Digital")).map(u => u.nombre))
   //21 console.log(universidades.filter(u => u.publica === true && u.estudiantes > 100000).map(u => u.nombre))
-  console.log(universidades.filter(u => u.publica === false && u.estudiantes > 100000).map(u => u.nombre))
+  //22 console.log(universidades.filter(u => u.publica === false && u.fundacion > 1950).map(u => u.nombre))
+  //23 console.log(universidades.filter(u => u.ranking_mundial < 200).map(u => u.nombre))
+  //24 console.log(universidades.filter(u => u.pais === "Brasil" || u.pais === "Argentina").map(u => u.nombre))
+  //25 console.log(universidades.filter(u => u.publica === true && u.fundacion < 1900).map(u => u.nombre))
+  //26 console.log(universidades.filter(u => u.campus.length > 3).map(u => u.nombre))
+  //27 console.log(universidades.filter(u => u.publica === true && u.estudiantes < 30000).map(u => u.nombre))
+  //28 console.log(universidades.filter(u => u.publica === false && u.ranking_mundial > 500).map(u => u.nombre))
+  //29 console.log(universidades.filter(u => u.pais === "Colombia" && u.estudiantes > 100000).map(u => u.nombre))
+  //30 console.log(universidades.filter(u => u.fundacion >= 1901 && u.fundacion <= 2000).map(u => u.nombre))
+  //31 console.log(universidades.filter(u => u.carreras?.some(c => c.acreditada === false)).map(u => u.nombre))
+  //32 console.log(universidades.filter(u => u.carreras.every(c => c.acreditada === true)).map(u => u.nombre))
+  //33 console.log(universidades.filter(u => u.carreras?.some(c => c.duracion_semestres === 12)).map(u => u.nombre))
+  //34 console.log(universidades.filter(u => u.carreras?.some(c => c.duracion_semestres <= 8)).map(u => u.nombre))
+  //35 console.log(universidades.filter(u => u.carreras?.some(c => c.nombre === "Medicina" && c.acreditada === false)).map(u => u.nombre))
+  //36 console.log(universidades.filter(u => u.carreras?.some(c => c.facultad === "Ingeniería" && c.duracion_semestres === 10)).map(u => u.nombre))
+  //37 console.log(universidades.filter(u => u.carreras?.some(c => c.nombre === "Veterinaria")).map(u => u.nombre))
+  //38 console.log(universidades.filter(u => u.carreras?.some(c => c.duracion_semestres === 9 || c.duracion_semestres === 11)).map(u => u.nombre))
+  //39 console.log(universidades.filter(u => u.carreras?.some(c => c.facultad === "Negocios" && c.acreditada === true)).map(u => u.nombre))
+  //40 console.log(universidades.filter(u => u.carreras?.some(c => c.nombre === "Filología Hispánica")).map(u => u.nombre))
+  //41 console.log(universidades.sort((a, b) => a.fundacion - b.fundacion)[0].nombre)
+  //42 console.log(universidades.sort((a, b) => b.fundacion - a.fundacion)[0].nombre)
+  //43 console.log(universidades.sort((a, b) => b.estudiantes - a.estudiantes)[0].nombre)
+  //44 console.log(universidades.sort((a, b) => a.estudiantes - b.estudiantes)[0].nombre)
+  //45 console.log(universidades.sort((a, b) => a.ranking_mundial - b.ranking_mundial)[0].nombre)
+  //46 console.log(universidades.reduce((acumulador, u) => acumulador + u.estudiantes, 0))
+  //47 console.log(universidades.find(u => u.id === 2).carreras.reduce((sum, c) => sum + c.duracion_semestres, 0) / universidades.find(u => u.id === 2).carreras.length)
+  //48 console.log(universidades.reduce((total, u) => total + (u.carreras?.filter(c => c.acreditada).length || 0), 0))
+  //49 const mex = universidades.filter(u => u.pais === "México");
+  // console.log(mex.reduce((sum, u) => sum + u.ranking_mundial, 0) / mex.length);
+  //50 console.log(universidades.sort((a, b) => a.fundacion - b.fundacion)[2].nombre)
+
+
 
 })()
