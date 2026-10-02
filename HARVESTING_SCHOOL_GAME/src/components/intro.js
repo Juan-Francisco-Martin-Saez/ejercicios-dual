@@ -12,8 +12,14 @@ class GameIntro extends HTMLElement {
 @media(prefers-reduced-motion:reduce){.muneca,.vegetal{animation:none}}
 </style>
 <section class="pantalla-inicio"><img class="fondo" src="./img/fondo_02.jpg" alt=""><div class="escena"><img class="logo" src="./img/logo.svg" alt="UCO Garden"><div class="vegetales"></div><img class="muneca" src="./img/muneca01.svg" alt=""><button id="nuevo-jugador">NUEVA PARTIDA</button></div></section>`;
+
     this.crearVegetales();
-    this.shadow.querySelector("#nuevo-jugador").addEventListener("click", () => this.dispatchEvent(new CustomEvent("nueva-partida", { bubbles: true })));
+
+    this.shadow.querySelector("#nuevo-jugador").addEventListener("click", async () => {
+      this.dispatchEvent(new CustomEvent("nueva-partida", { bubbles: true }));
+      const { iniciarTutorial } = await import("./tutorial.js");
+      iniciarTutorial();
+    });
   }
 
   crearVegetales() {
@@ -46,4 +52,5 @@ class GameIntro extends HTMLElement {
     }
   }
 }
+
 customElements.define("game-intro", GameIntro);
