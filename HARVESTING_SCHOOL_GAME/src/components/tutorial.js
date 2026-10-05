@@ -11,7 +11,8 @@ class GameTutorial extends HTMLElement {
     this.dialogos = [
       "¡Bienvenidos! Este es vuestro tutorial de aprendizaje. Aquí descubriréis todo lo necesario para convertiros en auténticos agricultores.",
       `A continuación os enseñaré el paso inicial para el cultivo: <strong>LA SIEMBRA DE SEMILLAS</strong>. Si la tierra esta bien labrada, como es el caso, podremos proceder a la siembra sin problemas.`,
-      `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`
+      `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`,
+      `En cada surco o espacio del sembrado,<br>una <strong>SEMILLA</strong> de la planta elegida.`
     ];
 
     this.shadow.innerHTML =/*html*/`
@@ -38,20 +39,50 @@ class GameTutorial extends HTMLElement {
 .accion:active{transform:scale(.96)}
 
 .tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%;transform:translateX(-50%)}
-.tutorial.sin-personaje .dialogo{bottom:8%;width:clamp(25rem,52vw,48rem);padding:1.25rem 1.8rem}
-.tutorial.sin-personaje .dialogo::after{opacity:0}
 .tutorial.sin-personaje .muneca{opacity:0;transform:translateY(8rem)}
+.tutorial.sin-personaje .dialogo{bottom:8%;width:clamp(30rem,52vw,48rem);padding:.9rem 1.65rem;border-radius:1.55rem}
+.tutorial.sin-personaje .dialogo::after{display:none}
+.tutorial.sin-personaje .accion{right:1.3rem;bottom:-2.75rem}
 
-.indicadores{position:absolute;inset:0;z-index:35;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease}
-.tutorial.sin-personaje .indicadores{opacity:1;visibility:visible}
+.tutorial.paso-siembra .dialogo{width:clamp(29rem,46vw,43rem);line-height:1.3}
 
-.mano{position:absolute;display:block;width:clamp(5rem,8vw,8rem);height:auto;user-select:none;pointer-events:none;filter:drop-shadow(0 .55rem .45rem hsl(215 45% 8%/.55));will-change:transform;animation:senalar 1.15s ease-in-out infinite}
-.mano-izq{left:22%;top:42%;transform:rotate(12deg)}
-.mano-der{right:22%;top:42%;transform:rotate(-12deg);animation-delay:.15s}
+.indicadores{position:absolute;inset:0;z-index:35;pointer-events:none}
 
-@keyframes senalar{
-  0%,100%{translate:0 0}
-  50%{translate:0 .65rem}
+.mano{position:absolute;display:block;width:clamp(10.5rem,15.5vw,15.5rem);height:auto;opacity:0;visibility:hidden;user-select:none;pointer-events:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.58));will-change:transform,opacity;transition:opacity .4s ease,transform .4s ease}
+
+.mano-izq{left:30%;top:50%;transform:translate(-50%,-1.5rem) scale(.82) rotate(12deg)}
+.mano-der{right:30%;top:50%;transform:translate(50%,-1.5rem) scale(.82) rotate(-12deg)}
+
+.mano-izq.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarIzq 1.15s .4s ease-in-out infinite}
+.mano-der.visible{visibility:visible;opacity:1;transform:translate(50%,0) scale(1) rotate(-12deg);animation:senalarDer 1.15s .4s ease-in-out infinite}
+
+@keyframes senalarIzq{
+  0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}
+  50%{transform:translate(-50%,.7rem) scale(1.04) rotate(12deg)}
+}
+
+@keyframes senalarDer{
+  0%,100%{transform:translate(50%,0) scale(1) rotate(-12deg)}
+  50%{transform:translate(50%,.7rem) scale(1.04) rotate(-12deg)}
+}
+
+.surco-destacado{position:absolute;left:32.85%;top:27.1%;z-index:30;width:15%;height:23.8%;box-sizing:border-box;border:.45rem solid hsl(95 85% 65%);border-radius:1.2rem;opacity:0;visibility:hidden;pointer-events:none;box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.85),0 0 1.8rem .55rem hsl(95 90% 58%/.55),inset 0 0 1.1rem .2rem hsl(70 100% 80%/.55);transition:opacity .35s ease}
+.surco-destacado.visible{visibility:visible;opacity:1;animation:brilloSurco 1.25s ease-in-out infinite}
+
+.mano-siembra{position:absolute;left:27%;top:36%;z-index:40;width:clamp(6rem,9vw,9rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .5rem .4rem hsl(215 45% 8%/.58));transform:translate(-50%,-1rem) scale(.8) rotate(12deg);transition:opacity .35s ease,transform .35s ease}
+.mano-siembra.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarSiembra 1.1s .35s ease-in-out infinite}
+
+.semillas-placeholder{position:absolute;right:24%;top:34%;z-index:40;width:clamp(6rem,9vw,9rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .6rem .45rem hsl(215 45% 8%/.55));transform:translateY(-1rem) scale(.8);transition:opacity .4s ease,transform .4s ease}
+.semillas-placeholder.visible{visibility:visible;opacity:1;transform:translateY(0) scale(1)}
+
+@keyframes brilloSurco{
+  0%,100%{box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.75),0 0 1.6rem .45rem hsl(95 90% 58%/.45),inset 0 0 1rem .15rem hsl(70 100% 80%/.5)}
+  50%{box-shadow:0 0 1.15rem .4rem hsl(95 100% 72%/.95),0 0 2.2rem .75rem hsl(95 90% 58%/.7),inset 0 0 1.4rem .3rem hsl(70 100% 85%/.7)}
+}
+
+@keyframes senalarSiembra{
+  0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}
+  50%{transform:translate(-50%,.5rem) scale(1.04) rotate(12deg)}
 }
 
 @media(max-width:48rem){
@@ -61,11 +92,16 @@ class GameTutorial extends HTMLElement {
   .accion{right:.8rem;bottom:-2.85rem;padding:.6rem 1.25rem;font-size:.92rem}
 
   .tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%}
-  .tutorial.sin-personaje .dialogo{bottom:9%;width:82vw;max-width:36rem;padding:1.1rem 1.3rem}
+  .tutorial.sin-personaje .dialogo{bottom:9%;width:80vw;max-width:34rem;padding:.8rem 1.2rem .72rem;border-radius:1.4rem;font-size:clamp(.94rem,2.5vw,1.08rem);line-height:1.27}
+  .tutorial.sin-personaje .accion{right:.85rem;bottom:-2.5rem}
 
-  .mano{width:clamp(4.5rem,12vw,6.5rem)}
-  .mano-izq{left:16%;top:42%}
-  .mano-der{right:16%;top:42%}
+  .mano{width:clamp(9rem,23vw,12rem)}
+  .mano-izq{left:19%;top:47%}
+  .mano-der{right:19%;top:47%}
+
+  .surco-destacado{left:27%;top:27%;width:21%;height:24%;border:.22rem solid hsl(95 85% 65%)}
+  .mano-siembra{left:20%;top:36%;width:clamp(5.5rem,15vw,7.5rem)}
+  .semillas-placeholder{right:17%;top:34%;width:clamp(5.5rem,15vw,7.5rem)}
 }
 
 @media(max-width:30rem){
@@ -74,11 +110,16 @@ class GameTutorial extends HTMLElement {
   .dialogo::after{bottom:-.8rem;width:1.35rem;height:1.35rem}
   .accion{right:.45rem;bottom:-2.75rem;padding:.5rem 1rem;border-width:.14rem;border-radius:1.1rem;font-size:.82rem}
 
-  .tutorial.sin-personaje .dialogo{bottom:10%;width:78vw;max-width:22rem;padding:.9rem 1rem}
+  .tutorial.sin-personaje .dialogo{bottom:10%;width:84vw;max-width:23rem;padding:.68rem .9rem .6rem;border-radius:1.25rem;font-size:clamp(.84rem,3.25vw,.96rem);line-height:1.2}
+  .tutorial.sin-personaje .accion{right:.55rem;bottom:-2.25rem;padding:.5rem 1rem;font-size:.82rem}
 
-  .mano{width:clamp(4rem,15vw,5.5rem)}
-  .mano-izq{left:10%;top:41%}
-  .mano-der{right:10%;top:41%}
+  .mano{width:clamp(8.5rem,34vw,10.5rem)}
+  .mano-izq{left:13%;top:44%}
+  .mano-der{right:13%;top:44%}
+
+  .surco-destacado{left:23%;top:27%;width:27%;height:24%;border:.22rem solid hsl(95 85% 65%)}
+  .mano-siembra{left:15%;top:36%;width:clamp(5rem,21vw,6.5rem)}
+  .semillas-placeholder{right:10%;top:34%;width:clamp(5rem,21vw,6.5rem)}
 }
 
 @media(max-width:23rem){
@@ -86,16 +127,21 @@ class GameTutorial extends HTMLElement {
   .dialogo{bottom:calc(100% + .75rem);width:72vw;max-width:17rem;padding:.8rem;font-size:.82rem;line-height:1.22}
   .accion{right:.25rem;bottom:-2.65rem;padding:.45rem .85rem;font-size:.76rem}
 
-  .tutorial.sin-personaje .dialogo{bottom:11%;width:76vw;max-width:18rem;padding:.8rem}
+  .tutorial.sin-personaje .dialogo{bottom:11%;width:82vw;max-width:17.5rem;padding:.6rem .75rem .45rem;border-radius:1.15rem;font-size:.78rem;line-height:1.18}
+  .tutorial.sin-personaje .accion{right:.4rem;bottom:-2.05rem;padding:.45rem .85rem;font-size:.76rem}
 
-  .mano{width:4rem}
-  .mano-izq{left:7%;top:40%}
-  .mano-der{right:7%;top:40%}
+  .mano{width:clamp(8rem,38vw,9.5rem)}
+  .mano-izq{left:8%;top:42%}
+  .mano-der{right:8%;top:42%}
+
+  .surco-destacado{left:21%;top:27%;width:29%;height:24%;border:.22rem solid hsl(95 85% 65%)}
+  .mano-siembra{left:13%;top:36%;width:clamp(4.5rem,22vw,5.8rem)}
+  .semillas-placeholder{right:7%;top:34%;width:clamp(4.5rem,22vw,5.8rem)}
 }
 
 @media(prefers-reduced-motion:reduce){
-  .muneca,.dialogo,.indicadores{transition:none}
-  .mano{animation:none}
+  .muneca,.dialogo,.mano,.mano-siembra,.semillas-placeholder{transition:none}
+  .mano-izq.visible,.mano-der.visible,.mano-siembra.visible,.surco-destacado.visible{animation:none}
 }
 </style>
 
@@ -105,6 +151,9 @@ class GameTutorial extends HTMLElement {
   <div class="indicadores">
     <img class="mano mano-izq" src="./img/mano-izq.svg" alt="">
     <img class="mano mano-der" src="./img/mano-der.svg" alt="">
+    <div class="surco-destacado"></div>
+    <img class="mano-siembra" src="./img/mano-izq.svg" alt="">
+    <img class="semillas-placeholder" src="./img/tomate.svg" alt="">
   </div>
 
   <div class="intro">
@@ -122,6 +171,11 @@ class GameTutorial extends HTMLElement {
     this.dialogo = this.shadow.querySelector(".dialogo");
     this.texto = this.shadow.querySelector(".texto");
     this.accion = this.shadow.querySelector(".accion");
+    this.manoIzq = this.shadow.querySelector(".mano-izq");
+    this.manoDer = this.shadow.querySelector(".mano-der");
+    this.manoSiembra = this.shadow.querySelector(".mano-siembra");
+    this.surcoDestacado = this.shadow.querySelector(".surco-destacado");
+    this.semillasPlaceholder = this.shadow.querySelector(".semillas-placeholder");
 
     this.tutorial.addEventListener("pointerdown", e => this.iniciarArrastre(e));
     this.tutorial.addEventListener("pointermove", e => this.mover(e));
@@ -159,7 +213,34 @@ class GameTutorial extends HTMLElement {
         this.tutorial.classList.add("sin-personaje");
         this.texto.innerHTML = this.dialogos[this.dialogoActual];
         this.dialogo.classList.add("visible");
+
+        setTimeout(() => {
+          this.manoIzq.classList.add("visible");
+
+          setTimeout(() => {
+            this.manoDer.classList.add("visible");
+          }, 450);
+        }, 300);
       }, 500);
+
+      return;
+    }
+
+    if (this.dialogoActual === 3) {
+      this.manoIzq.classList.remove("visible");
+      this.manoDer.classList.remove("visible");
+
+      setTimeout(() => {
+        this.tutorial.classList.add("paso-siembra");
+        this.texto.innerHTML = this.dialogos[this.dialogoActual];
+        this.dialogo.classList.add("visible");
+        this.surcoDestacado.classList.add("visible");
+
+        setTimeout(() => {
+          this.manoSiembra.classList.add("visible");
+          this.semillasPlaceholder.classList.add("visible");
+        }, 300);
+      }, 350);
 
       return;
     }
