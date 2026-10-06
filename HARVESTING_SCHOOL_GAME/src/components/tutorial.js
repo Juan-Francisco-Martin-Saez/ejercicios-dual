@@ -1,301 +1,88 @@
 class GameTutorial extends HTMLElement {
   constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: "open" });
-    this.x = 0;
-    this.inicioX = 0;
-    this.xInicial = 0;
-    this.arrastrando = false;
-    this.dialogoActual = 0;
-
-    this.dialogos = [
-      "¡Bienvenidos! Este es vuestro tutorial de aprendizaje. Aquí descubriréis todo lo necesario para convertiros en auténticos agricultores.",
-      `A continuación os enseñaré el paso inicial para el cultivo: <strong>LA SIEMBRA DE SEMILLAS</strong>. Si la tierra esta bien labrada, como es el caso, podremos proceder a la siembra sin problemas.`,
-      `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`,
-      `En cada surco o espacio del sembrado,<br>una <strong>SEMILLA</strong> de la planta elegida.`
-    ];
-
+    super(); this.shadow = this.attachShadow({ mode: "open" }); this.x = 0; this.inicioX = 0; this.xInicial = 0; this.arrastrando = false; this.dialogoActual = 0; this.escribiendo = false; this.tokenEscritura = 0; this.tokenAnimacion = 0; this.animando = false; this.velocidadTexto = 45; this.caracteresActuales = []; this.escrituraActual = null; this.animacionSiembra = false; this.animacionRiego = false;
+    this.dialogos = ["¡Bienvenidos! Este es vuestro tutorial de aprendizaje. Aquí descubriréis todo lo necesario para convertiros en auténticos agricultores.", `A continuación os enseñaré el paso inicial para el cultivo: <strong>LA SIEMBRA DE SEMILLAS</strong>. Si la tierra esta bien labrada, como es el caso, podremos proceder a la siembra sin problemas.`, `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`, `En cada surco o espacio del sembrado,<br>entierra una <strong>SEMILLA</strong> de la planta elegida.`, `Una vez plantada la semilla, debemos <strong>REGARLA</strong> para humedecer la tierra. Es buen momento para añadirle nutrientes como <strong>SUSTRATOS</strong> o <strong>ABONOS</strong>, y después la volvemos a regar ligeramente.`];
     this.shadow.innerHTML =/*html*/`
 <style>
-:host{display:block;width:100%;height:100%;overflow:hidden}
-.tutorial{position:relative;width:100%;height:100%;overflow:hidden;background:hsl(95 20% 35%);cursor:grab;touch-action:none}
-.mapa{position:absolute;left:50%;top:50%;width:100%;height:100%;object-fit:cover;object-position:center;transform:translate(-50%,-50%) translateX(var(--x,0px));user-select:none;pointer-events:none;will-change:transform}
-.tutorial.arrastrando{cursor:grabbing}
-
-.intro{position:absolute;left:50%;bottom:2%;z-index:50;width:clamp(17rem,32vw,27rem);transform:translateX(-50%);pointer-events:none}
-
-.muneca{display:block;width:100%;height:auto;opacity:0;transform:translateY(4rem);filter:drop-shadow(0 .8rem .7rem hsl(215 45% 8%/.68)) drop-shadow(0 .25rem .25rem hsl(215 45% 8%/.5));transition:opacity .55s ease,transform .55s ease;user-select:none;pointer-events:none}
-.muneca.visible{opacity:1;transform:translateY(0)}
-.muneca.saliendo{opacity:0;transform:translateY(8rem)}
-
-.dialogo{position:absolute;left:50%;bottom:calc(100% + 1.1rem);width:clamp(20rem,155%,38rem);box-sizing:border-box;padding:1.35rem 1.8rem;border:.2rem solid hsl(38 48% 58%);border-radius:1.8rem;background:linear-gradient(180deg,hsl(45 80% 94%),hsl(40 70% 86%));color:hsl(215 55% 18%);font-family:Arial,Helvetica,sans-serif;font-size:clamp(1rem,1.5vw,1.4rem);font-weight:700;line-height:1.4;text-align:center;opacity:0;box-shadow:0 .35rem 0 hsl(37 42% 48%),0 .9rem 1.25rem hsl(215 45% 8%/.6),0 .25rem .4rem hsl(215 45% 8%/.45),inset 0 .15rem 0 hsl(0 0% 100%/.7);transform:translate(-50%,1.2rem) scale(.97);transition:opacity .4s ease,transform .4s ease,bottom .55s ease,width .55s ease}
-.dialogo.visible{opacity:1;transform:translate(-50%,0) scale(1)}
-.dialogo strong{color:hsl(115 58% 36%);font-weight:900}
-
-.dialogo::after{content:"";position:absolute;left:50%;bottom:-1.05rem;width:1.8rem;height:1.8rem;background:hsl(40 70% 86%);border-right:.2rem solid hsl(38 48% 58%);border-bottom:.2rem solid hsl(38 48% 58%);transform:translateX(-50%) rotate(45deg);filter:drop-shadow(.3rem .4rem .2rem hsl(215 45% 8%/.45));transition:opacity .3s ease}
-
-.accion{position:absolute;right:1.3rem;bottom:-2.85rem;z-index:10;padding:.7rem 1.5rem;border:.18rem solid hsl(115 45% 27%);border-radius:1.4rem;background:linear-gradient(180deg,hsl(100 62% 48%),hsl(115 58% 36%));color:white;font-family:Arial,Helvetica,sans-serif;font-size:1rem;font-weight:900;letter-spacing:.04rem;cursor:pointer;pointer-events:auto;box-shadow:0 .28rem 0 hsl(115 48% 24%),0 .8rem .7rem hsl(215 45% 8%/.68),0 .25rem .25rem hsl(215 45% 8%/.5),inset 0 .12rem 0 hsl(0 0% 100%/.35);transition:transform .15s ease,filter .15s ease}
-.accion:hover{transform:scale(1.06);filter:brightness(1.08)}
-.accion:active{transform:scale(.96)}
-
-.tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%;transform:translateX(-50%)}
-.tutorial.sin-personaje .muneca{opacity:0;transform:translateY(8rem)}
-.tutorial.sin-personaje .dialogo{bottom:8%;width:clamp(30rem,52vw,48rem);padding:.9rem 1.65rem;border-radius:1.55rem}
-.tutorial.sin-personaje .dialogo::after{display:none}
-.tutorial.sin-personaje .accion{right:1.3rem;bottom:-2.75rem}
-
-.tutorial.paso-siembra .dialogo{width:clamp(29rem,46vw,43rem);line-height:1.3}
-
-.indicadores{position:absolute;inset:0;z-index:35;pointer-events:none}
-
-.mano{position:absolute;display:block;width:clamp(10.5rem,15.5vw,15.5rem);height:auto;opacity:0;visibility:hidden;user-select:none;pointer-events:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.58));will-change:transform,opacity;transition:opacity .4s ease,transform .4s ease}
-
-.mano-izq{left:30%;top:50%;transform:translate(-50%,-1.5rem) scale(.82) rotate(12deg)}
-.mano-der{right:30%;top:50%;transform:translate(50%,-1.5rem) scale(.82) rotate(-12deg)}
-
-.mano-izq.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarIzq 1.15s .4s ease-in-out infinite}
-.mano-der.visible{visibility:visible;opacity:1;transform:translate(50%,0) scale(1) rotate(-12deg);animation:senalarDer 1.15s .4s ease-in-out infinite}
-
-@keyframes senalarIzq{
-  0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}
-  50%{transform:translate(-50%,.7rem) scale(1.04) rotate(12deg)}
-}
-
-@keyframes senalarDer{
-  0%,100%{transform:translate(50%,0) scale(1) rotate(-12deg)}
-  50%{transform:translate(50%,.7rem) scale(1.04) rotate(-12deg)}
-}
-
-.surco-destacado{position:absolute;left:32.85%;top:27.1%;z-index:30;width:15%;height:23.8%;box-sizing:border-box;border:.45rem solid hsl(95 85% 65%);border-radius:1.2rem;opacity:0;visibility:hidden;pointer-events:none;box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.85),0 0 1.8rem .55rem hsl(95 90% 58%/.55),inset 0 0 1.1rem .2rem hsl(70 100% 80%/.55);transition:opacity .35s ease}
-.surco-destacado.visible{visibility:visible;opacity:1;animation:brilloSurco 1.25s ease-in-out infinite}
-
-.mano-siembra{position:absolute;left:27%;top:36%;z-index:40;width:clamp(6rem,9vw,9rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .5rem .4rem hsl(215 45% 8%/.58));transform:translate(-50%,-1rem) scale(.8) rotate(12deg);transition:opacity .35s ease,transform .35s ease}
-.mano-siembra.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarSiembra 1.1s .35s ease-in-out infinite}
-
-.semillas-placeholder{position:absolute;right:24%;top:34%;z-index:40;width:clamp(6rem,9vw,9rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .6rem .45rem hsl(215 45% 8%/.55));transform:translateY(-1rem) scale(.8);transition:opacity .4s ease,transform .4s ease}
-.semillas-placeholder.visible{visibility:visible;opacity:1;transform:translateY(0) scale(1)}
-
-@keyframes brilloSurco{
-  0%,100%{box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.75),0 0 1.6rem .45rem hsl(95 90% 58%/.45),inset 0 0 1rem .15rem hsl(70 100% 80%/.5)}
-  50%{box-shadow:0 0 1.15rem .4rem hsl(95 100% 72%/.95),0 0 2.2rem .75rem hsl(95 90% 58%/.7),inset 0 0 1.4rem .3rem hsl(70 100% 85%/.7)}
-}
-
-@keyframes senalarSiembra{
-  0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}
-  50%{transform:translate(-50%,.5rem) scale(1.04) rotate(12deg)}
-}
-
-@media(max-width:48rem){
-  .mapa{width:auto;height:100%;max-width:none}
-  .intro{bottom:4%;width:clamp(21rem,68vw,26rem)}
-  .dialogo{bottom:calc(100% + .95rem);width:82vw;max-width:33rem;padding:1.1rem 1.3rem;font-size:clamp(.95rem,2.6vw,1.15rem);line-height:1.32}
-  .accion{right:.8rem;bottom:-2.85rem;padding:.6rem 1.25rem;font-size:.92rem}
-
-  .tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%}
-  .tutorial.sin-personaje .dialogo{bottom:9%;width:80vw;max-width:34rem;padding:.8rem 1.2rem .72rem;border-radius:1.4rem;font-size:clamp(.94rem,2.5vw,1.08rem);line-height:1.27}
-  .tutorial.sin-personaje .accion{right:.85rem;bottom:-2.5rem}
-
-  .mano{width:clamp(9rem,23vw,12rem)}
-  .mano-izq{left:19%;top:47%}
-  .mano-der{right:19%;top:47%}
-
-  .surco-destacado{left:27%;top:27%;width:21%;height:24%;border:.22rem solid hsl(95 85% 65%)}
-  .mano-siembra{left:20%;top:36%;width:clamp(5.5rem,15vw,7.5rem)}
-  .semillas-placeholder{right:17%;top:34%;width:clamp(5.5rem,15vw,7.5rem)}
-}
-
-@media(max-width:30rem){
-  .intro{bottom:4%;width:min(94vw,27rem)}
-  .dialogo{bottom:calc(100% + .8rem);width:76vw;max-width:21rem;padding:.9rem 1rem;border-radius:1.35rem;font-size:clamp(.88rem,3.4vw,1rem);line-height:1.25}
-  .dialogo::after{bottom:-.8rem;width:1.35rem;height:1.35rem}
-  .accion{right:.45rem;bottom:-2.75rem;padding:.5rem 1rem;border-width:.14rem;border-radius:1.1rem;font-size:.82rem}
-
-  .tutorial.sin-personaje .dialogo{bottom:10%;width:84vw;max-width:23rem;padding:.68rem .9rem .6rem;border-radius:1.25rem;font-size:clamp(.84rem,3.25vw,.96rem);line-height:1.2}
-  .tutorial.sin-personaje .accion{right:.55rem;bottom:-2.25rem;padding:.5rem 1rem;font-size:.82rem}
-
-  .mano{width:clamp(8.5rem,34vw,10.5rem)}
-  .mano-izq{left:13%;top:44%}
-  .mano-der{right:13%;top:44%}
-
-  .surco-destacado{left:23%;top:27%;width:27%;height:24%;border:.22rem solid hsl(95 85% 65%)}
-  .mano-siembra{left:15%;top:36%;width:clamp(5rem,21vw,6.5rem)}
-  .semillas-placeholder{right:10%;top:34%;width:clamp(5rem,21vw,6.5rem)}
-}
-
-@media(max-width:23rem){
-  .intro{bottom:5%;width:98vw}
-  .dialogo{bottom:calc(100% + .75rem);width:72vw;max-width:17rem;padding:.8rem;font-size:.82rem;line-height:1.22}
-  .accion{right:.25rem;bottom:-2.65rem;padding:.45rem .85rem;font-size:.76rem}
-
-  .tutorial.sin-personaje .dialogo{bottom:11%;width:82vw;max-width:17.5rem;padding:.6rem .75rem .45rem;border-radius:1.15rem;font-size:.78rem;line-height:1.18}
-  .tutorial.sin-personaje .accion{right:.4rem;bottom:-2.05rem;padding:.45rem .85rem;font-size:.76rem}
-
-  .mano{width:clamp(8rem,38vw,9.5rem)}
-  .mano-izq{left:8%;top:42%}
-  .mano-der{right:8%;top:42%}
-
-  .surco-destacado{left:21%;top:27%;width:29%;height:24%;border:.22rem solid hsl(95 85% 65%)}
-  .mano-siembra{left:13%;top:36%;width:clamp(4.5rem,22vw,5.8rem)}
-  .semillas-placeholder{right:7%;top:34%;width:clamp(4.5rem,22vw,5.8rem)}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .muneca,.dialogo,.mano,.mano-siembra,.semillas-placeholder{transition:none}
-  .mano-izq.visible,.mano-der.visible,.mano-siembra.visible,.surco-destacado.visible{animation:none}
-}
+:host{display:block;width:100%;height:100%;overflow:hidden}.tutorial{position:relative;width:100%;height:100%;overflow:hidden;background:hsl(95 20% 35%);cursor:grab;touch-action:none}.mapa{position:absolute;left:50%;top:50%;width:100%;height:100%;object-fit:cover;object-position:center;transform:translate(-50%,-50%) translateX(var(--x,0px));user-select:none;pointer-events:none;will-change:transform}.tutorial.arrastrando{cursor:grabbing}
+.intro{position:absolute;left:50%;bottom:2%;z-index:50;width:clamp(17rem,32vw,27rem);transform:translateX(-50%);pointer-events:none}.muneca{display:block;width:100%;height:auto;opacity:0;transform:translateY(4rem);filter:drop-shadow(0 .8rem .7rem hsl(215 45% 8%/.68)) drop-shadow(0 .25rem .25rem hsl(215 45% 8%/.5));transition:opacity .75s ease-out,transform .75s ease-out;user-select:none;pointer-events:none}.muneca.visible{opacity:1;transform:translateY(0)}.muneca.saliendo{opacity:0;transform:translateY(8rem)}
+.dialogo{position:absolute;left:50%;bottom:calc(100% + 1.1rem);width:clamp(20rem,155%,38rem);box-sizing:border-box;padding:1.35rem 1.8rem;border:.2rem solid hsl(38 48% 58%);border-radius:1.8rem;background:linear-gradient(180deg,hsl(45 80% 94%),hsl(40 70% 86%));color:hsl(215 55% 18%);font-family:Arial,Helvetica,sans-serif;font-size:clamp(1rem,1.5vw,1.4rem);font-weight:700;line-height:1.4;text-align:center;opacity:0;box-shadow:0 .35rem 0 hsl(37 42% 48%),0 .9rem 1.25rem hsl(215 45% 8%/.6),0 .25rem .4rem hsl(215 45% 8%/.45),inset 0 .15rem 0 hsl(0 0% 100%/.7);transform:translate(-50%,1rem) scale(.98);transition:opacity .65s ease-out,transform .65s ease-out,bottom .65s ease-out,width .65s ease-out}.dialogo.visible{opacity:1;transform:translate(-50%,0) scale(1)}.dialogo strong{color:hsl(115 58% 36%);font-weight:900}.texto{position:relative}.texto-fijo{visibility:hidden;pointer-events:none}.texto-escritura{position:absolute;inset:0;visibility:hidden}.texto-escritura .caracter{visibility:hidden}.texto-escritura.activa{visibility:visible}.texto-escritura.activa .caracter.visible{visibility:visible}
+.dialogo::after{content:"";position:absolute;left:50%;bottom:-1.05rem;width:1.8rem;height:1.8rem;background:hsl(40 70% 86%);border-right:.2rem solid hsl(38 48% 58%);border-bottom:.2rem solid hsl(38 48% 58%);transform:translateX(-50%) rotate(45deg);filter:drop-shadow(.3rem .4rem .2rem hsl(215 45% 8%/.45));transition:opacity .5s ease-out}
+.accion{position:absolute;right:1.3rem;bottom:-2.85rem;z-index:10;padding:.7rem 1.5rem;border:.18rem solid hsl(115 45% 27%);border-radius:1.4rem;background:linear-gradient(180deg,hsl(100 62% 48%),hsl(115 58% 36%));color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:1rem;font-weight:900;letter-spacing:.04rem;cursor:pointer;pointer-events:auto;box-shadow:0 .28rem 0 hsl(115 48% 24%),0 .8rem .7rem hsl(215 45% 8%/.68),0 .25rem .25rem hsl(215 45% 8%/.5),inset 0 .12rem 0 hsl(0 0% 100%/.35);transition:transform .2s ease-out,filter .2s ease-out}.accion:hover{transform:scale(1.06);filter:brightness(1.08)}.accion:active{transform:scale(.96)}
+.tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%;transform:translateX(-50%)}.tutorial.sin-personaje .muneca{opacity:0;transform:translateY(8rem)}.tutorial.sin-personaje .dialogo{bottom:8%;width:clamp(30rem,52vw,48rem);padding:.9rem 1.65rem;border-radius:1.55rem}.tutorial.sin-personaje .dialogo::after{display:none}.tutorial.sin-personaje .accion{right:1.3rem;bottom:-2.75rem}.tutorial.paso-siembra .dialogo{width:clamp(29rem,46vw,43rem);line-height:1.3}
+.indicadores{position:absolute;inset:0;z-index:35;pointer-events:none;transform:translateX(var(--x,0px));will-change:transform}.mano{position:absolute;display:block;width:clamp(10.5rem,15.5vw,15.5rem);height:auto;opacity:0;visibility:hidden;user-select:none;pointer-events:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.58));will-change:transform,opacity;transition:opacity .7s ease-out,transform .7s ease-out}.mano-izq{left:30%;top:50%;transform:translate(-50%,-1.2rem) scale(.88) rotate(12deg)}.mano-der{right:30%;top:50%;transform:translate(50%,-1.2rem) scale(.88) rotate(-12deg)}.mano-izq.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarIzq 1.8s .7s ease-in-out infinite}.mano-der.visible{visibility:visible;opacity:1;transform:translate(50%,0) scale(1) rotate(-12deg);animation:senalarDer 1.8s .7s ease-in-out infinite}.mano-izq.saliendo{visibility:visible;opacity:0;animation:none;transform:translate(-50%,-1.4rem) scale(.94) rotate(12deg)}.mano-der.saliendo{visibility:visible;opacity:0;animation:none;transform:translate(50%,-1.4rem) scale(.94) rotate(-12deg)}
+@keyframes senalarIzq{0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}50%{transform:translate(-50%,.55rem) scale(1.025) rotate(12deg)}}@keyframes senalarDer{0%,100%{transform:translate(50%,0) scale(1) rotate(-12deg)}50%{transform:translate(50%,.55rem) scale(1.025) rotate(-12deg)}}
+.surco-destacado{position:absolute;left:32.80%;top:27.1%;z-index:30;width:15%;height:23.8%;box-sizing:border-box;border:.45rem solid hsl(95 85% 65%);border-radius:1.2rem;opacity:0;visibility:hidden;pointer-events:none;box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.85),0 0 1.8rem .55rem hsl(95 90% 58%/.55),inset 0 0 1.1rem .2rem hsl(70 100% 80%/.55);transition:opacity .7s ease-out}.surco-destacado.visible{visibility:visible;opacity:1;animation:brilloSurco 1.9s ease-in-out infinite}
+.mano-siembra{position:absolute;left:27%;top:36%;z-index:40;width:clamp(6rem,9vw,9rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .5rem .4rem hsl(215 45% 8%/.58));transform:translate(-50%,-.8rem) scale(.88) rotate(12deg);transition:opacity .65s ease-out,transform .75s ease-out}.mano-siembra.visible{visibility:visible;opacity:1;transform:translate(-50%,0) scale(1) rotate(12deg);animation:senalarSiembra 1.8s .7s ease-in-out infinite}.mano-siembra.oculta{visibility:visible;opacity:0;animation:none;transform:translate(-50%,-1.3rem) scale(.94) rotate(12deg)}
+.semillas-placeholder{position:absolute;right:21%;top:30%;z-index:40;width:clamp(8.5rem,12vw,12rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .7rem .55rem hsl(215 45% 8%/.58));transform:translateY(-.8rem) scale(.9);transition:opacity .75s ease-out,transform .75s ease-out}.semillas-placeholder.visible{visibility:visible;opacity:1;transform:translateY(0) scale(1)}.semillas-placeholder.saliendo{visibility:visible;opacity:0;transform:translateY(-1.3rem) scale(.94)}
+.mano-animacion{position:absolute;left:75%;top:20%;z-index:45;width:clamp(7rem,10vw,10rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;transform:translate(-50%,-50%) rotate(-8deg);transform-origin:70% 70%;filter:drop-shadow(0 .55rem .45rem hsl(215 45% 8%/.58));will-change:left,top,transform,opacity}.mano-animacion.visible{visibility:visible;opacity:1}
+.marca-siembra{position:absolute;left:37.6%;top:38.3%;z-index:32;width:3.9rem;height:5.4rem;border-radius:47% 53% 44% 56%/55% 43% 57% 45%;clip-path:polygon(48% 0,67% 5%,84% 17%,95% 34%,92% 52%,100% 69%,83% 85%,65% 91%,48% 100%,29% 94%,12% 83%,5% 67%,9% 51%,0 35%,14% 19%,31% 8%);background:hsl(28 35% 20%/.24);box-shadow:inset 0 .1rem .3rem hsl(25 35% 12%/.12),0 0 .45rem hsl(32 25% 18%/.1);opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-2deg);transition:opacity .4s ease-out,transform .6s ease-out,background .65s ease-out,box-shadow .65s ease-out}.marca-siembra.visible{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-2deg)}.marca-siembra.humeda{background:hsl(24 65% 6%/.40);box-shadow:inset 0 .15rem .4rem hsl(20 60% 4%/.18),0 0 .5rem hsl(25 45% 7%/.1);transform:translate(-50%,-50%) scale(1.12) rotate(-2deg)}
+.regadera{position:absolute;left:46.5%;top:29%;z-index:46;width:clamp(9rem,13vw,13rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.55));transform-origin:50% 60%;transform:translate(-50%,-50%) translate(1.1rem,-1rem) scale(.9) scaleX(-1);transition:opacity .6s ease-out,transform .7s ease-out}.regadera.visible{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1)}.regadera.regando{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1) rotate(18deg)}.regadera.saliendo{visibility:visible;opacity:0;transform:translate(-50%,-50%) translate(1rem,-1.3rem) scale(.94) scaleX(-1)}
+.gotas{position:absolute;left:34.8%;top:28%;z-index:60;width:5%;height:16%;visibility:hidden;pointer-events:none;overflow:visible}.gotas.visible{visibility:visible}.gota{position:absolute;left:var(--x);top:var(--y,0);font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-size:clamp(.92rem,1.18vw,1.2rem);line-height:1;opacity:0;filter:drop-shadow(0 .08rem .08rem hsl(210 70% 25%/.35));animation:gotaRiego .75s var(--d) ease-in forwards}
+@keyframes gotaRiego{0%{opacity:0;transform:translate(.55rem,-.3rem) scale(.75)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--dx),7.3rem) scale(.9)}}@keyframes brilloSurco{0%,100%{box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.75),0 0 1.6rem .45rem hsl(95 90% 58%/.45),inset 0 0 1rem .15rem hsl(70 100% 80%/.5)}50%{box-shadow:0 0 1.05rem .35rem hsl(95 100% 72%/.92),0 0 2rem .65rem hsl(95 90% 58%/.65),inset 0 0 1.3rem .25rem hsl(70 100% 85%/.65)}}@keyframes senalarSiembra{0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}50%{transform:translate(-50%,.4rem) scale(1.025) rotate(12deg)}}
+@media(max-width:48rem){.mapa{width:auto;height:100%;max-width:none}.intro{bottom:4%;width:clamp(21rem,68vw,26rem)}.dialogo{bottom:calc(100% + .95rem);width:82vw;max-width:33rem;padding:1.1rem 1.3rem;font-size:clamp(.95rem,2.6vw,1.15rem);line-height:1.32}.accion{right:.8rem;bottom:-2.85rem;padding:.6rem 1.25rem;font-size:.92rem}.tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%}.tutorial.sin-personaje .dialogo{bottom:9%;width:80vw;max-width:34rem;padding:.8rem 1.2rem .72rem;border-radius:1.4rem;font-size:clamp(.94rem,2.5vw,1.08rem);line-height:1.27}.tutorial.sin-personaje .accion{right:.85rem;bottom:-2.5rem}.mano{width:clamp(7rem,23vw,12rem)}.mano-izq{left:14%;top:47%}.mano-der{right:14%;top:47%}.surco-destacado{left:-8%;top:31%;width:50%;height:17%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:11%;top:36%;width:clamp(5.5rem,15vw,7.5rem)}.semillas-placeholder{right:4%;top:32%;width:clamp(7rem,19vw,9rem)}}
+@media(max-width:30rem){.intro{bottom:4%;width:min(94vw,27rem)}.dialogo{bottom:calc(100% + .8rem);width:76vw;max-width:21rem;padding:.9rem 1rem;border-radius:1.35rem;font-size:clamp(.88rem,3.4vw,1rem);line-height:1.25}.dialogo::after{bottom:-.8rem;width:1.35rem;height:1.35rem}.accion{right:.45rem;bottom:-2.75rem;padding:.5rem 1rem;border-width:.14rem;border-radius:1.1rem;font-size:.82rem}.tutorial.sin-personaje .dialogo{bottom:10%;width:84vw;max-width:23rem;padding:.68rem .9rem .6rem;border-radius:1.25rem;font-size:clamp(.84rem,3.25vw,.96rem);line-height:1.2}.tutorial.sin-personaje .accion{right:.55rem;bottom:-2.25rem;padding:.5rem 1rem;font-size:.82rem}.mano{width:clamp(8.5rem,34vw,10.5rem)}.mano-izq{left:13%;top:44%}.mano-der{right:13%;top:44%}.surco-destacado{left:13%;top:27%;width:27%;height:24%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:9%;top:36%;width:clamp(5rem,21vw,6.5rem)}.semillas-placeholder{right:10%;top:29%;width:clamp(6.5rem,25vw,8rem)}}
+@media(max-width:23rem){.intro{bottom:5%;width:98vw}.dialogo{bottom:calc(100% + .75rem);width:72vw;max-width:17rem;padding:.8rem;font-size:.82rem;line-height:1.22}.accion{right:.25rem;bottom:-2.65rem;padding:.45rem .85rem;font-size:.76rem}.tutorial.sin-personaje .dialogo{bottom:11%;width:82vw;max-width:17.5rem;padding:.6rem .75rem .45rem;border-radius:1.15rem;font-size:.78rem;line-height:1.18}.tutorial.sin-personaje .accion{right:.4rem;bottom:-2.05rem;padding:.45rem .85rem;font-size:.76rem}.mano{width:clamp(8rem,38vw,9.5rem)}.mano-izq{left:8%;top:42%}.mano-der{right:8%;top:42%}.surco-destacado{left:16%;top:27%;width:20%;height:33%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:9%;top:40%;width:clamp(4.5rem,22vw,5.8rem)}.semillas-placeholder{right:5%;top:30%;width:clamp(5.8rem,27vw,7.2rem)}}
+@media(prefers-reduced-motion:reduce){.muneca,.dialogo,.mano,.mano-siembra,.semillas-placeholder,.regadera{transition:none}.mano-izq.visible,.mano-der.visible,.mano-siembra.visible,.surco-destacado.visible{animation:none}}
 </style>
-
-<section class="tutorial">
-  <img class="mapa" src="./img/Tuto_fondo.jpg" alt="">
-
-  <div class="indicadores">
-    <img class="mano mano-izq" src="./img/mano-izq.svg" alt="">
-    <img class="mano mano-der" src="./img/mano-der.svg" alt="">
-    <div class="surco-destacado"></div>
-    <img class="mano-siembra" src="./img/mano-izq.svg" alt="">
-    <img class="semillas-placeholder" src="./img/tomate.svg" alt="">
-  </div>
-
-  <div class="intro">
-    <img class="muneca" src="./img/muneca01.svg" alt="">
-    <div class="dialogo">
-      <div class="texto">${this.dialogos[0]}</div>
-      <button class="accion" type="button">SIGUIENTE ›</button>
-    </div>
-  </div>
-</section>`;
-
-    this.tutorial = this.shadow.querySelector(".tutorial");
-    this.mapa = this.shadow.querySelector(".mapa");
-    this.muneca = this.shadow.querySelector(".muneca");
-    this.dialogo = this.shadow.querySelector(".dialogo");
-    this.texto = this.shadow.querySelector(".texto");
-    this.accion = this.shadow.querySelector(".accion");
-    this.manoIzq = this.shadow.querySelector(".mano-izq");
-    this.manoDer = this.shadow.querySelector(".mano-der");
-    this.manoSiembra = this.shadow.querySelector(".mano-siembra");
-    this.surcoDestacado = this.shadow.querySelector(".surco-destacado");
-    this.semillasPlaceholder = this.shadow.querySelector(".semillas-placeholder");
-
-    this.tutorial.addEventListener("pointerdown", e => this.iniciarArrastre(e));
-    this.tutorial.addEventListener("pointermove", e => this.mover(e));
-    this.tutorial.addEventListener("pointerup", e => this.terminarArrastre(e));
-    this.tutorial.addEventListener("pointercancel", e => this.terminarArrastre(e));
-
-    this.accion.addEventListener("pointerdown", e => e.stopPropagation());
-    this.accion.addEventListener("click", e => {
-      e.stopPropagation();
-      this.siguienteDialogo();
-    });
-
-    this.mapa.addEventListener("load", () => {
-      this.centrar();
-      setTimeout(() => {
-        this.muneca.classList.add("visible");
-        setTimeout(() => this.dialogo.classList.add("visible"), 500);
-      }, 600);
-    });
-
-    addEventListener("resize", () => this.centrar());
+<section class="tutorial"><img class="mapa" src="./img/Tuto_fondo.jpg" alt=""><div class="indicadores"><img class="mano mano-izq" src="./img/mano-izq.svg" alt=""><img class="mano mano-der" src="./img/mano-der.svg" alt=""><div class="surco-destacado"></div><img class="mano-siembra" src="./img/mano-izq.svg" alt=""><img class="semillas-placeholder" src="./img/semilla_tomate.svg" alt=""><img class="mano-animacion" src="./img/mano-vacia.svg" alt=""><div class="marca-siembra"></div><img class="regadera" src="./img/regadera.svg" alt=""><div class="gotas"></div></div><div class="intro"><img class="muneca" src="./img/muneca01.svg" alt=""><div class="dialogo"><div class="texto"></div><button class="accion" type="button">SIGUIENTE ›</button></div></div></section>`;
+    this.tutorial = this.shadow.querySelector(".tutorial"); this.mapa = this.shadow.querySelector(".mapa"); this.indicadores = this.shadow.querySelector(".indicadores"); this.muneca = this.shadow.querySelector(".muneca"); this.dialogo = this.shadow.querySelector(".dialogo"); this.texto = this.shadow.querySelector(".texto"); this.accion = this.shadow.querySelector(".accion"); this.manoIzq = this.shadow.querySelector(".mano-izq"); this.manoDer = this.shadow.querySelector(".mano-der"); this.manoSiembra = this.shadow.querySelector(".mano-siembra"); this.surcoDestacado = this.shadow.querySelector(".surco-destacado"); this.semillasPlaceholder = this.shadow.querySelector(".semillas-placeholder"); this.manoAnimacion = this.shadow.querySelector(".mano-animacion"); this.marcaSiembra = this.shadow.querySelector(".marca-siembra"); this.regadera = this.shadow.querySelector(".regadera"); this.gotas = this.shadow.querySelector(".gotas");
+    this.tutorial.addEventListener("pointerdown", e => this.iniciarArrastre(e)); this.tutorial.addEventListener("pointermove", e => this.mover(e)); this.tutorial.addEventListener("pointerup", e => this.terminarArrastre(e)); this.tutorial.addEventListener("pointercancel", e => this.terminarArrastre(e)); this.accion.addEventListener("pointerdown", e => e.stopPropagation()); this.accion.addEventListener("click", e => { e.stopPropagation(); this.pulsarSiguiente() }); this.mapa.addEventListener("load", () => { this.centrar(); setTimeout(() => { this.muneca.classList.add("visible"); setTimeout(() => this.mostrarDialogo(0), 650) }, 600) }); addEventListener("resize", () => this.centrar());
   }
-
+  esperar(ms) { return new Promise(r => setTimeout(r, ms)) }
+  async pausaAnimacion(ms, t) { await this.esperar(ms); return t === this.tokenAnimacion }
+  pulsarSiguiente() { if (this.escribiendo) { this.completarTexto(); return } if (this.animando) { this.finalizarAnimacionActual(true); return } this.siguienteDialogo() }
+  prepararTexto(html) { const t = document.createElement("template"); t.innerHTML = html; const fijo = t.content.cloneNode(true), visible = t.content.cloneNode(true), w = document.createTreeWalker(visible, NodeFilter.SHOW_TEXT), nodos = []; let n; while (n = w.nextNode()) nodos.push(n); const caracteres = []; nodos.forEach(n => { const f = document.createDocumentFragment();[...n.textContent].forEach(c => { const s = document.createElement("span"); s.className = "caracter"; s.textContent = c; f.append(s); caracteres.push({ el: s, c }) }); n.replaceWith(f) }); const medida = document.createElement("div"), escritura = document.createElement("div"); medida.className = "texto-fijo"; escritura.className = "texto-escritura"; medida.append(fijo); escritura.append(visible); this.texto.replaceChildren(medida, escritura); return { caracteres, escritura } }
+  async escribirTexto(html) {
+    const token = ++this.tokenEscritura, { caracteres, escritura } = this.prepararTexto(html); this.caracteresActuales = caracteres; this.escrituraActual = escritura; this.escribiendo = true; await this.esperar(250); if (token !== this.tokenEscritura) return; escritura.classList.add("activa");
+    for (let n = 0; n < caracteres.length; n++) { if (token !== this.tokenEscritura) return; const i = caracteres[n]; i.el.classList.add("visible"); if (this.dialogoActual === 3 && !this.animacionSiembra && n >= caracteres.length - 12) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego && n >= 43) this.iniciarAnimacionRiego(); let p = this.velocidadTexto; if (",;:".includes(i.c)) p += 75; if (".!?".includes(i.c)) p += 150; await this.esperar(p) }
+    if (token !== this.tokenEscritura) return; this.escribiendo = false;
+  }
+  completarTexto() { if (!this.escribiendo) return; this.tokenEscritura++; this.escrituraActual?.classList.add("activa"); this.caracteresActuales.forEach(i => i.el.classList.add("visible")); this.escribiendo = false; if (this.dialogoActual === 3 && !this.animacionSiembra) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego) this.iniciarAnimacionRiego() }
+  mostrarDialogo(i) { this.prepararTexto(this.dialogos[i]); this.dialogo.classList.add("visible"); setTimeout(() => this.escribirTexto(this.dialogos[i]), 250) }
+  async iniciarAnimacionSiembra() {
+    if (this.animacionSiembra) return; this.animacionSiembra = true; this.animando = true; const t = ++this.tokenAnimacion; this.manoSiembra.classList.add("oculta"); if (!await this.pausaAnimacion(180, t)) return; const m = this.manoAnimacion; m.src = "./img/mano-vacia.svg"; m.classList.add("visible");
+    m.style.transition = "left 1s ease-in-out,top 1s ease-in-out,transform 1s ease-in-out,opacity .35s"; m.style.left = "75%"; m.style.top = "20%"; m.style.transform = "translate(-50%,-50%) rotate(-8deg)"; if (!await this.pausaAnimacion(50, t)) return;
+    m.style.left = "76%"; m.style.top = "32%"; m.style.transform = "translate(-50%,-50%) rotate(3deg)"; if (!await this.pausaAnimacion(1050, t)) return;
+    m.src = "./img/mano-semilla.svg"; if (!await this.pausaAnimacion(250, t)) return; m.style.left = "73%"; m.style.top = "22%"; m.style.transform = "translate(-50%,-50%) rotate(-8deg)"; if (!await this.pausaAnimacion(1050, t)) return;
+    m.style.transition = "left 1.7s cubic-bezier(.45,0,.25,1),top 1.7s cubic-bezier(.45,0,.25,1),transform 1.7s ease-in-out"; m.style.left = "39.5%"; m.style.top = "31%"; m.style.transform = "translate(-50%,-50%) rotate(-14deg)"; if (!await this.pausaAnimacion(1750, t)) return;
+    m.style.transition = "top .55s ease-in-out,transform .55s ease-in-out"; m.style.top = "38%"; m.style.transform = "translate(-50%,-50%) rotate(8deg)"; if (!await this.pausaAnimacion(600, t)) return;
+    m.src = "./img/mano-vacia.svg"; this.marcaSiembra.classList.add("visible"); if (!await this.pausaAnimacion(220, t)) return;
+    m.style.transition = "left .75s ease-out,top .75s ease-out,transform .75s ease-out,opacity .65s ease-out"; m.style.left = "42%"; m.style.top = "30%"; m.style.transform = "translate(-50%,-50%) rotate(-8deg) scale(.94)"; m.style.opacity = "0"; if (!await this.pausaAnimacion(750, t)) return; m.classList.remove("visible"); m.style.visibility = "hidden";
+    this.semillasPlaceholder.classList.remove("visible"); this.semillasPlaceholder.classList.add("saliendo"); if (!await this.pausaAnimacion(750, t)) return; this.semillasPlaceholder.classList.remove("saliendo"); this.animando = false;
+  }
+  crearGotas() {
+    this.gotas.replaceChildren();
+    const linea = [[30, 0, -.35], [37, .11, -.27], [44, .22, -.19], [51, .33, -.1], [58, .44, 0], [65, .55, .1], [72, .66, .2], [34, .77, -.3], [41, .88, -.22], [48, .99, -.13], [55, 1.1, -.04], [62, 1.21, .06], [69, 1.32, .15], [38, 1.43, -.25], [45, 1.54, -.15], [52, 1.65, -.05], [59, 1.76, .05], [66, 1.87, .15]];
+    [0, .32, .64].forEach((desfase, fila) => linea.forEach(([x, d, dx]) => { const g = document.createElement("span"); g.className = "gota"; g.textContent = "💧"; g.style.setProperty("--x", `${x}%`); g.style.setProperty("--d", `${d + desfase}s`); g.style.setProperty("--dx", `${dx}rem`); g.style.setProperty("--y", `${fila * .82}rem`); this.gotas.append(g) }));
+  }
+  async iniciarAnimacionRiego() {
+    if (this.animacionRiego) return; this.animacionRiego = true; this.animando = true; const t = ++this.tokenAnimacion, r = this.regadera;
+    r.classList.remove("saliendo", "regando"); r.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return;
+    r.classList.add("regando"); if (!await this.pausaAnimacion(350, t)) return;
+    this.crearGotas(); this.gotas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return;
+    this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); r.classList.remove("regando"); if (!await this.pausaAnimacion(550, t)) return;
+    this.marcaSiembra.classList.add("humeda"); if (!await this.pausaAnimacion(250, t)) return;
+    r.classList.remove("visible"); r.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return; r.classList.remove("saliendo"); this.animando = false;
+  }
+  finalizarAnimacionActual(avanzar = false) {
+    this.tokenAnimacion++; this.animando = false;
+    if (this.dialogoActual === 3) { this.manoSiembra.classList.add("oculta"); this.manoAnimacion.classList.remove("visible"); this.manoAnimacion.style.cssText = ""; this.manoAnimacion.style.visibility = "hidden"; this.semillasPlaceholder.classList.remove("visible", "saliendo"); this.marcaSiembra.classList.add("visible") }
+    if (this.dialogoActual === 4) { this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); this.regadera.classList.remove("visible", "regando", "saliendo"); this.marcaSiembra.classList.add("visible", "humeda") }
+    if (avanzar && this.dialogoActual < this.dialogos.length - 1) this.siguienteDialogo();
+  }
   siguienteDialogo() {
-    if (this.dialogoActual >= this.dialogos.length - 1) return;
-
-    this.dialogo.classList.remove("visible");
-    this.dialogoActual++;
-
-    if (this.dialogoActual === 2) {
-      this.muneca.classList.remove("visible");
-      this.muneca.classList.add("saliendo");
-
-      setTimeout(() => {
-        this.tutorial.classList.add("sin-personaje");
-        this.texto.innerHTML = this.dialogos[this.dialogoActual];
-        this.dialogo.classList.add("visible");
-
-        setTimeout(() => {
-          this.manoIzq.classList.add("visible");
-
-          setTimeout(() => {
-            this.manoDer.classList.add("visible");
-          }, 450);
-        }, 300);
-      }, 500);
-
-      return;
-    }
-
-    if (this.dialogoActual === 3) {
-      this.manoIzq.classList.remove("visible");
-      this.manoDer.classList.remove("visible");
-
-      setTimeout(() => {
-        this.tutorial.classList.add("paso-siembra");
-        this.texto.innerHTML = this.dialogos[this.dialogoActual];
-        this.dialogo.classList.add("visible");
-        this.surcoDestacado.classList.add("visible");
-
-        setTimeout(() => {
-          this.manoSiembra.classList.add("visible");
-          this.semillasPlaceholder.classList.add("visible");
-        }, 300);
-      }, 350);
-
-      return;
-    }
-
-    setTimeout(() => {
-      this.texto.innerHTML = this.dialogos[this.dialogoActual];
-      this.dialogo.classList.add("visible");
-    }, 250);
+    if (this.dialogoActual >= this.dialogos.length - 1) return; this.dialogo.classList.remove("visible"); this.dialogoActual++;
+    if (this.dialogoActual === 2) { this.muneca.classList.remove("visible"); this.muneca.classList.add("saliendo"); setTimeout(() => { this.tutorial.classList.add("sin-personaje"); this.mostrarDialogo(this.dialogoActual); setTimeout(() => { this.manoIzq.classList.add("visible"); setTimeout(() => this.manoDer.classList.add("visible"), 1100) }, 1100) }, 700); return }
+    if (this.dialogoActual === 3) { this.manoIzq.classList.remove("visible"); this.manoDer.classList.remove("visible"); this.manoIzq.classList.add("saliendo"); this.manoDer.classList.add("saliendo"); setTimeout(() => { this.manoIzq.classList.remove("saliendo"); this.manoDer.classList.remove("saliendo"); this.tutorial.classList.add("paso-siembra"); this.mostrarDialogo(this.dialogoActual); setTimeout(() => { this.surcoDestacado.classList.add("visible"); this.manoSiembra.classList.add("visible"); setTimeout(() => this.semillasPlaceholder.classList.add("visible"), 1300) }, 650) }, 700); return }
+    setTimeout(() => this.mostrarDialogo(this.dialogoActual), 500);
   }
-
-  centrar() {
-    this.x = 0;
-    this.limitar();
-    this.actualizar();
-  }
-
-  iniciarArrastre(e) {
-    this.arrastrando = true;
-    this.inicioX = e.clientX;
-    this.xInicial = this.x;
-    this.tutorial.classList.add("arrastrando");
-    this.tutorial.setPointerCapture(e.pointerId);
-  }
-
-  mover(e) {
-    if (!this.arrastrando) return;
-    this.x = this.xInicial + e.clientX - this.inicioX;
-    this.limitar();
-    this.actualizar();
-  }
-
-  terminarArrastre(e) {
-    if (!this.arrastrando) return;
-    this.arrastrando = false;
-    this.tutorial.classList.remove("arrastrando");
-
-    if (this.tutorial.hasPointerCapture(e.pointerId)) {
-      this.tutorial.releasePointerCapture(e.pointerId);
-    }
-  }
-
-  limitar() {
-    const ancho = this.mapa.getBoundingClientRect().width;
-    const limite = Math.max(0, (ancho - innerWidth) / 2);
-    this.x = Math.max(-limite, Math.min(limite, this.x));
-  }
-
-  actualizar() {
-    this.mapa.style.setProperty("--x", `${this.x}px`);
-  }
+  centrar() { this.x = 0; this.limitar(); this.actualizar() }
+  iniciarArrastre(e) { this.arrastrando = true; this.inicioX = e.clientX; this.xInicial = this.x; this.tutorial.classList.add("arrastrando"); this.tutorial.setPointerCapture(e.pointerId) }
+  mover(e) { if (!this.arrastrando) return; this.x = this.xInicial + e.clientX - this.inicioX; this.limitar(); this.actualizar() }
+  terminarArrastre(e) { if (!this.arrastrando) return; this.arrastrando = false; this.tutorial.classList.remove("arrastrando"); if (this.tutorial.hasPointerCapture(e.pointerId)) this.tutorial.releasePointerCapture(e.pointerId) }
+  limitar() { const a = this.mapa.getBoundingClientRect().width, l = Math.max(0, (a - innerWidth) / 2); this.x = Math.max(-l, Math.min(l, this.x)) }
+  actualizar() { const x = `${this.x}px`; this.mapa.style.setProperty("--x", x); this.indicadores.style.setProperty("--x", x) }
 }
-
 customElements.define("game-tutorial", GameTutorial);
-
-export function iniciarTutorial() {
-  const game = document.querySelector("game-app");
-  game.innerHTML = `<game-tutorial></game-tutorial>`;
-}
+export function iniciarTutorial() { document.querySelector("game-app").innerHTML = `<game-tutorial></game-tutorial>` }
