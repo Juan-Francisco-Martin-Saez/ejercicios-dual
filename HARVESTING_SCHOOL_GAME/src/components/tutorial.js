@@ -1,7 +1,7 @@
 class GameTutorial extends HTMLElement {
   constructor() {
-    super(); this.shadow = this.attachShadow({ mode: "open" }); this.x = 0; this.inicioX = 0; this.xInicial = 0; this.arrastrando = false; this.dialogoActual = 0; this.escribiendo = false; this.tokenEscritura = 0; this.tokenAnimacion = 0; this.tokenPaso = 0; this.animando = false; this.velocidadTexto = 45; this.caracteresActuales = []; this.escrituraActual = null; this.animacionSiembra = false; this.animacionRiego = false;
-    this.dialogos = ["¡Bienvenidos! Este es vuestro tutorial de aprendizaje. Aquí descubriréis todo lo necesario para convertiros en auténticos agricultores.", `A continuación os enseñaré el paso inicial para el cultivo: <strong>LA SIEMBRA DE SEMILLAS</strong>. Si la tierra esta bien labrada, como es el caso, podremos proceder a la siembra sin problemas.`, `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`, `En cada surco o espacio del sembrado,<br>entierra una <strong>SEMILLA</strong> de la planta elegida.`, `Una vez plantada la semilla, debemos <strong>REGARLA</strong> para humedecer la tierra. Es buen momento para añadirle nutrientes como <strong>SUSTRATOS</strong> o <strong>ABONOS</strong>, y después la volvemos a regar ligeramente.`];
+    super(); this.shadow = this.attachShadow({ mode: "open" }); this.x = 0; this.inicioX = 0; this.xInicial = 0; this.arrastrando = false; this.dialogoActual = 0; this.escribiendo = false; this.tokenEscritura = 0; this.tokenAnimacion = 0; this.tokenPaso = 0; this.animando = false; this.velocidadTexto = 45; this.caracteresActuales = []; this.escrituraActual = null; this.animacionSiembra = false; this.animacionRiego = false; this.animacionGerminacion = false;
+    this.dialogos = ["¡Bienvenidos! Este es vuestro tutorial de aprendizaje. Aquí descubriréis todo lo necesario para convertiros en auténticos agricultores.", `A continuación os enseñaré el paso inicial para el cultivo: <strong>LA SIEMBRA DE SEMILLAS</strong>. Si la tierra esta bien labrada, como es el caso, podremos proceder a la siembra sin problemas.`, `Esta es una sección del huerto preparada para el cultivo. Como podéis ver, disponemos de <strong>DOS ÁREAS DE CULTIVO</strong> listas para comenzar la siembra.`, `En cada surco o espacio del sembrado,<br>entierra una <strong>SEMILLA</strong> de la planta elegida.`, `Una vez plantada la semilla, debemos <strong>REGARLA</strong> para humedecer la tierra. Es buen momento para añadirle nutrientes como <strong>SUSTRATOS</strong> o <strong>ABONOS</strong>, y después la volvemos a regar ligeramente.`, `Con un poco de paciencia y de mimo, en poco tiempo brotará una <strong>PLANTA</strong>. Si la sigues regando y alimentando con sustratos, en poco tempo recibirás tu recompensa.`];
     this.shadow.innerHTML =/*html*/`
 <style>
 :host{display:block;width:100%;height:100%;overflow:hidden}.tutorial{position:relative;width:100%;height:100%;overflow:hidden;background:hsl(95 20% 35%);cursor:grab;touch-action:none}.mapa{position:absolute;left:50%;top:50%;width:100%;height:100%;object-fit:cover;object-position:center;transform:translate(-50%,-50%) translateX(var(--x,0px));user-select:none;pointer-events:none;will-change:transform}.tutorial.arrastrando{cursor:grabbing}
@@ -17,28 +17,36 @@ class GameTutorial extends HTMLElement {
 .semillas-placeholder{position:absolute;right:21%;top:30%;z-index:40;width:clamp(8.5rem,12vw,12rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .7rem .55rem hsl(215 45% 8%/.58));transform:translateY(-.8rem) scale(.9);transition:opacity .75s ease-out,transform .75s ease-out}.semillas-placeholder.visible{visibility:visible;opacity:1;transform:translateY(0) scale(1)}.semillas-placeholder.saliendo{visibility:visible;opacity:0;transform:translateY(-1.3rem) scale(.94)}
 .mano-animacion{position:absolute;left:75%;top:20%;z-index:45;width:clamp(7rem,10vw,10rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;transform:translate(-50%,-50%) rotate(-8deg);transform-origin:70% 70%;filter:drop-shadow(0 .55rem .45rem hsl(215 45% 8%/.58));will-change:left,top,transform,opacity}.mano-animacion.visible{visibility:visible;opacity:1}
 .marca-siembra{position:absolute;left:37.6%;top:38.3%;z-index:32;width:3.9rem;height:5.4rem;border-radius:47% 53% 44% 56%/55% 43% 57% 45%;clip-path:polygon(48% 0,67% 5%,84% 17%,95% 34%,92% 52%,100% 69%,83% 85%,65% 91%,48% 100%,29% 94%,12% 83%,5% 67%,9% 51%,0 35%,14% 19%,31% 8%);background:hsl(28 35% 20%/.24);box-shadow:inset 0 .1rem .3rem hsl(25 35% 12%/.12),0 0 .45rem hsl(32 25% 18%/.1);opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-2deg);transition:opacity .4s ease-out,transform .6s ease-out,background .65s ease-out,box-shadow .65s ease-out}.marca-siembra.visible{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-2deg)}.marca-siembra.humeda{background:hsl(24 65% 6%/.40);box-shadow:inset 0 .15rem .4rem hsl(20 60% 4%/.18),0 0 .5rem hsl(25 45% 7%/.1);transform:translate(-50%,-50%) scale(1.12) rotate(-2deg)}.marca-siembra.abonada{background:hsl(36 62% 24%/.52);box-shadow:inset 0 .15rem .4rem hsl(30 55% 14%/.18),0 0 .55rem hsl(38 48% 18%/.12);transform:translate(-50%,-50%) scale(1.12) rotate(-2deg)}
-
-.regadera,.sustrato{position:absolute;left:43.2%;top:30%;z-index:46;width:clamp(9rem,13vw,13rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.55));transform-origin:50% 60%;transition:opacity .6s ease-out,transform .7s ease-out}
-.regadera{transform:translate(-50%,-50%) translate(1.1rem,-1rem) scale(.9) scaleX(-1)}
-.regadera.visible{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1)}
-.regadera.regando{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1) rotate(18deg)}
-.regadera.saliendo{visibility:visible;opacity:0;transform:translate(-50%,-50%) translate(1rem,-1.3rem) scale(.94) scaleX(-1)}
-.sustrato{transform:translate(-50%,-50%) translate(1.1rem,-1rem) scale(.9)}
-.sustrato.visible{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1)}
-.sustrato.vertiendo{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-18deg)}
-.sustrato.saliendo{visibility:visible;opacity:0;transform:translate(-50%,-50%) translate(1rem,-1.3rem) scale(.94)}
-
+.regadera,.sustrato{position:absolute;left:43.2%;top:30%;z-index:46;width:clamp(9rem,13vw,13rem);height:auto;opacity:0;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .65rem .5rem hsl(215 45% 8%/.55));transform-origin:50% 60%;transition:opacity .6s ease-out,transform .7s ease-out}.regadera{transform:translate(-50%,-50%) translate(1.1rem,-1rem) scale(.9) scaleX(-1)}.regadera.visible{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1)}.regadera.regando{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) scaleX(-1) rotate(18deg)}.regadera.saliendo{visibility:visible;opacity:0;transform:translate(-50%,-50%) translate(1rem,-1.3rem) scale(.94) scaleX(-1)}.sustrato{transform:translate(-50%,-50%) translate(1.1rem,-1rem) scale(.9)}.sustrato.visible{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1)}.sustrato.vertiendo{visibility:visible;opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-18deg)}.sustrato.saliendo{visibility:visible;opacity:0;transform:translate(-50%,-50%) translate(1rem,-1.3rem) scale(.94)}
 .gotas,.particulas{position:absolute;left:34.8%;top:28%;z-index:60;width:5%;height:16%;visibility:hidden;pointer-events:none;overflow:visible}.gotas.visible,.particulas.visible{visibility:visible}.gota{position:absolute;left:var(--x);top:var(--y,0);font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-size:clamp(.92rem,1.18vw,1.2rem);line-height:1;opacity:0;filter:drop-shadow(0 .08rem .08rem hsl(210 70% 25%/.35));animation:gotaRiego .75s var(--d) ease-in forwards}.particula{position:absolute;left:var(--x);top:var(--y,0);width:clamp(.38rem,.52vw,.55rem);height:clamp(.38rem,.52vw,.55rem);border-radius:50%;background:hsl(27 48% 29%);opacity:0;box-shadow:inset 0 .08rem .08rem hsl(32 42% 45%/.45),0 .08rem .1rem hsl(20 45% 12%/.25);animation:particulaSustrato .75s var(--d) ease-in forwards}
-@keyframes gotaRiego{0%{opacity:0;transform:translate(.55rem,-.3rem) scale(.75)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--dx),7.3rem) scale(.9)}}@keyframes particulaSustrato{0%{opacity:0;transform:translate(.55rem,-.3rem) scale(.65)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--dx),7.3rem) scale(.9)}}@keyframes brilloSurco{0%,100%{box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.75),0 0 1.6rem .45rem hsl(95 90% 58%/.45),inset 0 0 1rem .15rem hsl(70 100% 80%/.5)}50%{box-shadow:0 0 1.05rem .35rem hsl(95 100% 72%/.92),0 0 2rem .65rem hsl(95 90% 58%/.65),inset 0 0 1.3rem .25rem hsl(70 100% 85%/.65)}}@keyframes senalarSiembra{0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}50%{transform:translate(-50%,.4rem) scale(1.025) rotate(12deg)}}
+
+/* GERMINACIÓN */
+.brote,.tomate{position:absolute;left:37.6%;z-index:44;height:auto;visibility:hidden;pointer-events:none;user-select:none;filter:drop-shadow(0 .45rem .35rem hsl(215 45% 8%/.42));transform-origin:50% 100%}
+.brote{top:40.8%;width:clamp(4.2rem,6vw,6rem);opacity:0;transform:translate(-50%,-82%) scale(.15)}
+.brote.visible{visibility:visible;opacity:1;transform:translate(-50%,-82%) scale(1);transition:opacity .55s ease-out,transform .9s cubic-bezier(.2,1.4,.35,1)}
+.brote.vivo{animation:broteVivo .72s ease-in-out 4}
+.brote.saliendo{visibility:visible;opacity:0;animation:none;transform:translate(-50%,-82%) scale(1.2);transition:opacity .25s ease-out,transform .25s ease-out}
+.tomate{top:40.8%;width:clamp(7.5rem,11vw,11rem);opacity:0;transform:translate(-50%,-72%) scale(.25) rotate(-4deg)}
+.tomate.visible{visibility:visible;opacity:1;transform:translate(-50%,-72%) scale(1) rotate(0);transition:opacity .35s ease-out,transform .65s cubic-bezier(.2,1.45,.35,1)}
+.humo{position:absolute;left:37.6%;top:34%;z-index:65;width:11rem;height:11rem;visibility:hidden;pointer-events:none;transform:translate(-50%,-50%)}
+.humo.visible{visibility:visible}.nube{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);border-radius:50%;background:hsl(0 0% 100%/.98);box-shadow:0 .18rem .4rem hsl(215 20% 20%/.28),0 0 1rem hsl(0 0% 100%/.5);opacity:0;transform:translate(-50%,-50%) scale(.25);animation:puf .95s var(--d) ease-out forwards}
+
+@keyframes gotaRiego{0%{opacity:0;transform:translate(.55rem,-.3rem) scale(.75)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--dx),7.3rem) scale(.9)}}
+@keyframes particulaSustrato{0%{opacity:0;transform:translate(.55rem,-.3rem) scale(.65)}15%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--dx),7.3rem) scale(.9)}}
+@keyframes brilloSurco{0%,100%{box-shadow:0 0 .8rem .25rem hsl(95 90% 65%/.75),0 0 1.6rem .45rem hsl(95 90% 58%/.45),inset 0 0 1rem .15rem hsl(70 100% 80%/.5)}50%{box-shadow:0 0 1.05rem .35rem hsl(95 100% 72%/.92),0 0 2rem .65rem hsl(95 90% 58%/.65),inset 0 0 1.3rem .25rem hsl(70 100% 85%/.65)}}
+@keyframes senalarSiembra{0%,100%{transform:translate(-50%,0) scale(1) rotate(12deg)}50%{transform:translate(-50%,.4rem) scale(1.025) rotate(12deg)}}
+@keyframes broteVivo{0%,100%{transform:translate(-50%,-82%) scale(1) rotate(0)}25%{transform:translate(-50%,-82%) scale(1.025,.98) rotate(-3deg)}50%{transform:translate(-50%,-84%) scale(.98,1.035) rotate(0)}75%{transform:translate(-50%,-82%) scale(1.025,.98) rotate(3deg)}}
+@keyframes puf{0%{opacity:0;transform:translate(-50%,-50%) translate(0,0) scale(.2)}15%{opacity:1}55%{opacity:.95}100%{opacity:0;transform:translate(-50%,-50%) translate(var(--x),var(--y)) scale(1.4)}}
+
 @media(max-width:48rem){.mapa{width:auto;height:100%;max-width:none}.intro{bottom:4%;width:clamp(21rem,68vw,26rem)}.dialogo{bottom:calc(100% + .95rem);width:82vw;max-width:33rem;padding:1.1rem 1.3rem;font-size:clamp(.95rem,2.6vw,1.15rem);line-height:1.32}.accion{right:.8rem;bottom:-2.85rem;padding:.6rem 1.25rem;font-size:.92rem}.tutorial.sin-personaje .intro{bottom:0;width:100%;height:100%}.tutorial.sin-personaje .dialogo{bottom:9%;width:80vw;max-width:34rem;padding:.8rem 1.2rem .72rem;border-radius:1.4rem;font-size:clamp(.94rem,2.5vw,1.08rem);line-height:1.27}.tutorial.sin-personaje .accion{right:.85rem;bottom:-2.5rem}.mano{width:clamp(7rem,23vw,12rem)}.mano-izq{left:14%;top:47%}.mano-der{right:14%;top:47%}.surco-destacado{left:-8%;top:31%;width:50%;height:17%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:11%;top:36%;width:clamp(5.5rem,15vw,7.5rem)}.semillas-placeholder{right:4%;top:32%;width:clamp(7rem,19vw,9rem)}}
 @media(max-width:30rem){.intro{bottom:4%;width:min(94vw,27rem)}.dialogo{bottom:calc(100% + .8rem);width:76vw;max-width:21rem;padding:.9rem 1rem;border-radius:1.35rem;font-size:clamp(.88rem,3.4vw,1rem);line-height:1.25}.dialogo::after{bottom:-.8rem;width:1.35rem;height:1.35rem}.accion{right:.45rem;bottom:-2.75rem;padding:.5rem 1rem;border-width:.14rem;border-radius:1.1rem;font-size:.82rem}.tutorial.sin-personaje .dialogo{bottom:10%;width:84vw;max-width:23rem;padding:.68rem .9rem .6rem;border-radius:1.25rem;font-size:clamp(.84rem,3.25vw,.96rem);line-height:1.2}.tutorial.sin-personaje .accion{right:.55rem;bottom:-2.25rem;padding:.5rem 1rem;font-size:.82rem}.mano{width:clamp(8.5rem,34vw,10.5rem)}.mano-izq{left:13%;top:44%}.mano-der{right:13%;top:44%}.surco-destacado{left:13%;top:27%;width:27%;height:24%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:9%;top:36%;width:clamp(5rem,21vw,6.5rem)}.semillas-placeholder{right:10%;top:29%;width:clamp(6.5rem,25vw,8rem)}}
 @media(max-width:23rem){.intro{bottom:5%;width:98vw}.dialogo{bottom:calc(100% + .75rem);width:72vw;max-width:17rem;padding:.8rem;font-size:.82rem;line-height:1.22}.accion{right:.25rem;bottom:-2.65rem;padding:.45rem .85rem;font-size:.76rem}.tutorial.sin-personaje .dialogo{bottom:11%;width:82vw;max-width:17.5rem;padding:.6rem .75rem .45rem;border-radius:1.15rem;font-size:.78rem;line-height:1.18}.tutorial.sin-personaje .accion{right:.4rem;bottom:-2.05rem;padding:.45rem .85rem;font-size:.76rem}.mano{width:clamp(8rem,38vw,9.5rem)}.mano-izq{left:8%;top:42%}.mano-der{right:8%;top:42%}.surco-destacado{left:16%;top:27%;width:20%;height:33%;border:.22rem solid hsl(95 85% 65%)}.mano-siembra{left:9%;top:40%;width:clamp(4.5rem,22vw,5.8rem)}.semillas-placeholder{right:5%;top:30%;width:clamp(5.8rem,27vw,7.2rem)}}
-@media(prefers-reduced-motion:reduce){.muneca,.dialogo,.mano,.mano-siembra,.semillas-placeholder,.regadera,.sustrato{transition:none}.mano-izq.visible,.mano-der.visible,.mano-siembra.visible,.surco-destacado.visible{animation:none}}
+@media(prefers-reduced-motion:reduce){.muneca,.dialogo,.mano,.mano-siembra,.semillas-placeholder,.regadera,.sustrato,.brote,.tomate{transition:none}.mano-izq.visible,.mano-der.visible,.mano-siembra.visible,.surco-destacado.visible,.brote.vivo{animation:none}}
 </style>
 
-<section class="tutorial"><img class="mapa" src="./img/Tuto_fondo.jpg" alt=""><div class="indicadores"><img class="mano mano-izq" src="./img/mano-izq.svg" alt=""><img class="mano mano-der" src="./img/mano-der.svg" alt=""><div class="surco-destacado"></div><img class="mano-siembra" src="./img/mano-izq.svg" alt=""><img class="semillas-placeholder" src="./img/semilla_tomate.svg" alt=""><img class="mano-animacion" src="./img/mano-vacia.svg" alt=""><div class="marca-siembra"></div><img class="regadera" src="./img/regadera.svg" alt=""><div class="gotas"></div><img class="sustrato" src="./img/sustrato.svg" alt=""><div class="particulas"></div></div><div class="intro"><img class="muneca" src="./img/muneca01.svg" alt=""><div class="dialogo"><div class="texto"></div><button class="accion" type="button">SIGUIENTE ›</button></div></div></section>`;
+<section class="tutorial"><img class="mapa" src="./img/Tuto_fondo.jpg" alt=""><div class="indicadores"><img class="mano mano-izq" src="./img/mano-izq.svg" alt=""><img class="mano mano-der" src="./img/mano-der.svg" alt=""><div class="surco-destacado"></div><img class="mano-siembra" src="./img/mano-izq.svg" alt=""><img class="semillas-placeholder" src="./img/semilla_tomate.svg" alt=""><img class="mano-animacion" src="./img/mano-vacia.svg" alt=""><div class="marca-siembra"></div><img class="regadera" src="./img/regadera.svg" alt=""><div class="gotas"></div><img class="sustrato" src="./img/sustrato.svg" alt=""><div class="particulas"></div><img class="brote" src="./img/brote.svg" alt=""><div class="humo"></div><img class="tomate" src="./img/tomate.svg" alt=""></div><div class="intro"><img class="muneca" src="./img/muneca01.svg" alt=""><div class="dialogo"><div class="texto"></div><button class="accion" type="button">SIGUIENTE ›</button></div></div></section>`;
 
-    this.tutorial = this.shadow.querySelector(".tutorial"); this.mapa = this.shadow.querySelector(".mapa"); this.indicadores = this.shadow.querySelector(".indicadores"); this.muneca = this.shadow.querySelector(".muneca"); this.dialogo = this.shadow.querySelector(".dialogo"); this.texto = this.shadow.querySelector(".texto"); this.accion = this.shadow.querySelector(".accion"); this.manoIzq = this.shadow.querySelector(".mano-izq"); this.manoDer = this.shadow.querySelector(".mano-der"); this.manoSiembra = this.shadow.querySelector(".mano-siembra"); this.surcoDestacado = this.shadow.querySelector(".surco-destacado"); this.semillasPlaceholder = this.shadow.querySelector(".semillas-placeholder"); this.manoAnimacion = this.shadow.querySelector(".mano-animacion"); this.marcaSiembra = this.shadow.querySelector(".marca-siembra"); this.regadera = this.shadow.querySelector(".regadera"); this.gotas = this.shadow.querySelector(".gotas"); this.sustrato = this.shadow.querySelector(".sustrato"); this.particulas = this.shadow.querySelector(".particulas");
+    this.tutorial = this.shadow.querySelector(".tutorial"); this.mapa = this.shadow.querySelector(".mapa"); this.indicadores = this.shadow.querySelector(".indicadores"); this.muneca = this.shadow.querySelector(".muneca"); this.dialogo = this.shadow.querySelector(".dialogo"); this.texto = this.shadow.querySelector(".texto"); this.accion = this.shadow.querySelector(".accion"); this.manoIzq = this.shadow.querySelector(".mano-izq"); this.manoDer = this.shadow.querySelector(".mano-der"); this.manoSiembra = this.shadow.querySelector(".mano-siembra"); this.surcoDestacado = this.shadow.querySelector(".surco-destacado"); this.semillasPlaceholder = this.shadow.querySelector(".semillas-placeholder"); this.manoAnimacion = this.shadow.querySelector(".mano-animacion"); this.marcaSiembra = this.shadow.querySelector(".marca-siembra"); this.regadera = this.shadow.querySelector(".regadera"); this.gotas = this.shadow.querySelector(".gotas"); this.sustrato = this.shadow.querySelector(".sustrato"); this.particulas = this.shadow.querySelector(".particulas"); this.brote = this.shadow.querySelector(".brote"); this.humo = this.shadow.querySelector(".humo"); this.tomate = this.shadow.querySelector(".tomate");
 
     this.tutorial.addEventListener("pointerdown", e => this.iniciarArrastre(e)); this.tutorial.addEventListener("pointermove", e => this.mover(e)); this.tutorial.addEventListener("pointerup", e => this.terminarArrastre(e)); this.tutorial.addEventListener("pointercancel", e => this.terminarArrastre(e)); this.accion.addEventListener("pointerdown", e => e.stopPropagation()); this.accion.addEventListener("click", e => { e.stopPropagation(); this.pulsarSiguiente() }); this.mapa.addEventListener("load", () => { this.centrar(); setTimeout(() => { this.muneca.classList.add("visible"); setTimeout(() => this.mostrarDialogo(0), 650) }, 600) }); addEventListener("resize", () => this.centrar());
   }
@@ -51,11 +59,11 @@ class GameTutorial extends HTMLElement {
 
   async escribirTexto(html) {
     const token = ++this.tokenEscritura, { caracteres, escritura } = this.prepararTexto(html); this.caracteresActuales = caracteres; this.escrituraActual = escritura; this.escribiendo = true; await this.esperar(250); if (token !== this.tokenEscritura) return; escritura.classList.add("activa");
-    for (let n = 0; n < caracteres.length; n++) { if (token !== this.tokenEscritura) return; const i = caracteres[n]; i.el.classList.add("visible"); if (this.dialogoActual === 3 && !this.animacionSiembra && n >= caracteres.length - 12) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego && n >= 43) this.iniciarAnimacionRiego(); let p = this.velocidadTexto; if (",;:".includes(i.c)) p += 75; if (".!?".includes(i.c)) p += 150; await this.esperar(p) }
+    for (let n = 0; n < caracteres.length; n++) { if (token !== this.tokenEscritura) return; const i = caracteres[n]; i.el.classList.add("visible"); if (this.dialogoActual === 3 && !this.animacionSiembra && n >= caracteres.length - 12) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego && n >= 43) this.iniciarAnimacionRiego(); if (this.dialogoActual === 5 && !this.animacionGerminacion && n >= 35) this.iniciarAnimacionGerminacion(); let p = this.velocidadTexto; if (",;:".includes(i.c)) p += 75; if (".!?".includes(i.c)) p += 150; await this.esperar(p) }
     if (token !== this.tokenEscritura) return; this.escribiendo = false;
   }
 
-  completarTexto() { if (!this.escribiendo) return; this.tokenEscritura++; this.escrituraActual?.classList.add("activa"); this.caracteresActuales.forEach(i => i.el.classList.add("visible")); this.escribiendo = false; if (this.dialogoActual === 3 && !this.animacionSiembra) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego) this.iniciarAnimacionRiego() }
+  completarTexto() { if (!this.escribiendo) return; this.tokenEscritura++; this.escrituraActual?.classList.add("activa"); this.caracteresActuales.forEach(i => i.el.classList.add("visible")); this.escribiendo = false; if (this.dialogoActual === 3 && !this.animacionSiembra) this.iniciarAnimacionSiembra(); if (this.dialogoActual === 4 && !this.animacionRiego) this.iniciarAnimacionRiego(); if (this.dialogoActual === 5 && !this.animacionGerminacion) this.iniciarAnimacionGerminacion() }
   mostrarDialogo(i) { this.prepararTexto(this.dialogos[i]); this.dialogo.classList.add("visible"); setTimeout(() => this.escribirTexto(this.dialogos[i]), 250) }
 
   async iniciarAnimacionSiembra() {
@@ -71,66 +79,69 @@ class GameTutorial extends HTMLElement {
   }
 
   crearGotas() {
-    this.gotas.replaceChildren();
-    const linea = [[30, 0, -.35], [37, .11, -.27], [44, .22, -.19], [51, .33, -.1], [58, .44, 0], [65, .55, .1], [72, .66, .2], [34, .77, -.3], [41, .88, -.22], [48, .99, -.13], [55, 1.1, -.04], [62, 1.21, .06], [69, 1.32, .15], [38, 1.43, -.25], [45, 1.54, -.15], [52, 1.65, -.05], [59, 1.76, .05], [66, 1.87, .15]];
+    this.gotas.replaceChildren(); const linea = [[30, 0, -.35], [37, .11, -.27], [44, .22, -.19], [51, .33, -.1], [58, .44, 0], [65, .55, .1], [72, .66, .2], [34, .77, -.3], [41, .88, -.22], [48, .99, -.13], [55, 1.1, -.04], [62, 1.21, .06], [69, 1.32, .15], [38, 1.43, -.25], [45, 1.54, -.15], [52, 1.65, -.05], [59, 1.76, .05], [66, 1.87, .15]];
     [0, .32, .64].forEach((desfase, fila) => linea.forEach(([x, d, dx]) => { const g = document.createElement("span"); g.className = "gota"; g.textContent = "💧"; g.style.setProperty("--x", `${x}%`); g.style.setProperty("--d", `${d + desfase}s`); g.style.setProperty("--dx", `${dx}rem`); g.style.setProperty("--y", `${fila * .82}rem`); this.gotas.append(g) }));
   }
 
   crearParticulas() {
-    this.particulas.replaceChildren();
-    const linea = [[30, 0, -.35], [37, .11, -.27], [44, .22, -.19], [51, .33, -.1], [58, .44, 0], [65, .55, .1], [72, .66, .2], [34, .77, -.3], [41, .88, -.22], [48, .99, -.13], [55, 1.1, -.04], [62, 1.21, .06], [69, 1.32, .15], [38, 1.43, -.25], [45, 1.54, -.15], [52, 1.65, -.05], [59, 1.76, .05], [66, 1.87, .15]];
+    this.particulas.replaceChildren(); const linea = [[30, 0, -.35], [37, .11, -.27], [44, .22, -.19], [51, .33, -.1], [58, .44, 0], [65, .55, .1], [72, .66, .2], [34, .77, -.3], [41, .88, -.22], [48, .99, -.13], [55, 1.1, -.04], [62, 1.21, .06], [69, 1.32, .15], [38, 1.43, -.25], [45, 1.54, -.15], [52, 1.65, -.05], [59, 1.76, .05], [66, 1.87, .15]];
     [0, .32, .64].forEach((desfase, fila) => linea.forEach(([x, d, dx]) => { const p = document.createElement("span"); p.className = "particula"; p.style.setProperty("--x", `${x}%`); p.style.setProperty("--d", `${d + desfase}s`); p.style.setProperty("--dx", `${dx}rem`); p.style.setProperty("--y", `${fila * .82}rem`); this.particulas.append(p) }));
   }
 
+  crearHumo() {
+    this.humo.replaceChildren();[[-3.2, -1.4, 3.4, 0], [-2.2, -3, 3.7, .04], [-.5, -3.6, 4, .08], [1.6, -3.2, 3.6, .12], [3.2, -1.8, 3.2, .16], [-3.5, .6, 3.2, .12], [-2, 2.1, 3.7, .17], [0, 2.5, 4.1, .06], [2.2, 1.9, 3.5, .14], [3.5, .3, 3, .2], [-1.3, -.5, 4.2, .03], [1.2, -.4, 4.4, .09], [0, 0, 4.8, 0]].forEach(([x, y, s, d]) => { const n = document.createElement("span"); n.className = "nube"; n.style.setProperty("--x", `${x}rem`); n.style.setProperty("--y", `${y}rem`); n.style.setProperty("--s", `${s}rem`); n.style.setProperty("--d", `${d}s`); this.humo.append(n) });
+  }
+
   async cicloRiego(t) {
-    const r = this.regadera;
-    r.classList.remove("saliendo", "regando"); r.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return false;
-    r.classList.add("regando"); if (!await this.pausaAnimacion(350, t)) return false;
-    this.crearGotas(); this.gotas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return false;
-    this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); r.classList.remove("regando"); if (!await this.pausaAnimacion(550, t)) return false;
-    this.marcaSiembra.classList.remove("abonada"); this.marcaSiembra.classList.add("humeda"); if (!await this.pausaAnimacion(250, t)) return false;
-    r.classList.remove("visible"); r.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return false; r.classList.remove("saliendo"); return true;
+    const r = this.regadera; r.classList.remove("saliendo", "regando"); r.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return false; r.classList.add("regando"); if (!await this.pausaAnimacion(350, t)) return false; this.crearGotas(); this.gotas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return false; this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); r.classList.remove("regando"); if (!await this.pausaAnimacion(550, t)) return false; this.marcaSiembra.classList.remove("abonada"); this.marcaSiembra.classList.add("humeda"); if (!await this.pausaAnimacion(250, t)) return false; r.classList.remove("visible"); r.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return false; r.classList.remove("saliendo"); return true;
+  }
+
+  async cicloAbonado(t) {
+    const s = this.sustrato; s.classList.remove("saliendo", "vertiendo"); s.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return false; s.classList.add("vertiendo"); if (!await this.pausaAnimacion(350, t)) return false; this.crearParticulas(); this.particulas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return false; this.particulas.classList.remove("visible"); this.particulas.replaceChildren(); s.classList.remove("vertiendo"); if (!await this.pausaAnimacion(550, t)) return false; this.marcaSiembra.classList.remove("humeda"); this.marcaSiembra.classList.add("abonada"); if (!await this.pausaAnimacion(250, t)) return false; s.classList.remove("visible"); s.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return false; s.classList.remove("saliendo"); return true;
   }
 
   async iniciarAnimacionRiego() {
     if (this.animacionRiego) return; this.animacionRiego = true; this.animando = true; const t = ++this.tokenAnimacion, r = this.regadera, s = this.sustrato;
+    r.classList.remove("saliendo", "regando"); r.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return; r.classList.add("regando"); if (!await this.pausaAnimacion(350, t)) return; this.crearGotas(); this.gotas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return; this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); r.classList.remove("regando"); if (!await this.pausaAnimacion(550, t)) return; this.marcaSiembra.classList.add("humeda"); if (!await this.pausaAnimacion(250, t)) return; r.classList.remove("visible"); r.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return; r.classList.remove("saliendo");
+    if (!await this.pausaAnimacion(250, t)) return; s.classList.remove("saliendo", "vertiendo"); s.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return; s.classList.add("vertiendo"); if (!await this.pausaAnimacion(350, t)) return; this.crearParticulas(); this.particulas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return; this.particulas.classList.remove("visible"); this.particulas.replaceChildren(); s.classList.remove("vertiendo"); if (!await this.pausaAnimacion(550, t)) return; this.marcaSiembra.classList.remove("humeda"); this.marcaSiembra.classList.add("abonada"); if (!await this.pausaAnimacion(250, t)) return; s.classList.remove("visible"); s.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return; s.classList.remove("saliendo");
+    if (!await this.pausaAnimacion(250, t)) return; if (!await this.cicloRiego(t)) return; this.animando = false;
+  }
 
-    r.classList.remove("saliendo", "regando"); r.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return;
-    r.classList.add("regando"); if (!await this.pausaAnimacion(350, t)) return;
-    this.crearGotas(); this.gotas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return;
-    this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); r.classList.remove("regando"); if (!await this.pausaAnimacion(550, t)) return;
-    this.marcaSiembra.classList.add("humeda"); if (!await this.pausaAnimacion(250, t)) return;
-    r.classList.remove("visible"); r.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return; r.classList.remove("saliendo");
+  async iniciarAnimacionGerminacion() {
+    if (this.animacionGerminacion) return; this.animacionGerminacion = true; this.animando = true; const t = ++this.tokenAnimacion;
 
-    if (!await this.pausaAnimacion(250, t)) return;
-    s.classList.remove("saliendo", "vertiendo"); s.classList.add("visible"); if (!await this.pausaAnimacion(550, t)) return;
-    s.classList.add("vertiendo"); if (!await this.pausaAnimacion(350, t)) return;
-    this.crearParticulas(); this.particulas.classList.add("visible"); if (!await this.pausaAnimacion(2700, t)) return;
-    this.particulas.classList.remove("visible"); this.particulas.replaceChildren(); s.classList.remove("vertiendo"); if (!await this.pausaAnimacion(550, t)) return;
-    this.marcaSiembra.classList.remove("humeda"); this.marcaSiembra.classList.add("abonada"); if (!await this.pausaAnimacion(250, t)) return;
-    s.classList.remove("visible"); s.classList.add("saliendo"); if (!await this.pausaAnimacion(700, t)) return; s.classList.remove("saliendo");
+    /* Desaparecen las marcas visuales del fotograma anterior */
+    this.surcoDestacado.classList.remove("visible");
+    this.marcaSiembra.classList.remove("visible", "humeda", "abonada");
 
-    if (!await this.pausaAnimacion(250, t)) return;
+    this.brote.classList.remove("saliendo", "vivo"); this.brote.classList.add("visible"); if (!await this.pausaAnimacion(1250, t)) return;
+    this.brote.classList.add("vivo"); if (!await this.pausaAnimacion(900, t)) return;
+
     if (!await this.cicloRiego(t)) return;
-    this.animando = false;
+    if (!await this.pausaAnimacion(250, t)) return;
+
+    if (!await this.cicloAbonado(t)) return;
+    if (!await this.pausaAnimacion(450, t)) return;
+
+    this.brote.classList.remove("vivo"); void this.brote.offsetWidth; this.brote.classList.add("vivo"); if (!await this.pausaAnimacion(2900, t)) return;
+
+    this.crearHumo(); this.humo.classList.add("visible"); if (!await this.pausaAnimacion(180, t)) return;
+    this.brote.classList.remove("visible", "vivo"); this.brote.classList.add("saliendo"); if (!await this.pausaAnimacion(280, t)) return;
+    this.tomate.classList.add("visible"); if (!await this.pausaAnimacion(950, t)) return;
+    this.humo.classList.remove("visible"); this.humo.replaceChildren(); this.brote.classList.remove("saliendo"); this.animando = false;
   }
 
   finalizarAnimacionActual(avanzar = false) {
     this.tokenAnimacion++; this.animando = false;
     if (this.dialogoActual === 3) {
-      this.manoIzq.classList.remove("visible", "saliendo"); this.manoDer.classList.remove("visible", "saliendo");
-      this.manoSiembra.classList.remove("visible"); this.manoSiembra.classList.add("oculta");
-      this.manoAnimacion.classList.remove("visible"); this.manoAnimacion.style.cssText = ""; this.manoAnimacion.style.visibility = "hidden";
-      this.semillasPlaceholder.classList.remove("visible", "saliendo"); this.marcaSiembra.classList.add("visible");
+      this.manoIzq.classList.remove("visible", "saliendo"); this.manoDer.classList.remove("visible", "saliendo"); this.manoSiembra.classList.remove("visible"); this.manoSiembra.classList.add("oculta"); this.manoAnimacion.classList.remove("visible"); this.manoAnimacion.style.cssText = ""; this.manoAnimacion.style.visibility = "hidden"; this.semillasPlaceholder.classList.remove("visible", "saliendo"); this.marcaSiembra.classList.add("visible");
     }
     if (this.dialogoActual === 4) {
-      this.manoIzq.classList.remove("visible", "saliendo"); this.manoDer.classList.remove("visible", "saliendo");
-      this.manoSiembra.classList.remove("visible"); this.manoSiembra.classList.add("oculta");
-      this.manoAnimacion.classList.remove("visible"); this.manoAnimacion.style.visibility = "hidden";
-      this.semillasPlaceholder.classList.remove("visible", "saliendo");
-      this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); this.particulas.classList.remove("visible"); this.particulas.replaceChildren();
-      this.regadera.classList.remove("visible", "regando", "saliendo"); this.sustrato.classList.remove("visible", "vertiendo", "saliendo");
-      this.marcaSiembra.classList.remove("abonada"); this.marcaSiembra.classList.add("visible", "humeda");
+      this.manoIzq.classList.remove("visible", "saliendo"); this.manoDer.classList.remove("visible", "saliendo"); this.manoSiembra.classList.remove("visible"); this.manoSiembra.classList.add("oculta"); this.manoAnimacion.classList.remove("visible"); this.manoAnimacion.style.visibility = "hidden"; this.semillasPlaceholder.classList.remove("visible", "saliendo"); this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); this.particulas.classList.remove("visible"); this.particulas.replaceChildren(); this.regadera.classList.remove("visible", "regando", "saliendo"); this.sustrato.classList.remove("visible", "vertiendo", "saliendo"); this.marcaSiembra.classList.remove("abonada"); this.marcaSiembra.classList.add("visible", "humeda");
+    }
+    if (this.dialogoActual === 5) {
+      this.surcoDestacado.classList.remove("visible"); this.marcaSiembra.classList.remove("visible", "humeda", "abonada");
+      this.gotas.classList.remove("visible"); this.gotas.replaceChildren(); this.particulas.classList.remove("visible"); this.particulas.replaceChildren(); this.regadera.classList.remove("visible", "regando", "saliendo"); this.sustrato.classList.remove("visible", "vertiendo", "saliendo"); this.brote.classList.remove("visible", "vivo", "saliendo"); this.humo.classList.remove("visible"); this.humo.replaceChildren(); this.tomate.classList.add("visible");
     }
     if (avanzar && this.dialogoActual < this.dialogos.length - 1) this.siguienteDialogo();
   }
@@ -141,30 +152,12 @@ class GameTutorial extends HTMLElement {
 
     if (this.dialogoActual === 2) {
       this.muneca.classList.remove("visible"); this.muneca.classList.add("saliendo");
-      setTimeout(() => {
-        if (paso !== this.tokenPaso || this.dialogoActual !== 2) return;
-        this.tutorial.classList.add("sin-personaje"); this.mostrarDialogo(2);
-        setTimeout(() => {
-          if (paso !== this.tokenPaso || this.dialogoActual !== 2) return;
-          this.manoIzq.classList.add("visible");
-          setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 2) return; this.manoDer.classList.add("visible") }, 1100);
-        }, 1100);
-      }, 700);
-      return;
+      setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 2) return; this.tutorial.classList.add("sin-personaje"); this.mostrarDialogo(2); setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 2) return; this.manoIzq.classList.add("visible"); setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 2) return; this.manoDer.classList.add("visible") }, 1100) }, 1100) }, 700); return;
     }
 
     if (this.dialogoActual === 3) {
       this.manoIzq.classList.remove("visible"); this.manoDer.classList.remove("visible"); this.manoIzq.classList.add("saliendo"); this.manoDer.classList.add("saliendo");
-      setTimeout(() => {
-        if (paso !== this.tokenPaso || this.dialogoActual !== 3) return;
-        this.manoIzq.classList.remove("saliendo"); this.manoDer.classList.remove("saliendo"); this.tutorial.classList.add("paso-siembra"); this.mostrarDialogo(3);
-        setTimeout(() => {
-          if (paso !== this.tokenPaso || this.dialogoActual !== 3) return;
-          this.surcoDestacado.classList.add("visible"); this.manoSiembra.classList.add("visible");
-          setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 3) return; this.semillasPlaceholder.classList.add("visible") }, 1300);
-        }, 650);
-      }, 700);
-      return;
+      setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 3) return; this.manoIzq.classList.remove("saliendo"); this.manoDer.classList.remove("saliendo"); this.tutorial.classList.add("paso-siembra"); this.mostrarDialogo(3); setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 3) return; this.surcoDestacado.classList.add("visible"); this.manoSiembra.classList.add("visible"); setTimeout(() => { if (paso !== this.tokenPaso || this.dialogoActual !== 3) return; this.semillasPlaceholder.classList.add("visible") }, 1300) }, 650) }, 700); return;
     }
 
     setTimeout(() => { if (paso !== this.tokenPaso) return; this.mostrarDialogo(this.dialogoActual) }, 500);
