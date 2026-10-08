@@ -1,15 +1,14 @@
 class HarvestingMatch3 extends HTMLElement {
   constructor() { super(); this.shadow = this.attachShadow({ mode: "open" }); this.vegetales = ["ajo", "apionabo", "berenjena", "boniato", "brocoli", "bruselas", "calabacin", "calabaza", "cebolla", "cebolleta", "col", "coliflor", "lombarda", "nabo", "patatas", "pepino", "pimiento", "rabanito", "rabano", "remolacha", "setas", "tomate", "zanahoria"]; this.C = 15; this.F = 12; this.modo = null; this.dificultad = "media"; this.pantallaActual = "intro"; this.cambiando = this.partida = false; this.controles = { p1: { arriba: "w", abajo: "s", izquierda: "a", derecha: "d", rotar: "e", caer: "q", reservar: "r" }, p2: { arriba: "ArrowUp", abajo: "ArrowDown", izquierda: "ArrowLeft", derecha: "ArrowRight", rotar: "Enter", caer: "Shift", reservar: "Control" } }; this.cargarControles(); this.formasSimples = { 1: [[0, 0]], 2: [[0, 0], [1, 0]], 3: [[0, 0], [1, 0], [2, 0]], 4: [[0, 0], [1, 0], [2, 0], [3, 0]] }; this.formasComplejas = [[[0, 0], [1, 0], [2, 0], [1, 1]], [[0, 0], [1, 0], [1, 1], [2, 1]], [[1, 0], [2, 0], [0, 1], [1, 1]], [[0, 0], [1, 0], [0, 1], [1, 1]], [[0, 0], [0, 1], [0, 2], [1, 2]], [[1, 0], [1, 1], [1, 2], [0, 2]], [[0, 0], [1, 0], [2, 0], [0, 1], [0, 2]], [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]]]; this.jugadores = {}; this._teclado = e => this.teclado(e); this.render(); this.mostrarIntro() }
-
   cargarControles() { try { let c = JSON.parse(sessionStorage.getItem("harvesting-match3-controles")); if (c?.p1 && c?.p2) this.controles = { p1: { ...this.controles.p1, ...c.p1 }, p2: { ...this.controles.p2, ...c.p2 } } } catch { } }
   guardarControles() { try { sessionStorage.setItem("harvesting-match3-controles", JSON.stringify(this.controles)) } catch { } }
-
   render() {
-    this.shadow.innerHTML = /*html*/`<style>
+    this.shadow.innerHTML =/*html*/`<style>
 :host{display:block;width:100%;height:100%;overflow:hidden;font-family:"Fredoka",sans-serif;color:#fff}*{box-sizing:border-box}
 button{font:700 1.05rem Fredoka;color:#fff;cursor:pointer;border:.2rem solid hsl(214 82% 27%);border-radius:1.4rem;padding:.75rem 1.35rem;background:linear-gradient(hsl(199 100% 72%),hsl(199 88% 55%) 48%,hsl(201 82% 40%));text-shadow:0 .12rem .1rem #17376ecc;box-shadow:0 .28rem 0 hsl(214 82% 27%),0 .5rem .75rem #10192c4d,inset 0 .12rem #ffffff73;transition:.18s}
 button:hover{transform:translateY(-.1rem);filter:brightness(1.08)}
 button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62% 48%),hsl(115 58% 36%));box-shadow:0 .28rem 0 hsl(115 48% 24%),0 .5rem .75rem #10192c4d,inset 0 .12rem #ffffff59}
+.jugar{min-width:clamp(13rem,42%,19rem);min-height:4.5rem;padding:1rem 2rem;font-size:clamp(1.5rem,3vw,2rem);color:#fff;border-color:hsl(22 90% 35%);background:linear-gradient(hsl(37 100% 67%),hsl(27 100% 54%) 48%,hsl(20 95% 43%));box-shadow:0 .35rem 0 hsl(22 90% 32%),0 .65rem 1rem #76370b70,inset 0 .13rem #ffffff99;text-shadow:0 .12rem .12rem #8b390b}
 .match3{position:relative;width:100%;height:100dvh;overflow:hidden;background:hsl(203 65% 82%)}
 .pantalla{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(.6rem) scale(1.01);transition:opacity .65s,transform .75s,visibility 0s .75s}
 .pantalla.activa{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .7s,transform .8s,visibility 0s}
@@ -52,63 +51,38 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
 .celda img{width:118%;height:118%;max-width:none;object-fit:contain;pointer-events:none;filter:drop-shadow(0 .08rem .08rem #3d1b176e)}
 .celda.activa{background:#fff6c75c;box-shadow:inset 0 0 .6rem #fff7b5}
 .celda.especial{z-index:6;animation:especialCelda .65s ease-in-out infinite alternate}.celda.especial img{animation:especialImg .65s ease-in-out infinite alternate}
-
-/* MATCH: la celda permanece intacta; desaparece únicamente la verdura */
-.celda.match{z-index:5}
-.celda.match img{animation:brilloImg .38s ease-out forwards}
-
-/* DERROTA: aquí sí explota visualmente el contenido */
+.celda.match{z-index:5}.celda.match img{animation:brilloImg .38s ease-out forwards}
 .celda.explota{z-index:15;animation:explotaCelda .62s cubic-bezier(.2,.8,.25,1) forwards;animation-delay:var(--delay)}
 .celda.explota img{animation:explotaImg .62s cubic-bezier(.15,.75,.25,1) forwards;animation-delay:var(--delay)}
-
 .vs{z-index:4;font-size:clamp(1rem,2.2vw,2.4rem);font-weight:700;color:hsl(52 100% 72%);text-shadow:0 .16rem 0 hsl(348 58% 43%),0 .4rem .5rem #40170d80}
-.eliminado>.cabecera-jugador,.eliminado>.reservas{opacity:.48;filter:saturate(.3) brightness(.75)}
-.eliminado .tablero{opacity:.48;filter:saturate(.3) brightness(.75)}
+.eliminado>.cabecera-jugador,.eliminado>.reservas{opacity:.48;filter:saturate(.3) brightness(.75)}.eliminado .tablero{opacity:.48;filter:saturate(.3) brightness(.75)}
 .eliminado::after{content:"✦ ELIMINADO ✦";position:absolute;z-index:20;top:55%;left:50%;transform:translate(-50%,-50%) rotate(-5deg);padding:.55rem 1rem;border:.2rem solid #fff;border-radius:1rem;background:linear-gradient(135deg,hsl(350 92% 62%),hsl(328 85% 45%));font-size:clamp(.8rem,1.7vw,1.35rem);font-weight:700;white-space:nowrap;color:#fff;text-shadow:0 .12rem .12rem #70142d,0 0 .4rem #fff8;box-shadow:0 .3rem 0 hsl(340 65% 30%),0 .7rem 1.2rem #35101b99,inset 0 .12rem #ffffff9c;animation:eliminadoEntrada .55s cubic-bezier(.2,1.5,.35,1)}
 .terminar{display:none;position:absolute;z-index:50;left:50%;top:70%;transform:translate(-50%,-50%);min-width:min(84%,18rem);padding:.95rem 1.3rem;border:.25rem solid #fff;border-radius:1.45rem;background:linear-gradient(hsl(18 100% 68%),hsl(354 91% 55%) 52%,hsl(344 84% 43%));font-size:clamp(.9rem,1.8vw,1.35rem);font-weight:700;white-space:nowrap;color:#fff;text-shadow:0 .13rem .12rem #76182c,0 0 .35rem #fff8;box-shadow:0 .34rem 0 hsl(344 65% 27%),0 .7rem 1.1rem #210810aa,0 0 1.1rem #ff6c83,inset 0 .14rem #ffffff9c;animation:terminarPulso 1.05s ease-in-out infinite alternate}.terminar.visible{display:block}.terminar:hover{transform:translate(-50%,-50%) scale(1.05);filter:brightness(1.12)}
-.mensaje{position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.7rem;overflow:hidden;background:#35130cc7;opacity:0;visibility:hidden;transform:scale(1.035);transition:opacity .8s ease,transform .9s ease,visibility 0s .9s}
-.mensaje.visible{opacity:1;visibility:visible;transform:scale(1);transition:opacity .8s ease,transform .9s ease}
-.mensaje.gana{background:linear-gradient(135deg,#ffb8ca9c 0%,#ffdca391 18%,#fff4b98c 34%,#bcefc58c 51%,#9be8ed91 67%,#a9c9f29c 83%,#d8b7ee91 100%),radial-gradient(circle at 50% 42%,#ffffff80,transparent 58%),#4d8fc7d9}
+.mensaje{position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:clamp(.7rem,2vh,1.3rem);padding:1rem;overflow:hidden;background:#35130cc7;opacity:0;visibility:hidden;transform:scale(1.035);transition:opacity .8s ease,transform .9s ease,visibility 0s .9s}
+.mensaje.visible{opacity:1;visibility:visible;transform:scale(1);transition:opacity .8s,transform .9s,visibility 0s}
+.mensaje.gana{padding:1rem 1rem clamp(2rem,5vh,3.5rem);background:linear-gradient(135deg,#ffb8ca9c 0%,#ffdca391 18%,#fff4b98c 34%,#bcefc58c 51%,#9be8ed91 67%,#a9c9f29c 83%,#d8b7ee91 100%),radial-gradient(circle at 50% 42%,#ffffff80,transparent 58%),#4d8fc7d9}
 .mensaje.pierde{background:radial-gradient(circle at 50% 35%,#283348e8,#111723f2 55%,#070a10fa);filter:saturate(.7)}
-.mensaje strong,.mensaje span,.mensaje button{position:relative;z-index:5}.mensaje strong{font-size:clamp(2rem,7vw,5rem);text-align:center;text-shadow:0 .3rem .4rem #0008}.mensaje.gana strong{color:#fff6a4}.mensaje.pierde strong{color:#b9c1d0}.mensaje span{font-size:clamp(1rem,3vw,1.8rem);font-weight:700}
-.reiniciar{color:#fff;text-shadow:none}
-.ganadora{position:absolute;z-index:3;left:50%;bottom:-12%;width:min(18rem,36vh,40vw);transform:translateX(-50%);filter:drop-shadow(0 .5rem .2rem #17365d8a);animation:ganadoraEntrada .8s cubic-bezier(.15,1.25,.3,1) both}
+.mensaje strong,.mensaje span,.mensaje button{position:relative;z-index:5}
+.mensaje strong{font-size:clamp(2rem,7vw,5rem);text-align:center;text-shadow:0 .3rem .4rem #0008}
+.mensaje.gana strong{color:#fff6a4}.mensaje.pierde strong{color:#b9c1d0}
+.mensaje span{font-size:clamp(1.4rem,3.8vw,2.5rem);font-weight:700;color:#fff;text-align:center;text-shadow:0 .12rem .08rem #182039,0 .3rem .2rem #000b,0 0 .6rem #0008}
+.reiniciar{min-width:min(80%,19rem);min-height:4.5rem;padding:1rem 2rem;font-size:clamp(1.3rem,2.8vw,1.8rem);color:#fff;text-shadow:0 .12rem .12rem #24541c;box-shadow:0 .35rem 0 hsl(115 48% 24%),0 .7rem 1rem #10192c80,inset 0 .12rem #ffffff80}
+.ganadora{position:absolute;z-index:3;left:50%;bottom:-14%;width:min(17rem,34vh,38vw);transform:translateX(-50%);filter:drop-shadow(0 .5rem .2rem #17365d8a);animation:ganadoraEntrada .8s cubic-bezier(.15,1.25,.3,1) both}
 .confeti{position:absolute;z-index:4;top:-12%;width:.55rem;height:1.1rem;border-radius:.15rem;background:hsl(var(--h) 90% 58%);left:var(--x);animation:confetiCaida var(--d) linear infinite;animation-delay:var(--delay)}
 .triste{position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,transparent,#0004,transparent);animation:triste 4s ease-in-out infinite alternate}
 .lluvia{position:absolute;top:-20%;width:.12rem;height:15%;z-index:2;left:var(--x);background:linear-gradient(transparent,#a8c8e6aa);transform:rotate(12deg);animation:lluvia var(--d) linear infinite;animation-delay:var(--delay)}
-
 @keyframes saludoMuneca{0%,12%,100%{transform:translateX(-50%) rotate(0)}3%{transform:translateX(-50%) rotate(-1.4deg)}6%{transform:translateX(-50%) rotate(1.4deg)}9%{transform:translateX(-50%) rotate(-.7deg)}}
 @keyframes especialCelda{to{background:#fff8a6b8;box-shadow:inset 0 0 .8rem #fff,0 0 .65rem #fff,0 0 1.2rem #ffe13d}}
 @keyframes especialImg{to{filter:brightness(1.65) drop-shadow(0 0 .45rem #fff) drop-shadow(0 0 .75rem #ffe13d);transform:scale(1.08)}}
-
-/* La verdura brilla, aumenta y se desvanece. La celda no se anima. */
-@keyframes brilloImg{
-  0%{opacity:1;transform:scale(1);filter:brightness(1) drop-shadow(0 .08rem .08rem #3d1b176e)}
-  38%{opacity:1;transform:scale(1.28);filter:brightness(1.8) drop-shadow(0 0 .4rem #fff) drop-shadow(0 0 .75rem #ffe96e)}
-  72%{opacity:.7;transform:scale(1.18);filter:brightness(2.1) drop-shadow(0 0 .7rem #fff)}
-  100%{opacity:0;transform:scale(.35);filter:brightness(2.3) drop-shadow(0 0 .85rem #fff)}
-}
-
-/* Explosión de derrota algo más marcada */
-@keyframes explotaCelda{
-  0%{transform:scale(1);filter:brightness(1)}
-  25%{transform:scale(1.08);filter:brightness(1.25)}
-  48%{transform:scale(1.36);filter:brightness(2)}
-  100%{transform:scale(.03) rotate(var(--rot));opacity:0;filter:brightness(2.4)}
-}
-@keyframes explotaImg{
-  0%{transform:scale(1);filter:brightness(1)}
-  30%{transform:scale(1.2);filter:brightness(1.35)}
-  50%{transform:scale(1.7);filter:brightness(2) drop-shadow(0 0 .65rem #fff)}
-  100%{transform:scale(2.5) rotate(var(--rot));opacity:0;filter:brightness(2.4) drop-shadow(0 0 1rem #fff)}
-}
+@keyframes brilloImg{0%{opacity:1;transform:scale(1);filter:brightness(1) drop-shadow(0 .08rem .08rem #3d1b176e)}38%{opacity:1;transform:scale(1.28);filter:brightness(1.8) drop-shadow(0 0 .4rem #fff) drop-shadow(0 0 .75rem #ffe96e)}72%{opacity:.7;transform:scale(1.18);filter:brightness(2.1) drop-shadow(0 0 .7rem #fff)}100%{opacity:0;transform:scale(.35);filter:brightness(2.3) drop-shadow(0 0 .85rem #fff)}}
+@keyframes explotaCelda{0%{transform:scale(1);filter:brightness(1)}25%{transform:scale(1.08);filter:brightness(1.25)}48%{transform:scale(1.36);filter:brightness(2)}100%{transform:scale(.03) rotate(var(--rot));opacity:0;filter:brightness(2.4)}}
+@keyframes explotaImg{0%{transform:scale(1);filter:brightness(1)}30%{transform:scale(1.2);filter:brightness(1.35)}50%{transform:scale(1.7);filter:brightness(2) drop-shadow(0 0 .65rem #fff)}100%{transform:scale(2.5) rotate(var(--rot));opacity:0;filter:brightness(2.4) drop-shadow(0 0 1rem #fff)}}
 @keyframes eliminadoEntrada{0%{opacity:0;transform:translate(-50%,-50%) rotate(-12deg) scale(.35)}70%{transform:translate(-50%,-50%) rotate(-3deg) scale(1.12)}}
 @keyframes terminarPulso{to{box-shadow:0 .34rem 0 hsl(344 65% 27%),0 .7rem 1.1rem #210810aa,0 0 1.7rem #ff8094,inset 0 .14rem #fff}}
 @keyframes ganadoraEntrada{from{opacity:0;transform:translateX(-50%) translateY(25%) scale(.75)}}
 @keyframes confetiCaida{to{transform:translateY(125vh) rotate(720deg)}}
 @keyframes lluvia{to{transform:translate(-8vw,130vh) rotate(12deg)}}
 @keyframes triste{to{opacity:.75}}
-
 @media(max-width:48rem){
 .intro-logo{width:min(43vw,31vh,19rem)}.subtitulo{top:25.5%;font-size:clamp(2.75rem,9vw,4.55rem)}.muneca{width:min(71vw,100vh,28rem);bottom:-18%}.vegetales-intro{grid-template-columns:repeat(8,1fr)}.fondo-reticula{grid-template-columns:repeat(9,1fr)}.controles{grid-template-columns:1fr}.panel{padding:1rem}.juego{gap:.45rem;padding:1rem .25rem}
 .zona-jugador{gap:.35rem;width:min(43vw,calc((100dvh - 10rem)*1.5));flex-basis:min(43vw,calc((100dvh - 10rem)*1.5))}
@@ -117,13 +91,12 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
 .intro-logo{width:min(51vw,28vh,16rem)}.subtitulo{top:23%;font-size:clamp(2.55rem,11.5vw,3.8rem)}.muneca{width:min(91vw,90vh,24.5rem);bottom:-13%}.vegetales-intro{grid-template-columns:repeat(6,1fr)}.fondo-reticula{grid-template-columns:repeat(7,1fr)}.juego{gap:.1rem;padding:.8rem .08rem}
 .zona-jugador{gap:.25rem;width:min(44vw,calc((100dvh - 8.5rem)*1.5));flex-basis:min(44vw,calc((100dvh - 8.5rem)*1.5))}
 .tablero{padding:.1rem;gap:.025rem;border-width:.13rem;border-radius:.65rem}.celda{border-radius:.16rem;border-width:.04rem}.celda img{width:125%;height:125%}.cabecera-jugador{min-height:2rem;padding:.1rem .2rem;border-width:.1rem}.puntos{min-width:2.3rem;padding:.03rem .08rem}.reservas{height:2.15rem;gap:.07rem}.reserva{border-width:.07rem}.combo{font-size:.4rem;max-width:42%;padding:.05rem .12rem}.vs{font-size:.6rem}.terminar{font-size:.68rem;padding:.65rem .7rem}}
+@media(max-height:42rem){.mensaje{gap:.5rem}.mensaje strong{font-size:clamp(1.8rem,6vh,3.5rem)}.mensaje span{font-size:clamp(1.2rem,3.5vh,1.8rem)}.reiniciar{min-height:3.5rem;padding:.65rem 1.5rem}.mensaje.gana{padding:1rem 1rem 2rem}.ganadora{width:min(13rem,30vh,34vw);bottom:-15%}}
 </style>
-
 <div class="match3">
 <section class="pantalla intro activa" data-pantalla="intro"><div class="fondo-reticula"></div><div class="vegetales-intro"></div><img class="intro-logo" src="./img/logo.svg"><div class="subtitulo">MATCH3</div><img class="muneca" src="./img/muneca01.svg"><button class="iniciar">INICIAR PARTIDA</button></section>
-<section class="pantalla" data-pantalla="seleccion"><div class="fondo-reticula"></div><div class="panel"><h2>ELIGE TU PARTIDA</h2><div class="opciones"><button class="modo-cpu verde">VS CPU</button><button class="modo-2p">2 JUGADORES</button></div><div class="dificultad"><h3>DIFICULTAD</h3><div class="opciones"><button data-dificultad="facil">FÁCIL</button><button data-dificultad="media" class="verde">MEDIA</button><button data-dificultad="dificil">DIFÍCIL</button></div></div><button class="configurar">⚙ CONFIGURAR CONTROLES</button><div class="acciones"><button class="jugar verde">JUGAR</button></div></div></section>
+<section class="pantalla" data-pantalla="seleccion"><div class="fondo-reticula"></div><div class="panel"><h2>ELIGE TU PARTIDA</h2><div class="opciones"><button class="modo-cpu verde">VS CPU</button><button class="modo-2p">2 JUGADORES</button></div><div class="dificultad"><h3>DIFICULTAD</h3><div class="opciones"><button data-dificultad="facil">FÁCIL</button><button data-dificultad="media" class="verde">MEDIA</button><button data-dificultad="dificil">DIFÍCIL</button></div></div><button class="configurar">⚙ CONFIGURAR CONTROLES</button><div class="acciones"><button class="jugar">JUGAR</button></div></div></section>
 <section class="pantalla" data-pantalla="controles"><div class="fondo-reticula"></div><div class="panel"><h2>CONFIGURAR CONTROLES</h2><div class="controles"></div><div class="acciones"><button class="guardar verde">GUARDAR</button><button class="volver">VOLVER</button></div></div></section>
-
 <section class="pantalla juego" data-pantalla="juego">
 <div class="fondo-juego"></div>
 <div class="zona-jugador zona-1"><div class="cabecera-jugador"><div class="nombre">PLAYER 1</div><div class="combo combo-1"></div><div class="puntos puntos-1">0</div></div><div class="reservas reservas-1">${[0, 1, 2, 3].map(i => `<div class="reserva vacia" data-id="1" data-slot="${i}"></div>`).join("")}</div><div class="marco-tablero"><div class="tablero tablero-1"></div></div><button class="terminar">TERMINAR PARTIDA</button></div>
@@ -131,11 +104,8 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
 <div class="zona-jugador zona-2"><div class="cabecera-jugador"><div class="nombre rival">CPU</div><div class="combo combo-2"></div><div class="puntos puntos-2">0</div></div><div class="reservas reservas-2">${[0, 1, 2, 3].map(i => `<div class="reserva vacia" data-id="2" data-slot="${i}"></div>`).join("")}</div><div class="marco-tablero"><div class="tablero tablero-2"></div></div></div>
 <div class="mensaje"><div class="efecto-final"></div><strong></strong><span></span><button class="reiniciar verde">NUEVA PARTIDA</button></div>
 </section></div>`;
-
     this.$ = s => this.shadow.querySelector(s); this.$$ = s => [...this.shadow.querySelectorAll(s)]; this.crearFondos(); this.crearTableros(); this.aplicarFondoPastel(); this.eventos()
-  }
-
-  crearSecuencia(n, c) { let r = []; for (let i = 0; i < n; i++) { let a = this.vegetales.filter(v => v !== (i % c ? r[i - 1] : null) && v !== (i >= c ? r[i - c] : null)); r.push(a[Math.random() * a.length | 0]) } return r }
+  } crearSecuencia(n, c) { let r = []; for (let i = 0; i < n; i++) { let a = this.vegetales.filter(v => v !== (i % c ? r[i - 1] : null) && v !== (i >= c ? r[i - c] : null)); r.push(a[Math.random() * a.length | 0]) } return r }
   crearCapa(e, n, c, a, b) { this.crearSecuencia(n, c).forEach(v => { let i = document.createElement("img"); i.src = `./img/${v}.svg`; i.style.transform = `rotate(${Math.random() * 30 - 15}deg) scale(${a + Math.random() * (b - a)})`; e.append(i) }) }
   crearFondos() { this.$$(".fondo-reticula").forEach(f => this.crearCapa(f, 195, 13, 1.12, 1.58)); this.crearCapa(this.$(".vegetales-intro"), 120, 12, .95, 1.45); this.crearCapa(this.$(".fondo-juego"), 180, 12, 1, 1.45) }
   aplicarFondoPastel() { let p = [[203, 65, 82], [338, 65, 86], [29, 80, 84], [145, 55, 82], [275, 55, 86], [52, 78, 82], [185, 62, 82], [315, 58, 86], [95, 55, 83], [225, 65, 86]], [h, s, l] = p[Math.random() * p.length | 0]; this.$(".match3").style.background = `hsl(${h} ${s}% ${l}%)`; this.$(".juego").style.background = `linear-gradient(145deg,hsl(${h} ${s}% ${l}%),hsl(${(h + 25) % 360} ${s}% ${Math.min(91, l + 3)}%))` }
@@ -144,54 +114,15 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
   seleccionarModo(m) { this.modo = m; this.$(".dificultad").classList.toggle("visible", m === "cpu"); this.$(".modo-cpu").classList.toggle("verde", m === "cpu"); this.$(".modo-2p").classList.toggle("verde", m === "2p") }
   seleccionarDificultad(d) { this.dificultad = d; this.$$("[data-dificultad]").forEach(b => b.classList.toggle("verde", b.dataset.dificultad === d)) }
   nombreTecla(k) { return { ArrowUp: "↑", ArrowDown: "↓", ArrowLeft: "←", ArrowRight: "→", " ": "ESPACIO", Shift: "SHIFT", Enter: "ENTER", Control: "CTRL" }[k] || k.toUpperCase() }
-
   mostrarControles() { let n = { arriba: "ORDENAR VERDURAS", abajo: "ABAJO", izquierda: "IZQUIERDA", derecha: "DERECHA", rotar: "ROTAR", caer: "CAÍDA RÁPIDA", reservar: "RESERVAR / USAR" }; this.$(".controles").innerHTML = ["p1", "p2"].map((p, i) => `<div class="jugador"><h3>PLAYER ${i + 1}</h3>${Object.entries(n).map(([k, v]) => `<label class="control"><span>${v}</span><input readonly data-player="${p}" data-control="${k}" value="${this.nombreTecla(this.controles[p][k])}"></label>`).join("")}</div>`).join(""); this.$$(".control input").forEach(i => i.onkeydown = e => { e.preventDefault(); this.controles[i.dataset.player][i.dataset.control] = e.key; i.value = this.nombreTecla(e.key) }); this.cambiarPantalla("controles") }
-
   vacio() { return Array.from({ length: this.F }, () => Array(this.C).fill(null)) }
   nuevoJugador(id, cpu = false) { return { id, cpu, tablero: this.vacio(), pieza: null, puntos: 0, combo: 0, intervalo: null, cpuTimer: null, cpuCaida: 0, bloqueado: false, eliminado: false, reservas: Array(4).fill(null), reservaUsada: false, piezasGeneradas: 0 } }
-
   tipo(j = null) { let p = this.vegetales; if (j) { let n = Math.min(1, j.puntos / 8000), u = [...new Set(j.tablero.flat().filter(Boolean).map(v => v.tipo))], l = Math.round(6 + n * 17); if (n < .75) p = [...new Set([...u, ...this.vegetales.slice(0, l)])] } return p[Math.random() * p.length | 0] }
-
-  /* Especial inteligente:
-     - prioridad absoluta a verduras con 3 o más unidades.
-     - elección ponderada por cantidad.
-     - si ninguna llega a 3, utiliza las presentes y favorece la más abundante.
-     - si el tablero está vacío, utiliza el generador normal. */
-  tipoEspecial(j) {
-    let f = {};
-    j.tablero.flat().filter(Boolean).forEach(v => f[v.tipo] = (f[v.tipo] || 0) + 1);
-    let presentes = Object.entries(f);
-    if (!presentes.length) return this.tipo(j);
-    let candidatos = presentes.filter(([, n]) => n >= 3);
-    if (!candidatos.length) {
-      let max = Math.max(...presentes.map(([, n]) => n));
-      candidatos = presentes.filter(([, n]) => n === max);
-    }
-    let bolsa = [];
-    candidatos.forEach(([tipo, n]) => {
-      let peso = Math.max(1, n - 1);
-      for (let i = 0; i < peso; i++)bolsa.push(tipo);
-    });
-    return bolsa[Math.random() * bolsa.length | 0];
-  }
-
+  tipoEspecial(j) { let f = {}; j.tablero.flat().filter(Boolean).forEach(v => f[v.tipo] = (f[v.tipo] || 0) + 1); let presentes = Object.entries(f); if (!presentes.length) return this.tipo(j); let candidatos = presentes.filter(([, n]) => n >= 3); if (!candidatos.length) { let max = Math.max(...presentes.map(([, n]) => n)); candidatos = presentes.filter(([, n]) => n === max) } let bolsa = []; candidatos.forEach(([tipo, n]) => { let peso = Math.max(1, n - 1); for (let i = 0; i < peso; i++)bolsa.push(tipo) }); return bolsa[Math.random() * bolsa.length | 0] }
   tiposPieza(j, n) { let d = Math.min(1, j.puntos / 8000), f = {}; j.tablero.flat().filter(Boolean).forEach(v => f[v.tipo] = (f[v.tipo] || 0) + 1); let c = Object.keys(f).sort((a, b) => f[b] - f[a]), r = []; for (let i = 0; i < n; i++) { let p = Math.random() < (d < .25 ? .76 : d < .55 ? .54 : .32) && c.length ? c.slice(0, Math.max(3, Math.round(3 + d * 7))) : this.vegetales, v = p[Math.random() * p.length | 0]; if (n >= 4 && i === n - 1 && r.every(x => x === v)) v = this.vegetales.filter(x => x !== v)[Math.random() * (this.vegetales.length - 1) | 0]; r.push(v) } return r }
   formaNueva(j) { j.piezasGeneradas++; if (j.piezasGeneradas % 10 === 0) return { forma: [[0, 0]], especial: true }; if (j.piezasGeneradas % 4 === 0) return { forma: this.formasComplejas[Math.random() * this.formasComplejas.length | 0].map(p => [...p]), especial: false }; let r = Math.random(), n = r < .31 ? 4 : r < .58 ? 3 : r < .82 ? 2 : 1; return { forma: this.formasSimples[n].map(p => [...p]), especial: false } }
   normalizarForma(f) { let x = Math.min(...f.map(p => p[0])), y = Math.min(...f.map(p => p[1])); return f.map(([a, b]) => [a - x, b - y]) }
-
-  crearPieza(j, g = null) {
-    let f, t, e = false;
-    if (g) { f = g.formaOriginal.map(p => [...p]); t = [...g.tipos]; e = !!g.especial }
-    else {
-      let x = this.formaNueva(j);
-      f = x.forma; e = x.especial;
-      t = e ? [this.tipoEspecial(j)] : this.tiposPieza(j, f.length)
-    }
-    f = this.normalizarForma(f);
-    let m = Math.max(...f.map(p => p[0]));
-    return { forma: f.map(p => [...p]), formaOriginal: f.map(p => [...p]), x: Math.max(0, Math.floor((this.C - m - 1) / 2)), y: 0, tipos: t, especial: e, objetivo: null }
-  }
-
+  crearPieza(j, g = null) { let f, t, e = false; if (g) { f = g.formaOriginal.map(p => [...p]); t = [...g.tipos]; e = !!g.especial } else { let x = this.formaNueva(j); f = x.forma; e = x.especial; t = e ? [this.tipoEspecial(j)] : this.tiposPieza(j, f.length) } f = this.normalizarForma(f); let m = Math.max(...f.map(p => p[0])); return { forma: f.map(p => [...p]), formaOriginal: f.map(p => [...p]), x: Math.max(0, Math.floor((this.C - m - 1) / 2)), y: 0, tipos: t, especial: e, objetivo: null } }
   nuevaPieza(j, g = null) { if (j.eliminado) return false; j.reservaUsada = false; j.pieza = this.crearPieza(j, g); if (j.cpu) j.cpuCaida = performance.now(); if (!this.valida(j, j.pieza.x, 0, j.pieza.forma)) { this.dibujar(j, true); this.eliminar(j, true); return false } this.actualizarReservas(j); this.dibujar(j); return true }
   valida(j, x, y, f) { return f.every(([a, b]) => { let X = x + a, Y = y + b; return X >= 0 && X < this.C && Y >= 0 && Y < this.F && !j.tablero[Y][X] }) }
   mover(j, x, y) { if (!this.partida || !j?.pieza || j.bloqueado || j.eliminado) return false; let p = j.pieza; if (this.valida(j, p.x + x, p.y + y, p.forma)) { p.x += x; p.y += y; this.dibujar(j); return true } if (y > 0) this.fijar(j); return false }
@@ -203,33 +134,24 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
   actualizarReservas(j) { this.$$(`.reservas-${j.id} .reserva`).forEach((e, i) => { let p = j.reservas[i]; e.replaceChildren(); e.classList.toggle("vacia", !p); e.classList.toggle("bloqueada", j.reservaUsada); if (p) e.append(this.miniPieza(p)); let n = document.createElement("span"); n.className = "reserva-numero"; n.textContent = `R${i + 1}`; e.append(n) }) }
   miniPieza(p) { let d = document.createElement("div"); d.className = `mini-pieza${p.especial ? " especial" : ""}`; let f = this.normalizarForma(p.formaOriginal), X = Math.max(...f.map(v => v[0])) + 1, Y = Math.max(...f.map(v => v[1])) + 1, t = Math.min(100 / X, 100 / Y); f.forEach(([x, y], i) => { let b = document.createElement("div"); b.className = "mini-bloque"; b.style.cssText = `width:${t}%;height:${t}%;left:${(100 - X * t) / 2 + x * t}%;top:${(100 - Y * t) / 2 + y * t}%`; b.innerHTML = `<img src="./img/${p.tipos[i]}.svg">`; d.append(b) }); return d }
   caer(j) { if (!this.partida || !j?.pieza || j.bloqueado || j.eliminado) return; while (this.valida(j, j.pieza.x, j.pieza.y + 1, j.pieza.forma)) j.pieza.y++; this.fijar(j) }
-
   async fijar(j) { if (!j.pieza) return; let p = j.pieza, e = p.especial, t = e ? p.tipos[0] : null; p.forma.forEach(([a, b], i) => { let x = p.x + a, y = p.y + b; if (y >= 0 && y < this.F) j.tablero[y][x] = { tipo: p.tipos[i], basura: false, especial: e } }); j.pieza = null; j.bloqueado = true; this.gravedad(j.tablero); this.dibujar(j); if (e) await this.activarEspecial(j, t); if (this.partida && !j.eliminado) await this.resolver(j) }
   gravedad(t) { for (let x = 0; x < this.C; x++) { let a = []; for (let y = this.F - 1; y >= 0; y--)if (t[y][x]) a.push(t[y][x]); for (let y = 0; y < this.F; y++)t[y][x] = null; a.forEach((v, i) => t[this.F - 1 - i][x] = v) } }
   tableroVacio(j) { return !j.tablero.some(f => f.some(Boolean)) }
-
   async activarEspecial(j, t) { let c = []; for (let y = 0; y < this.F; y++)for (let x = 0; x < this.C; x++)if (j.tablero[y][x]?.tipo === t) c.push([x, y]); if (!c.length) return; this.$(`.combo-${j.id}`).textContent = `¡ESPECIAL! · ${c.length}`; c.forEach(([x, y]) => this.celda(j.id, x, y)?.classList.add("match")); await this.espera(480); if (!this.partida || j.eliminado) return; c.forEach(([x, y]) => this.celda(j.id, x, y)?.classList.remove("match")); c.forEach(([x, y]) => j.tablero[y][x] = null); j.puntos += c.length * 75; this.gravedad(j.tablero); this.dibujar(j); if (this.tableroVacio(j)) { j.puntos += 1000; this.$(`.combo-${j.id}`).textContent = "¡TABLERO VACÍO! · +1000" } this.actualizarMarcador(j); await this.espera(180) }
-
   buscarMatches(t) { let s = new Set, p = 0, add = a => { p++; a.forEach(([x, y]) => s.add(`${x},${y}`)) }, D = [[1, 0], [0, 1], [1, 1], [-1, 1]]; for (let y = 0; y < this.F; y++)for (let x = 0; x < this.C; x++)if (t[y][x]) for (let [dx, dy] of D) { let a = [], X = x, Y = y, v = t[y][x].tipo, px = x - dx, py = y - dy; if (px >= 0 && px < this.C && py >= 0 && py < this.F && t[py][px]?.tipo === v) continue; while (X >= 0 && X < this.C && Y >= 0 && Y < this.F && t[Y][X]?.tipo === v) { a.push([X, Y]); X += dx; Y += dy } if (a.length >= 3) add(a) } for (let y = 0; y < this.F - 1; y++)for (let x = 0; x < this.C - 1; x++) { let v = t[y][x]?.tipo, a = [[x, y], [x + 1, y], [x, y + 1], [x + 1, y + 1]]; if (v && a.every(([X, Y]) => t[Y][X]?.tipo === v)) add(a) } let S = [[[0, 0], [1, 0], [1, 1], [2, 1]], [[1, 0], [0, 1], [1, 1], [0, 2]], [[1, 0], [2, 0], [0, 1], [1, 1]], [[0, 0], [0, 1], [1, 1], [1, 2]]]; for (let y = 0; y < this.F; y++)for (let x = 0; x < this.C; x++)for (let f of S) { let v = t[y]?.[x]?.tipo, a = f.map(([a, b]) => [x + a, y + b]); if (v && a.every(([X, Y]) => X >= 0 && X < this.C && Y >= 0 && Y < this.F && t[Y][X]?.tipo === v)) add(a) } let r = [...s].map(v => v.split(",").map(Number)); r.patrones = p; return r }
-
   async resolver(j) { let c = 0, a = 0, s = 0, bonus = false; while (this.partida && !j.eliminado && s++ < 20) { this.gravedad(j.tablero); this.dibujar(j); let m = this.buscarMatches(j.tablero); if (!m.length) break; c++; let n = m.length, g = Math.round((100 + (n - 3) * 75) * (1 + (c - 1) * .5)); j.puntos += g; a += m.patrones || 1; this.actualizarMarcador(j); this.$(`.combo-${j.id}`).textContent = c > 1 ? `COMBO x${c} · +${g}` : `MATCH ${n} · +${g}`; m.forEach(([x, y]) => this.celda(j.id, x, y)?.classList.add("match")); await this.espera(440); if (!this.partida || j.eliminado) return; m.forEach(([x, y]) => this.celda(j.id, x, y)?.classList.remove("match")); m.forEach(([x, y]) => j.tablero[y][x] = null); this.gravedad(j.tablero); this.dibujar(j); if (this.tableroVacio(j)) { j.puntos += 1000; bonus = true; this.actualizarMarcador(j); this.$(`.combo-${j.id}`).textContent = "¡TABLERO VACÍO! · +1000"; await this.espera(420) } await this.espera(180) } if (!this.partida || j.eliminado) return; a = Math.min(10, a); j.combo = c; if (!bonus) this.$(`.combo-${j.id}`).textContent = c ? (c > 1 ? `COMBO x${c} · ${a} ATAQUES` : `MATCH · ${a} ATAQUE${a !== 1 ? "S" : ""}`) : ""; let r = j.id === 1 ? this.jugadores[2] : this.jugadores[1]; if (a && !r.eliminado) await this.enviarAtaque(r, a); j.bloqueado = false; if (this.partida && !j.eliminado) this.nuevaPieza(j) }
-
   async enviarAtaque(r, n) { if (!this.partida || !r || r.eliminado) return; for (let i = 0; i < n && this.partida && !r.eliminado; i++) { let c = []; for (let x = 0; x < this.C; x++)if (!r.tablero[0][x]) c.push(x); if (!c.length) break; let x = c[Math.random() * c.length | 0]; r.tablero[0][x] = { tipo: this.tipo(r), basura: true }; this.gravedad(r.tablero); this.dibujar(r); await this.espera(90) } }
-
   celda(id, x, y) { return this.$(`.tablero-${id}`)?.children[y * this.C + x] }
   pintarCelda(c, v, a = false, e = false) { let t = v?.tipo || "", i = c.firstElementChild; c.classList.toggle("activa", a); c.classList.toggle("especial", e); if (!t) { i?.remove(); c.dataset.tipo = ""; return } if (c.dataset.tipo !== t || !i) { c.innerHTML = `<img src="./img/${t}.svg">`; c.dataset.tipo = t } }
   dibujar(j, derrota = false) { let c = this.$(`.tablero-${j.id}`).children, a = new Map; if (j.pieza) j.pieza.forma.forEach(([dx, dy], i) => { let x = j.pieza.x + dx, y = j.pieza.y + dy; if (x >= 0 && x < this.C && y >= 0 && y < this.F && (!derrota || !j.tablero[y][x])) a.set(`${x},${y}`, { tipo: j.pieza.tipos[i], especial: j.pieza.especial }) }); for (let y = 0; y < this.F; y++)for (let x = 0; x < this.C; x++) { let e = c[y * this.C + x], p = a.get(`${x},${y}`), v = p || j.tablero[y][x]; this.pintarCelda(e, v, !!p, !!v?.especial) } }
   actualizarMarcador(j) { this.$(`.puntos-${j.id}`).textContent = j.puntos.toLocaleString("es-ES"); this.comprobarFinalAnticipado() }
   comprobarFinalAnticipado() { let a = this.jugadores[1], b = this.jugadores[2]; this.$(".terminar")?.classList.toggle("visible", !!(this.partida && this.modo === "cpu" && a?.eliminado && !b?.eliminado && b.puntos > a.puntos)) }
-
   async eliminar(j, mostrarPieza = false) { if (j.eliminado) return; j.eliminado = true; j.bloqueado = true; clearTimeout(j.intervalo); clearTimeout(j.cpuTimer); this.$(`.combo-${j.id}`).textContent = "SIN ESPACIO"; await this.espera(350); let c = [...this.$(`.tablero-${j.id}`).children].filter(e => e.querySelector("img")); c.forEach((e, i) => { e.style.setProperty("--delay", `${Math.min(i * 10, 190)}ms`); e.style.setProperty("--rot", `${Math.random() * 140 - 70}deg`); e.classList.add("explota") }); await this.espera(850); c.forEach(e => { e.classList.remove("explota"); e.style.removeProperty("--delay"); e.style.removeProperty("--rot") }); j.tablero = this.vacio(); j.pieza = null; this.dibujar(j); this.$(`.zona-${j.id}`).classList.add("eliminado"); let o = j.id === 1 ? this.jugadores[2] : this.jugadores[1]; if (o?.eliminado) { await this.espera(450); this.finalizar() } else this.comprobarFinalAnticipado() }
-
   finalizar(forzado = false) { if (!this.partida) return; this.partida = false; this.detenerTimers(); this.$(".terminar").classList.remove("visible"); let a = this.jugadores[1], b = this.jugadores[2], m = this.$(".mensaje"), e = this.$(".efecto-final"), g = a.puntos > b.puntos, emp = a.puntos === b.puntos, cpu = b.cpu && !g && !emp; m.className = `mensaje visible ${g ? "gana" : cpu ? "pierde" : ""}`; m.querySelector("strong").textContent = emp ? "EMPATE" : g ? "¡PLAYER 1 GANA!" : b.cpu ? "CPU GANA" : "¡PLAYER 2 GANA!"; m.querySelector("span").textContent = `${a.puntos.toLocaleString("es-ES")} — ${b.puntos.toLocaleString("es-ES")}${forzado ? " · PARTIDA FINALIZADA" : ""}`; e.replaceChildren(); if (g) { e.innerHTML = `<img class="ganadora" src="./img/muneca01.svg">`; for (let i = 0; i < 260; i++) { let c = document.createElement("i"); c.className = "confeti"; c.style.cssText = `--x:${Math.random() * 100}%;--h:${Math.random() * 360};--d:${1.9 + Math.random() * 3.4}s;--delay:${-Math.random() * 5}s`; e.append(c) } } else if (cpu) { e.innerHTML = '<i class="triste"></i>'; for (let i = 0; i < 35; i++) { let r = document.createElement("i"); r.className = "lluvia"; r.style.cssText = `--x:${Math.random() * 115}%;--d:${1.1 + Math.random() * 1.6}s;--delay:${-Math.random() * 3}s`; e.append(r) } } }
   volverSeleccion() { this.detenerTimers(); this.partida = false; this.$(".terminar").classList.remove("visible"); this.$(".mensaje").className = "mensaje"; this.$(".efecto-final").replaceChildren(); this.cambiarPantalla("seleccion") }
   espera(ms) { return new Promise(r => setTimeout(r, ms)) }
   velocidad(j) { return Math.round(980 - Math.min(1, j.puntos / 12000) * 140) }
   iniciarCaida(j) { clearTimeout(j.intervalo); let t = () => { if (!this.partida || j.eliminado) return; if (!j.bloqueado) this.mover(j, 0, 1); j.intervalo = setTimeout(t, this.velocidad(j)) }; j.intervalo = setTimeout(t, this.velocidad(j)) }
-
   rotaciones(f, t) { let r = [], v = new Set, a = f.map((p, i) => ({ x: p[0], y: p[1], tipo: t[i] })); for (let n = 0; n < 4; n++) { let X = Math.min(...a.map(p => p.x)), Y = Math.min(...a.map(p => p.y)); a = a.map(p => ({ ...p, x: p.x - X, y: p.y - Y })); for (let o = 0; o < a.length; o++) { let b = a.map(p => ({ ...p })), ts = b.map(p => p.tipo); for (let q = 0; q < o; q++)ts.unshift(ts.pop()); b.forEach((p, i) => p.tipo = ts[i]); let k = b.map(p => `${p.x},${p.y}:${p.tipo}`).sort().join("|"); if (!v.has(k)) { v.add(k); r.push({ clave: k, forma: b.map(p => [p.x, p.y]), tipos: b.map(p => p.tipo) }) } } a = a.map(p => ({ ...p, x: -p.y, y: p.x })) } return r }
   simularPosicion(j, f, x) { let y = 0; if (!this.valida(j, x, y, f)) return null; while (this.valida(j, x, y + 1, f)) y++; return y }
   evaluarCPU(j, o) { let t = j.tablero.map(f => f.map(v => v ? { ...v } : null)); o.forma.forEach(([a, b], i) => t[o.y + b][o.x + a] = { tipo: o.tipos[i] }); this.gravedad(t); let total = 0, c = 0; while (c++ < 6) { let m = this.buscarMatches(t); if (!m.length) break; total += m.length * (850 + c * 300) + (m.patrones || 1) * 500; m.forEach(([x, y]) => t[y][x] = null); this.gravedad(t) } let h = [], p = 0; for (let x = 0; x < this.C; x++) { let q = this.F; for (let y = 0; y < this.F; y++)if (t[y][x]) { q = y; break } h.push(this.F - q) } for (let y = 0; y < this.F; y++)for (let x = 0; x < this.C; x++) { let v = t[y][x]?.tipo; if (v && (t[y]?.[x + 1]?.tipo === v || t[y + 1]?.[x]?.tipo === v || t[y + 1]?.[x + 1]?.tipo === v || t[y + 1]?.[x - 1]?.tipo === v)) p++ } return total + p * 95 - Math.max(...h) * 180 - (Math.max(...h) - Math.min(...h)) * 85 }
@@ -238,20 +160,14 @@ button.verde{border-color:hsl(115 45% 27%);background:linear-gradient(hsl(100 62
   mismosTipos(a, b) { return a.length === b.length && a.every((v, i) => v === b[i]) }
   velocidadCPU() { let p = Math.min(1, (this.jugadores[1]?.puntos || 0) / 12000), b = this.dificultad === "facil" ? 900 : this.dificultad === "media" ? 800 : 740, m = this.dificultad === "facil" ? 760 : this.dificultad === "media" ? 680 : 620; return Math.round(b - (b - m) * p) }
   debeReservarCPU(j, o) { return !j.reservaUsada && j.pieza && !j.pieza.especial && o && o.score < 200 && Math.random() < (this.dificultad === "facil" ? .06 : this.dificultad === "media" ? .12 : .18) }
-
   iniciarCPU(j) { clearTimeout(j.cpuTimer); j.cpuCaida = performance.now(); let t = () => { if (!this.partida || j.eliminado) return; if (!j.bloqueado && j.pieza) { let ahora = performance.now(), caida = this.velocidad(j); if (ahora - j.cpuCaida >= caida) { j.cpuCaida = ahora; if (!this.mover(j, 0, 1)) { j.cpuTimer = setTimeout(t, this.velocidadCPU()); return } } if (j.pieza && !j.bloqueado) { if (!j.pieza.objetivo) { let o = this.mejorJugadaCPU(j); if (this.debeReservarCPU(j, o)) { this.usarReserva(j); j.cpuCaida = performance.now(); j.cpuTimer = setTimeout(t, this.velocidadCPU()); return } j.pieza.objetivo = o } let o = j.pieza.objetivo; if (o) { if (!this.mismaForma(j.pieza.forma, o.forma)) this.rotar(j, true); else if (!this.mismosTipos(j.pieza.tipos, o.tipos)) this.rotarOrden(j, true); else if (j.pieza.x < o.x) this.mover(j, 1, 0); else if (j.pieza.x > o.x) this.mover(j, -1, 0); else if (j.pieza.y < Math.max(0, o.y - 2)) this.mover(j, 0, 1); else this.caer(j) } } } j.cpuTimer = setTimeout(t, this.velocidadCPU()) }; j.cpuTimer = setTimeout(t, this.velocidadCPU()) }
-
   detenerTimers() { Object.values(this.jugadores).forEach(j => { clearTimeout(j.intervalo); clearTimeout(j.cpuTimer) }) }
   normalizarTecla(k) { return k?.length === 1 ? k.toLowerCase() : k }
-
   teclado(e) { if (!this.partida) return; let tecla = this.normalizarTecla(e.key); for (let id of [1, 2]) { let j = this.jugadores[id]; if (!j || j.cpu || j.eliminado || j.bloqueado) continue; let c = this.controles[`p${id}`], k = Object.keys(c).find(a => this.normalizarTecla(c[a]) === tecla); if (!k) continue; e.preventDefault(); if (e.repeat && ["arriba", "rotar", "caer", "reservar"].includes(k)) return; if (k === "izquierda") this.mover(j, -1, 0); else if (k === "derecha") this.mover(j, 1, 0); else if (k === "abajo") this.mover(j, 0, 1); else if (k === "arriba") this.rotarOrden(j); else if (k === "rotar") this.rotar(j); else if (k === "caer") this.caer(j); else this.usarReserva(j); break } }
-
   iniciarJuego() { this.detenerTimers(); this.partida = false; this.crearTableros(); this.$$(".zona-jugador").forEach(z => z.classList.remove("eliminado")); this.$(".terminar").classList.remove("visible"); this.$(".mensaje").className = "mensaje"; this.$(".efecto-final").replaceChildren(); if (!this.modo) this.modo = "cpu"; this.jugadores = { 1: this.nuevoJugador(1), 2: this.nuevoJugador(2, this.modo === "cpu") }; this.$(".rival").textContent = this.modo === "cpu" ? `CPU · ${this.dificultad.toUpperCase()}` : "PLAYER 2"; this.$$(".puntos").forEach(p => p.textContent = "0"); this.$$(".combo").forEach(c => c.textContent = ""); Object.values(this.jugadores).forEach(j => this.actualizarReservas(j)); this.cambiarPantalla("juego"); setTimeout(() => { this.partida = true; this.nuevaPieza(this.jugadores[1]); this.nuevaPieza(this.jugadores[2]); this.iniciarCaida(this.jugadores[1]); this.jugadores[2].cpu ? this.iniciarCPU(this.jugadores[2]) : this.iniciarCaida(this.jugadores[2]) }, 750) }
-
   eventos() { this.$(".iniciar").onclick = () => this.cambiarPantalla("seleccion"); this.$(".modo-cpu").onclick = () => this.seleccionarModo("cpu"); this.$(".modo-2p").onclick = () => this.seleccionarModo("2p"); this.$$("[data-dificultad]").forEach(b => b.onclick = () => this.seleccionarDificultad(b.dataset.dificultad)); this.$(".configurar").onclick = () => this.mostrarControles(); this.$(".guardar").onclick = () => { this.guardarControles(); this.cambiarPantalla("seleccion") }; this.$(".volver").onclick = () => this.cambiarPantalla("seleccion"); this.$(".jugar").onclick = () => this.iniciarJuego(); this.$(".reiniciar").onclick = () => this.volverSeleccion(); this.$(".terminar").onclick = () => this.finalizar(true); this.$$(".reserva").forEach(r => r.onclick = () => { let j = this.jugadores[+r.dataset.id]; if (j && !j.cpu) this.usarReserva(j, +r.dataset.slot) }); window.addEventListener("keydown", this._teclado) }
   mostrarIntro() { this.pantallaActual = "intro"; this.$('[data-pantalla="intro"]').classList.add("activa") }
   connectedCallback() { }
   disconnectedCallback() { window.removeEventListener("keydown", this._teclado); this.detenerTimers() }
 }
-
 customElements.define("harvesting-match3", HarvestingMatch3);
