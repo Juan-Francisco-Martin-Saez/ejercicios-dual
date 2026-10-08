@@ -1,3 +1,6 @@
+SEMANA DEL 05 AL 07 DE OCTUBRE DE 2026
+---------------------------------------------------------
+
 Durante estos días hemos puesto a punto los ordenadores, empezamos a pedir como funcionaban los procesos de pedidos desde que llega el producto a la nave hasta que sale por la puerta, nos explicaron que todo es analógico, hay un archivo físico con hojas de pedidos que están en ejecución. En la planta de arriba, en la zona de administración, hay un archivo con los albaranes y las facturas finiquitadas. 
 
 Hemos planteado todas las preguntas y dudas relacionadas con la ejecución de procesos, las necesidades de automatización, y el estado de todas las plataformas sociales y de la web de la empresa. Se ha iniciado los procesos de recuperación de las credenciales de la web (PRESTASHOP) y de los perfiles sociales de la empresa (LinkedIn). Se ha planteado ampliar el rango de plataformas a Instagram y a X, aunque esta última no interesa tanto, quizás mejor Facebook, que también se ha plateado como opción. 
@@ -5,3 +8,5 @@ Hemos planteado todas las preguntas y dudas relacionadas con la ejecución de pr
 Nos hemos reunido con en Gerente (Joan) y nos ha vuelto a puntualizar específicamente lo que para el tiene prioridad absoluta, que es la automatización de los procesos de pedido, llegando al punto de que al el le gustaría hacer un sistema de PREDICCIÓN de pedidos que se ocupara ya de contactar con el cliente, y directamente, le ofreciera el pedido creado según el historial de pedidos ya hechos, para que el solo lo confirme, o lo modifique ligeramente (esa opción seria lo ideal, que además de la predicción se pudiera ampliar con sugerencia o modificar algo si fuera necesario). El CHATBOT también se ha puesto sobre la mesa, y el dual BOT de web con BOT de WhatsApp sería una opción viable para apoyar este sistema de automatizaciones y de sugerencias al cliente, con una posible evolución a la app que sería totalmente manejable por el cliente, y estaría conectada con toda esta automatización directa.
 
 Si necesitas algo más, no dudes en pedirlo.
+
+---------------------------------------------------------
