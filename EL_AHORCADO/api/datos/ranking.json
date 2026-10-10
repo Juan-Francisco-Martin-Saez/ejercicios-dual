@@ -4,5 +4,47 @@
         "nombre": "Reijohan",
         "palabrasResueltas": 527,
         "fecha": "2026-10-10T17:21:13Z"
+    },
+    {
+        "id": "4d9690d6d736894aec7b6912cd52a4c2",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 0,
+        "fecha": "2026-10-10T21:04:02Z",
+        "verificada": true
+    },
+    {
+        "id": "28025369e945cef65f43a87006b61a15",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 0,
+        "fecha": "2026-10-10T21:07:20Z",
+        "verificada": true
+    },
+    {
+        "id": "5d21a15d639cd0f38a547c7fd267990e",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 1,
+        "fecha": "2026-10-10T21:13:56Z",
+        "verificada": true
+    },
+    {
+        "id": "dac412b0f509a6fb1c2fe64f440bb7fa",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 3,
+        "fecha": "2026-10-10T21:58:17Z",
+        "verificada": true
+    },
+    {
+        "id": "96e5b55d61172a3b732233607c3bbe0c",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 0,
+        "fecha": "2026-10-10T22:25:15Z",
+        "verificada": true
+    },
+    {
+        "id": "48afaedea434daaa826f3faf6847b245",
+        "nombre": "Reijohan",
+        "palabrasResueltas": 7,
+        "fecha": "2026-10-10T22:35:07Z",
+        "verificada": true
     }
 ]
