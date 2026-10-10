@@ -420,7 +420,7 @@
 
   function startPrefetch() {
     if (mode !== 'online' || !navigator.onLine || !runActive ||
-        !verifiedToken || !verifiedRound || verifiedRound.status === 'lost') return;
+      !verifiedToken || !verifiedRound || verifiedRound.status === 'lost') return;
     const filters = { level: $('#level-select').value, category: chosenCategory() };
     const key = JSON.stringify([verifiedToken, verifiedRound.id, filters]);
     if (prefetchTask?.key === key) return;
@@ -443,7 +443,7 @@
   async function requestNext(body) {
     const task = prefetchTask;
     if (task && task.token === body.token && task.roundId === body.roundId &&
-        task.filters.level === body.level && task.filters.category === body.category) {
+      task.filters.level === body.level && task.filters.category === body.category) {
       await task.promise;
     } else if (task) {
       cancelPrefetch();
@@ -607,8 +607,8 @@
       $('#play-again').textContent = 'REINTENTAR →';
       $('#result-title').textContent = 'SIN CONEXIÓN';
       $('#result-eyebrow').textContent = 'NO SE HA INICIADO EL ENIGMA';
-      $('#result-description').textContent =
-        'Reintenta la búsqueda o termina la partida para elegir el modo offline.';
+      $('#result-description').style.whiteSpace = 'pre-line';
+      $('#result-description').textContent = 'Reintenta la búsqueda o termina la partida\npara elegir el modo offline.';
       $('#result-answer').textContent = '';
       $('#result-run').textContent = `${runScore} palabras verificadas.`;
       $('#overlay').classList.add('show');
@@ -761,8 +761,8 @@
 
   function observeServerCatalog(data) {
     if (!data || data.recognitionPolicy !== POLICY || !Array.isArray(data.entries) ||
-        !Number.isSafeInteger(data.count) || data.count < 0 || data.count !== data.entries.length ||
-        (data.count > 0 && !validateCatalog(data))) throw new Error('Catálogo no válido.');
+      !Number.isSafeInteger(data.count) || data.count < 0 || data.count !== data.entries.length ||
+      (data.count > 0 && !validateCatalog(data))) throw new Error('Catálogo no válido.');
     const target = Number.isSafeInteger(data.target) && data.target >= INITIAL_TARGET
       ? data.target : INITIAL_TARGET;
     serverCatalog = { count: data.count, target };
