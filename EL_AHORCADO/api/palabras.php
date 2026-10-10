@@ -52,6 +52,20 @@ function wordsWrite(string $file,array $data): void {
  } finally {if(is_file($temp))unlink($temp);}
 }
 function wordsHttp(array $params,int $timeout=20): array {
+ $activity=__DIR__.'/datos/busqueda-online-actividad.txt';
+ if(defined('AHORCADO_BACKGROUND_SYNC')&&AHORCADO_BACKGROUND_SYNC) {
+  // Solo ralentizar el mantenimiento: nunca las consultas de una partida.
+  static $lastRequest=0.0;
+  $wait=1.0-(microtime(true)-$lastRequest);
+  if($wait>0)usleep((int)ceil($wait*1000000));
+  clearstatcache(true,$activity);
+  if(is_file($activity)&&(int)filemtime($activity)>time()-120)
+   throw new RuntimeException('Actualización en pausa: búsqueda online reciente.');
+  $lastRequest=microtime(true);
+ } elseif(PHP_SAPI!=='cli') {
+  // Marca privada de actividad; no contiene respuestas ni datos del jugador.
+  @touch($activity);
+ }
  if(!function_exists('curl_init'))throw new RuntimeException('Falta cURL.');
  $curl=curl_init('https://es.wikipedia.org/w/api.php?'.http_build_query($params+['format'=>'json','formatversion'=>2,'maxlag'=>5]));
  curl_setopt_array($curl,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>min(10,$timeout),CURLOPT_TIMEOUT=>$timeout,
@@ -120,7 +134,7 @@ function wikiSearch(int $source,int $offset,int $limit,string $level='all'): arr
   'sroffset'=>$offset,'srsort'=>'incoming_links_desc','srprop'=>'','srinfo'=>'totalhits']);}
  catch(RuntimeException $e) {
   if(!str_contains($e->getMessage(),'cirrussearch'))throw $e;
-  $search=wordsHttp(['action'=>'query','list'=>'search','srsearch'=>'incategory:"'.$topic.'"','srnamespace'=>0,'srlimit'=>20,'sroffset'=>$offset,'srsort'=>'incoming_links_desc','srprop'=>'']);
+  $search=wordsHttp(['action'=>'query','list'=>'search','srsearch'=>'incategory:"'.$topic.'"','srnamespace'=>0,'srlimit'=>min(20,max(1,$limit)),'sroffset'=>$offset,'srsort'=>'incoming_links_desc','srprop'=>'']);
  }
  $hits=$search['query']['search']??[];
  if(!$hits)return ['entries'=>[],'next'=>null,'total'=>$search['query']['searchinfo']['totalhits']??0];
@@ -189,7 +203,8 @@ function wordsSync(): array {
    $turn=(int)$state['turn']; $source=$turn%count(WORD_SOURCES); $level=WORD_LEVELS[intdiv($turn,count(WORD_SOURCES))%4];
    $ranges=['easy'=>[0,60],'medium'=>[0,180],'hard'=>[0,400],'expert'=>[0,800]];
    [$lo,$hi]=$ranges[$level]; $state['turn']++; wordsWrite($dir.'/catalogo-progreso.json',$state);
-   $result=wikiSearch($source,random_int($lo,intdiv($hi,20))*20,20,'all');
+   $batch=defined('AHORCADO_BACKGROUND_SYNC')&&AHORCADO_BACKGROUND_SYNC?6:20;
+   $result=wikiSearch($source,random_int($lo,intdiv($hi,20))*20,$batch,'all');
    $all=wordsQualified(array_merge($all,$result['entries']));
   }
   // Rotación por categoría y dificultad al elegir nuevas entradas, conservando todas las anteriores.

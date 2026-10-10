@@ -7,6 +7,7 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 define('AHORCADO_WORDS_LIBRARY', true);
+define('AHORCADO_BACKGROUND_SYNC', true);
 require __DIR__.'/palabras.php';
 
 $dir = __DIR__.'/datos';
@@ -22,7 +23,6 @@ if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
 }
 
 $retryFile = $dir.'/actualizar-catalogo-espera.json';
-$limit = microtime(true) + 50;
 $status = 0;
 try {
     $retry = is_file($retryFile) ? json_decode((string)file_get_contents($retryFile), true) : null;
@@ -46,23 +46,29 @@ try {
                 // Copia portátil para una instalación nueva y para la caché del navegador.
                 // wordsWrite usa un temporal y renombrado: nunca publica un JSON truncado.
                 wordsWrite(dirname(__DIR__).'/catalogo-inicial.json', $catalog);
-                if (is_file($retryFile)) unlink($retryFile);
+                wordsWrite($retryFile, ['retryAt'=>time()+3600, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
                 echo "Catálogo completo guardado en catalogo-inicial.json.\n";
                 break;
             }
-            // Separar las consultas y dejar margen al plazo de cada lote.
-            if (microtime(true) + 19 >= $limit) break;
+            // Un lote pequeño cada quince minutos, aunque cron despierte cada cinco.
+            wordsWrite($retryFile, ['retryAt'=>time()+900, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
             break;
-        } while (microtime(true) + 17 < $limit);
+        } while (false);
     }
 } catch (Throwable $error) {
     $message = $error->getMessage();
     // Evitar insistir si la fuente limita peticiones o se encuentra indisponible.
-    $delay = str_contains($message, '429') ? 3600 : 900;
-    wordsWrite($retryFile, ['retryAt'=>time()+$delay, 'updatedAt'=>gmdate('c')]);
-    fwrite(STDERR, "No se ha completado este lote; se conserva el progreso. Reintento en {$delay} segundos.\n");
-    error_log('Actualización del catálogo: '.$message);
-    $status = 1;
+    $onlineBusy = str_contains($message, 'búsqueda online reciente');
+    $failures = $onlineBusy ? (int)($retry['failures'] ?? 0) : min(5, (int)($retry['failures'] ?? 0) + 1);
+    $delay = $onlineBusy ? 300 : (str_contains($message, '429') ? min(21600, 3600 * (2 ** max(0, $failures - 1))) : 900);
+    wordsWrite($retryFile, ['retryAt'=>time()+$delay, 'updatedAt'=>gmdate('c'), 'failures'=>$failures]);
+    if ($onlineBusy) {
+        echo "Cron en pausa para dar prioridad al juego online. Reintento en {$delay} segundos.\n";
+    } else {
+        fwrite(STDERR, "No se ha completado este lote; se conserva el progreso. Reintento en {$delay} segundos.\n");
+        error_log('Actualización del catálogo: '.$message);
+    }
+    $status = $onlineBusy ? 0 : 1;
 } finally {
     flock($lock, LOCK_UN);
     fclose($lock);

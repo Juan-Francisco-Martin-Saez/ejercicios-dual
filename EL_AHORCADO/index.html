@@ -491,7 +491,7 @@
       align-items: center;
       align-content: center;
       flex-wrap: wrap;
-      gap: clamp(.55rem, 1.2vh, 1rem) clamp(1rem, 2.2vw, 1.8rem);
+      gap: clamp(.2rem, .6vh, .4rem) clamp(1rem, 2.2vw, 1.8rem);
       padding: .4rem 0;
       overflow: hidden
     }
@@ -994,7 +994,7 @@
       }
 
       .word-area {
-        gap: .45rem .9rem;
+        gap: .2rem .9rem;
         padding: .1rem 0
       }
 
@@ -2086,7 +2086,7 @@
       .word-area {
         flex: 1;
         min-height: 0;
-        gap: .5rem clamp(.9rem, 2.5vw, 1.4rem);
+        gap: .2rem clamp(.9rem, 2.5vw, 1.4rem);
         padding: .3rem 0
       }
 
@@ -2533,7 +2533,7 @@
     <div class="dialog-head"><span class="eyebrow">CLASIFICACIÓN GLOBAL</span><button class="dialog-close"
         id="ranking-close" type="button" aria-label="Cerrar ranking">×</button></div>
     <h2 id="ranking-title">El ranking.</h2>
-    <p>Las cinco mejores partidas online. Las nuevas puntuaciones se verifican durante el juego.</p>
+    <p>Las cinco mejores partidas online.<br>Las nuevas puntuaciones se verifican durante el juego.</p>
     <p class="ranking-summary" id="ranking-summary" hidden></p>
     <div class="dialog-status" id="ranking-status" role="status" aria-live="polite"></div>
     <div class="ranking-scroll">
@@ -2580,7 +2580,32 @@
     function setTheme(t) { const dark = t === 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light'; document.querySelectorAll('.theme-toggle').forEach(toggle => { toggle.setAttribute('aria-checked', String(dark)); toggle.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro'); }); document.querySelector('meta[name="theme-color"]').content = dark ? '#121212' : '#f5f1ea'; try { localStorage.setItem(THEME_KEY, t) } catch { } }
     let theme = 'light'; try { theme = localStorage.getItem(THEME_KEY) || 'light' } catch { } setTheme(theme); document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')));
     function drawWord(reveal = false) { word.replaceChildren(); for (const w of current.text.split(' ')) { const group = document.createElement('div'); group.className = 'word-group'; for (const ch of w) { const span = document.createElement('span'), key = normalize(ch), letter = /^[A-ZÑ]$/.test(key), known = guessed.has(key); span.className = 'letter'; if (!letter || known || reveal) { span.textContent = ch; span.classList.add(reveal && letter && !known ? 'missed' : 'revealed') } else span.setAttribute('aria-label', 'Letra oculta'); group.append(span) } word.append(group) } fitWord() }
-    function fitWord() { const max = word.clientWidth; if (!max) return; for (const g of word.children) { g.style.zoom = ''; const width = g.scrollWidth; if (width > max) g.style.zoom = Math.max(.25, max / width) } }
+    function fitWord() {
+      const max = word.clientWidth;
+      if (!max || !word.children.length) return;
+      const letters = [...word.querySelectorAll('.letter')];
+      for (const letter of letters) { letter.style.height = ''; letter.style.fontSize = ''; }
+      for (const group of word.children) {
+        group.style.zoom = '';
+        if (group.scrollWidth > max) group.style.zoom = Math.max(.25, max / group.scrollWidth);
+      }
+      const style = getComputedStyle(word);
+      const available = word.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom) - 4;
+      if (available <= 0) return;
+      // Mantener los espacios entre palabras; comprimir solo la altura si las filas no caben.
+      for (let pass = 0; pass < 8; pass++) {
+        const bounds = letters.map(letter => letter.getBoundingClientRect());
+        const height = Math.max(...bounds.map(rect => rect.bottom)) - Math.min(...bounds.map(rect => rect.top));
+        if (height <= available) break;
+        const factor = Math.min(.95, available / height);
+        for (const letter of letters) {
+          const computed = getComputedStyle(letter);
+          const nextHeight = parseFloat(computed.height) * factor;
+          letter.style.height = nextHeight + 'px';
+          letter.style.fontSize = Math.min(parseFloat(computed.fontSize), nextHeight * .65) + 'px';
+        }
+      }
+    }
     function drawUsed() {
       if (!usedElement.children.length) {
         for (const row of ['QWERTYUIOP', 'ASDFGHJKLÑ', 'ZXCVBNM']) {
@@ -2781,6 +2806,7 @@
     $('#level-select').addEventListener('change', e => { save(LEVEL_KEY, e.target.value); if (runActive && !finished && !window.verifiedActive) newGame(); });
     input.addEventListener('input', () => { input.value = input.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ ]/g, '').replace(/\s+/g, ' ').replace(/^\s/, '') });
     window.addEventListener('resize', fitWord);
+    if ('ResizeObserver' in window) new ResizeObserver(() => requestAnimationFrame(fitWord)).observe(word);
     const savedLevel = read(LEVEL_KEY, 'all'); $('#level-select').value = byLevel[savedLevel] ? savedLevel : 'all';
 
 
