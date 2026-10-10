@@ -3,22 +3,26 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="author" content="Reijohan">
+  <meta name="copyright" content="© 2026 Reijohan. Todos los derechos reservados.">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f7f7f5">
-  <title>El Ahorcado — 2000 enigmas</title>
+  <meta name="theme-color" content="#f5f1ea">
+  <title>EL AHORCADO BY REIJOHAN</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
     :root {
       color-scheme: light;
-      --bg: hsl(0 0% 97%);
-      --panel: hsl(0 0% 100%);
-      --alt: hsl(0 0% 96%);
-      --line: hsl(0 0% 87%);
+      --bg: hsl(40 35% 94%);
+      --panel: hsl(40 35% 97%);
+      --alt: hsl(40 28% 91%);
+      --line: hsl(35 15% 82%);
       --ink: hsl(0 0% 9%);
       --muted: hsl(0 0% 46%);
       --soft: hsl(0 0% 32%);
-      --ground: hsl(0 0% 82%);
+      --ground: hsl(35 15% 78%);
       --shadow: 0 1.25rem 3.5rem hsl(0 0% 0%/.045)
     }
 
@@ -487,7 +491,7 @@
       align-items: center;
       align-content: center;
       flex-wrap: wrap;
-      gap: clamp(.45rem, 1.2vh, 1rem) clamp(.45rem, 1vw, .8rem);
+      gap: clamp(.55rem, 1.2vh, 1rem) clamp(1rem, 2.2vw, 1.8rem);
       padding: .4rem 0;
       overflow: hidden
     }
@@ -990,7 +994,7 @@
       }
 
       .word-area {
-        gap: .35rem;
+        gap: .45rem .9rem;
         padding: .1rem 0
       }
 
@@ -1267,6 +1271,1104 @@
         animation-duration: .01ms !important
       }
     }
+
+    .ranking-button {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .75rem .9rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--panel);
+      color: var(--ink);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .06em
+    }
+
+    .ranking-button svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    .player-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+      padding: .45rem .65rem;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+      background: var(--alt);
+      font-size: .65rem;
+      color: var(--muted)
+    }
+
+    .player-strip strong {
+      color: var(--ink);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 55%
+    }
+
+    .ranking-dialog,
+    .player-dialog {
+      width: min(100% - 2rem, 34rem);
+      max-height: calc(100dvh - 2rem);
+      overflow: auto;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: 1.5rem;
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 2rem 6rem hsl(0 0% 0%/.2)
+    }
+
+    .player-dialog {
+      width: min(100% - 2rem, 28rem)
+    }
+
+    dialog::backdrop {
+      background: hsl(0 0% 0%/.65);
+      backdrop-filter: blur(12px)
+    }
+
+    dialog h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      margin: .5rem 0
+    }
+
+    dialog p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    .dialog-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem
+    }
+
+    .dialog-close {
+      width: 2.2rem;
+      height: 2.2rem;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+      background: var(--alt);
+      color: var(--ink);
+      font-size: 1.2rem
+    }
+
+    .player-dialog label {
+      display: block;
+      margin: 1.3rem 0 .5rem;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .08em
+    }
+
+    .player-dialog input {
+      width: 100%;
+      padding: .9rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--alt);
+      color: var(--ink);
+      font-size: 1rem
+    }
+
+    .dialog-status {
+      min-height: 1.3rem;
+      margin: .65rem 0;
+      font-size: .75rem;
+      color: var(--muted)
+    }
+
+    .ranking-summary {
+      padding: .85rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--alt);
+      overflow-wrap: anywhere
+    }
+
+    .ranking-scroll {
+      max-height: 45dvh;
+      overflow: auto;
+      margin: 1rem 0;
+      border: 1px solid var(--line);
+      border-radius: .8rem
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .8rem;
+      text-align: left
+    }
+
+    .ranking-table th {
+      position: sticky;
+      top: 0;
+      background: var(--alt);
+      color: var(--muted);
+      font-size: .6rem;
+      letter-spacing: .08em
+    }
+
+    .ranking-table th,
+    .ranking-table td {
+      padding: .8rem .65rem;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .ranking-table th:last-child,
+    .ranking-table td:last-child {
+      text-align: right;
+      white-space: nowrap
+    }
+
+    .ranking-table td:nth-child(2) {
+      overflow-wrap: anywhere;
+      max-width: 14rem
+    }
+
+    .ranking-table .own-score {
+      background: var(--ink);
+      color: var(--panel);
+      font-weight: 800
+    }
+
+    .ranking-table .empty-ranking {
+      text-align: center;
+      color: var(--muted);
+      padding: 1.5rem
+    }
+
+    .dialog-actions {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap
+    }
+
+    .dialog-actions button {
+      flex: 1;
+      min-width: 8rem
+    }
+
+    .secondary-button {
+      padding: .85rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--alt);
+      color: var(--ink);
+      font-size: .75rem;
+      font-weight: 800
+    }
+
+    .end-run {
+      margin-top: .65rem;
+      width: 100%
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: .55
+    }
+
+    #result-run {
+      margin: .75rem 0;
+      font-weight: 700;
+      color: var(--ink)
+    }
+
+    @media(max-width:52rem) {
+      .header {
+        flex-wrap: wrap
+      }
+
+      .header-actions {
+        margin-left: auto
+      }
+
+      .ranking-button {
+        padding: .65rem .7rem;
+        font-size: .65rem
+      }
+    }
+
+    @media(max-width:35rem) {
+      .brand {
+        flex: 1 1 100%
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .player-strip {
+        font-size: .6rem;
+        padding: .3rem .5rem
+      }
+
+      .ranking-table th,
+      .ranking-table td {
+        padding: .65rem .5rem
+      }
+
+      .ranking-dialog,
+      .player-dialog {
+        border-radius: 1rem
+      }
+    }
+
+    /* Ajustes de los cuadros de nombre y clasificación. */
+    .player-dialog,
+    .ranking-dialog {
+      text-align: center
+    }
+
+    .player-dialog>p,
+    .ranking-dialog>h2+p {
+      font-weight: 700;
+      color: var(--soft)
+    }
+
+    .player-dialog input {
+      text-align: center
+    }
+
+    .dialog-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: .65rem;
+      align-items: center
+    }
+
+    .dialog-head>.eyebrow {
+      grid-column: 2;
+      text-align: center
+    }
+
+    .dialog-head>.dialog-close {
+      grid-column: 3;
+      justify-self: end
+    }
+
+    .player-dialog-head>.theme-toggle {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+      flex-shrink: 0
+    }
+
+    .player-dialog-head>#player-ranking {
+      grid-column: 3;
+      grid-row: 1;
+      justify-self: end
+    }
+
+    .player-dialog-head>.eyebrow {
+      grid-column: 1/-1;
+      grid-row: 2;
+      margin-top: .45rem
+    }
+
+    .ranking-table,
+    .ranking-table th,
+    .ranking-table td,
+    .ranking-table th:last-child,
+    .ranking-table td:last-child {
+      text-align: center
+    }
+
+    @media(max-width:35rem) {
+      .dialog-head {
+        gap: .4rem
+      }
+
+      .ranking-dialog .dialog-head>.eyebrow {
+        letter-spacing: .1em;
+        font-size: .6rem
+      }
+    }
+
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 5rem;
+      padding: .75rem .8rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--alt);
+      color: var(--ink);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .08em
+    }
+
+    .mode-toggle[data-mode=online] {
+      background: var(--ink);
+      color: var(--panel)
+    }
+
+    .engine-status {
+      margin: .55rem 0;
+      font-size: .65rem;
+      line-height: 1.4;
+      color: var(--soft);
+      text-align: center;
+      font-weight: 700
+    }
+
+    #catalog-status {
+      font-weight: 700;
+      color: var(--soft)
+    }
+
+    .player-mode-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .65rem;
+      margin: 1rem 0 .25rem;
+      font-size: .7rem;
+      color: var(--muted)
+    }
+
+    @media(max-width:35rem) {
+      .mode-toggle {
+        min-width: 4.2rem;
+        padding: .65rem .55rem;
+        font-size: .6rem
+      }
+
+      .header-actions {
+        gap: .3rem
+      }
+
+      .header-actions .ranking-button {
+        padding: .65rem .5rem
+      }
+
+      .header-actions .new-game {
+        padding: .65rem .5rem
+      }
+    }
+
+    /* Teclado de letras: disponible, acertada y fallada. */
+    .letter-panel {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      min-width: 0;
+      flex-shrink: 0
+    }
+
+    .letter-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em
+    }
+
+    .letter-keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      min-width: 0
+    }
+
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: .35rem;
+      min-width: 0
+    }
+
+    .keyboard-row:last-child {
+      padding: 0 12%
+    }
+
+    .letter-key {
+      flex: 1;
+      min-width: 0;
+      min-height: clamp(2.25rem, 4.8vh, 3.1rem);
+      padding: .35rem .1rem;
+      border: 1px solid var(--line);
+      border-radius: .6rem;
+      background: var(--panel);
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(.8rem, 1.3vw, 1.1rem);
+      font-weight: 700;
+      box-shadow: 0 .15rem 0 var(--line);
+      touch-action: manipulation;
+      transition: background .15s, color .15s, transform .15s
+    }
+
+    .letter-key:not(:disabled):hover {
+      background: var(--alt);
+      transform: translateY(-.1rem)
+    }
+
+    .letter-key:not(:disabled):active {
+      transform: translateY(.1rem);
+      box-shadow: none
+    }
+
+    .letter-key:focus-visible,
+    .resolve-button:focus-visible {
+      outline: .15rem solid var(--ink);
+      outline-offset: .15rem
+    }
+
+    .letter-key:disabled {
+      cursor: default;
+      opacity: 1;
+      box-shadow: none
+    }
+
+    .letter-key.correct {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--panel)
+    }
+
+    .letter-key.wrong {
+      background: var(--alt);
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-thickness: .12rem
+    }
+
+    .letter-key:disabled:not(.correct):not(.wrong) {
+      opacity: .45
+    }
+
+    .resolve-button {
+      align-self: center;
+      padding: .65rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: .7rem;
+      background: var(--alt);
+      color: var(--ink);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      touch-action: manipulation
+    }
+
+    .letter-panel .feedback {
+      text-align: center;
+      min-height: 1.4rem
+    }
+
+    .solution-dialog {
+      width: min(100% - 2rem, 30rem);
+      max-height: calc(100dvh - 2rem);
+      overflow: auto;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: 1.5rem;
+      background: var(--panel);
+      color: var(--ink);
+      text-align: center;
+      box-shadow: 0 2rem 6rem hsl(0 0% 0%/.2)
+    }
+
+    .solution-dialog>p {
+      font-weight: 700;
+      color: var(--soft)
+    }
+
+    .solution-dialog .input-label {
+      justify-content: center;
+      margin: 1.1rem 0 .5rem
+    }
+
+    .solution-dialog .guess-form {
+      display: flex;
+      flex-direction: column;
+      gap: .65rem
+    }
+
+    .solution-dialog .guess-input {
+      width: 100%;
+      text-align: center
+    }
+
+    .solution-dialog .guess-button {
+      width: 100%;
+      flex-shrink: 0
+    }
+
+    @media(max-width:35rem) {
+      .letter-panel {
+        gap: .4rem
+      }
+
+      .letter-keyboard {
+        gap: .3rem
+      }
+
+      .keyboard-row {
+        gap: .25rem
+      }
+
+      .letter-key {
+        min-height: 2.4rem;
+        border-radius: .4rem;
+        font-size: .9rem
+      }
+
+      .resolve-button {
+        padding: .55rem .8rem;
+        font-size: .65rem
+      }
+    }
+
+    @media(max-height:42rem) {
+      .letter-key {
+        min-height: 1.9rem;
+        padding: .2rem .1rem
+      }
+
+      .letter-panel {
+        gap: .35rem
+      }
+
+      .letter-keyboard {
+        gap: .25rem
+      }
+
+      .resolve-button {
+        padding: .4rem .7rem
+      }
+
+      .letter-panel .feedback {
+        min-height: 1rem
+      }
+    }
+
+    /* Vista compacta: controles originales, sin duplicar el motor. */
+    .mobile-options {
+      display: none
+    }
+
+    .options-dialog {
+      width: min(calc(100% - 2rem), 25rem);
+      max-height: calc(100dvh - 2rem);
+      overflow: auto;
+      margin: auto;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      background: var(--panel);
+      color: var(--ink)
+    }
+
+    .options-dialog::backdrop {
+      background: hsl(0 0% 0%/.65);
+      backdrop-filter: blur(10px)
+    }
+
+    .options-dialog h2 {
+      margin: .5rem 0 1rem;
+      text-align: center;
+      font-family: 'Space Grotesk', sans-serif
+    }
+
+    .options-dialog .header-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      width: 100%;
+      justify-items: stretch
+    }
+
+    .options-dialog .header-actions button {
+      min-height: 2.75rem;
+      justify-content: center;
+      font-size: .72rem;
+      padding: .65rem
+    }
+
+    .options-dialog .theme-toggle {
+      justify-self: center;
+      width: 4.15rem;
+      padding: .2rem !important
+    }
+
+    .options-dialog .level-row {
+      margin: 1rem 0 0;
+      min-height: 2.75rem
+    }
+
+    @media(max-width:64rem) {
+      .app {
+        width: calc(100% - 1.25rem);
+        max-width: 58rem;
+        height: 100dvh;
+        padding: max(.5rem, env(safe-area-inset-top)) 0 max(.35rem, env(safe-area-inset-bottom));
+        gap: .45rem;
+        justify-content: flex-start
+      }
+
+      .header {
+        padding-bottom: .4rem;
+        gap: .5rem;
+        flex-wrap: nowrap;
+        min-height: 2.75rem
+      }
+
+      .brand {
+        gap: .5rem
+      }
+
+      .brand-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: .75rem
+      }
+
+      .brand-icon svg {
+        width: 1.3rem;
+        height: 1.3rem
+      }
+
+      .brand .eyebrow {
+        display: none
+      }
+
+      .brand h1 {
+        font-size: 1.3rem;
+        margin: 0
+      }
+
+      .mobile-options {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .4rem;
+        min-height: 2.75rem;
+        padding: .5rem .8rem;
+        border: 1px solid var(--line);
+        border-radius: .75rem;
+        background: var(--panel);
+        color: var(--ink);
+        font-size: .7rem;
+        font-weight: 800
+      }
+
+      .mobile-options svg {
+        width: 1rem;
+        height: 1rem;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2
+      }
+
+      .board {
+        grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+        grid-template-rows: minmax(0, 1fr);
+        gap: .55rem;
+        min-height: 0
+      }
+
+      .card {
+        border-radius: 1rem
+      }
+
+      .visual-card {
+        padding: .75rem;
+        gap: .35rem
+      }
+
+      .stage {
+        padding: .2rem
+      }
+
+      .stage-number {
+        display: none
+      }
+
+      .section-label {
+        font-size: .6rem;
+        letter-spacing: .08em
+      }
+
+      .counter strong {
+        font-size: 1.4rem
+      }
+
+      .counter span {
+        font-size: .65rem
+      }
+
+      .progress-block {
+        padding-top: .45rem
+      }
+
+      .progress-info {
+        font-size: .65rem;
+        margin-bottom: .4rem
+      }
+
+      .progress {
+        height: .25rem
+      }
+
+      .play-card {
+        padding: .75rem;
+        gap: .4rem;
+        justify-content: flex-start;
+        overflow: hidden
+      }
+
+      .intro p {
+        display: none
+      }
+
+      .intro h2 {
+        font-size: 1.35rem;
+        margin: .35rem 0 0
+      }
+
+      .tags {
+        gap: .3rem
+      }
+
+      .category,
+      .difficulty {
+        padding: .3rem .5rem;
+        font-size: .58rem;
+        letter-spacing: .03em
+      }
+
+      #catalog-status {
+        font-size: .62rem;
+        line-height: 1.35;
+        flex-shrink: 0
+      }
+
+      .player-strip {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: .5rem;
+        padding: .4rem .5rem;
+        font-size: .6rem;
+        flex-shrink: 0
+      }
+
+      .player-strip strong {
+        max-width: 45%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+
+      .word-area {
+        flex: 1;
+        min-height: 0;
+        gap: .5rem clamp(.9rem, 2.5vw, 1.4rem);
+        padding: .3rem 0
+      }
+
+      .word-group {
+        gap: .15rem;
+        flex-wrap: wrap;
+        justify-content: center
+      }
+
+      .letter {
+        width: clamp(.8rem, 2.7vw, 1.45rem);
+        height: 1.65rem;
+        font-size: clamp(.75rem, 2.3vw, 1.1rem)
+      }
+
+      .letter-panel {
+        gap: .4rem
+      }
+
+      .letter-panel-head {
+        font-size: .6rem;
+        letter-spacing: .05em
+      }
+
+      .letter-keyboard {
+        gap: .35rem
+      }
+
+      .keyboard-row {
+        gap: .25rem
+      }
+
+      .letter-key {
+        min-height: 2.75rem;
+        font-size: 1rem;
+        border-radius: .5rem;
+        padding: .3rem .1rem
+      }
+
+      .resolve-button {
+        min-height: 2.65rem;
+        padding: .5rem;
+        font-size: .7rem
+      }
+
+      .letter-panel .feedback {
+        min-height: 1.8rem;
+        font-size: .65rem;
+        line-height: 1.3
+      }
+
+      .footer {
+        flex-shrink: 0;
+        flex-direction: row;
+        justify-content: center;
+        padding-top: .25rem;
+        font-size: .5rem;
+        letter-spacing: 0;
+        gap: 0
+      }
+
+      .footer span {
+        white-space: normal;
+        width: auto
+      }
+
+      .footer span:last-child {
+        display: none
+      }
+
+      .player-dialog,
+      .ranking-dialog,
+      .solution-dialog {
+        width: min(calc(100% - 1.25rem), 30rem);
+        max-height: calc(100dvh - 1.25rem);
+        overflow: auto;
+        padding: 1.1rem
+      }
+
+      .player-dialog input,
+      .solution-dialog input {
+        font-size: 1rem
+      }
+
+      .result-card {
+        max-height: calc(100dvh - 2rem);
+        overflow: auto
+      }
+    }
+
+    @media(max-width:64rem) and (orientation:portrait) {
+      .app {
+        max-width: 42rem
+      }
+
+      .board {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(5.5rem, 19%) minmax(0, 1fr);
+        gap: .4rem
+      }
+
+      .visual-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        grid-template-rows: 1fr auto;
+        padding: .5rem .75rem;
+        column-gap: 1rem
+      }
+
+      .visual-card .section-head {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+        flex-direction: column;
+        gap: .2rem
+      }
+
+      .visual-card .section-label {
+        display: none
+      }
+
+      .visual-card .counter strong {
+        font-size: 1.8rem
+      }
+
+      .visual-card .counter span {
+        font-size: .75rem
+      }
+
+      .visual-card .counter:after {
+        content: ' INTENTOS';
+        font-family: 'DM Sans', sans-serif;
+        font-size: .6rem;
+        font-weight: 700;
+        margin-left: .3rem;
+        color: var(--muted)
+      }
+
+      .stage {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        min-height: 0;
+        padding: 0
+      }
+
+      .progress-block {
+        grid-column: 2;
+        grid-row: 2;
+        border: 0;
+        padding: 0
+      }
+
+      .progress-info {
+        justify-content: center
+      }
+
+      .progress-info span:first-child {
+        display: none
+      }
+
+      .play-card {
+        padding: .65rem .75rem
+      }
+
+      .letter-key {
+        min-height: clamp(2.45rem, 6dvh, 3.25rem)
+      }
+    }
+
+    @media(max-width:64rem) and (max-height:34rem) and (orientation:landscape) {
+      .app {
+        gap: .25rem;
+        padding: .25rem 0
+      }
+
+      .header {
+        min-height: 2.25rem;
+        padding-bottom: .2rem
+      }
+
+      .brand-icon {
+        width: 2rem;
+        height: 2rem
+      }
+
+      .mobile-options {
+        min-height: 2.25rem
+      }
+
+      .brand h1 {
+        font-size: 1.1rem
+      }
+
+      .board {
+        grid-template-columns: minmax(0, .6fr) minmax(0, 1.4fr)
+      }
+
+      .play-card {
+        gap: .2rem;
+        padding: .4rem .65rem
+      }
+
+      .intro h2 {
+        display: none
+      }
+
+      .category,
+      .difficulty {
+        padding: .15rem .4rem
+      }
+
+      .player-strip {
+        padding: .2rem .4rem
+      }
+
+      #catalog-status {
+        font-size: .55rem
+      }
+
+      .letter-panel {
+        gap: .2rem
+      }
+
+      .letter-panel-head {
+        display: none
+      }
+
+      .letter-keyboard {
+        gap: .2rem
+      }
+
+      .letter-key {
+        min-height: 2rem;
+        font-size: .85rem
+      }
+
+      .resolve-button {
+        min-height: 2rem;
+        padding: .2rem
+      }
+
+      .letter-panel .feedback {
+        min-height: 1rem;
+        font-size: .6rem
+      }
+
+      .footer {
+        display: none
+      }
+    }
+
+    @media(max-width:35rem) and (max-height:42rem) and (orientation:portrait) {
+      .board {
+        grid-template-rows: minmax(4.5rem, 16%) minmax(0, 1fr)
+      }
+
+      .play-card {
+        gap: .25rem;
+        padding: .5rem .65rem
+      }
+
+      .intro h2 {
+        font-size: 1.15rem;
+        margin: .2rem 0 0
+      }
+
+      .letter-key {
+        min-height: 2.4rem
+      }
+
+      .letter-panel {
+        gap: .3rem
+      }
+
+      .letter-panel .feedback {
+        min-height: 1.6rem
+      }
+
+      .player-strip {
+        padding: .3rem .4rem
+      }
+    }
   </style>
 </head>
 
@@ -1280,11 +2382,15 @@
             <path d="M17 18v3" />
           </svg></div>
         <div>
-          <div class="eyebrow">THE CLASSIC WORD GAME</div>
+          <div class="eyebrow">TE HARÁ ESTAR COLGADO</div>
           <h1>EL AHORCADO<span style="color:var(--muted)">.</span></h1>
         </div>
       </div>
-      <div class="header-actions"><button class="theme-toggle" id="theme-toggle" type="button" role="switch"
+      <div class="header-actions"><button class="mode-toggle" id="mode-toggle" type="button"
+          aria-pressed="true">ONLINE</button><button class="ranking-button" id="ranking-open" type="button"><svg
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 3h8v5a4 4 0 0 1-8 0V3ZM8 5H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4m-4 1v6m-4 3h8m-4-3h0" />
+          </svg>RANKING</button><button class="theme-toggle" id="theme-toggle" type="button" role="switch"
           aria-checked="false" aria-label="Cambiar tema"><span class="theme-thumb"></span><svg class="sun"
             viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
@@ -1296,6 +2402,10 @@
             aria-hidden="true">
             <path d="M3 11a9 9 0 1 1 2.5 6.5M3 4v7h7" />
           </svg>NUEVA PARTIDA</button></div>
+      <button class="mobile-options" id="mobile-options" type="button" aria-haspopup="dialog"
+        aria-controls="options-dialog"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>OPCIONES</button>
     </header>
     <div class="board">
       <section class="card visual-card">
@@ -1361,61 +2471,359 @@
             <option value="expert">MUY DIFÍCIL</option>
           </select></div>
         <div class="catalog-status" id="catalog-status"></div>
+        <div class="player-strip"><strong id="player-label">SIN JUGADOR</strong><span id="score-label">0 PALABRAS
+            RESUELTAS</span></div>
         <div class="word-area" id="word" aria-live="polite"></div>
-        <div class="input-section"><label class="input-label" for="guess-input"><span>TU RESPUESTA</span><span>Letra o
-              solución completa</span></label>
-          <form class="guess-form" id="guess-form" autocomplete="off"><input class="guess-input" id="guess-input"
-              type="text" maxlength="120" placeholder="Escribe aquí tu respuesta..." spellcheck="false"
-              autocomplete="off" required><button class="guess-button" id="guess-button" type="submit">ACEPTAR</button>
-          </form>
+        <div class="letter-panel">
+          <div class="letter-panel-head"><span>ELIGE UNA LETRA</span><span><span id="used-count">00</span> / 27</span>
+          </div>
+          <div class="letter-keyboard" id="letter-keyboard" role="group" aria-label="Teclado de letras"
+            aria-describedby="feedback"></div>
+          <button class="resolve-button" id="resolve-open" type="button" disabled>RESOLVER ENIGMA</button>
           <div class="feedback" id="feedback" aria-live="polite">Tienes 9 oportunidades. Elige bien.</div>
-        </div>
-        <div class="used-section">
-          <div class="used-head"><span>LETRAS PROBADAS</span><span id="used-count">00</span></div>
-          <div class="used-letters" id="used-letters"></div>
         </div>
       </section>
     </div>
-    <footer class="footer"><span>EL AHORCADO — EDICIÓN MONOCROMO</span><span><strong>09 FALLOS MÁXIMOS</strong> · Tildes
-        opcionales · Ñ independiente</span></footer>
+    <footer class="footer"><span>EL AHORCADO · © 2026 Reijohan. Todos los derechos reservados.</span><span><strong>09
+          FALLOS MÁXIMOS</strong> · Tildes opcionales · Ñ independiente</span></footer>
   </main>
+  <dialog class="options-dialog" id="options-dialog" aria-labelledby="options-title">
+    <div class="dialog-head"><span class="eyebrow">TU PARTIDA</span><button class="dialog-close" id="options-close"
+        type="button" aria-label="Cerrar opciones">×</button></div>
+    <h2 id="options-title">Opciones</h2>
+    <div id="options-controls"></div>
+  </dialog>
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-hidden="true">
-    <div class="result-card">
+    <div class="result-card" tabindex="-1">
       <div class="result-symbol" id="result-symbol">✓</div>
       <div class="eyebrow" id="result-eyebrow">PARTIDA FINALIZADA</div>
       <h2 id="result-title">VICTORIA</h2>
       <p id="result-description"></p><strong class="result-answer" id="result-answer"></strong><button
-        class="result-button" id="play-again" type="button">JUGAR OTRA PARTIDA →</button>
+        class="result-button" id="play-again" type="button">CONTINUAR SUMANDO →</button>
+      <p id="result-run"></p><button class="secondary-button end-run" id="end-run" type="button">TERMINAR Y
+        GUARDAR</button>
     </div>
   </div>
+
+  <dialog class="player-dialog" id="player-dialog" aria-labelledby="player-title">
+    <div class="dialog-head player-dialog-head"><button class="theme-toggle" id="player-theme-toggle" type="button"
+        role="switch" aria-checked="false" aria-label="Cambiar tema"><span class="theme-thumb"></span><svg class="sun"
+          viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
+        </svg></button><span class="eyebrow">TU PRÓXIMO RETO</span><button class="secondary-button" id="player-ranking"
+        type="button">RANKING</button></div>
+    <h2 id="player-title">Elige tu nombre<br>de jugador</h2>
+    <p>Solo las partidas verificadas online<br>entrarán en el ranking.</p>
+    <div class="player-mode-row"><strong>MODO DE LOS ENIGMAS</strong><button class="mode-toggle" id="player-mode-toggle"
+        type="button" aria-pressed="true">ONLINE</button></div>
+    <div class="engine-status" id="engine-status" role="status" aria-live="polite" aria-atomic="true">Ampliando catálogo
+    </div>
+    <form id="player-form"><label for="player-name">NOMBRE DEL JUGADOR</label><input id="player-name" name="nombre"
+        type="text" maxlength="24" required autocomplete="nickname" placeholder="¿Cómo te llamas?"
+        aria-describedby="player-error">
+      <div class="dialog-status" id="player-error" role="status"></div><button class="result-button" type="submit"
+        disabled>EMPEZAR A JUGAR →</button>
+    </form>
+  </dialog>
+  <dialog class="ranking-dialog" id="ranking-dialog" aria-labelledby="ranking-title">
+    <div class="dialog-head"><span class="eyebrow">CLASIFICACIÓN GLOBAL</span><button class="dialog-close"
+        id="ranking-close" type="button" aria-label="Cerrar ranking">×</button></div>
+    <h2 id="ranking-title">El ranking.</h2>
+    <p>Las cinco mejores partidas online. Las nuevas puntuaciones se verifican durante el juego.</p>
+    <p class="ranking-summary" id="ranking-summary" hidden></p>
+    <div class="dialog-status" id="ranking-status" role="status" aria-live="polite"></div>
+    <div class="ranking-scroll">
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th scope="col">POS.</th>
+            <th scope="col">JUGADOR</th>
+            <th scope="col">PALABRAS</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-body"></tbody>
+      </table>
+    </div>
+    <div class="dialog-actions"><button class="secondary-button" id="ranking-refresh"
+        type="button">ACTUALIZAR</button><button class="result-button" id="ranking-action" type="button">SEGUIR JUGANDO
+        →</button></div>
+  </dialog>
+  <dialog class="solution-dialog" id="solution-dialog" aria-labelledby="solution-title">
+    <div class="dialog-head"><span class="eyebrow">ARRIESGA LA SOLUCIÓN</span><button class="dialog-close"
+        id="solution-close" type="button" aria-label="Cerrar respuesta completa">×</button></div>
+    <h2 id="solution-title">Resolver enigma.</h2>
+    <p>Escribe la respuesta completa. Si fallas, pierdes un intento.</p>
+    <label class="input-label" for="guess-input">TU RESPUESTA COMPLETA</label>
+    <form class="guess-form" id="guess-form" autocomplete="off"><input class="guess-input" id="guess-input" type="text"
+        maxlength="120" placeholder="Escribe la solución…" spellcheck="false" autocomplete="off" required><button
+        class="guess-button" id="guess-button" type="submit">ACEPTAR</button></form>
+  </dialog>
   <script>
-    const RAW_CATALOG = [["Cine", "easy", "TITANIC;AVATAR;GLADIATOR;TERMINATOR;ROBOCOP;ROCKY;RAMBO;BATMAN;SUPERMAN;SPIDERMAN;JURASSIC PARK;INDIANA JONES;STAR WARS;HARRY POTTER;EL REY LEÓN;TOY STORY;SHREK;MATRIX;ALIEN;PREDATOR;CAZAFANTASMAS;REGRESO AL FUTURO;KING KONG;GODZILLA;EL PADRINO;FORREST GUMP;PIRATAS DEL CARIBE;BUSCANDO A NEMO;LOS INCREÍBLES;FROZEN;ALADDÍN;MULÁN;DUMBO;BAMBI;PINOCHO;CENICIENTA;BLANCANIEVES;COCO;MONSTRUOS SA;RATATOUILLE;LA BELLA Y LA BESTIA;LA SIRENITA;EL LIBRO DE LA SELVA;EL JOROBADO DE NOTRE DAME;LA DAMA Y EL VAGABUNDO;EL REY ESCORPIÓN;LA MOMIA;EL HOMBRE ARAÑA;LOS VENGADORES;EL HOMBRE DE ACERO;MUJER MARAVILLA;LOS CAZAFANTASMAS;EL EXORCISTA;TIBURÓN;PSICOSIS;SCREAM;LA MÁSCARA;LA TERMINAL;NÁUFRAGO;LA VIDA ES BELLA;EL PIANISTA;LA LISTA DE SCHINDLER;BRAVEHEART;TROYA;BEN HUR;CLEOPATRA;ESPARTACO;CASABLANCA;LO QUE EL VIENTO SE LLEVÓ;EL MAGO DE OZ;MARY POPPINS"], ["Cine", "medium", "EL SEÑOR DE LOS ANILLOS;LA COMUNIDAD DEL ANILLO;LAS DOS TORRES;EL RETORNO DEL REY;EL HOBBIT;EL CABALLERO OSCURO;BATMAN BEGINS;EL IMPERIO CONTRAATACA;EL RETORNO DEL JEDI;LA AMENAZA FANTASMA;LA VENGANZA DE LOS SITH;EL DESPERTAR DE LA FUERZA;ROGUE ONE;EL QUINTO ELEMENTO;BLADE RUNNER;MINORITY REPORT;LA GUERRA DE LOS MUNDOS;EL RESPLANDOR;PULP FICTION;KILL BILL;EL GRAN LEBOWSKI;EL CLUB DE LA LUCHA;EL SHOW DE TRUMAN;EL CURIOSO CASO DE BENJAMIN BUTTON;LA FORMA DEL AGUA;EL LABERINTO DEL FAUNO;EL ESPINAZO DEL DIABLO;LA CUMBRE ESCARLATA;EL ORFANATO;LOS OTROS;ABRE LOS OJOS;MAR ADENTRO;TESIS;REC;CELDA;EL HOYO;LA PLATAFORMA;CONTRATIEMPO;EL CUERPO;LA ISLA MÍNIMA;LA TRINCHERA INFINITA;MIENTRAS DURE LA GUERRA;LA LENGUA DE LAS MARIPOSAS;EL VIAJE DE CHIHIRO;MI VECINO TOTORO;LA PRINCESA MONONOKE;EL CASTILLO AMBULANTE;PONYO EN EL ACANTILADO;EL CASTILLO EN EL CIELO;NAUSICA DEL VALLE DEL VIENTO;LA TUMBA DE LAS LUCIÉRNAGAS;EL CUENTO DE LA PRINCESA KAGUYA;RECUERDOS DEL AYER;SUSURROS DEL CORAZÓN;EL VIENTO SE LEVANTA;EL REGRESO DEL GATO"], ["Cine clásico", "hard", "EL GABINETE DEL DOCTOR CALIGARI;METRÓPOLIS;EL SÉPTIMO SELLO;CIUDADANO KANE;EL HALCÓN MALTÉS;LA VENTANA INDISCRETA;CON LA MUERTE EN LOS TALONES;VÉRTIGO;DOCE HOMBRES SIN PIEDAD;EL CREPÚSCULO DE LOS DIOSES;LA NOCHE DEL CAZADOR;EL TESORO DE SIERRA MADRE;EL BUENO EL FEO Y EL MALO;HASTA QUE LLEGÓ SU HORA;APOCALYPSE NOW;LA CHAQUETA METÁLICA;EL CAZADOR;LOS SIETE SAMURÁIS;TRONO DE SANGRE;RASHOMON;LA DILIGENCIA;EL HOMBRE QUE MATÓ A LIBERTY VALANCE;CENTAUROS DEL DESIERTO;SOLO ANTE EL PELIGRO;RÍO BRAVO;EL HOMBRE TRANQUILO;EL APARTAMENTO;CON FALDAS Y A LO LOCO;TESTIGO DE CARGO;PERDICIÓN;EL GRAN DICTADOR;TIEMPOS MODERNOS;LUCES DE LA CIUDAD;LA QUIMERA DEL ORO;EL CHICO;AMANECER;NOSFERATU;EL ACORAZADO POTEMKIN;LA PASIÓN DE JUANA DE ARCO;EL HOMBRE DE LA CÁMARA;LA REGLA DEL JUEGO;LOS CUATROCIENTOS GOLPES;JULES Y JIM;AL FINAL DE LA ESCAPADA;HIROSHIMA MI AMOR;EL DESIERTO ROJO;LA AVENTURA;OCHO Y MEDIO;LA DOLCE VITA;AMARCORD;EL LADRON DE BICICLETAS;UMBERTO D;LA STRADA;EL ECLIPSE"], ["Series", "easy", "FRIENDS;LOS SIMPSON;FUTURAMA;SOUTH PARK;STRANGER THINGS;BREAKING BAD;BETTER CALL SAUL;JUEGO DE TRONOS;LA CASA DE PAPEL;LOST;THE WALKING DEAD;THE OFFICE;THE BOYS;THE MANDALORIAN;LOKI;WANDAVISION;DAREDEVIL;THE FLASH;ARROW;SUPERNATURAL;EL PRÍNCIPE DE BEL AIR;PADRE DE FAMILIA;RICK Y MORTY;EL JUEGO DEL CALAMAR;LA CASA DEL DRAGÓN;LOS ANILLOS DE PODER;EL CUENTO DE LA CRIADA;EL MINISTERIO DEL TIEMPO;CUÉNTAME CÓMO PASÓ;LOS SERRANO;AQUÍ NO HAY QUIEN VIVA;LA QUE SE AVECINA;LOS HOMBRES DE PACO;EL INTERNADO;FÍSICA O QUÍMICA;ÁGUILA ROJA;LOS PROTEGIDOS;VIS A VIS;ÉLITE;LAS CHICAS DEL CABLE;EL BARCO;LA CATEDRAL DEL MAR;LOS PACIENTES DEL DOCTOR GARCÍA;LA PROMESA;EL PUEBLO;EL INOCENTE;ENTREVÍAS;MERLÍ;VENENO;PAQUITA SALAS"], ["Series", "medium", "CÓMO CONOCÍ A VUESTRA MADRE;THE BIG BANG THEORY;BOJACK HORSEMAN;EL LIBRO DE BOBA FETT;OBI WAN KENOBI;AHSOKA;ANDOR;FUNDACIÓN;ALTERED CARBON;BLACK MIRROR;WESTWORLD;SEVERANCE;DARK;LOS SOPRANO;A DOS METROS BAJO TIERRA;HERMANOS DE SANGRE;THE WIRE;MAD MEN;TRUE DETECTIVE;FARGO;CHERNÓBIL;EL ALIENISTA;LA MALDICIÓN DE HILL HOUSE;LA MALDICIÓN DE BLY MANOR;LA CAÍDA DE LA CASA USHER;LA MISA DE MEDIANOCHE;SENSE;EL PROBLEMA DE LOS TRES CUERPOS;EL ÚLTIMO DE NOSOTROS;LA MATERIA OSCURA;LA RUEDA DEL TIEMPO;UNA SERIE DE CATASTRÓFICAS DESDICHAS;LA FAMILIA ADDAMS;MIÉRCOLES;EL JOVEN SHELDON;EL MENTALISTA;MENTES CRIMINALES;CÓDIGO NEGRO;ANATOMÍA DE GREY;EL BUEN DOCTOR;HOUSE;URGENCIAS;LA LEY Y EL ORDEN;CSI;MUNDO JURÁSICO;EL CABALLERO DE LOS SIETE REINOS"], ["Videojuegos", "easy", "MARIO BROS;SONIC;MINECRAFT;FORTNITE;ROBLOX;TETRIS;PACMAN;POKÉMON;ZELDA;DOOM;RESIDENT EVIL;SILENT HILL;TOMB RAIDER;UNCHARTED;GOD OF WAR;HALO;GEARS OF WAR;CALL OF DUTY;BATTLEFIELD;ASSASSINS CREED;FINAL FANTASY;DRAGON QUEST;KINGDOM HEARTS;SUPER MARIO GALAXY;SUPER MARIO ODYSSEY;MARIO KART;SUPER SMASH BROS;ANIMAL CROSSING;SPLATOON;METROID;DONKEY KONG;KIRBY;FIRE EMBLEM;STAR FOX;PIKMIN;LUIGIS MANSION;CASTLEVANIA;MEGA MAN;STREET FIGHTER;MORTAL KOMBAT;TEKKEN;CRASH BANDICOOT;SPYRO;RAYMAN;GRAN TURISMO;FORZA HORIZON;NEED FOR SPEED;LOS SIMS;SIMCITY;CIVILIZATION;PORTAL;LEFT FOR DEAD;TEAM FORTRESS;COUNTER STRIKE;HALF LIFE"], ["Videojuegos", "hard", "PLANESCAPE TORMENT;BALDURS GATE;DIVINITY ORIGINAL SIN;PILLARS OF ETERNITY;DISCO ELYSIUM;PATHOLOGIC;SYSTEM SHOCK;DEUS EX;THIEF THE DARK PROJECT;VAMPIRE THE MASQUERADE BLOODLINES;ARCANUM;GRIM FANDANGO;MONKEY ISLAND;DAY OF THE TENTACLE;FULL THROTTLE;THE DIG;BENEATH A STEEL SKY;ANOTHER WORLD;FLASHBACK;ODDWORLD;HORIZON ZERO DAWN;HORIZON FORBIDDEN WEST;GHOST OF TSUSHIMA;SHADOW OF THE COLOSSUS;THE LAST GUARDIAN;BIOSHOCK;BIOSHOCK INFINITE;DISHONORED;PREY;CONTROL;ALAN WAKE;QUANTUM BREAK;DEAD SPACE;THE EVIL WITHIN;OUTLAST;AMNESIA;LITTLE NIGHTMARES;HOLLOW KNIGHT;CUPHEAD;CELESTE;ELDEN RING;DARK SOULS;BLOODBORNE;SEKIRO;NIOH;WO LONG;LIES OF P;BLASPHEMOUS;GRIS;RIME;TUNIC;FEZ;BRAID;INSIDE;LIMBO;UNDERTALE;DELTARUNE;STARDEW VALLEY;TERRARIA;FACTORIO;SATISFACTORY;SUBNAUTICA;THE FOREST;GREEN HELL;VALHEIM;PALWORLD"], ["Cómics", "medium", "GREEN LANTERN;GREEN ARROW;BLACK CANARY;MARTIAN MANHUNTER;HAWKGIRL;SHAZAM;BLACK ADAM;DOCTOR FATE;CONSTANTINE;SWAMP THING;SANDMAN;WATCHMEN;RORSCHACH;DOCTOR MANHATTAN;OZYMANDIAS;DARKSEID;DOOMSDAY;BRAINIAC;SINESTRO;DEATHSTROKE;LOB EZNO;EL JOKER;DOS CARAS;EL ACERTIJO;EL PINGÜINO;HIEDRA VENENOSA;HARLEY QUINN;CATWOMAN;ROBIN;NIGHTWING;BATGIRL;CAPITÁN AMÉRICA;HOMBRE DE HIERRO;VIUDA NEGRA;OJO DE HALCÓN;DOCTOR EXTRAÑO;BRUJA ESCARLATA;VISIÓN;PANTERA NEGRA;CAPITANA MARVEL;HULK;THOR;ULTRÓN;THANOS;GALACTUS;ESTELA PLATEADA;LOS CUATRO FANTÁSTICOS;LOS X MEN;CÍCLOPE;TORMENTA;MAGNETO;PROFESOR X;JEAN GREY;PÍCARA;GÁMBITO;BESTIA;HOMBRE DE HIELO;APOCALIPSIS;MÍSTICA;CABLE;DEADPOOL"], ["Literatura", "medium", "DON QUIJOTE DE LA MANCHA;LA CELESTINA;LAZARILLO DE TORMES;EL BUSCÓN;FUENTEOVEJUNA;LA VIDA ES SUEÑO;EL BURLADOR DE SEVILLA;DON JUAN TENORIO;RIMAS Y LEYENDAS;PLATERO Y YO;CAMPOS DE CASTILLA;SOLEDADES;POETA EN NUEVA YORK;LA CASA DE BERNARDA ALBA;BODAS DE SANGRE;YERMA;LA COLMENA;LA FAMILIA DE PASCUAL DUARTE;NADA;LA SOMBRA DEL VIENTO;EL JUEGO DEL ÁNGEL;EL PRISIONERO DEL CIELO;EL LABERINTO DE LOS ESPÍRITUS;EL TIEMPO ENTRE COSTURAS;PATRIA;LOS PILARES DE LA TIERRA;UN MUNDO SIN FIN;EL NOMBRE DE LA ROSA;EL PÉNDULO DE FOUCAULT;LA MONTAÑA MÁGICA;EL HOMBRE SIN ATRIBUTOS;EN BUSCA DEL TIEMPO PERDIDO;EL RUIDO Y LA FURIA;ULISES;LA BROMA INFINITA;EL PROCESO;EL CASTILLO;LA METAMORFOSIS;PEDRO PÁRAMO;RAYUELA;LA CASA DE LOS ESPÍRITUS;CIEN AÑOS DE SOLEDAD;LA DIVINA COMEDIA;EL CONDE DE MONTECRISTO;MOBY DICK;ORGULLO Y PREJUICIO;SENTIDO Y SENSIBILIDAD;CUMBRES BORRASCOSAS;JANE EYRE;DRÁCULA;FRANKENSTEIN;EL RETRATO DE DORIAN GRAY;LA ISLA DEL TESORO;VEINTE MIL LEGUAS DE VIAJE SUBMARINO;VIAJE AL CENTRO DE LA TIERRA;LA VUELTA AL MUNDO EN OCHENTA DÍAS;LA MÁQUINA DEL TIEMPO;EL HOMBRE INVISIBLE"], ["Ciencia", "hard", "PRINCIPIO DE INCERTIDUMBRE;MECÁNICA CUÁNTICA;TERMODINÁMICA;ENTROPÍA;SUPERNOVA;ESTRELLA DE NEUTRONES;RADIACIÓN CÓSMICA DE FONDO;HORIZONTE DE SUCESOS;MATERIA OSCURA;ENERGÍA OSCURA;TEORÍA DE CUERDAS;BOSÓN DE HIGGS;ANTIMATERIA;ACELERADOR DE PARTÍCULAS;ESPECTRO ELECTROMAGNÉTICO;PRINCIPIO DE EXCLUSIÓN DE PAULI;ECUACIÓN DE DRAKE;PARADOJA DE FERMI;ESFERA DE DYSON;ESCALA DE KARDASHEV;TEORÍA DE LA RELATIVIDAD;RELATIVIDAD GENERAL;RELATIVIDAD ESPECIAL;AGUJERO NEGRO;AGUJERO DE GUSANO;ENANA BLANCA;GIGANTE ROJA;GIGANTE AZUL;ENANA MARRÓN;QUÁSAR;PÚLSAR;MAGNETAR;NEBULOSA;GALAXIA ESPIRAL;GALAXIA ELÍPTICA;VÍA LÁCTEA;ANDRÓMEDA;CÚMULO GLOBULAR;EXOPLANETA;TRÁNSITO PLANETARIO;PARALAJE ESTELAR;CORRIMIENTO AL ROJO;FUSIÓN NUCLEAR;FISIÓN NUCLEAR;REACCIÓN EN CADENA;CAMPO MAGNÉTICO;ELECTROMAGNETISMO;INDUCCIÓN ELECTROMAGNÉTICA;LEY DE OHM;LEY DE FARADAY;LEY DE COULOMB;LEY DE GRAVITACIÓN UNIVERSAL;SEGUNDA LEY DE NEWTON;PRINCIPIO DE ARQUÍMEDES;PRINCIPIO DE PASCAL;EFECTO DOPPLER;EFECTO FOTOELÉCTRICO;EFECTO INVERNADERO;CAMBIO CLIMÁTICO;CALENTAMIENTO GLOBAL;DERIVA CONTINENTAL;TECTÓNICA DE PLACAS;SELECCIÓN NATURAL;EVOLUCIÓN CONVERGENTE;MUTACIÓN GENÉTICA;CÓDIGO GENÉTICO;ÁCIDO DESOXIRRIBONUCLEICO;ÁCIDO RIBONUCLEICO;FOTOSÍNTESIS;RESPIRACIÓN CELULAR;CICLO DE KREBS;MITOSIS;MEIOSIS;CÉLULA MADRE;SISTEMA INMUNITARIO;SISTEMA NERVIOSO;SISTEMA ENDOCRINO;MICROBIOLOGÍA;BIOQUÍMICA;GENÉTICA;ASTROFÍSICA;GEOLOGÍA;PALEONTOLOGÍA;ARQUEOLOGÍA;ANTROPOLOGÍA"], ["Mitología", "expert", "EL SILMARILLION;LA CAÍDA DE GONDOLIN;LOS HIJOS DE HÚRIN;BEREN Y LÚTHIEN;LA MÚSICA DE LOS AINUR;LA GUERRA DE LA IRA;EL ARCHIVO DE LAS TORMENTAS;EL CAMINO DE LOS REYES;PALABRAS RADIANTES;EL IMPERIO FINAL;EL POZO DE LA ASCENSIÓN;EL HÉROE DE LAS ERAS;YGGDRASIL;JORMUNGAND;NIFLHEIM;MUSPELHEIM;JOTUNHEIM;SVARTALFHEIM;ASGARD;MIDGARD;VALHALLA;RAGNAROK;FENRIR;ODÍN;FREYA;FRIGG;BALDER;HEIMDALL;TYR;HEL;SLEIPNIR;GUNGNIR;MJOLNIR;NORN AS;VALQUIRIAS;DRAUGR;BERSERKER;EINHERJAR;BIFROST;GIGANTES DE HIELO;GIGANTES DE FUEGO;ZEUS;HERA;POSEIDÓN;HADES;ATENEA;APOLO;ARTEMISA;AFRODITA;ARES;HEFESTO;HERMES;DEMÉTER;PERSÉFONE;DIONISO;HÉCATE;HELIOS;SELENE;CRONOS;REA;URANO;GEA;TITANES;CÍCLOPES;CENTAUROS;MINOTAURO;QUIMERA;HIDRA DE LERNA;CERBERO;PEGASO;MEDUSA;ESFINGE;SIRENAS;NINFAS;MUSAS;MOIRAS;ERINIAS;HÉRCULES;PERSEO;TESEO;JASÓN;AQUILES;AGAMENÓN;MENELAO;HELENA DE TROYA;GUERRA DE TROYA;CABALLO DE TROYA;CAJA DE PANDORA;HILO DE ARIADNA;TALÓN DE AQUILES;ESPADA DE DAMOCLES"], ["Historia", "hard", "PAZ DE WESTFALIA;CONGRESO DE VIENA;TRATADO DE TORDESILLAS;GUERRA DE LOS TREINTA AÑOS;GUERRA DE LOS CIEN AÑOS;REBELIÓN DE LOS BÓXERS;RESTAURACIÓN MEIJI;REVOLUCIÓN DE LOS CLAVELES;PRIMAVERA DE PRAGA;CRISIS DE LOS MISILES DE CUBA;BATALLA DE LEPANTO;BATALLA DE AUSTERLITZ;BATALLA DE ACTIUM;BATALLA DE CANAS;BATALLA DE WATERLOO;BATALLA DE TRAFALGAR;BATALLA DE LAS TERMÓPILAS;BATALLA DE MARATÓN;BATALLA DE SALAMINA;BATALLA DE HASTINGS;BATALLA DE POITIERS;BATALLA DE LAS NAVAS DE TOLOSA;BATALLA DE COVADONGA;BATALLA DE ALMANSA;BATALLA DE BAILÉN;BATALLA DE STALINGRADO;BATALLA DE KURSK;BATALLA DE MIDWAY;BATALLA DE GUADALCANAL;BATALLA DE NORMANDÍA;DESEMBARCO DE NORMANDÍA;OPERACIÓN BARBARROJA;OPERACIÓN OVERLORD;GUERRA DE SECESIÓN;GUERRA DE INDEPENDENCIA;GUERRA CIVIL ESPAÑOLA;PRIMERA GUERRA MUNDIAL;SEGUNDA GUERRA MUNDIAL;GUERRA FRÍA;CAÍDA DEL MURO DE BERLÍN;REVOLUCIÓN INDUSTRIAL;REVOLUCIÓN FRANCESA;REVOLUCIÓN RUSA;REVOLUCIÓN CUBANA;REVOLUCIÓN MEXICANA;REVOLUCIÓN CULTURAL;REVOLUCIÓN NEOLÍTICA;EDAD DEL BRONCE;EDAD DEL HIERRO;EDAD DE PIEDRA;RENACIMIENTO;BARROCO;ILUSTRACIÓN;ROMANTICISMO;REALISMO;MODERNISMO;SURREALISMO;DADAÍSMO;IMPRESIONISMO;EXPRESIONISMO;CUBISMO;FUTURISMO;NEOCLASICISMO;ARTE GÓTICO;ARTE ROMÁNICO;ARTE BIZANTINO;ARTE MUDÉJAR"], ["Gastronomía", "easy", "TORTILLA DE PATATAS;PAELLA VALENCIANA;CHOCOLATE CALIENTE;COCIDO MADRILEÑO;SALMOREJO;ENSALADILLA RUSA;CREMA CATALANA;TARTA DE SANTIAGO;ARROZ CON LECHE;SOPA DE CEBOLLA;PIZZA MARGARITA;LASAÑA BOLOÑESA;RISOTTO;GAZPACHO;FABADA ASTURIANA;PULPO A LA GALLEGA;BACALAO AL PIL PIL;PATATAS BRAVAS;CROQUETAS;CALAMARES A LA ROMANA;BOQUERONES EN VINAGRE;PIMIENTOS DE PADRÓN;QUESO MANCHEGO;JAMÓN IBÉRICO;CHORIZO;MORCILLA;SOBRASADA;ENSAIMADA;BUÑUELOS;TORRIJAS;CHURROS;FLAN DE HUEVO;NATILLAS;TARTA DE QUESO;ARROZ NEGRO;FIDEUÁ;ARROZ A BANDA;ARROZ CALDOSO;PAELLA MIXTA;CALDERETA DE LANGOSTA;FRITO MALLORQUÍN;TUMBET;COCA DE TRAMPÓ;PAN CON TOMATE;ESCALIVADA;ESCUDELLA;CREMA DE CALABAZA;SOPA DE AJO;POTAJE DE GARBANZOS;LENTEJAS ESTOFADAS;MIGAS;PAPAS ARRUGADAS;MOJO PICÓN;GOFIO;BIENMESABE;POLVORONES;MAZAPÁN;TURRÓN;ROSCÓN DE REYES;EMPANADA GALLEGA;LACÓN CON GRELOS;MERLUZA EN SALSA VERDE;MARMITAKO;RABO DE TORO;COCHINILLO ASADO;CORDERO LECHAL;LECHAZO ASADO;SALCHICHÓN;BUTIFARRA;LONGANIZA;CHISTORRA;QUESADA PASIEGA;SOBAOS PASIEGOS;TARTA DE MANZANA;BRAZO DE GITANO;LECHE FRITA;PANELLETS;ARROZ AL HORNO;HUEVOS ROTOS;BERENJENAS RELLENAS;PIMIENTOS RELLENOS;ALBÓNDIGAS;CARRILLERAS;CALLOS A LA MADRILEÑA;SOPA CASTELLANA;COCIDO MONTAÑÉS;COCIDO MARAGATO"], ["Refranes", "medium", "MÁS VALE TARDE QUE NUNCA;NO TODO LO QUE BRILLA ES ORO;A QUIEN MADRUGA DIOS LE AYUDA;EL SABER NO OCUPA LUGAR;NO HAY MAL QUE POR BIEN NO VENGA;EN BOCA CERRADA NO ENTRAN MOSCAS;A CABALLO REGALADO NO LE MIRES EL DIENTE;MÁS VALE PÁJARO EN MANO QUE CIENTO VOLANDO;DIME CON QUIÉN ANDAS Y TE DIRÉ QUIÉN ERES;PERRO LADRADOR POCO MORDEDOR;A BUEN ENTENDEDOR POCAS PALABRAS BASTAN;OJOS QUE NO VEN CORAZÓN QUE NO SIENTE;AL MAL TIEMPO BUENA CARA;QUIEN MUCHO ABARCA POCO APRIETA;DE TAL PALO TAL ASTILLA;EL QUE LA SIGUE LA CONSIGUE;NO DEJES PARA MAÑANA LO QUE PUEDAS HACER HOY;A PALABRAS NECIAS OÍDOS SORDOS;EN CASA DEL HERRERO CUCHILLO DE PALO;CUANDO EL RÍO SUENA AGUA LLEVA;NO HAY DOS SIN TRES;A FALTA DE PAN BUENAS SON TORTAS;NUNCA LLUEVE A GUSTO DE TODOS;CADA OVEJA CON SU PAREJA;EL HÁBITO NO HACE AL MONJE;MÁS VALE PREVENIR QUE CURAR;CRÍA CUERVOS Y TE SACARÁN LOS OJOS;NO SE HIZO LA MIEL PARA LA BOCA DEL ASNO;EL QUE RÍE EL ÚLTIMO RÍE MEJOR;NO POR MUCHO MADRUGAR AMANECE MÁS TEMPRANO;DEL DICHO AL HECHO HAY MUCHO TRECHO;A DIOS ROGANDO Y CON EL MAZO DANDO;NO HAY PEOR CIEGO QUE EL QUE NO QUIERE VER;DONDE HUBO FUEGO CENIZAS QUEDAN;EL TIEMPO TODO LO CURA;CADA MAESTRILLO TIENE SU LIBRILLO;A GRANDES MALES GRANDES REMEDIOS;EL QUE CALLA OTORGA;QUIEN SIEMBRA VIENTOS RECOGE TEMPESTADES;HOMBRE PREVENIDO VALE POR DOS;NO HAY MAL QUE CIEN AÑOS DURE;EL QUE NO CORRE VUELA;NADIE ES PROFETA EN SU TIERRA;EL QUE TIENE BOCA SE EQUIVOCA;LA AVARICIA ROMPE EL SACO;ZAPATERO A TUS ZAPATOS;DE NOCHE TODOS LOS GATOS SON PARDOS;EL QUE PARTE Y REPARTE SE LLEVA LA MEJOR PARTE;A LO HECHO PECHO;MUERTO EL PERRO SE ACABÓ LA RABIA"], ["Geografía", "easy", "SISTEMA SOLAR;PLANETA TIERRA;LUNA;MARTE;JÚPITER;SATURNO;OCÉANO ATLÁNTICO;MAR MEDITERRÁNEO;ISLAS BALEARES;ISLAS CANARIAS;MONTE EVEREST;DESIERTO DEL SAHARA;RÍO AMAZONAS;IMPERIO ROMANO;ANTIGUO EGIPTO;EDAD MEDIA;OCÉANO PACÍFICO;OCÉANO ÍNDICO;OCÉANO ÁRTICO;OCÉANO ANTÁRTICO;MAR NEGRO;MAR ROJO;MAR CASPIO;MAR DE ARAL;MAR MUERTO;MAR DEL NORTE;MAR BÁLTICO;MAR CARIBE;MAR DE BERING;GOLFO DE MÉXICO;GOLFO PÉRSICO;GOLFO DE BENGALA;GOLFO DE GUINEA;ESTRECHO DE GIBRALTAR;ESTRECHO DE MAGALLANES;ESTRECHO DE BERING;CANAL DE SUEZ;CANAL DE PANAMÁ;CORDILLERA DE LOS ANDES;MONTES HIMALAYA;MONTES ALPES;MONTES PIRINEOS;MONTES URALES;MONTES APALACHES;MONTAÑAS ROCOSAS;GRAN CAÑÓN DEL COLORADO;GRAN BARRERA DE CORAL;GRAN MURALLA CHINA;SELVA AMAZÓNICA;DESIERTO DE ATACAMA;DESIERTO DE GOBI;DESIERTO DE KALAHARI;DESIERTO DE NAMIB;DESIERTO DE SONORA;DESIERTO DE MOJAVE;RÍO NILO;RÍO DANUBIO;RÍO RIN;RÍO SENA;RÍO TÁMESIS;RÍO VOLGA;RÍO MISISIPI;RÍO CONGO;RÍO NÍGER;RÍO MEKONG;RÍO GANGES;RÍO INDO;RÍO TIGRIS;RÍO ÉUFRATES;RÍO EBRO;RÍO TAJO;RÍO DUERO;RÍO GUADALQUIVIR;RÍO GUADIANA;RÍO SEGURA;RÍO JÚCAR;RÍO TURIA;RÍO TER;RÍO LLOBREGAT;RÍO MIÑO;RÍO SIL;RÍO PISUERGA;RÍO ARLANZÓN;RÍO NALÓN;RÍO NAVIA;RÍO BIDASOA;RÍO URUMEA;RÍO NERVIÓN"], ["Naturaleza", "easy", "ÁGUILA REAL;ÁGUILA IMPERIAL;HALCÓN PEREGRINO;BUITRE LEONADO;BUITRE NEGRO;QUEBRANTAHUESOS;CIGÜEÑA BLANCA;CIGÜEÑA NEGRA;GARZA REAL;FLAMENCO ROSADO;PELÍCANO;ALBATROS;PINGÜINO EMPERADOR;PINGÜINO REY;OSO POLAR;OSO PARDO;OSO PANDA;OSO HORMIGUERO;OSO PEREZOSO;PANDA ROJO;LOBO IBÉRICO;LOBO GRIS;ZORRO ROJO;LINCE IBÉRICO;LINCE BOREAL;GATO MONTÉS;LEOPARDO DE LAS NIEVES;LEOPARDO;GUEPARDO;JAGUAR;TIGRE DE BENGALA;TIGRE SIBERIANO;LEÓN AFRICANO;HIPOPÓTAMO;RINOCERONTE BLANCO;RINOCERONTE NEGRO;ELEFANTE AFRICANO;ELEFANTE ASIÁTICO;JIRAFA;CEBRA;ÑU;ANTÍLOPE;GACELA;IMPALA;BÚFALO AFRICANO;BISONTE EUROPEO;BISONTE AMERICANO;ALCE;RENO;CIERVO ROJO;CORZO;GAMO;CABRA MONTÉS;REBECO;MUFLÓN;JABALÍ;TEJÓN;NUTRIA;CASTOR;MARMOTA;ARDILLA ROJA;ERIZO EUROPEO;MURCIÉLAGO;BALLENA AZUL;BALLENA JOROBADA;CACHALOTE;ORCA;DELFÍN MULAR;BELUGA;NARVAL;FOCA MONJE;LEÓN MARINO;MORSA;TIBURÓN BLANCO;TIBURÓN MARTILLO;TIBURÓN BALLENA;MANTA RAYA;PEZ ESPADA;PEZ PAYASO;CABALLITO DE MAR;PULPO COMÚN;CALAMAR GIGANTE;MEDUSA LUNA;ESTRELLA DE MAR;ERIZO DE MAR;CANGREJO ERMITAÑO;LANGOSTA;BOGAVANTE;CAMARÓN;GAMBA ROJA;CENTOLLO;NÉCORA;PERCEBE;MEJILLÓN;ALMEJA;OSTRA;VIEIRA"], ["Música", "medium", "POWER METAL;METAL SINFÓNICO;ROCK PROGRESIVO;DEATH METAL;BLACK METAL;THRASH METAL;NIGHTWISH;BLIND GUARDIAN;IRON MAIDEN;JUDAS PRIEST;QUEEN;LOS BEATLES;LOS ROLLING STONES;LED ZEPPELIN;PINK FLOYD;DEEP PURPLE;BLACK SABBATH;METALLICA;MEGADETH;SLAYER;PANTERA;AC DC;GUNS N ROSES;BON JOVI;SCORPIONS;RAMMSTEIN;MAGO DE OZ;TIERRA SANTA;AVALANCH;SARATOGA;WARCRY;SAUROM;STRAVAGANZZA;ANGELUS APATRIDA;BARÓN ROJO;OBÚS;ASFALTO;TRIANA;MECANO;HÉROES DEL SILENCIO;EL ÚLTIMO DE LA FILA;ESTOPA;EL CANTO DEL LOCO;LA OREJA DE VAN GOGH;AMARAL;VETUSTA MORLA;IZAL;LOVE OF LESBIAN;LEIVA;PEREZA;LOS SECRETOS;HOMBRES G;RADIO FUTURA;ALASKA Y DINARAMA;LA UNIÓN;SEGURIDAD SOCIAL;CELTAS CORTOS;EXTREMODURO;MAREA;PLATERO Y TÚ;FITO Y FITIPALDIS;ROSENDO;LOQUILLO;LOS SUAVES;BOIKOT;SKA P;REINCIDENTES;DESAKATO;SOZIEDAD ALKOHOLIKA"], ["Filosofía", "expert", "PRINCIPIO DE RAZÓN SUFICIENTE;IMPERATIVO CATEGÓRICO;MITO DE LA CAVERNA;NAVAJA DE OCKHAM;PARADOJA DE TESEO;ETERNO RETORNO;MATERIALISMO HISTÓRICO;MATERIALISMO DIALÉCTICO;IDEALISMO TRASCENDENTAL;EMPIRISMO;RACIONALISMO;EXISTENCIALISMO;NIHILISMO;ESTOICISMO;EPICUREÍSMO;ESCEPTICISMO;POSITIVISMO;PRAGMATISMO;UTILITARISMO;HEDONISMO;DETERMINISMO;LIBRE ALBEDRÍO;DUALISMO CARTESIANO;MONISMO;SOLIPSISMO;FENOMENOLOGÍA;HERMENÉUTICA;ESTRUCTURALISMO;POSESTRUCTURALISMO;DECONSTRUCCIÓN;ONTOLOGÍA;EPISTEMOLOGÍA;METAFÍSICA;AXIOLOGÍA;TELEOLOGÍA;ÉTICA NICOMÁQUEA;CRÍTICA DE LA RAZÓN PURA;CRÍTICA DE LA RAZÓN PRÁCTICA;EL MUNDO COMO VOLUNTAD Y REPRESENTACIÓN;ASÍ HABLÓ ZARATUSTRA;MÁS ALLÁ DEL BIEN Y DEL MAL;EL SER Y LA NADA;SER Y TIEMPO;EL CONTRATO SOCIAL;EL ESPÍRITU DE LAS LEYES;EL PRÍNCIPE;LA REPÚBLICA;EL BANQUETE;EL FEDÓN;LA POÉTICA;LA POLÍTICA;LA METAFÍSICA;DISCURSO DEL MÉTODO;MEDITACIONES METAFÍSICAS;ÉTICA A NICÓMACO;EL ANTICRISTO;LA GENEALOGÍA DE LA MORAL;LA GAYA CIENCIA;EL NACIMIENTO DE LA TRAGEDIA;EL CAPITAL;EL MANIFIESTO COMUNISTA"], ["Ciencia ficción", "expert", "STALKER;SOLARIS;BRAZIL;DOCE MONOS;DARK CITY;GATTACA;HIJOS DE LOS HOMBRES;EX MACHINA;ANNIHILATION;LA INVENCIÓN DE MOREL;EL HOMBRE EN EL CASTILLO;CITA CON RAMA;EL FIN DE LA ETERNIDAD;LA MANO IZQUIERDA DE LA OSCURIDAD;LOS DESPOSEÍDOS;EL JUEGO DE ENDER;LA GUERRA INTERMINABLE;NEUROMANTE;SUEÑAN LOS ANDROIDES CON OVEJAS ELÉCTRICAS;EL BOSQUE OSCURO;EL FIN DE LA MUERTE;DUNE;EL MESÍAS DE DUNE;HIJOS DE DUNE;DIOS EMPERADOR DE DUNE;HEREJES DE DUNE;CASA CAPITULAR DUNE;LA FUNDACIÓN;FUNDACIÓN E IMPERIO;SEGUNDA FUNDACIÓN;LOS PROPIOS DIOSES;YO ROBOT;BÓVEDAS DE ACERO;EL SOL DESNUDO;LOS ROBOTS DEL AMANECER;ROBOTS E IMPERIO;UN MUNDO FELIZ;FAHRENHEIT;LA CARRETERA;EL DÍA DE LOS TRÍFIDOS;EL MUNDO SUMERGIDO;EL MUNDO DE CRISTAL;LA TIERRA MORIBUNDA;CRÓNICAS MARCIANAS;EL HOMBRE ILUSTRADO;EL SONIDO DEL TRUENO;LA PATRULLA DEL TIEMPO;LA GUÍA DEL AUTOESTOPISTA GALÁCTICO;EL RESTAURANTE DEL FIN DEL MUNDO;LA VIDA EL UNIVERSO Y TODO LO DEMÁS;INFORME SOBRE CIEGOS;LOS CANTOS DE HYPERION;LA CAÍDA DE HYPERION;ENDYMION;EL ASCENSO DE ENDYMION"], ["Terror", "expert", "EL HORROR DE DUNWICH;LA SOMBRA SOBRE INNSMOUTH;EN LAS MONTAÑAS DE LA LOCURA;LA LLAMADA DE CTHULHU;EL COLOR QUE CAYÓ DEL CIELO;EL CASO DE CHARLES DEXTER WARD;EL QUE SUSURRA EN LA OSCURIDAD;EL MODELO DE PICKMAN;LOS SUEÑOS EN LA CASA DE LA BRUJA;EL REY DE AMARILLO;EL GATO NEGRO;EL CORAZÓN DELATOR;LA MÁSCARA DE LA MUERTE ROJA;EL HORROR DE RED HOOK;EL SABUESO DE LOS BASKERVILLE;EL SIGNO DE LOS CUATRO;ESTUDIO EN ESCARLATA;EL VALLE DEL TERROR;EL MISTERIO DE EDWIN DROOD;LA SEMILLA DEL DIABLO;EL BEBÉ DE ROSEMARY;EL HORROR DE AMITYVILLE;LA CASA INFERNAL;DOCTOR SUEÑO;CARRIE;IT;MISERY;CUJO;CEMENTERIO DE ANIMALES;SALEM;LA ZONA MUERTA;LA NIEBLA;EL MISTERIO DE SALEM;EL CICLO DEL HOMBRE LOBO;EL TALISMÁN;LA MITAD OSCURA;LA TIENDA;DESPERACIÓN;LOS TOMMYKNOCKERS;LA CÚPULA;EL INSTITUTO;EL VISITANTE;LA HISTORIA DE LISEY;LA LARGA MARCHA;EL FUGITIVO;OJOS DE FUEGO;CHRISTINE;INSOMNIA"], ["Países y territorios", "medium", "ISLA DE LA ASCENSIÓN;ANDORRA;EMIRATOS ÁRABES UNIDOS;AFGANISTÁN;ANTIGUA Y BARBUDA;ANGUILA;ALBANIA;ARMENIA;ANGOLA;ANTÁRTIDA;ARGENTINA;SAMOA AMERICANA;AUSTRIA;AUSTRALIA;ARUBA;ISLAS ALAND;AZERBAIYÁN;BOSNIA Y HERZEGOVINA;BARBADOS;BANGLADÉS;BÉLGICA;BURKINA FASO;BULGARIA;BARÉIN;BURUNDI;BENÍN;SAN BARTOLOMÉ;BERMUDAS;BRUNÉI;BOLIVIA;CARIBE NEERLANDÉS;BRASIL;BAHAMAS;BUTÁN;ISLA BOUVET;BOTSUANA;BIELORRUSIA;BELICE;CANADÁ;ISLAS COCOS;REPÚBLICA DEMOCRÁTICA DEL CONGO;REPÚBLICA CENTROAFRICANA;CONGO;SUIZA;ISLAS COOK;CHILE;CAMERÚN;CHINA;COLOMBIA;ISLA CLIPPERTON;COSTA RICA;CUBA;CABO VERDE;CURAZAO;ISLA DE NAVIDAD;CHIPRE;CHEQUIA;ALEMANIA;DIEGO GARCÍA;YIBUTI;DINAMARCA;DOMINICA;REPÚBLICA DOMINICANA;ARGELIA;CEUTA Y MELILLA;ECUADOR;ESTONIA;EGIPTO;SÁHARA OCCIDENTAL;ERITREA;ESPAÑA;ETIOPÍA;UNIÓN EUROPEA;ZONA DEL EURO;FINLANDIA;FIYI;ISLAS MALVINAS;MICRONESIA;ISLAS FEROE;FRANCIA;GABÓN;REINO UNIDO;GRANADA;GEORGIA;GUAYANA FRANCESA;GUERNESEY;GHANA;GIBRALTAR;GROENLANDIA;GAMBIA;GUINEA;GUADALUPE;GUINEA ECUATORIAL;GRECIA;ISLAS GEORGIA DEL SUR Y SANDWICH DEL SUR;GUATEMALA;GUAM;GUYANA;ISLAS HEARD Y MCDONALD;HONDURAS;CROACIA;HAITÍ;HUNGRÍA;CANARIAS;INDONESIA;IRLANDA;ISRAEL;ISLA DE MAN;INDIA;TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO;IRAK;IRÁN;ISLANDIA;ITALIA;JERSEY;JAMAICA;JORDANIA;JAPÓN;KENIA;KIRGUISTÁN;CAMBOYA;KIRIBATI;COMORAS;SAN CRISTÓBAL Y NIEVES;COREA DEL NORTE;COREA DEL SUR;KUWAIT;ISLAS CAIMÁN;KAZAJISTÁN;LAOS;LÍBANO;SANTA LUCÍA;LIECHTENSTEIN;SRI LANKA;LIBERIA;LESOTO;LITUANIA;LUXEMBURGO;LETONIA;LIBIA;MARRUECOS;MÓNACO;MOLDAVIA;MONTENEGRO;SAN MARTÍN;MADAGASCAR;ISLAS MARSHALL;MACEDONIA DEL NORTE;MALI;MONGOLIA;ISLAS MARIANAS DEL NORTE;MARTINICA;MAURITANIA;MONTSERRAT;MALTA;MAURICIO;MALDIVAS;MALAUI;MÉXICO;MALASIA;MOZAMBIQUE;NAMIBIA;NUEVA CALEDONIA;NÍGER;ISLA NORFOLK;NIGERIA;NICARAGUA;PAÍSES BAJOS;NORUEGA;NEPAL;NAURU;NIUE;NUEVA ZELANDA;OMÁN;PANAMÁ;PERÚ;POLINESIA FRANCESA;PAPÚA NUEVA GUINEA;FILIPINAS;PAKISTÁN;POLONIA;SAN PEDRO Y MIQUELÓN;ISLAS PITCAIRN;PUERTO RICO;TERRITORIOS PALESTINOS;PORTUGAL;PALAOS;PARAGUAY;CATAR;TERRITORIOS ALEJADOS DE OCEANÍA;REUNIÓN;RUMANÍA;SERBIA;RUSIA;RUANDA;ARABIA SAUDÍ;ISLAS SALOMÓN;SEYCHELLES;SUDÁN;SUECIA;SINGAPUR;SANTA ELENA;ESLOVENIA;SVALBARD Y JAN MAYEN;ESLOVAQUIA;SIERRA LEONA;SAN MARINO;SENEGAL;SOMALIA;SURINAM;SUDÁN DEL SUR;SANTO TOMÉ Y PRÍNCIPE;EL SALVADOR;SINT MAARTEN;SIRIA;ESUATINI;TRISTÁN DE ACUÑA;ISLAS TURCAS Y CAICOS;CHAD;TERRITORIOS AUSTRALES FRANCESES;TOGO;TAILANDIA;TAYIKISTÁN;TOKELAU;TURKMENISTÁN;TÚNEZ;TONGA;TURQUÍA;TRINIDAD Y TOBAGO;TUVALU;TAIWÁN;TANZANIA;UCRANIA;UGANDA;NACIONES UNIDAS;ESTADOS UNIDOS;URUGUAY;UZBEKISTÁN;CIUDAD DEL VATICANO;SAN VICENTE Y LAS GRANADINAS;VENEZUELA;ISLAS VÍRGENES BRITÁNICAS;VIETNAM;VANUATU;WALLIS Y FUTUNA;SAMOA;PSEUDOACENTOS;PSEUDOBIDI;KOSOVO;YEMEN"], ["Lenguas del mundo", "expert", "AFAR;ABJASIO;ACHENÉS;ACOLI;ADANGME;ADIGUÉ;AVÉSTICO;AFRIKÁANS;AFRIHILI;AGHEM;AINU;AKAN;ACADIO;ALEUTIANO;ALTÁI MERIDIONAL;AMÁRICO;ARAGONÉS;INGLÉS ANTIGUO;OBOLO;ANGIKA;ÁRABE;ARAMEO;MAPUCHE;ARAPAHO;ÁRABE NAJDÍ;ARAHUACO;ASAMÉS;ASTURIANO;ATIKAMEKW;AVAR;AVADHI;AIMARA;AZERBAIYANO;BASKIR;BALUCHI;BALINÉS;BASAA;BAMÚN;GHOMALA;BIELORRUSO;BEJA;BEMBA;BENA;BAFUT;BÚLGARO;HARYANVI;BALUCHI OCCIDENTAL;BHOYAPURÍ;BISLAMA;BICOL;BINI;SIKSIKA;ANII;BAMBARA;BENGALÍ;TIBETANO;BRETÓN;BRAJ;BODO;BOSNIO;AKOOSE;BURIATO;BUGINÉS;BULU;BLIN;MEDUMBA;CATALÁN;CADDO;CARIBE;CAYUGA;ATSAM;CHAKMA;CHECHENO;CEBUANO;CHIGA;CHAMORRO;CHIBCHA;CHAGATÁI;TRUKÉS;MARÍ;JERGA CHINUK;CHOCTAW;CHIPEWYAN;CHEROQUI;CHEYENE;KURDO SORANI;CHILCOTIN;CORSO;COPTO;CREE;MICHIF;TÁRTARO DE CRIMEA;CREE SURORIENTAL;CREE DE LAS LLANURAS;CREE NORORIENTAL;CREE MOOSE;ALGONQUINO DE CAROLINA;CRIOLLO SEYCHELENSE;CHECO;CASUBIO;CREE DE LOS PANTANOS;ESLAVO ECLESIÁSTICO;CHUVASIO;GALÉS;DANÉS;DAKOTA;DARGVA;TAITA;ALEMÁN;DELAWARE;SLAVE;DOGRIB;DINKA;ZARMA;DOGRI;BAJO SORBIO;DUALA;NEERLANDÉS MEDIO;DIVEHI;DIULA;DZONGKHA;DAZAGA;EMBU;EFIK;EGIPCIO ANTIGUO;EKAJUK;GRIEGO;ELAMITA;INGLÉS;INGLÉS MEDIO;ESPERANTO;ESPAÑOL;ESTONIO;EUSKERA;EWONDO;PERSA;FANG;FANTI;FULA;FINÉS;FILIPINO;FIYIANO;FEROÉS;FRANCÉS;FRANCÉS CAJÚN;FRANCÉS MEDIO;FRANCÉS ANTIGUO;FRISÓN SEPTENTRIONAL;FRISÓN ORIENTAL;FRIULANO;FRISÓN OCCIDENTAL;IRLANDÉS;GAGAUZO;CHINO GAN;GAYO;GBAYA;GAÉLICO ESCOCÉS;GEEZ;GILBERTÉS;GALLEGO;ALTO ALEMÁN MEDIO;GUARANÍ;ALTO ALEMÁN ANTIGUO;GONDI;GORONTALO;GÓTICO;GREBO;GRIEGO ANTIGUO;ALEMÁN SUIZO;GUYARATÍ;GUSII;MANÉS;KUTCHIN;HAUSA;HAIDA;CHINO HAKKA;HAWAIANO;HAIDA MERIDIONAL;HEBREO;HINDI;HILIGAYNON;HITITA;HMONG;HIRI MOTU;CROATA;ALTO SORBIO;CHINO XIANG;CRIOLLO HAITIANO;HÚNGARO;HUPA;HALKOMELEM;ARMENIO;HERERO;INTERLINGUA;IBAN;IBIBIO;INDONESIO;INTERLINGUE;IGBO;YI DE SICHUÁN;INUPIAQ;INUIT DEL OESTE DE CANADÁ;ILOCANO;INGUSH;ISLANDÉS;ITALIANO;INUKTITUT;JAPONÉS;LOJBAN;NGOMBA;MACHAME;JAVANÉS;GEORGIANO;KARAKALPAKO;CABILEÑO;KACHIN;KAMBA;KAWI;KABARDIANO;KANEMBU;TYAP;MAKONDE;CRIOLLO CABOVERDIANO;KORO;KONGO;KÁINGANG;KHASI;KOTANÉS;KOYRA CHIINI;KIKUYU;KUANYAMA;KAZAJO;KAKO;GROENLANDÉS;KALENJIN;JEMER;KIMBUNDU;CANARÉS;COREANO;KOMI PERMIO;KONKANÍ;KOSRAEANO;KPELLE;KANURI;CARELIO;KURUKH;CACHEMIR;SHAMBALA;BAFIA;KURDO;KUMYK;KUTENAI;KOMI;CÓRNICO;KUVI;KIRGUÍS;LATÍN;LADINO;LANGI;LAHNDA"], ["Monedas del mundo", "expert", "PESETA ANDORRANA;DÍRHAM DE LOS EMIRATOS ÁRABES UNIDOS;AFGANI AFGANO;LEK ALBANÉS;DRAM ARMENIO;FLORÍN ANTILLANO;KUANZA ANGOLEÑO;AUSTRAL ARGENTINO;PESO ARGENTINO;CHELÍN AUSTRIACO;DÓLAR AUSTRALIANO;FLORÍN ARUBEÑO;MANAT AZERBAIYANO;DINAR BOSNIO;MARCO CONVERTIBLE DE BOSNIA Y HERZEGOVINA;DÓLAR BARBADENSE;TAKA BANGLADESÍ;FRANCO BELGA;LEV FUERTE BÚLGARO;LEVA BÚLGARA;DINAR BAREINÍ;FRANCO BURUNDÉS;DÓLAR BERMUDEÑO;DÓLAR BRUNEANO;BOLIVIANO;PESO BOLIVIANO;MVDOL BOLIVIANO;CRUZADO BRASILEÑO;REAL BRASILEÑO;NUEVO CRUZADO BRASILEÑO;CRUCEIRO BRASILEÑO;DÓLAR BAHAMEÑO;GULTRUM BUTANÉS;KYAT BIRMANO;PULA BOTSUANO;RUBLO BIELORRUSO;DÓLAR BELICEÑO;DÓLAR CANADIENSE;FRANCO CONGOLEÑO;EURO WIR;FRANCO SUIZO;FRANCO WIR;UNIDAD DE FOMENTO CHILENA;PESO CHILENO;YUAN RENMINBI;PESO COLOMBIANO;UNIDAD DE VALOR REAL COLOMBIANA;COLÓN COSTARRICENSE;ANTIGUO DINAR SERBIO;CORONA FUERTE CHECOSLOVACA;PESO CUBANO CONVERTIBLE;PESO CUBANO;ESCUDO DE CABO VERDE;LIBRA CHIPRIOTA;CORONA CHECA;OSTMARK DE ALEMANIA DEL ESTE;MARCO ALEMÁN;FRANCO YIBUTIANO;CORONA DANESA;PESO DOMINICANO;DINAR ARGELINO;SUCRE ECUATORIANO;CORONA ESTONIA;LIBRA EGIPCIA;NAKFA ERITREO;PESETA ESPAÑOLA;BIR ETÍOPE;MARCO FINLANDÉS;DÓLAR FIYIANO;LIBRA MALVINENSE;FRANCO FRANCÉS;LIBRA ESTERLINA;KUPON LARIT GEORGIANO;LARI GEORGIANO;CEDI GHANÉS;LIBRA GIBRALTAREÑA;DALASI GAMBIANO;FRANCO GUINEANO;SYLI GUINEANO;EKUELE DE GUINEA ECUATORIAL;DRACMA GRIEGO;QUETZAL GUATEMALTECO;ESCUDO DE GUINEA PORTUGUESA;DÓLAR GUYANÉS;DÓLAR HONGKONÉS;LEMPIRA HONDUREÑO;DINAR CROATA;KUNA CROATA;GURDE HAITIANO;FORINTO HÚNGARO;RUPIA INDONESIA;LIBRA IRLANDESA;LIBRA ISRAELÍ;NUEVO SÉQUEL ISRAELÍ;RUPIA INDIA;DINAR IRAQUÍ;RIAL IRANÍ;CORONA ISLANDESA;LIRA ITALIANA;DÓLAR JAMAICANO;DINAR JORDANO;YEN JAPONÉS;CHELÍN KENIANO;SOM KIRGUÍS;RIEL CAMBOYANO;FRANCO COMORENSE;WON NORCOREANO;WON SURCOREANO;DINAR KUWAITÍ;DÓLAR DE LAS ISLAS CAIMÁN;TENGUE KAZAJO;KIP LAOSIANO;LIBRA LIBANESA;RUPIA ESRILANQUESA;DÓLAR LIBERIANO;LOTI LESOTENSE;LITAS LITUANO;TALONAS LITUANO;FRANCO CONVERTIBLE LUXEMBURGUÉS;FRANCO LUXEMBURGUÉS;FRANCO FINANCIERO LUXEMBURGUÉS;LATS LETÓN;RUBLO LETÓN;DINAR LIBIO;DÍRHAM MARROQUÍ;FRANCO MARROQUÍ;LEU MOLDAVO;ARIARI MALGACHE;FRANCO MALGACHE;DINAR MACEDONIO;FRANCO MALÍ;KIAT DE MYANMAR;TUGRIK MONGOL;PATACA MACAENSE;UGUIYA MAURITANO;LIRA MALTESA;LIBRA MALTESA;RUPIA MAURICIANA;RUFIYA MALDIVA;KUACHA MALAUÍ;PESO MEXICANO;RINGIT MALASIO;ESCUDO MOZAMBIQUEÑO;ANTIGUO METICAL MOZAMBIQUEÑO;METICAL MOZAMBIQUEÑO;DÓLAR NAMIBIO;NAIRA NIGERIANO;CÓRDOBA ORO;FLORÍN NEERLANDÉS;CORONA NORUEGA"], ["Sistemas de escritura", "expert", "ÁDLAM;NASTALIQ;BATAK;SÍMBOLOS BLIS;BOPOMOFO;BRAHMI;BRAILLE;BUHID;SILABARIOS ABORÍGENES CANADIENSES UNIFICADOS;CARIO;CIRTH;CHIPRIOTA;CIRÍLICO;CIRÍLICO DEL ANTIGUO ESLAVO ECLESIÁSTICO;DEVANAGARI;DESERET;EGIPCIO DEMÓTICO;EGIPCIO HIERÁTICO;JEROGLÍFICOS EGIPCIOS;ETIÓPICO;GEORGIANO ECLESIÁSTICO;GLAGOLÍTICO;GURMUJI;HAN CON BOPOMOFO;HANGUL"]];
+    const RAW_CATALOG = []; // El catálogo revisado lo carga motor.js.
     "use strict";
     const $ = s => document.querySelector(s), MAX_ERRORS = 9, STORAGE_KEY = 'ahorcado-2000-v1', LEVEL_KEY = 'ahorcado-nivel-v1', THEME_KEY = 'hangman-theme';
     const LEVELS = { easy: ['FÁCIL', '#67A67D'], medium: ['MEDIA', '#D3A64D'], hard: ['DIFÍCIL', '#D67F52'], expert: ['MUY DIFÍCIL', '#B75A65'] };
-    function normalize(s) { return s.toUpperCase().replace(/Ñ/g, '\uE000').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\uE000/g, 'Ñ').replace(/\s+/g, ' ').trim() }
+    function normalize(s) { return s.toUpperCase().replace(/Ñ/g, '\uE000').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\uE000/g, 'Ñ').replace(/[^A-ZÑ ]/g, ' ').replace(/\s+/g, ' ').trim() }
     function read(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback } catch { return fallback } }
     function save(key, value) { try { localStorage.setItem(key, JSON.stringify(value)) } catch { } }
     const catalog = [], seen = new Set();
     for (const [category, level, content] of RAW_CATALOG) { for (const item of content.split(';')) { const answer = item.trim(), key = normalize(answer); if (!key || seen.has(key)) continue; seen.add(key); catalog.push({ id: key, text: answer, category, level }) } }
     const byLevel = { all: catalog, easy: catalog.filter(x => x.level === 'easy'), medium: catalog.filter(x => x.level === 'medium'), hard: catalog.filter(x => x.level === 'hard'), expert: catalog.filter(x => x.level === 'expert') };
     let used = new Set(read(STORAGE_KEY, []).filter(x => seen.has(x))), current = null, guessed = new Set(), errors = 0, finished = false, timeout = null;
-    const input = $('#guess-input'), parts = [...document.querySelectorAll('.hangman .piece')], word = $('#word'), usedElement = $('#used-letters');
+    const input = $('#guess-input'), parts = [...document.querySelectorAll('.hangman .piece')], word = $('#word'), usedElement = $('#letter-keyboard');
     function selectChallenge() { const level = $('#level-select').value, pool = byLevel[level], available = pool.filter(x => !used.has(x.id)); if (!available.length) { for (const x of pool) used.delete(x.id); available.push(...pool) } const chosen = available[Math.floor(Math.random() * available.length)]; used.add(chosen.id); save(STORAGE_KEY, [...used]); return chosen }
     function catalogStatus() { const pool = byLevel[$('#level-select').value]; $('#catalog-status').textContent = `${pool.filter(x => !used.has(x.id)).length.toLocaleString('es-ES')} de ${pool.length.toLocaleString('es-ES')} enigmas pendientes · Sin repetir` }
-    function setTheme(t) { const dark = t === 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light'; $('#theme-toggle').setAttribute('aria-checked', String(dark)); $('#theme-toggle').setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro'); document.querySelector('meta[name="theme-color"]').content = dark ? '#121212' : '#f7f7f5'; try { localStorage.setItem(THEME_KEY, t) } catch { } }
-    let theme = 'light'; try { theme = localStorage.getItem(THEME_KEY) || 'light' } catch { } setTheme(theme); $('#theme-toggle').addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+    function setTheme(t) { const dark = t === 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light'; document.querySelectorAll('.theme-toggle').forEach(toggle => { toggle.setAttribute('aria-checked', String(dark)); toggle.setAttribute('aria-label', dark ? 'Activar modo claro' : 'Activar modo oscuro'); }); document.querySelector('meta[name="theme-color"]').content = dark ? '#121212' : '#f5f1ea'; try { localStorage.setItem(THEME_KEY, t) } catch { } }
+    let theme = 'light'; try { theme = localStorage.getItem(THEME_KEY) || 'light' } catch { } setTheme(theme); document.querySelectorAll('.theme-toggle').forEach(toggle => toggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark')));
     function drawWord(reveal = false) { word.replaceChildren(); for (const w of current.text.split(' ')) { const group = document.createElement('div'); group.className = 'word-group'; for (const ch of w) { const span = document.createElement('span'), key = normalize(ch), letter = /^[A-ZÑ]$/.test(key), known = guessed.has(key); span.className = 'letter'; if (!letter || known || reveal) { span.textContent = ch; span.classList.add(reveal && letter && !known ? 'missed' : 'revealed') } else span.setAttribute('aria-label', 'Letra oculta'); group.append(span) } word.append(group) } fitWord() }
     function fitWord() { const max = word.clientWidth; if (!max) return; for (const g of word.children) { g.style.zoom = ''; const width = g.scrollWidth; if (width > max) g.style.zoom = Math.max(.25, max / width) } }
-    function drawUsed() { usedElement.replaceChildren(); $('#used-count').textContent = String(guessed.size).padStart(2, '0'); if (!guessed.size) { const s = document.createElement('span'); s.className = 'empty-used'; s.textContent = 'Todavía no has utilizado ninguna letra.'; usedElement.append(s); return } const ans = normalize(current.text); for (const ch of guessed) { const s = document.createElement('span'); s.className = 'used-letter ' + (ans.includes(ch) ? 'correct' : 'wrong'); s.textContent = ch; usedElement.append(s) } }
+    function drawUsed() {
+      if (!usedElement.children.length) {
+        for (const row of ['QWERTYUIOP', 'ASDFGHJKLÑ', 'ZXCVBNM']) {
+          const group = document.createElement('div'); group.className = 'keyboard-row';
+          for (const letter of row) {
+            const button = document.createElement('button');
+            button.type = 'button'; button.className = 'letter-key'; button.dataset.letter = letter; button.textContent = letter;
+            button.addEventListener('click', () => chooseLetter(letter)); group.append(button);
+          }
+          usedElement.append(group);
+        }
+      }
+      syncKeyboard();
+    }
+    function syncKeyboard() {
+      const answer = current ? normalize(current.text) : '';
+      const blocked = !runActive || finished || input.disabled;
+      $('#used-count').textContent = String(guessed.size).padStart(2, '0');
+      for (const button of usedElement.querySelectorAll('.letter-key')) {
+        const letter = button.dataset.letter, tried = guessed.has(letter), correct = tried && answer.includes(letter);
+        button.classList.toggle('correct', correct); button.classList.toggle('wrong', tried && !correct);
+        button.disabled = blocked || tried;
+        button.setAttribute('aria-label', `${letter}: ${tried ? correct ? 'acertada' : 'fallada' : 'disponible'}`);
+      }
+      $('#resolve-open').disabled = blocked;
+    }
+    function focusAnswer() {
+      if ($('#solution-dialog').open) input.focus({ preventScroll: true });
+      else usedElement.querySelector('.letter-key:not(:disabled)')?.focus({ preventScroll: true });
+    }
+    function chooseLetter(letter) {
+      if (!runActive || finished || input.disabled || guessed.has(letter) || playerDialog.open || rankingDialog.open || $('#solution-dialog').open || $('#overlay').classList.contains('show')) return;
+      input.value = letter; submit({ preventDefault() { } });
+    }
     function drawProgress() { $('#remaining').textContent = String(MAX_ERRORS - errors).padStart(2, '0'); $('#stage-number').textContent = String(errors).padStart(2, '0'); $('#progress-text').textContent = `${errors} de ${MAX_ERRORS} errores`; $('#progress-fill').style.width = `${errors / MAX_ERRORS * 100}%`; parts.forEach((p, i) => p.classList.toggle('visible', i < errors)) }
     function feedback(t, type = '') { $('#feedback').textContent = t; $('#feedback').className = 'feedback ' + type }
     function solved() { return [...normalize(current.text)].every(c => !/^[A-ZÑ]$/.test(c) || guessed.has(c)) }
-    function finish(won, direct = false) { finished = true; input.disabled = true; $('#guess-button').disabled = true; if (!won || direct) drawWord(true); $('#result-symbol').textContent = won ? '✓' : '×'; $('#result-title').textContent = won ? 'VICTORIA' : 'GAME OVER'; $('#result-eyebrow').textContent = won ? 'ENIGMA RESUELTO' : 'FIN DE LA PARTIDA'; $('#result-description').textContent = won ? (direct ? 'Has resuelto el enigma directamente. Una jugada perfecta.' : 'Has descubierto todas las letras antes de completar la horca.') : 'Has agotado tus nueve oportunidades. La figura está completa.'; $('#result-answer').textContent = current.text; timeout = setTimeout(() => { $('#overlay').classList.add('show'); $('#overlay').setAttribute('aria-hidden', 'false'); $('#play-again').focus({ preventScroll: true }) }, 850) }
-    function newGame() { clearTimeout(timeout); current = selectChallenge(); guessed = new Set(); errors = 0; finished = false; $('#overlay').classList.remove('show'); $('#overlay').setAttribute('aria-hidden', 'true'); $('#category').textContent = current.category; $('#difficulty-name').textContent = LEVELS[current.level][0]; $('#difficulty-dot').style.setProperty('--difficulty-color', LEVELS[current.level][1]); input.disabled = false; $('#guess-button').disabled = false; input.value = ''; feedback('Tienes 9 oportunidades. Elige bien.'); drawWord(); drawUsed(); drawProgress(); catalogStatus(); input.focus({ preventScroll: true }) }
-    function submit(event) { event.preventDefault(); if (finished) return; const value = normalize(input.value); input.value = ''; if (!value || !/^[A-ZÑ ]+$/.test(value)) { feedback('Introduce una letra o una solución válida.'); return } if (value.length === 1) { if (guessed.has(value)) { feedback(`Ya has probado la letra ${value}.`); return } guessed.add(value); if (normalize(current.text).includes(value)) feedback(`Correcto. La letra ${value} aparece en la respuesta.`, 'correct'); else { errors++; feedback(`La letra ${value} no aparece. Pierdes un intento.`) } drawWord(); drawUsed(); drawProgress(); if (solved()) finish(true); else if (errors >= MAX_ERRORS) finish(false) } else if (value === normalize(current.text)) { feedback('¡Solución correcta!', 'correct'); finish(true, true) } else { errors++; feedback('Solución incorrecta. Pierdes un intento.'); drawProgress(); if (errors >= MAX_ERRORS) finish(false) } if (!finished) input.focus({ preventScroll: true }) }
-    $('#guess-form').addEventListener('submit', submit); $('#restart').addEventListener('click', newGame); $('#play-again').addEventListener('click', newGame); $('#level-select').addEventListener('change', e => { save(LEVEL_KEY, e.target.value); newGame() }); input.addEventListener('input', () => { input.value = input.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ ]/g, '').replace(/\s+/g, ' ').replace(/^\s/, '') }); window.addEventListener('resize', fitWord); const savedLevel = read(LEVEL_KEY, 'all'); $('#level-select').value = byLevel[savedLevel] ? savedLevel : 'all'; console.info('EL AHORCADO — ENIGMAS ÚNICOS:', catalog.length); console.table(Object.fromEntries(Object.entries(byLevel).map(([k, v]) => [k, v.length]))); if (catalog.length !== 2000) console.error('Catálogo incompleto:', catalog.length); newGame();
+    function finish(won, direct = false) {
+      if (finished || !runActive) return;
+      finished = true; input.disabled = true; $('#guess-button').disabled = true; syncKeyboard(); if ($('#solution-dialog').open) $('#solution-dialog').close();
+      if (!won || direct) drawWord(true);
+      if (won) { runScore++; updatePlayer(); }
+      $('#result-symbol').textContent = won ? '✓' : '×';
+      $('#result-title').textContent = won ? 'VICTORIA' : 'GAME OVER';
+      $('#result-eyebrow').textContent = won ? 'ENIGMA RESUELTO' : 'FIN DE LA PARTIDA';
+      $('#result-description').textContent = won ? (direct ? 'Has resuelto el enigma directamente. Una jugada perfecta.' : 'Has descubierto todas las letras antes de completar la horca.') : 'Has agotado tus nueve oportunidades. La figura está completa.';
+      $('#result-answer').textContent = current.text;
+      $('#result-run').textContent = `${runScore} palabras resueltas en esta partida.`;
+      timeout = setTimeout(() => {
+        if (!won) { endRun(); return; }
+        $('#overlay').classList.add('show'); $('#overlay').setAttribute('aria-hidden', 'false');
+        $('#play-again').focus({ preventScroll: true });
+      }, 850);
+    }
+    function newGame() { if (!runActive) return; clearTimeout(timeout); current = selectChallenge(); guessed = new Set(); errors = 0; finished = false; $('#overlay').classList.remove('show'); $('#overlay').setAttribute('aria-hidden', 'true'); $('#category').textContent = current.category; $('#difficulty-name').textContent = LEVELS[current.level][0]; $('#difficulty-dot').style.setProperty('--difficulty-color', LEVELS[current.level][1]); input.disabled = false; $('#guess-button').disabled = false; input.value = ''; feedback('Tienes 9 oportunidades. Elige bien.'); drawWord(); drawUsed(); drawProgress(); catalogStatus(); focusAnswer() }
+    function submit(event) { if (window.verifiedSubmit) return window.verifiedSubmit(event); event.preventDefault(); if (finished || !runActive || input.disabled || playerDialog.open || rankingDialog.open) return; const value = normalize(input.value); input.value = ''; if (!value || !/^[A-ZÑ ]+$/.test(value)) { feedback('Introduce una letra o una solución válida.'); return } if ($('#solution-dialog').open) $('#solution-dialog').close(); if (value.length === 1) { if (guessed.has(value)) { feedback(`Ya has probado la letra ${value}.`); return } guessed.add(value); if (normalize(current.text).includes(value)) feedback(`Correcto. La letra ${value} aparece en la respuesta.`, 'correct'); else { errors++; feedback(`La letra ${value} no aparece. Pierdes un intento.`) } drawWord(); drawUsed(); drawProgress(); if (solved()) finish(true); else if (errors >= MAX_ERRORS) finish(false) } else if (value === normalize(current.text)) { feedback('¡Solución correcta!', 'correct'); finish(true, true) } else { errors++; feedback('Solución incorrecta. Pierdes un intento.'); drawProgress(); if (errors >= MAX_ERRORS) finish(false) } syncKeyboard(); if (!finished) focusAnswer() }
+
+    // API PHP: carpeta api junto al index del juego.
+    const RANKING_API = './api/ranking.php', PLAYER_KEY = 'ahorcado-jugador-v1';
+    let playerName = read(PLAYER_KEY, ''), runScore = 0, runActive = false;
+    let pendingScore = null, savingScore = false, lastRecord = null, rankingRequest = 0;
+    let returnToPlayer = false;
+    const playerDialog = $('#player-dialog'), rankingDialog = $('#ranking-dialog');
+    function updatePlayer() {
+      $('#player-label').textContent = playerName || 'SIN JUGADOR';
+      $('#score-label').textContent = `${runScore} PALABRAS RESUELTAS`;
+    }
+    function requestPlayer() {
+      clearTimeout(timeout);
+      $('#overlay').classList.remove('show');
+      $('#overlay').setAttribute('aria-hidden', 'true');
+      $('#player-name').value = typeof playerName === 'string' ? playerName : '';
+      $('#player-error').textContent = '';
+      if (!playerDialog.open) playerDialog.showModal();
+      $('#player-name').focus();
+    }
+    async function rankingFetch(options = {}) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
+      try {
+        const response = await fetch(RANKING_API, { ...options, signal: controller.signal, cache: 'no-store' });
+        let data;
+        try { data = await response.json(); }
+        catch { throw new Error('No se ha podido leer la clasificación. Reintenta más tarde.'); }
+        if (!response.ok) throw new Error(data.error || 'No se ha podido consultar el ranking.');
+        return data;
+      } catch (error) {
+        if (error.name === 'AbortError') throw new Error('El servidor ha tardado demasiado en responder.');
+        throw error;
+      } finally { clearTimeout(timer); }
+    }
+    function drawRanking(rows) {
+      if (!Array.isArray(rows)) throw new Error('El servidor ha devuelto un ranking no válido.');
+      const body = $('#ranking-body'); body.replaceChildren();
+      if (!rows.length) {
+        const tr = document.createElement('tr'), td = document.createElement('td');
+        td.colSpan = 3; td.className = 'empty-ranking'; td.textContent = 'Todavía no hay partidas. ¡Estrena el ranking!';
+        tr.append(td); body.append(tr); return;
+      }
+      const fragment = document.createDocumentFragment();
+      rows.slice(0, 5).forEach((row, index) => {
+        const tr = document.createElement('tr');
+        if (row.id === lastRecord?.id) tr.className = 'own-score';
+        [row.posicion ?? index + 1, row.nombre, row.palabrasResueltas].forEach(value => {
+          const td = document.createElement('td'); td.textContent = String(value); tr.append(td);
+        });
+        fragment.append(tr);
+      });
+      body.append(fragment);
+      body.querySelector('.own-score')?.scrollIntoView({ block: 'nearest' });
+    }
+    async function loadRanking() {
+      const request = ++rankingRequest;
+      $('#ranking-status').textContent = 'Cargando puntuaciones…';
+      $('#ranking-refresh').disabled = true;
+      try {
+        const rows = await rankingFetch();
+        if (request !== rankingRequest) return;
+        drawRanking(rows);
+        $('#ranking-status').textContent = `${rows.length} partidas registradas.`;
+      } catch (error) {
+        if (request === rankingRequest) $('#ranking-status').textContent = 'No se ha podido cargar el ranking. Pulsa ACTUALIZAR para intentarlo de nuevo.';
+      } finally {
+        if (request === rankingRequest) $('#ranking-refresh').disabled = false;
+      }
+    }
+    function showRanking() {
+      returnToPlayer = playerDialog.open;
+      if (returnToPlayer) playerDialog.close();
+      $('#ranking-summary').hidden = runActive || (!pendingScore && !lastRecord);
+      if (!runActive && (pendingScore || lastRecord)) {
+        const record = pendingScore || lastRecord;
+        $('#ranking-summary').textContent = `${record.nombre} · ${record.palabrasResueltas} palabras resueltas`;
+      }
+      $('#ranking-action').textContent = returnToPlayer ? 'VOLVER →' : runActive ? 'SEGUIR JUGANDO →' : 'NUEVA PARTIDA →';
+      $('#ranking-action').disabled = savingScore;
+      if (!rankingDialog.open) rankingDialog.showModal();
+      if (pendingScore) saveRun(); else loadRanking();
+    }
+    async function saveRun() {
+      if (!pendingScore || savingScore) return;
+      savingScore = true; ++rankingRequest;
+      $('#ranking-status').textContent = 'Guardando tu puntuación…';
+      $('#ranking-refresh').disabled = true; $('#ranking-action').disabled = true;
+      $('#ranking-refresh').textContent = 'REINTENTAR GUARDADO';
+      try {
+        const data = await rankingFetch({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(pendingScore) });
+        if (!data.partida || !Array.isArray(data.ranking)) throw new Error('La respuesta del guardado no es válida.');
+        lastRecord = data.partida; pendingScore = null;
+        drawRanking(data.ranking);
+        $('#ranking-summary').hidden = false;
+        $('#ranking-summary').textContent = `${lastRecord.nombre} · ${lastRecord.palabrasResueltas} palabras resueltas · Puesto ${data.posicion}`;
+        $('#ranking-status').textContent = 'Tu puntuación se ha guardado.';
+        $('#ranking-refresh').textContent = 'ACTUALIZAR';
+      } catch (error) {
+        $('#ranking-status').textContent = 'No se ha confirmado el guardado de tu puntuación. Pulsa REINTENTAR GUARDADO para intentarlo de nuevo.';
+      } finally {
+        savingScore = false;
+        $('#ranking-refresh').disabled = false; $('#ranking-action').disabled = Boolean(pendingScore);
+      }
+    }
+    function endRun() {
+      if (!runActive) return;
+      clearTimeout(timeout); runActive = false; finished = true;
+      input.disabled = true; $('#guess-button').disabled = true;
+      pendingScore = { nombre: playerName, palabrasResueltas: runScore }; lastRecord = null;
+      $('#overlay').classList.remove('show'); $('#overlay').setAttribute('aria-hidden', 'true');
+      showRanking();
+    }
+    function closeRanking() {
+      if (savingScore) return;
+      rankingDialog.close();
+      if (returnToPlayer) { returnToPlayer = false; requestPlayer(); }
+      else if (runActive) { if ($('#overlay').classList.contains('show')) $('#play-again').focus(); else focusAnswer(); }
+      else if (!pendingScore) requestPlayer();
+      else $('#ranking-open').focus();
+    }
+    $('#player-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = $('#player-name').value.replace(/\s+/g, ' ').trim();
+      if (!name || [...name].length > 24 || /[\u0000-\u001F\u007F]/.test(name)) {
+        $('#player-error').textContent = 'Escribe un nombre de entre 1 y 24 caracteres.'; return;
+      }
+      playerName = name; save(PLAYER_KEY, name); runScore = 0; runActive = true; lastRecord = null;
+      playerDialog.close(); updatePlayer(); newGame();
+    });
+    playerDialog.addEventListener('cancel', event => event.preventDefault());
+    $('#ranking-open').addEventListener('click', showRanking);
+    $('#player-ranking').addEventListener('click', showRanking);
+    $('#ranking-refresh').addEventListener('click', () => pendingScore ? saveRun() : loadRanking());
+    $('#ranking-close').addEventListener('click', closeRanking);
+    rankingDialog.addEventListener('cancel', event => { event.preventDefault(); closeRanking(); });
+    $('#ranking-action').addEventListener('click', () => { if (!pendingScore && !savingScore) closeRanking(); });
+    $('#end-run').addEventListener('click', endRun);
+    $('#guess-form').addEventListener('submit', submit);
+    $('#restart').addEventListener('click', () => runActive ? endRun() : pendingScore ? showRanking() : requestPlayer());
+    $('#play-again').addEventListener('click', () => newGame());
+    $('#level-select').addEventListener('change', e => { save(LEVEL_KEY, e.target.value); if (runActive && !finished && !window.verifiedActive) newGame(); });
+    input.addEventListener('input', () => { input.value = input.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÜÑ ]/g, '').replace(/\s+/g, ' ').replace(/^\s/, '') });
+    window.addEventListener('resize', fitWord);
+    const savedLevel = read(LEVEL_KEY, 'all'); $('#level-select').value = byLevel[savedLevel] ? savedLevel : 'all';
+
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Tab' || !$('#overlay').classList.contains('show') || rankingDialog.open) return;
+      const first = $('#play-again'), last = $('#end-run');
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    input.disabled = true; $('#guess-button').disabled = true; updatePlayer(); requestPlayer();
+    $('#resolve-open').addEventListener('click', () => {
+      if (!runActive || finished || input.disabled) return;
+      input.value = ''; $('#solution-dialog').showModal(); input.focus();
+    });
+    $('#solution-close').addEventListener('click', () => { $('#solution-dialog').close(); $('#resolve-open').focus(); });
+    $('#solution-dialog').addEventListener('cancel', () => { input.value = ''; });
+    new MutationObserver(syncKeyboard).observe(input, { attributes: true, attributeFilter: ['disabled'] });
+    document.addEventListener('keydown', event => {
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || document.querySelector('dialog[open]') || $('#overlay').classList.contains('show')) return;
+      const target = event.target;
+      if (target instanceof Element && (target.closest('input,textarea,select') || target.isContentEditable)) return;
+      const letter = normalize(event.key);
+      if (/^[A-ZÑ]$/.test(letter)) { event.preventDefault(); chooseLetter(letter); }
+    });
+    drawUsed();
+
+    // Mover los mismos controles conserva sus eventos y el estado del motor.
+    const compactView = matchMedia('(max-width:64rem)'), optionsDialog = $('#options-dialog');
+    const headerControls = $('.header-actions'), levelControls = $('.level-row');
+    const headerAnchor = document.createComment('controles de cabecera'), levelAnchor = document.createComment('dificultad');
+    headerControls.before(headerAnchor); levelControls.before(levelAnchor);
+    function adaptControls() {
+      if (compactView.matches) $('#options-controls').append(headerControls, levelControls);
+      else { if (optionsDialog.open) optionsDialog.close(); headerAnchor.after(headerControls); levelAnchor.after(levelControls); }
+    }
+    $('#mobile-options').addEventListener('click', () => optionsDialog.showModal());
+    $('#options-close').addEventListener('click', () => optionsDialog.close());
+    optionsDialog.addEventListener('close', () => { if (compactView.matches) $('#mobile-options').focus(); });
+    headerControls.addEventListener('click', event => { if (event.target.closest('#ranking-open,#restart') && optionsDialog.open) optionsDialog.close(); }, true);
+    compactView.addEventListener('change', adaptControls); adaptControls();
+
   </script>
+  <script src="./motor.js?v=6"></script>
 </body>
 
 </html>

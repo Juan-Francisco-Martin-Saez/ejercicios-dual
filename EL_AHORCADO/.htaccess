@@ -1,0 +1,24 @@
+# Guardar junto a index.html, en la raíz del juego.
+Options -Indexes
+DirectoryIndex index.html
+
+# Bloqueo de los datos privados incluso si falta el .htaccess de esa carpeta.
+RewriteEngine On
+RewriteRule ^api/datos(?:/|$) - [F,L,NC]
+
+# Archivos ocultos, copias, fuentes auxiliares y mapas de código.
+<FilesMatch "(?i)(^\.|~$|\.(bak|backup|old|orig|save|swp|swo|log|lock|sql|ini|env|map|zip|tar|gz|7z)$)">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Content-Security-Policy "frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+# Helper interno: PHP puede incluirlo, pero no se sirve por HTTP.
+<Files "sesion.php">
+    Require all denied
+</Files>
