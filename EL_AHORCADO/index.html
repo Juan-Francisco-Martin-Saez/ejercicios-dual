@@ -3250,6 +3250,13 @@ input,textarea,[contenteditable=true] { user-select:text;-webkit-user-select:tex
     $('#options-close').addEventListener('click', () => optionsDialog.close());
     optionsDialog.addEventListener('close', () => { if (compactView.matches) $('#mobile-options').focus(); });
     headerControls.addEventListener('click', event => { if (event.target.closest('#ranking-open,#restart') && optionsDialog.open) optionsDialog.close(); }, true);
+    const menuModeButton = $('#mode-toggle');
+    let previousMenuMode = menuModeButton.dataset.mode;
+    new MutationObserver(() => {
+      const nextMode = menuModeButton.dataset.mode;
+      if (previousMenuMode && nextMode !== previousMenuMode && optionsDialog.open) optionsDialog.close();
+      previousMenuMode = nextMode;
+    }).observe(menuModeButton, { attributes:true, attributeFilter:['data-mode'] });
     compactView.addEventListener('change', adaptControls); adaptControls();
 
   </script>
