@@ -1,0 +1,45 @@
+AMPLIACIÓN DE FUENTES — SQLITE
+
+Archivos:
+ api/enigmas-db.php: tabla adicional de equivalencias Wikidata, creada
+ automáticamente sin borrar los enigmas ni el progreso existente.
+ api/palabras.php: hasta 20 candidatos por lote; rondas ES, ES, EN;
+ recorrido por páginas de cada tema y preferencia por el artículo español.
+ motor.js: acepta referencias ES/EN y actualiza títulos equivalentes sin
+ conservar duplicados en la caché del dispositivo. Conserva el botón offline.
+
+No cambiar la orden cron ni actualizar-catalogo.php. Se mantienen los 15
+minutos entre lotes y la espera por límites de la fuente. No reimportar JSON.
+No borrar enigmas.sqlite ni sus archivos WAL/SHM.
+
+INSTALACIÓN GUIADA
+1. Subir el paquete descomprimido a una carpeta separada:
+   /kunden/homepages/2/d530523453/htdocs/ahorcado-fuentes-preparacion
+   Protegerla con .htaccess: Require all denied
+2. Comprobar ambos PHP con /usr/bin/php8.5-cli -l.
+3. Pausar solo la tarea cron del ahorcado y esperar al fin del proceso activo.
+4. Guardar copia de los tres archivos activos. Respaldar SQLite mediante
+   VACUUM INTO (una copia consistente), no copiando únicamente el .sqlite.
+5. Sustituir motor.js primero, después enigmas-db.php y palabras.php al final.
+   El esquema se amplía automáticamente al acceder a la base.
+6. Comprobar juego online/offline y ejecutar el actualizador desde CLI.
+   Los lotes nuevos añaden al registro: 'Lote Wikipedia es/en: N candidatos,
+   M válidos'. El incremento real puede ser menor por deduplicación.
+7. Reactivar la misma tarea cron y retirar preparación tras comprobar todo.
+
+NOTAS
+El artículo español debe cumplir los filtros españoles. Si existe, el inglés
+no se usa como alternativa para saltar esos filtros. Los artículos sin
+versión española se clasifican con introducción y categorías inglesas y los
+mismos umbrales de visitas, idiomas y compatibilidad del teclado.
+Los identificadores Wikidata se asocian al encontrar nuevamente los artículos;
+los registros antiguos se conservan y se enlazan durante su redescubrimiento.
+No se garantiza que cada candidato ni cada lote produzca un enigma nuevo.
+La prioridad ES se organiza por rondas de categorías: 16 lotes ES, 16 ES,
+16 EN, y vuelta a empezar. El título español se prioriza también en los EN.
+
+Validado en PHP 8.3: sintaxis, clasificación, reconocimiento, prioridad ES,
+deduplicación por entidad en ambos órdenes, ids estables, exclusión de usados
+integridad SQLite y lote de 20 candidatos (pruebas con respuestas simuladas).
+Validado en JavaScript: sintaxis, fuentes admitidas y caché de traducciones.
+Pendiente: comprobar las búsquedas reales y el PHP 8.5 de IONOS al instalar.

@@ -21,23 +21,15 @@ function gameState(array $run): array {
     return ['token'=>$run['token'],'score'=>$run['score'],'round'=>['id'=>$r['id'],'text'=>gameMask($r),'category'=>$item['category'],'level'=>$item['level'],'origin'=>$r['origin'],'status'=>$r['status'],'errors'=>$r['errors'],'guessed'=>$r['guessed']]];
 }
 function gameFindEnigma(int $source,string $level,array $seen): ?array {
-    // Una consulta nueva por petición. No leer online-N.json ni el catálogo offline.
-    // La precarga usa los mismos filtros y límites de palabras.php.
-    $ranges=['all'=>200,'easy'=>40,'medium'=>120,'hard'=>240,'expert'=>400];
-    $categoryCaps=[300,80,80,80,40,200,160,200,200,300,300,120,40,160,160,20];
-    $max=min($ranges[$level],$categoryCaps[$source]??200);
-    $offset=random_int(0,intdiv($max,20))*20;
-    $result=wikiSearch($source,$offset,20,$level);
     $category=WORD_SOURCES[$source][0];
-    $available=[];
-    foreach(wordsQualified($result['entries']??[]) as $item) {
-        if($item['category']!==$category||($level!=='all'&&$item['level']!==$level)||isset($seen[$item['id']]))continue;
-        // Solo admitir respuestas compatibles con el teclado del juego.
-        $length=preg_match_all('/./us',$item['text']);
-        if($length<3||$length>65||preg_match('/[^A-ZÁÉÍÓÚÜÑ \-–—\x{2019}\x{0027}.,:!?¡¿]/u',$item['text']))continue;
-        $available[]=$item;
-    }
-    return $available?$available[random_int(0,count($available)-1)]:null;
+    $entries=enigmasSelect($category,$level,$seen);
+    return $entries[0]??null;
+}
+function gameFindAvailable(int &$source,string $level,array $seen,bool $all): ?array {
+ $item=gameFindEnigma($source,$level,$seen);if($item||!$all)return $item;
+ $sources=array_keys(WORD_SOURCES);shuffle($sources);
+ foreach($sources as $candidate){$item=gameFindEnigma($candidate,$level,$seen);if($item){$source=$candidate;return $item;}}
+ return null;
 }
 try {
     if ($action==='start') {
@@ -103,9 +95,9 @@ try {
         unset($run['prefetched']);
         $run['prefetchPending']=['id'=>$reservation,'created'=>time(),'roundId'=>$roundId,'filters'=>$filters];
         $_SESSION['run']=$run;
-        // Permitir que guess responda mientras se consulta internet.
+        // Permitir que guess responda durante la selección.
         session_write_close();
-        try {$item=gameFindEnigma($source,$level,$seen);}
+        try {$item=gameFindAvailable($source,$level,$seen,$category==='all');}
         catch(Throwable $searchError) {
             if(!session_start())throw new RuntimeException('No se puede recuperar la sesión.');
             if(($_SESSION['run']['prefetchPending']['id']??null)===$reservation)unset($_SESSION['run']['prefetchPending']);
@@ -142,7 +134,7 @@ try {
         $pending=$run['prefetchPending']??null;
         if($action==='next'&&$pending&&$pending['roundId']===$previous&&$pending['filters']===$filters&&time()-$pending['created']<90)
             gameReply(409,['error'=>'El siguiente enigma se está preparando.','code'=>'prefetch_pending','retryAfter'=>1]);
-        $item=gameFindEnigma($source,$level,$run['seen']);
+        $item=gameFindAvailable($source,$level,$run['seen'],$category==='all');
     }
     if(!$item)gameReply(503,['error'=>'La búsqueda no ha encontrado un enigma nuevo con esos filtros. Reintenta; tu puntuación se conserva.']);
     unset($run['prefetched'],$run['prefetchPending']);
@@ -153,5 +145,5 @@ try {
     $message='Partida ahorcado: '.$e->getMessage();
     error_log($message);
     @file_put_contents(__DIR__.'/datos/partida-error.log',gmdate('c').' '.$message.PHP_EOL,FILE_APPEND|LOCK_EX);
-    gameReply(503,['error'=>'No se puede consultar la web ahora. Reintenta o juega offline sin ranking.']);
+    gameReply(503,['error'=>'No se puede acceder al catálogo del servidor. Reintenta; tu partida se conserva.']);
 }

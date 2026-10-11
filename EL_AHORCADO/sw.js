@@ -2,11 +2,11 @@
 
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'ahorcado-offline-' + encodeURIComponent(BASE.pathname) + '-';
-const CACHE = PREFIX + 'v5';
+const CACHE = PREFIX + 'v6-sqlite';
 const POLICY = 'descubrimiento-cultural-v5';
 const INDEX = new URL('index.html', BASE).href;
 const MOTOR = new URL('motor.js', BASE).href;
-const SEED = new URL('catalogo-inicial.json', BASE).href;
+const SEED = new URL('api/palabras.php?action=catalog', BASE).href;
 const API_PATH = new URL('api/', BASE).pathname;
 
 async function network(request) {
@@ -106,10 +106,10 @@ self.addEventListener('fetch', event => {
     request.method !== 'GET' ||
     url.origin !== BASE.origin ||
     !url.pathname.startsWith(BASE.pathname) ||
-    url.pathname.startsWith(API_PATH)
+    (url.pathname.startsWith(API_PATH) && url.href !== SEED)
   ) return;
 
-  const clean = new URL(url.pathname, BASE.origin).href;
+  const clean = url.href === SEED ? SEED : new URL(url.pathname, BASE.origin).href;
   let key;
 
   if (request.mode === 'navigate') {

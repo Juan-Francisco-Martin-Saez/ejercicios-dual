@@ -22,10 +22,10 @@ if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
     exit(0);
 }
 
-$retryFile = $dir.'/actualizar-catalogo-espera.json';
+// El estado del actualizador reside en SQLite.
 $status = 0;
 try {
-    $retry = is_file($retryFile) ? json_decode((string)file_get_contents($retryFile), true) : null;
+    $retry = enigmasMeta('retry', null);
     if (($retry['retryAt'] ?? 0) > time()) {
         echo "Actualización aplazada hasta ".gmdate('c', (int)$retry['retryAt']).".\n";
     } else {
@@ -39,36 +39,24 @@ try {
             $target = (int)($result['target'] ?? WORD_TARGET);
             echo gmdate('c')." — {$count} / {$target} enigmas verificados.\n";
             if (!empty($result['ready'])) {
-                $catalog = $result['catalog'] ?? wordsCatalog();
-                if (count($catalog['entries'] ?? []) < WORD_TARGET) {
-                    throw new RuntimeException('El catálogo completo no alcanza el mínimo.');
-                }
-                // Copia portátil para una instalación nueva y para la caché del navegador.
-                // wordsWrite usa un temporal y renombrado: nunca publica un JSON truncado.
-                wordsWrite(dirname(__DIR__).'/catalogo-inicial.json', $catalog);
-                wordsWrite($retryFile, ['retryAt'=>time()+3600, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
-                echo "Catálogo completo guardado en catalogo-inicial.json.\n";
+                enigmasSetMeta('retry', ['retryAt'=>time()+3600, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
+                echo "Catálogo actualizado en SQLite.\n";
                 break;
             }
             // Un lote pequeño cada quince minutos, aunque cron despierte cada cinco.
-            wordsWrite($retryFile, ['retryAt'=>time()+900, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
+            enigmasSetMeta('retry', ['retryAt'=>time()+900, 'updatedAt'=>gmdate('c'), 'failures'=>0]);
             break;
         } while (false);
     }
 } catch (Throwable $error) {
     $message = $error->getMessage();
     // Evitar insistir si la fuente limita peticiones o se encuentra indisponible.
-    $onlineBusy = str_contains($message, 'búsqueda online reciente');
-    $failures = $onlineBusy ? (int)($retry['failures'] ?? 0) : min(5, (int)($retry['failures'] ?? 0) + 1);
-    $delay = $onlineBusy ? 300 : (str_contains($message, '429') ? min(21600, 3600 * (2 ** max(0, $failures - 1))) : 900);
-    wordsWrite($retryFile, ['retryAt'=>time()+$delay, 'updatedAt'=>gmdate('c'), 'failures'=>$failures]);
-    if ($onlineBusy) {
-        echo "Cron en pausa para dar prioridad al juego online. Reintento en {$delay} segundos.\n";
-    } else {
-        fwrite(STDERR, "No se ha completado este lote; se conserva el progreso. Reintento en {$delay} segundos.\n");
-        error_log('Actualización del catálogo: '.$message);
-    }
-    $status = $onlineBusy ? 0 : 1;
+    $failures = min(5, (int)($retry['failures'] ?? 0) + 1);
+    $delay = str_contains($message, '429') ? min(21600, 3600 * (2 ** max(0, $failures - 1))) : 900;
+    enigmasSetMeta('retry', ['retryAt'=>time()+$delay, 'updatedAt'=>gmdate('c'), 'failures'=>$failures]);
+    fwrite(STDERR, "No se ha completado este lote; se conserva el progreso. Reintento en {$delay} segundos.\n");
+    error_log('Actualización del catálogo: '.$message);
+    $status = 1;
 } finally {
     flock($lock, LOCK_UN);
     fclose($lock);

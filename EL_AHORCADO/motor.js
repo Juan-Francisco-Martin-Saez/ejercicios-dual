@@ -48,7 +48,7 @@
       Object.hasOwn(LEVELS, item.level) &&
       item.recognitionPolicy === POLICY &&
       typeof item.sourceUrl === 'string' &&
-      /^https:\/\/es\.wikipedia\.org\/(?:\?curid=\d+|wiki\/)/.test(item.sourceUrl);
+      /^https:\/\/(?:es|en)\.wikipedia\.org\/(?:\?curid=\d+|wiki\/)/.test(item.sourceUrl);
   }
 
   function validateCatalog(data) {
@@ -183,9 +183,19 @@
       ])
     );
     const entries = new Map(previous);
+    const entities = new Map();
+    for (const [key, item] of entries) {
+      if (/^Q[1-9][0-9]*$/.test(item.entityId || '')) entities.set(item.entityId, key);
+    }
 
     for (const item of data.entries) {
-      entries.set(normalize(item.text), {
+      const key = normalize(item.text);
+      if (/^Q[1-9][0-9]*$/.test(item.entityId || '')) {
+        const oldKey = entities.get(item.entityId);
+        if (oldKey && oldKey !== key) entries.delete(oldKey);
+        entities.set(item.entityId, key);
+      }
+      entries.set(key, {
         ...item,
         id: normalize(item.text)
       });
@@ -539,6 +549,7 @@
       window.verifiedActive = false;
       window.verifiedSubmit = null;
       lastOrigin = 'local';
+      document.querySelector('#play-again').textContent = 'SIGUIENTE PALABRA →';
       nextChallenge = null;
 
       baseNewGame();
@@ -942,7 +953,7 @@
         }
 
         if (!validateCatalog(remote) && remote?.count !== 0) {
-          remote = await fetchWords('./catalogo-inicial.json');
+          remote = await fetchWords(API + '?action=catalog');
         }
 
         installCatalog(remote);
