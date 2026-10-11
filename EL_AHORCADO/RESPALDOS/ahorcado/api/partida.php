@@ -111,7 +111,7 @@ try {
             &&($current['prefetchPending']['id']??null)===$reservation;
         if(($current['prefetchPending']['id']??null)===$reservation)unset($_SESSION['run']['prefetchPending']);
         if(!$valid)gameReply(409,['error'=>'La partida ha cambiado; se descarta la precarga.']);
-        if(!$item||isset($current['seen'][$item['id']]))gameReply(503,['error'=>'No se ha encontrado un próximo enigma con esos filtros.']);
+        if(!$item||isset($current['seen'][$item['id']]))gameReply(409,['code'=>'selection_exhausted','error'=>'No quedan enigmas nuevos con esta categoría y dificultad.']);
         $_SESSION['run']['prefetched']=['roundId'=>$roundId,'filters'=>$filters,'source'=>$source,'item'=>$item];
         // La respuesta permanece solo en el servidor; no cuenta como palabra resuelta.
         gameReply(200,['ready'=>true,'roundId'=>$roundId]);
@@ -136,7 +136,7 @@ try {
             gameReply(409,['error'=>'El siguiente enigma se está preparando.','code'=>'prefetch_pending','retryAfter'=>1]);
         $item=gameFindAvailable($source,$level,$run['seen'],$category==='all');
     }
-    if(!$item)gameReply(503,['error'=>'La búsqueda no ha encontrado un enigma nuevo con esos filtros. Reintenta; tu puntuación se conserva.']);
+    if(!$item)gameReply(409,['code'=>'selection_exhausted','error'=>'No quedan enigmas nuevos con esta categoría y dificultad. Tu puntuación se conserva.']);
     unset($run['prefetched'],$run['prefetchPending']);
     $run['seen'][$item['id']]=true;$run['lastSource']=$source;
     $run['round']=['id'=>bin2hex(random_bytes(16)),'previous'=>$action==='next'?$data['roundId']:null,'item'=>$item,'guessed'=>[],'errors'=>0,'status'=>'playing','origin'=>'internet'];

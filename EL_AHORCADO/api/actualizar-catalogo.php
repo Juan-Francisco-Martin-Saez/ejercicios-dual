@@ -9,6 +9,8 @@ if (PHP_SAPI !== 'cli') {
 define('AHORCADO_WORDS_LIBRARY', true);
 define('AHORCADO_BACKGROUND_SYNC', true);
 require __DIR__.'/palabras.php';
+define('AHORCADO_BACKUP_LIBRARY',true);
+require __DIR__.'/respaldar-enigmas.php';
 
 $dir = __DIR__.'/datos';
 if (!is_dir($dir) || !is_writable($dir)) {
@@ -25,6 +27,12 @@ if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
 // El estado del actualizador reside en SQLite.
 $status = 0;
 try {
+    try {
+        $backup=enigmasDailyBackup();
+        if($backup!=='')echo 'Respaldo diario disponible: '.basename($backup).PHP_EOL;
+    } catch(Throwable $backupError) {
+        fwrite(STDERR,'No se ha podido crear el respaldo diario: '.$backupError->getMessage().PHP_EOL);
+    }
     $retry = enigmasMeta('retry', null);
     if (($retry['retryAt'] ?? 0) > time()) {
         echo "Actualización aplazada hasta ".gmdate('c', (int)$retry['retryAt']).".\n";

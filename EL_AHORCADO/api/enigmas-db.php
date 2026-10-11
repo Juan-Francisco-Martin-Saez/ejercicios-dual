@@ -5,7 +5,7 @@ function enigmasDb(): PDO {
  if(!extension_loaded('pdo_sqlite'))throw new RuntimeException('Falta PDO SQLite.');
  $db=new PDO('sqlite:'.__DIR__.'/datos/enigmas.sqlite',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
  $db->exec('PRAGMA busy_timeout=5000');$db->exec('PRAGMA journal_mode=WAL');
- $db->exec('CREATE TABLE IF NOT EXISTS enigmas (id TEXT PRIMARY KEY,category TEXT NOT NULL,level TEXT NOT NULL,payload TEXT NOT NULL); CREATE INDEX IF NOT EXISTS enigmas_filters ON enigmas(category,level); CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS enigma_entities (entity_id TEXT PRIMARY KEY,enigma_id TEXT NOT NULL)');
+ $db->exec('CREATE TABLE IF NOT EXISTS enigmas (id TEXT PRIMARY KEY,category TEXT NOT NULL,level TEXT NOT NULL,payload TEXT NOT NULL); CREATE INDEX IF NOT EXISTS enigmas_filters ON enigmas(category,level); CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY,value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS enigma_entities (entity_id TEXT PRIMARY KEY,enigma_id TEXT NOT NULL); CREATE TABLE IF NOT EXISTS enigma_aliases (alias TEXT PRIMARY KEY,enigma_id TEXT NOT NULL)');
  return $db;
 }
 function enigmasMeta(string $key,mixed $default=null): mixed {
@@ -20,6 +20,7 @@ function enigmasSave(array $entries): void {
   $q=$db->prepare('INSERT INTO enigmas(id,category,level,payload) VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET category=excluded.category,level=excluded.level,payload=excluded.payload');
   $findEntity=$db->prepare('SELECT e.id,e.payload FROM enigma_entities m JOIN enigmas e ON e.id=m.enigma_id WHERE m.entity_id=?');
   $findText=$db->prepare('SELECT id,payload FROM enigmas WHERE id=?');
+  $findAlias=$db->prepare('SELECT e.id,e.payload FROM enigma_aliases a JOIN enigmas e ON e.id=a.enigma_id WHERE a.alias=?');
   $mapEntity=$db->prepare('INSERT INTO enigma_entities(entity_id,enigma_id) VALUES(?,?) ON CONFLICT(entity_id) DO UPDATE SET enigma_id=excluded.enigma_id');
   foreach($entries as $e) {
    $len=preg_match_all('/./us',$e['text']);
@@ -28,8 +29,20 @@ function enigmasSave(array $entries): void {
    $existing=false;
    if($entity){$findEntity->execute([$entity]);$existing=$findEntity->fetch();}
    if(!$existing){$findText->execute([$e['id']]);$existing=$findText->fetch();}
+   if(!$existing){$findAlias->execute([$e['id']]);$existing=$findAlias->fetch();}
    if($existing) {
     $old=json_decode($existing['payload'],true,512,JSON_THROW_ON_ERROR);
+    // Conservar la clasificación editorial y los títulos preferidos.
+    if(($old['editorialReview']['version']??'')==='editorial-balanced-v1') {
+     if($old['category']!==$e['category'])continue;
+     $fresh=$e;
+     $e=$old;
+     $e['latestAutomaticEvidence']=$fresh['evidence']??[];
+     if(($fresh['sourceLanguage']??'es')==='es') {
+      $e['sourceUrl']=$fresh['sourceUrl'];
+      $e['sourceLanguage']='es';
+     }
+    }
     $oldSpanish=($old['sourceLanguage']??'')==='es'||str_starts_with($old['sourceUrl']??'','https://es.wikipedia.org/');
     // No reemplazar una respuesta española por su título inglés.
     if($oldSpanish&&($e['sourceLanguage']??'es')==='en') {

@@ -374,6 +374,21 @@
   }
 
 
+  const exhaustedAction = document.createElement('button');
+  exhaustedAction.type = 'button';
+  exhaustedAction.className = 'secondary-button';
+  exhaustedAction.textContent = 'CONTINUAR SIN FILTROS';
+  exhaustedAction.hidden = true;
+  $('#result-run').before(exhaustedAction);
+  exhaustedAction.addEventListener('click', () => {
+    $('#level-select').value = 'all';
+    save(LEVEL_KEY, 'all');
+    if (categorySelect) categorySelect.value = 'all';
+    save(CATEGORY_KEY, 'all');
+    cancelPrefetch();
+    newGame();
+  });
+
   const originalEndRun = endRun;
 
   endRun = function () {
@@ -534,6 +549,7 @@
 
   newGame = async function () {
     if (!runActive || loading) return;
+    exhaustedAction.hidden = true;
 
     if (mode === 'offline') {
       if (!offlinePool().length) {
@@ -630,10 +646,14 @@
       );
 
       $('#play-again').textContent = 'REINTENTAR →';
-      $('#result-title').textContent = 'SIN CONEXIÓN';
+      const exhausted = error.code === 'selection_exhausted';
+      exhaustedAction.hidden = !exhausted || ($('#level-select').value === 'all' && chosenCategory() === 'all');
+      $('#result-title').textContent = exhausted ? 'SELECCIÓN AGOTADA' : 'SIN CONEXIÓN';
       $('#result-eyebrow').textContent = 'NO SE HA INICIADO EL ENIGMA';
       $('#result-description').style.whiteSpace = 'pre-line';
-      $('#result-description').textContent = 'Reintenta la búsqueda o termina la partida\npara elegir el modo offline.';
+      $('#result-description').textContent = exhausted
+        ? 'No quedan enigmas nuevos con esta selección. Puedes continuar sin filtros o terminar y guardar tu puntuación.'
+        : 'Reintenta la búsqueda o termina la partida\npara elegir el modo offline.';
       $('#result-answer').textContent = '';
       $('#result-run').textContent = `${runScore} palabras verificadas.`;
       $('#overlay').classList.add('show');

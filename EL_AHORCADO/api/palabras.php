@@ -78,7 +78,7 @@ function wordsHttp(array $params,int $timeout=20,string $language='es'): array {
 // Solo se acepta una categoría si la introducción y las categorías propias la respaldan.
 // No se usa el texto completo: allí aparecen menciones a otras obras y plantillas compartidas.
 function wordsCategory(array $page): ?string {
- $intro=wordsKey(mbSafeSlice((string)($page['extract']??''),1000));
+ $intro=wordsKey(mbSafeSlice((string)($page['extract']??''),400));
  $cats=wordsKey(implode(' ',array_column($page['categories']??[],'title')));
  $has=fn(string $pattern)=>preg_match('~'.$pattern.'~u',$intro)===1;
  $cat=fn(string $pattern)=>preg_match('~'.$pattern.'~u',$cats)===1;
@@ -102,7 +102,7 @@ function wordsCategory(array $page): ?string {
 }
 // Clasificación inglesa independiente: introducción y categorías deben coincidir.
 function wordsCategoryEnglish(array $page): ?string {
- $intro=wordsKey(mbSafeSlice((string)($page['extract']??''),650));
+ $intro=wordsKey(mbSafeSlice((string)($page['extract']??''),400));
  $cats=wordsKey(implode(' ',array_column($page['categories']??[],'title')));
  $has=fn(string $p)=>preg_match('~'.$p.'~u',$intro)===1;
  $cat=fn(string $p)=>preg_match('~'.$p.'~u',$cats)===1;
@@ -127,6 +127,7 @@ function mbSafeSlice(string $s,int $limit): string {return implode('',array_slic
 function wordsItem(array $page,string $category,string $language='es'): ?array {
  if(($page['ns']??-1)!==0||isset($page['missing'])||isset($page['pageprops']['disambiguation'])||($language==='es'?wordsCategory($page):wordsCategoryEnglish($page))!==$category)return null;
  $title=(string)($page['title']??'');
+ if(in_array(wordsKey($title),['MARXISMO','MAOISMO','LUCHA DE CLASES','INTERNACIONALISMO','CONGRESO DE VIENA','CIEN DIAS','EMPERADOR','EMPERADOR ROMANO','EMPERADOR DE JAPON','EMPERADOR DEL SACRO IMPERIO ROMANO GERMANICO','ZAR','CONQUISTADORES ESPAÑOLES','MESA DE LA UNIDAD DEMOCRATICA','NOVELA POLICIACA','OBRA DE TEATRO','SUPERVILLANO','SUPERHEROE','TELERREALIDAD','RIO','GASTRONOMIA DE ITALIA'],true))return null;
  if(preg_match('/^(Anexo:|Lista de|Historia de|Temporada|Episodio|Discografía|List of|History of|Season|Episode|Discography)/iu',$title))return null;
  // Quitar únicamente el desambiguador; los números y signos incompatibles con el teclado se descartan.
  $text=wordsUpper(trim(preg_replace('/\s*\([^()]*\)$/u','',$title)));
@@ -204,7 +205,8 @@ function wikiSearch(int $source,int $offset,int $limit,string $level='all',strin
    if($item&&($level==='all'||$item['level']===$level))$entries[$item['id']]=$item;
   }
  }
- $entries=array_values($entries);shuffle($entries);wordsRemember($entries);
+ $entries=array_values($entries);shuffle($entries);
+ if($background)wordsQueueEntries($entries);else wordsRemember($entries);
  // Avanzar solo tras guardar: un fallo no pierde el lote pendiente.
  if($background)enigmasSetMeta($cursorKey,$next!==null&&$next<=1000?(int)$next:0);
  error_log('Lote Wikipedia '.$language.': '.count($hits).' candidatos, '.count($entries).' válidos.');
@@ -222,24 +224,85 @@ function wordsRemember(array $entries): void { enigmasSave(wordsQualified($entri
 function wordsCatalog(): array {
  $db=enigmasDb(); $entries=array_map(fn($r)=>json_decode($r['payload'],true,512,JSON_THROW_ON_ERROR),$db->query('SELECT payload FROM enigmas ORDER BY id')->fetchAll());
  $month=enigmasMeta('month','');
- return ['version'=>5,'month'=>$month,'updatedAt'=>enigmasMeta('updatedAt',null),'count'=>count($entries),'target'=>WORD_TARGET,'recognitionPolicy'=>WORD_POLICY,'entries'=>$entries,'stale'=>$month!==gmdate('Y-m')];
+ return ['version'=>5,'month'=>$month,'updatedAt'=>enigmasMeta('updatedAt',null),'count'=>count($entries),'target'=>max(WORD_TARGET,(int)(enigmasMeta('progress',[])['target']??WORD_TARGET)),'recognitionPolicy'=>WORD_POLICY,'entries'=>$entries,'stale'=>$month!==gmdate('Y-m')];
+}
+function wordsCandidateDb(): PDO {
+ $db=enigmasDb();
+ $db->exec('CREATE TABLE IF NOT EXISTS enigma_candidates(id TEXT PRIMARY KEY,category TEXT NOT NULL,level TEXT NOT NULL,payload TEXT NOT NULL);CREATE INDEX IF NOT EXISTS candidates_filters ON enigma_candidates(category,level)');
+ return $db;
+}
+function wordsQueueEntries(array $entries): void {
+ $db=wordsCandidateDb();$q=$db->prepare('INSERT INTO enigma_candidates(id,category,level,payload) VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET category=excluded.category,level=excluded.level,payload=excluded.payload');
+ foreach(wordsQualified($entries) as $e)$q->execute([$e['id'],$e['category'],$e['level'],json_encode($e,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);
+}
+function wordsBucketCounts(): array {
+ $counts=[];foreach(WORD_SOURCES as [$category])foreach(WORD_LEVELS as $level)$counts[$category][$level]=0;
+ foreach(enigmasDb()->query('SELECT category,level,count(*) AS n FROM enigmas GROUP BY category,level') as $r)if(isset($counts[$r['category']][$r['level']]))$counts[$r['category']][$r['level']]=(int)$r['n'];
+ return $counts;
+}
+function wordsBalancedFilter(int $turn): array {
+ $counts=wordsBucketCounts();$options=[];$order=0;$levelTotals=array_fill_keys(WORD_LEVELS,0);
+ foreach($counts as $bin)foreach($bin as $level=>$n)$levelTotals[$level]+=$n;
+ foreach(WORD_SOURCES as $source=>[$category])foreach(WORD_LEVELS as $level) {
+  $options[]=['source'=>$source,'category'=>$category,'level'=>$level,'n'=>$counts[$category][$level],
+   'total'=>array_sum($counts[$category]),'levelTotal'=>$levelTotals[$level],'rotation'=>($order-$turn%64+64)%64];$order++;
+ }
+ usort($options,fn($a,$b)=>[$a['n'],$a['total'],$a['levelTotal'],$a['rotation']]<=>[$b['n'],$b['total'],$b['levelTotal'],$b['rotation']]);
+ return $options[0];
+}
+function wordsDrainQueue(int $limit,int $target,int $turn): int {
+ $db=wordsCandidateDb();$added=0;$attempts=0;
+ $fetch=$db->prepare('SELECT id,payload FROM enigma_candidates WHERE category=? AND level=? ORDER BY id LIMIT 1');
+ $remove=$db->prepare('DELETE FROM enigma_candidates WHERE id=?');
+ while($added<$limit&&$attempts<200) {
+  $count=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();if($count>=$target)break;
+  $counts=wordsBucketCounts();$minimum=min(array_merge(...array_values($counts)));
+  $categoryTotals=array_map('array_sum',$counts);$levelTotals=array_fill_keys(WORD_LEVELS,0);
+  foreach($counts as $bin)foreach($bin as $level=>$n)$levelTotals[$level]+=$n;
+  $minCategory=min($categoryTotals);$minLevel=min($levelTotals);
+  $options=[];$order=0;
+  foreach(WORD_SOURCES as [$category])foreach(WORD_LEVELS as $level) {
+   $n=$counts[$category][$level];
+   // Como máximo dos de separación entre casillas durante la ampliación.
+   if($n<=$minimum+1&&$categoryTotals[$category]<=$minCategory+1&&$levelTotals[$level]<=$minLevel+1)$options[]=[$n,$categoryTotals[$category],$levelTotals[$level],($order-$turn%64+64)%64,$category,$level];
+   $order++;
+  }
+  sort($options);$candidate=null;
+  foreach($options as $option){$fetch->execute([$option[4],$option[5]]);$candidate=$fetch->fetch();if($candidate)break;}
+  if(!$candidate)break;
+  $attempts++;
+  $entry=json_decode($candidate['payload'],true,512,JSON_THROW_ON_ERROR);
+  $db->beginTransaction();
+  try {
+   wordsRemember([$entry]);$remove->execute([$candidate['id']]);
+   $after=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();
+   $db->commit();$added+=max(0,$after-$count);
+  }catch(Throwable $error){if($db->inTransaction())$db->rollBack();throw $error;}
+ }
+ return $added;
 }
 function wordsSync(): array {
  $month=gmdate('Y-m');$db=enigmasDb();$count=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();
  $state=enigmasMeta('progress',null);
  if(!$state||$state['month']!==$month) {
   $state=['month'=>$month,'baseCount'=>$count,'target'=>max(WORD_TARGET,$count+WORD_MONTHLY_ADD),'turn'=>0];
-  enigmasSetMeta('progress',$state);
  }
- if($count<$state['target']) {
-  $turn=$state['turn'];$state['turn']++;enigmasSetMeta('progress',$state);
-  $source=$turn%count(WORD_SOURCES);
+ if($count>=(int)$state['target'])$state['target']=$count+WORD_MONTHLY_ADD;
+ $turn=(int)$state['turn'];
+ $added=wordsDrainQueue(WORD_BATCH,(int)$state['target'],$turn);
+ $count=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();
+ if($added<WORD_BATCH&&$count<(int)$state['target']) {
+  $filter=wordsBalancedFilter($turn);
   $language=intdiv($turn,count(WORD_SOURCES))%3===2?'en':'es';
-  wikiSearch($source,0,WORD_BATCH,'all',$language);
+  error_log('Prioridad de ampliación: '.$filter['category'].' / '.$filter['level']);
+  // Recoger todas las dificultades; la cola añade primero los grupos deficitarios.
+  wikiSearch($filter['source'],0,WORD_BATCH,'all',$language);
+  $added+=wordsDrainQueue(WORD_BATCH-$added,(int)$state['target'],$turn);
  }
- $count=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();$ready=$count>=$state['target'];
+ $state['turn']=$turn+1;enigmasSetMeta('progress',$state);
+ $count=(int)$db->query('SELECT count(*) FROM enigmas')->fetchColumn();$ready=$count>=(int)$state['target'];
  if($ready)enigmasSetMeta('month',$month);
- return ['ready'=>$ready,'count'=>$count,'target'=>$state['target'],'added'=>$count-$state['baseCount']];
+ return ['ready'=>$ready,'count'=>$count,'target'=>$state['target'],'added'=>$added];
 }
 if(defined('AHORCADO_WORDS_LIBRARY'))return;
 if(($_SERVER['HTTP_SEC_FETCH_SITE']??'')==='cross-site')wordsReply(403,['error'=>'Solicitud no permitida.']);
