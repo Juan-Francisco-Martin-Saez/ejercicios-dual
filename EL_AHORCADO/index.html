@@ -2369,6 +2369,35 @@
         padding: .3rem .4rem
       }
     }
+
+    /* Propuesta: jerarquía del panel de juego solo en escritorio. */
+    .desktop-intro-copy { display:none }
+    @media(min-width:64.001rem) {
+      .play-card .intro h2 { font-size:clamp(1.45rem,2vw,1.95rem);line-height:1.15;margin:.4rem 0 .25rem }
+      .play-card .intro p { font-size:.82rem;line-height:1.35 }
+      .play-card .desktop-intro-copy { display:inline }
+      .play-card .original-intro-copy { display:none }
+      .play-card .category,.play-card .difficulty { font-size:.72rem;padding:.5rem .82rem }
+      .play-card .level-row { padding:.6rem .82rem }
+      .play-card .level-label { font-size:.75rem }
+      .play-card .level-select { font-size:.8rem;padding:.25rem .55rem }
+      .play-card #catalog-status { font-size:.74rem;line-height:1.35 }
+      .play-card .player-strip { font-size:.74rem;padding:.5rem .72rem }
+      .play-card .word-area { gap:clamp(.2rem,.6vh,.4rem) clamp(1rem,2.2vw,1.8rem);padding:.5rem 0 }
+      .play-card .letter { width:clamp(.75rem,2.15vw,2.05rem);height:clamp(1.6rem,3.2vw,2.8rem);font-size:clamp(.75rem,2vw,1.5rem) }
+      .play-card .letter-panel-head { font-size:.73rem }
+      .play-card .letter-key { min-height:clamp(2.35rem,5.1vh,3.3rem);font-size:clamp(.9rem,1.4vw,1.2rem) }
+      .play-card .resolve-button { padding:.7rem 1.1rem;font-size:.79rem }
+    }
+    @media(min-width:64.001rem) and (max-height:42rem) {
+      .play-card .intro h2 { font-size:1.45rem;margin:.25rem 0 .15rem }
+      .play-card .intro p { font-size:.72rem }
+      .play-card .category,.play-card .difficulty { padding:.3rem .55rem;font-size:.64rem }
+      .play-card .level-row { padding:.35rem .65rem }
+      .play-card .player-strip { padding:.35rem .65rem }
+      .play-card .letter-key { min-height:2rem;padding:.2rem .1rem;font-size:1rem }
+      .play-card .resolve-button { padding:.45rem .8rem;font-size:.74rem }
+    }
   </style>
 </head>
 
@@ -2460,7 +2489,7 @@
                 id="difficulty-name">FÁCIL</span></div>
           </div>
           <h2>Descifra el enigma.</h2>
-          <p>Adivina las letras o arriesga con la solución completa.<strong>Cada error acerca el final.</strong></p>
+          <p><span class="desktop-intro-copy">Elige letras o resuelve el enigma.</span><span class="original-intro-copy">Adivina las letras o arriesga con la solución completa.<strong>Cada error acerca el final.</strong></span></p>
         </div>
         <div class="level-row"><label class="level-label" for="level-select">DIFICULTAD</label><select
             class="level-select" id="level-select">
