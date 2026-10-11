@@ -7,7 +7,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="author" content="Reijohan">
   <meta name="copyright" content="© 2026 Reijohan. Todos los derechos reservados.">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-visual">
   <meta name="theme-color" content="#f5f1ea">
   <title>EL AHORCADO BY REIJOHAN</title>
   <style>
@@ -2399,6 +2399,359 @@
       .play-card .resolve-button { padding:.45rem .8rem;font-size:.74rem }
     }
   </style>
+  <style id="touch-layout">
+/* INTERFAZ TÁCTIL — aislada del escritorio por .touch-mode. */
+:root.touch-mode { --touch-gap:.3rem;--touch-key:2.75rem;--touch-cols:6;overscroll-behavior:none }
+.touch-mode body { position:fixed;inset:0;overflow:hidden;overscroll-behavior:none }
+.touch-mode .app { position:absolute;top:var(--touch-top,0px);left:50%;transform:translateX(-50%);width:calc(100% - .75rem);max-width:70rem;height:var(--touch-height,100dvh);min-height:0;margin:0;padding:max(.25rem,env(safe-area-inset-top)) 0 max(.25rem,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:.35rem;overflow:hidden }
+.touch-mode .header { flex:0 0 2.75rem;min-height:2.75rem;padding:0;gap:.5rem;flex-wrap:nowrap }
+.touch-mode .brand { flex:1;gap:.4rem;min-width:0 }
+.touch-mode .brand-icon { width:2.2rem;height:2.2rem;border-radius:.65rem }
+.touch-mode .brand-icon svg { width:1.2rem;height:1.2rem }
+.touch-mode .brand h1 { font-size:clamp(1rem,3.5vw,1.45rem);margin:0;white-space:nowrap }
+.touch-mode .brand .eyebrow,.touch-mode .footer { display:none }
+.touch-mode .mobile-options { display:flex;align-items:center;justify-content:center;gap:.35rem;min-height:2.75rem;min-width:2.75rem;padding:.45rem .65rem;font-size:.75rem;border-radius:.65rem;touch-action:manipulation }
+.touch-mode .board { position:relative;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:clamp(3rem,calc(var(--touch-height,100dvh)*.13),8rem) minmax(0,1fr);gap:.35rem }
+.touch-mode .visual-card { min-height:0;display:grid;grid-template-columns:minmax(3rem,.32fr) minmax(0,1fr);grid-template-rows:1fr 1fr;gap:.15rem .6rem;padding:.35rem .65rem;overflow:hidden;border-radius:.9rem }
+.touch-mode .visual-card .section-head { grid-column:2;grid-row:1;align-self:center;padding:0;gap:.5rem }
+.touch-mode .section-label { font-size:.75rem;letter-spacing:.04em }
+.touch-mode .counter { font-size:.75rem }
+.touch-mode .counter strong { font-size:1.25rem }
+.touch-mode .stage { grid-column:1;grid-row:1 / 3;min-height:0;padding:0;margin:0;display:flex;align-items:center;justify-content:center }
+.touch-mode .hangman { height:100%;width:100%;max-width:none;max-height:100%;object-fit:contain }
+.touch-mode .stage-number { display:none }
+.touch-mode .progress-block { grid-column:2;grid-row:2;align-self:center;padding:0;border:0 }
+.touch-mode .progress-info { font-size:.72rem;margin:0 0 .25rem;line-height:1.2 }
+.touch-mode .progress { height:.3rem }
+.touch-mode .play-card { min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;align-content:stretch;justify-content:normal;padding:.5rem;gap:.35rem;border-radius:.9rem;overflow:hidden }
+.touch-mode .play-card .intro { min-width:0 }
+.touch-mode .play-card .intro h2,.touch-mode .play-card .intro p,.touch-mode .play-card #catalog-status { display:none }
+.touch-mode .tags { justify-content:space-between;gap:.35rem;flex-wrap:nowrap;min-width:0 }
+.touch-mode .category,.touch-mode .difficulty { min-width:0;padding:.32rem .5rem;font-size:.75rem;line-height:1.25;letter-spacing:.015em;gap:.3rem;border-radius:.5rem;max-width:75% }
+.touch-mode .category { flex:1 }
+.touch-mode .category span:last-child { overflow-wrap:anywhere }
+.touch-mode .difficulty { flex:0 0 auto;max-width:40% }
+.touch-mode .category-dot,.touch-mode .difficulty-dot { flex-shrink:0 }
+.touch-mode .player-strip { padding:.35rem .5rem;gap:.4rem;font-size:.75rem;line-height:1.2;min-width:0;flex-shrink:0 }
+.touch-mode .player-strip strong { max-width:42% }
+.touch-mode .player-strip span { white-space:nowrap;font-weight:700 }
+.touch-mode .word-area { width:100%;min-width:0;min-height:0;flex:initial;padding:.35rem 0;gap:.2rem .6rem;align-items:center;align-content:center;overflow:hidden }
+.touch-mode .word-group { display:flex;flex-wrap:wrap;justify-content:center;gap:.15rem;max-width:100% }
+.touch-mode .letter { width:clamp(.95rem,4.4vw,1.8rem);height:clamp(1.35rem,3.5vh,2.15rem);font-size:clamp(.88rem,3.8vw,1.5rem);border-bottom-width:2px }
+.touch-mode .letter-panel { min-width:0;display:grid;gap:.35rem;flex-shrink:0 }
+.touch-mode .letter-panel-head { font-size:.75rem;line-height:1.2;letter-spacing:.035em }
+.touch-mode .letter-keyboard { display:grid;grid-template-columns:repeat(var(--touch-cols),minmax(2.75rem,1fr));gap:.25rem;min-width:0 }
+.touch-mode .keyboard-row { display:contents;padding:0 }
+.touch-mode .letter-key { width:100%;min-width:2.75rem;min-height:var(--touch-key);height:var(--touch-key);padding:.15rem;border-radius:.5rem;font-size:1.05rem;line-height:1;font-weight:700;box-shadow:0 .1rem 0 var(--line);touch-action:manipulation }
+.touch-mode .resolve-button { align-self:stretch;justify-self:stretch;width:100%;min-height:2.75rem;padding:.5rem .65rem;font-size:.85rem;letter-spacing:.035em;touch-action:manipulation }
+.touch-mode .letter-panel .feedback { min-height:1.85rem;margin:0;font-size:.78rem;line-height:1.2;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere }
+.touch-mode button,.touch-mode select { touch-action:manipulation }
+.touch-mode .overlay { position:fixed;top:var(--touch-top,0px);left:0;width:100%;height:var(--touch-height,100dvh);padding:.5rem;overflow:hidden }
+.touch-mode .result-card { width:min(100%,30rem);max-height:calc(var(--touch-height,100dvh) - 1rem);padding:1rem;overflow:hidden }
+.touch-mode .result-symbol { width:2.8rem;height:2.8rem;font-size:1.5rem;margin:0 auto .35rem }
+.touch-mode .result-card h2 { font-size:1.75rem;margin:.4rem 0 }
+.touch-mode .result-card p { font-size:.85rem;line-height:1.3;margin:.4rem 0 }
+.touch-mode .result-answer { display:block;font-size:clamp(1rem,4.5vw,1.5rem);line-height:1.2;overflow-wrap:anywhere;margin:.5rem 0 }
+.touch-mode .result-card .end-run { margin-top:.4rem }
+.touch-mode[data-touch-density=compact] .board { grid-template-rows:3rem minmax(0,1fr) }
+.touch-mode[data-touch-density=compact] .visual-card { padding:.2rem .5rem }
+.touch-mode[data-touch-density=compact] .section-label { font-size:.7rem }
+.touch-mode[data-touch-density=compact] .progress-info { font-size:.7rem;margin:0 0 .15rem }
+.touch-mode[data-touch-density=compact] .letter-panel-head { display:none }
+.touch-mode[data-touch-density=compact] .play-card { padding:.35rem;gap:.25rem }
+.touch-mode[data-touch-density=compact] .category,.touch-mode[data-touch-density=compact] .difficulty { font-size:.73rem;padding:.22rem .4rem }
+.touch-mode[data-touch-density=compact] .player-strip { padding:.25rem .4rem }
+.touch-mode[data-touch-density=compact] .letter-panel { gap:.25rem }
+.touch-mode[data-touch-density=compact] .letter-panel .feedback { font-size:.75rem;min-height:1.75rem }
+.touch-mode[data-touch-orientation=landscape] .board { grid-template-columns:minmax(4rem,.2fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) }
+.touch-mode[data-touch-orientation=landscape] .visual-card { display:flex;flex-direction:column;justify-content:space-between;padding:.4rem }
+.touch-mode[data-touch-orientation=landscape] .visual-card .section-head { width:100%;display:flex;flex-direction:column;gap:.15rem }
+.touch-mode[data-touch-orientation=landscape] .visual-card .section-label { font-size:.72rem;text-align:center }
+.touch-mode[data-touch-orientation=landscape] .stage { flex:1;min-height:0;width:100%;padding:.15rem 0 }
+.touch-mode[data-touch-orientation=landscape] .progress-block { width:100% }
+.touch-mode[data-touch-orientation=landscape] .progress-info { display:block;text-align:center }
+.touch-mode[data-touch-orientation=landscape] .progress-info>span:first-child { display:none }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .header { position:absolute;top:.25rem;left:0;width:16.5%;border:0;z-index:2 }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .brand { display:none }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .mobile-options { width:100%;font-size:.7rem;padding:.25rem;gap:.2rem }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .mobile-options svg { display:none }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .visual-card { padding-top:3rem }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .section-label { display:none }
+.touch-mode[data-touch-orientation=landscape][data-touch-density=compact] .letter-panel .feedback { display:none }
+.touch-mode[data-touch-density=compact] .result-card { padding:.6rem }
+.touch-mode[data-touch-density=compact] .result-symbol { display:none }
+.touch-mode[data-touch-density=compact] .result-card h2 { font-size:1.4rem;margin:.25rem 0 }
+.touch-mode[data-touch-density=compact] .result-card p { margin:.25rem 0;font-size:.8rem }
+/* Las tabletas conservan controles grandes y aprovechan el ancho. */
+@media(min-width:40rem) {
+ .touch-mode .play-card { padding:.75rem;gap:.5rem }
+ .touch-mode .category,.touch-mode .difficulty,.touch-mode .player-strip { font-size:.9rem }
+ .touch-mode .letter { width:1.8rem;height:2.3rem;font-size:1.55rem }
+ .touch-mode .letter-key { font-size:1.2rem }
+ .touch-mode .resolve-button { font-size:.95rem }
+}
+@media(max-height:580px) and (orientation:portrait) {
+ .touch-mode .board { grid-template-rows:1.6rem minmax(0,1fr) }
+ .touch-mode .visual-card { padding:.1rem .4rem;grid-template-columns:2rem 1fr;grid-template-rows:1fr }
+ .touch-mode .visual-card .section-head { grid-row:1 }
+ .touch-mode .stage { grid-row:1 }
+ .touch-mode .progress-block { display:none }
+ .touch-mode .letter-panel .feedback { display:none }
+}
+@media(max-height:420px) {
+ .touch-mode .play-card { padding:.3rem;gap:.2rem }
+ .touch-mode .category,.touch-mode .difficulty,.touch-mode .player-strip { font-size:.75rem;padding:.2rem .35rem }
+}
+
+@media(max-width:340px) {
+ .touch-mode .letter { width:.75rem;height:1.4rem;font-size:.9rem }
+ .touch-mode .word-area { gap:.15rem .35rem;padding:.15rem 0 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .play-card { grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto }
+ .touch-mode .play-card .intro { grid-column:1;grid-row:1 }
+ .touch-mode .player-strip { grid-column:2;grid-row:1;flex-direction:column;justify-content:center;gap:.1rem }
+ .touch-mode .player-strip strong { max-width:100% }
+ .touch-mode .word-area { grid-column:1 / -1;grid-row:2;gap:.15rem .35rem;padding:.1rem 0 }
+ .touch-mode .letter-panel { grid-column:1 / -1;grid-row:3 }
+ .touch-mode .letter { width:.75rem;height:1.4rem;font-size:.9rem }
+}
+
+@media(min-width:341px) and (min-height:600px) {
+ .touch-mode .letter { width:clamp(1.1rem,5.6vw,1.8rem);height:1.85rem;font-size:clamp(1rem,5.2vw,1.5rem) }
+}
+@media(min-width:600px) and (max-height:420px) {
+ .touch-mode .letter { width:1rem;height:1.5rem;font-size:1rem }
+}
+ .touch-mode[data-touch-short=true] .result-card p,.touch-mode[data-touch-short=true] .result-card .eyebrow { display:none }
+ .touch-mode[data-touch-short=true] .result-card h2 { font-size:1.1rem }
+ .touch-mode[data-touch-short=true] .result-answer { font-size:.9rem;margin:.2rem 0 }
+ .touch-mode[data-touch-short=true] .result-card .result-button { min-height:2.75rem }
+
+
+.touch-mode[data-touch-short=true] .result-card { display:grid;grid-template-columns:1fr 1fr;gap:.25rem;padding:.5rem }
+.touch-mode[data-touch-short=true] .result-card h2,.touch-mode[data-touch-short=true] .result-answer { grid-column:1 / -1 }
+.touch-mode[data-touch-short=true] .result-card .end-run { margin:0 }
+.touch-mode[data-touch-short=true] .result-card button { width:100%;font-size:.75rem }
+
+/* CUADROS: proporciones originales, sin comprimirlos al abrir el teclado. */
+.touch-mode dialog {
+ position:fixed;inset:auto;left:50%;top:var(--dialog-top,1rem);transform:translateX(-50%);margin:0;
+ max-height:calc(var(--dialog-height,100svh) - 2rem);overflow:hidden;overscroll-behavior:none;
+}
+.touch-mode .player-dialog { width:min(calc(100% - 2rem),28rem);padding:clamp(1.2rem,4vw,2rem) }
+.touch-mode .ranking-dialog { width:min(calc(100% - 2rem),34rem);padding:clamp(1.2rem,4vw,2rem) }
+.touch-mode dialog h2 { font-size:clamp(1.5rem,5vw,2.2rem);line-height:1.2;margin:.5rem 0 }
+.touch-mode dialog p { font-size:.85rem;line-height:1.5 }
+.touch-mode .dialog-head { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:.65rem;min-height:2.75rem }
+.touch-mode .player-dialog-head>.eyebrow { margin-top:.45rem;font-size:.65rem;letter-spacing:.15em }
+.touch-mode .player-dialog label { margin:1.3rem 0 .5rem;font-size:.7rem }
+.touch-mode .player-dialog input,.touch-mode .solution-dialog input { font-size:1rem;min-height:3rem }
+.touch-mode .dialog-status { min-height:1.3rem;margin:.65rem 0;font-size:.75rem;line-height:1.35 }
+.touch-mode .player-mode-row { justify-content:center;gap:.65rem;margin:1rem 0 .25rem;font-size:.7rem }
+.touch-mode .engine-status { margin:.55rem 0;font-size:.7rem;line-height:1.4 }
+.touch-mode .mode-toggle { display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-width:6rem;min-height:2.75rem;padding:.65rem .8rem;font-size:.72rem;line-height:1;white-space:nowrap;letter-spacing:.06em }
+.touch-mode .secondary-button,.touch-mode dialog .result-button,.touch-mode dialog .guess-button { min-height:2.75rem;font-size:.75rem;line-height:1.25 }
+.touch-mode .theme-toggle,.touch-mode .options-dialog .theme-toggle { width:5rem;min-width:5rem;height:2.75rem;min-height:2.75rem;padding:.25rem!important;grid-template-columns:repeat(2,1fr);flex:none }
+.touch-mode .theme-thumb { left:.25rem;top:.25rem;width:2.25rem;height:2.25rem;aspect-ratio:1;border-radius:50% }
+.touch-mode .theme-toggle svg { width:.8rem;height:.8rem }
+.touch-mode .dialog-close { width:2.75rem;height:2.75rem;min-width:2.75rem;min-height:2.75rem }
+.touch-mode .ranking-scroll { max-height:none;overflow:hidden;margin:1rem 0 }
+.touch-mode .ranking-table { table-layout:fixed;font-size:.8rem }
+.touch-mode .ranking-table th { position:static;font-size:.65rem;letter-spacing:.04em }
+.touch-mode .ranking-table th:first-child { width:15% }
+.touch-mode .ranking-table th:last-child { width:27% }
+.touch-mode .ranking-table td { overflow-wrap:anywhere }
+.touch-mode .ranking-summary { padding:.85rem }
+.touch-mode .dialog-actions { flex-wrap:nowrap;gap:.6rem }
+.touch-mode .dialog-actions button { min-width:0 }
+/* Opciones: dos filas equilibradas, switch de tamaño propio y selector completo. */
+.touch-mode .options-dialog { width:min(calc(100% - 2rem),25rem);padding:1.25rem;border-radius:1.25rem }
+.touch-mode .options-dialog .header-actions { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.75rem;align-items:center;width:100%;margin:0 }
+.touch-mode .options-dialog #mode-toggle { grid-row:1;grid-column:1;justify-self:stretch }
+.touch-mode .options-dialog #theme-toggle { grid-row:1;grid-column:2;justify-self:center }
+.touch-mode .options-dialog #ranking-open { grid-row:2;grid-column:1 }
+.touch-mode .options-dialog #restart { grid-row:2;grid-column:2 }
+.touch-mode .options-dialog .header-actions button:not(.theme-toggle) { min-height:2.75rem;padding:.65rem .4rem;justify-content:center;white-space:nowrap;font-size:.7rem;letter-spacing:.02em }
+.touch-mode .options-dialog .level-row { display:grid;grid-template-columns:1fr;gap:.5rem;margin:1rem 0 0;padding:.75rem }
+.touch-mode .options-dialog .level-select { width:100%;max-width:none;min-height:2.75rem;font-size:1rem;padding:.4rem .65rem }
+.touch-mode .options-dialog .level-label { font-size:.72rem;line-height:1.3 }
+/* Apaisado bajo: se aprovecha el ancho, sin aplastar el cuadro ni sus controles. */
+@media(max-height:520px) and (orientation:landscape) {
+ .touch-mode .player-dialog { width:min(calc(100% - 2rem),42rem);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:1.25rem;padding:1rem }
+ .touch-mode .player-dialog:not([open]) { display:none }
+ .touch-mode .player-dialog .player-dialog-head { grid-column:1;grid-row:1 }
+ .touch-mode .player-dialog h2 { grid-column:1;grid-row:2;font-size:1.5rem }
+ .touch-mode .player-dialog>p { grid-column:1;grid-row:3;margin:.4rem 0 }
+ .touch-mode .player-dialog .player-mode-row { grid-column:2;grid-row:1;margin:0;gap:.4rem }
+ .touch-mode .player-dialog .engine-status { grid-column:2;grid-row:2;margin:.35rem 0 }
+ .touch-mode .player-dialog form { grid-column:2;grid-row:3 }
+ .touch-mode .player-dialog label { margin:0 0 .35rem }
+ .touch-mode .player-dialog .dialog-status { margin:.35rem 0;min-height:.75rem }
+ .touch-mode .ranking-dialog { width:min(calc(100% - 2rem),50rem);display:grid;grid-template-columns:minmax(7rem,.65fr) minmax(0,2fr);gap:.35rem 1rem;padding:.8rem }
+ .touch-mode .ranking-dialog:not([open]) { display:none }
+ .touch-mode .ranking-dialog .dialog-head { grid-column:1;grid-row:1 }
+ .touch-mode .ranking-dialog .dialog-head>.eyebrow { grid-column:1 / 3;font-size:.6rem;letter-spacing:.03em }
+ .touch-mode .ranking-dialog h2 { grid-column:1;grid-row:2;font-size:1.4rem }
+ .touch-mode .ranking-dialog>h2+p { grid-column:1;grid-row:3;font-size:.75rem;margin:0 }
+ .touch-mode .ranking-dialog .ranking-summary { grid-column:1;grid-row:4;margin:0;padding:.4rem;font-size:.75rem }
+ .touch-mode .ranking-dialog .dialog-status { grid-column:1;grid-row:5;margin:0;min-height:0;font-size:.7rem }
+ .touch-mode .ranking-dialog .ranking-scroll { grid-column:2;grid-row:1 / 6;margin:0 }
+ .touch-mode .ranking-dialog .dialog-actions { grid-column:1 / -1;grid-row:6 }
+ .touch-mode .ranking-table th,.touch-mode .ranking-table td { padding:.4rem .35rem }
+ .touch-mode .options-dialog { width:min(calc(100% - 2rem),38rem);padding:1rem }
+ .touch-mode .options-dialog #options-controls { display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;align-items:start }
+ .touch-mode .options-dialog .level-row { margin:0 }
+}
+@media(max-width:380px) and (orientation:portrait) {
+ .touch-mode .ranking-dialog { padding:1rem }
+ .touch-mode .ranking-dialog .ranking-scroll { margin:.6rem 0 }
+ .touch-mode .ranking-dialog .ranking-table th,.touch-mode .ranking-dialog .ranking-table td { padding:.4rem .35rem }
+ .touch-mode .ranking-dialog .dialog-status { margin:.4rem 0 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .player-dialog { grid-template-rows:auto auto auto auto auto;gap:.2rem 1rem }
+ .touch-mode .player-dialog .player-dialog-head { grid-column:1 / -1;grid-row:1;grid-template-columns:1fr auto 1fr }
+ .touch-mode .player-dialog .player-dialog-head>.eyebrow { grid-column:2;grid-row:1;margin:0 }
+ .touch-mode .player-dialog h2 { grid-column:1;grid-row:2;font-size:1.25rem;margin:.25rem 0 }
+ .touch-mode .player-dialog>p { grid-column:1;grid-row:3;font-size:.75rem;margin:.2rem 0 }
+ .touch-mode .player-dialog .player-mode-row { grid-column:1;grid-row:4;font-size:.65rem }
+ .touch-mode .player-dialog .engine-status { grid-column:1;grid-row:5;font-size:.65rem;margin:.2rem 0 }
+ .touch-mode .player-dialog form { grid-column:2;grid-row:2 / 6;align-self:center }
+ .touch-mode .ranking-dialog .ranking-table th,.touch-mode .ranking-dialog .ranking-table td { padding:.25rem .3rem }
+ .touch-mode .ranking-dialog>h2+p { font-size:.7rem;line-height:1.3 }
+ .touch-mode .ranking-dialog .dialog-head>.eyebrow { font-size:.55rem }
+}
+@media(max-width:340px) and (orientation:portrait) {
+ .touch-mode .ranking-dialog .ranking-table th,.touch-mode .ranking-dialog .ranking-table td { padding:.25rem .3rem }
+ .touch-mode .ranking-dialog .ranking-scroll { margin:.5rem 0 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .ranking-dialog { padding:.5rem;gap:.25rem .8rem }
+}
+/* Pulido exclusivo de móvil y tableta. */
+.touch-mode .footer { display:flex;flex:0 0 auto;justify-content:center;align-items:center;padding:.15rem 0 0;border-top:0;gap:0;font-size:.6rem;line-height:1.25;letter-spacing:0;text-align:center }
+.touch-mode .footer span:first-child { display:block;width:auto;white-space:normal }
+.touch-mode .footer span:last-child { display:none }
+.touch-mode .category,.touch-mode .difficulty { font-size:.825rem }
+.touch-mode[data-touch-density=compact] .category,.touch-mode[data-touch-density=compact] .difficulty { font-size:.8rem }
+.touch-mode .letter { font-size:clamp(.96rem,4.2vw,1.65rem) }
+.touch-mode .ranking-dialog>h2+p { text-wrap:balance }
+.touch-mode .ranking-dialog>h2+p br { display:none }
+.touch-mode .ranking-dialog>h2+p br::after { content:' ' }
+.touch-mode .ranking-dialog .dialog-actions button { white-space:nowrap;letter-spacing:.035em;padding:.85rem .45rem }
+.touch-mode .touch-rules { display:grid;gap:.4rem;margin:1rem 0 0;padding:.85rem;border:1px solid var(--line);border-radius:.8rem;background:var(--alt);text-align:center;color:var(--soft) }
+.touch-mode .touch-rules strong { font-size:.76rem;letter-spacing:.05em }
+.touch-mode .touch-rules span { font-size:.76rem;line-height:1.4;text-wrap:balance }
+.touch-mode .options-dialog .level-row { margin:.9rem 0 0 }
+.touch-mode .options-dialog .header-actions { gap:.85rem }
+.touch-mode .options-dialog .header-actions button:not(.theme-toggle) { font-size:.72rem }
+@media(min-width:40rem) {
+ .touch-mode .category,.touch-mode .difficulty { font-size:1rem }
+ .touch-mode .letter { font-size:1.7rem }
+}
+@media(min-width:341px) and (min-height:600px) {
+ .touch-mode .letter { font-size:clamp(1.1rem,5.7vw,1.65rem);height:2rem }
+}
+@media(max-width:340px) {
+ .touch-mode .letter { font-size:.975rem;height:1.2rem }
+ .touch-mode .word-area { gap:.1rem .35rem;padding:0 }
+}
+@media(max-height:420px) {
+ .touch-mode .category,.touch-mode .difficulty { font-size:.825rem }
+ .touch-mode .options-dialog .header-actions { gap:.6rem }
+ .touch-mode .options-dialog .touch-rules { grid-column:1 / -1;margin:.6rem 0 0;padding:.55rem;grid-template-columns:1fr 1.6fr;align-items:center;gap:.5rem }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .letter { font-size:.975rem;height:1.2rem }
+ .touch-mode .word-area { padding:0;gap:.1rem .35rem }
+}
+@media(min-width:600px) and (max-height:420px) {
+ .touch-mode .letter { font-size:1.1rem;height:1.5rem }
+}
+@media(max-width:340px) {
+ .touch-mode .word-group { gap:.05rem }
+ .touch-mode .word-area { column-gap:.3rem }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .word-group { gap:.05rem }
+ .touch-mode .word-area { column-gap:.3rem }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .player-strip { width:7.5rem;padding:.15rem .35rem }
+ .touch-mode .player-strip span { white-space:normal;text-wrap:balance;text-align:center }
+ .touch-mode .difficulty { max-width:none }
+ .touch-mode .difficulty span:last-child { white-space:nowrap }
+ .touch-mode .category,.touch-mode .difficulty { padding:.15rem .35rem }
+ .touch-mode .letter { height:1.1rem }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode #score-label { font-size:0;line-height:1.2 }
+ .touch-mode #score-label::after { content:attr(data-touch-score) ' RESUELTAS';font-size:.75rem;line-height:1.2 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .letter { height:1rem;line-height:1 }
+}
+.touch-mode .ranking-dialog .ranking-summary { margin:.4rem 0;padding:.5rem;font-size:.8rem;line-height:1.3;text-wrap:balance }
+@media(max-width:340px) and (orientation:portrait) {
+ .touch-mode .ranking-dialog>h2+p { margin:.5rem 0;font-size:.8rem;line-height:1.35 }
+ .touch-mode .ranking-dialog .dialog-status { margin:.25rem 0;min-height:1rem }
+ .touch-mode .ranking-dialog .ranking-summary { margin:.25rem 0;padding:.35rem }
+}
+@media(max-height:520px) and (orientation:landscape) {
+ .touch-mode .ranking-dialog h2 { font-size:1.1rem;line-height:1.2;margin:.25rem 0 }
+ .touch-mode .ranking-dialog .ranking-summary { margin:0;padding:.35rem;font-size:.75rem;line-height:1.25 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .ranking-dialog .ranking-summary { grid-column:1 / -1;grid-row:6;text-align:center }
+ .touch-mode .ranking-dialog .dialog-actions { grid-row:7 }
+}
+@media(max-height:350px) and (orientation:landscape) {
+ .touch-mode .ranking-dialog { row-gap:.2rem }
+}
+/* Nombre del jugador: separación corta y foco sin recuadro decorativo. */
+#player-error:empty { display:none }
+#player-error:empty + .result-button { margin-top:.65rem }
+.touch-mode #player-title:focus,.touch-mode #player-title:focus-visible { outline:none;box-shadow:none }
+</style>
+
+  <style id="category-filters">
+    .filter-bar { display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:.8rem }
+    .filter-group { display:flex;align-items:center;gap:.45rem;min-width:0 }
+    .filter-group .level-label { flex:0 0 auto;font-size:.6rem;letter-spacing:.05em }
+    .filter-group .level-select { flex:1;min-width:0;width:100%;max-width:none;min-height:2rem;padding:.4rem .45rem;border:1px solid var(--line);border-radius:.5rem;font-size:.7rem;text-overflow:ellipsis }
+    .filter-group .level-select:focus-visible { outline:2px solid var(--ink);outline-offset:2px }
+    .filter-group .level-select:disabled { opacity:.55;cursor:wait }
+    .touch-mode .options-dialog .filter-bar { grid-template-columns:1fr;gap:.65rem }
+    .touch-mode .options-dialog .filter-group { display:grid;grid-template-columns:1fr;gap:.4rem }
+    .touch-mode .options-dialog .filter-group .level-label { font-size:.72rem }
+    .touch-mode .options-dialog .filter-group .level-select { min-height:2.75rem;font-size:1rem;padding:.4rem .65rem }
+    @media(max-height:520px) and (orientation:landscape) {
+      .touch-mode .options-dialog .filter-bar { grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.5rem }
+      .touch-mode .options-dialog .filter-group .level-label { font-size:.65rem }
+      .touch-mode .options-dialog .filter-group .level-select { font-size:.8rem;padding:.4rem .25rem }
+    }
+    .filter-group .level-select,.touch-mode .options-dialog .filter-group .level-select {
+      appearance:none;-webkit-appearance:none;padding-right:2rem;
+      background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);
+      background-position:right 1rem center,right .75rem center;background-size:.25rem .25rem;background-repeat:no-repeat
+    }
+  </style>
+
+<style id="options-refinement">
+.options-touch-title { display:none }
+.touch-mode .options-dialog { position:relative }
+.touch-mode .options-dialog .dialog-head { position:absolute;top:.6rem;right:.6rem }
+.touch-mode .options-dialog .dialog-head .eyebrow,.touch-mode .options-desktop-title { display:none }
+.touch-mode .options-touch-title { display:inline }
+.touch-mode .options-dialog #options-title { margin:0 0 .9rem;padding-right:2rem;font-size:clamp(1.05rem,4.8vw,1.3rem);line-height:1.25;white-space:nowrap }
+*:focus,*:focus-visible { outline:none!important;box-shadow:none!important }
+* { -webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none }
+input,textarea,[contenteditable=true] { user-select:text;-webkit-user-select:text }
+</style>
+<style id="result-text-balance">
+#result-description,#result-answer { text-align:center;text-wrap:balance;word-break:normal;overflow-wrap:break-word }
+</style>
 </head>
 
 <body>
@@ -2491,7 +2844,8 @@
           <h2>Descifra el enigma.</h2>
           <p><span class="desktop-intro-copy">Elige letras o resuelve el enigma.</span><span class="original-intro-copy">Adivina las letras o arriesga con la solución completa.<strong>Cada error acerca el final.</strong></span></p>
         </div>
-        <div class="level-row"><label class="level-label" for="level-select">DIFICULTAD</label><select
+        <div class="level-row filter-bar">
+          <div class="filter-group"><label class="level-label" for="level-select">DIFICULTAD</label><select
             class="level-select" id="level-select">
             <option value="all">TODAS · ALEATORIO</option>
             <option value="easy">FÁCIL</option>
@@ -2499,6 +2853,26 @@
             <option value="hard">DIFÍCIL</option>
             <option value="expert">MUY DIFÍCIL</option>
           </select></div>
+          <div class="filter-group"><label class="level-label" for="category-select">CATEGORÍA</label><select class="level-select" id="category-select">
+            <option value="all">TODAS · ALEATORIO</option>
+            <option value="Películas">Películas</option>
+            <option value="Series de ficción">Series de ficción</option>
+            <option value="Películas de animación">Películas de animación</option>
+            <option value="Series de animación">Series de animación</option>
+            <option value="Programas de televisión">Programas de televisión</option>
+            <option value="Videojuegos">Videojuegos</option>
+            <option value="Libros">Libros</option>
+            <option value="Cantantes y grupos">Cantantes y grupos</option>
+            <option value="Canciones">Canciones</option>
+            <option value="Lugares y monumentos">Lugares y monumentos</option>
+            <option value="Figuras históricas y públicas">Figuras históricas y públicas</option>
+            <option value="Personajes de ficción">Personajes de ficción</option>
+            <option value="Gastronomía">Gastronomía</option>
+            <option value="Arte">Arte</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Cultura friki">Cultura friki</option>
+          </select></div>
+        </div>
         <div class="catalog-status" id="catalog-status"></div>
         <div class="player-strip"><strong id="player-label">SIN JUGADOR</strong><span id="score-label">0 PALABRAS
             RESUELTAS</span></div>
@@ -2519,7 +2893,7 @@
   <dialog class="options-dialog" id="options-dialog" aria-labelledby="options-title">
     <div class="dialog-head"><span class="eyebrow">TU PARTIDA</span><button class="dialog-close" id="options-close"
         type="button" aria-label="Cerrar opciones">×</button></div>
-    <h2 id="options-title">Opciones</h2>
+    <h2 id="options-title"><span class="options-desktop-title">Opciones</span><span class="options-touch-title">AJUSTES PARTIDA</span></h2>
     <div id="options-controls"></div>
   </dialog>
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-hidden="true">
@@ -2545,7 +2919,7 @@
           <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
         </svg></button><span class="eyebrow">TU PRÓXIMO RETO</span><button class="secondary-button" id="player-ranking"
         type="button">RANKING</button></div>
-    <h2 id="player-title">Elige tu nombre<br>de jugador</h2>
+    <h2 id="player-title" tabindex="-1">Elige tu nombre <br>de jugador</h2>
     <p>Solo las partidas verificadas online<br>entrarán en el ranking.</p>
     <div class="player-mode-row"><strong>MODO DE LOS ENIGMAS</strong><button class="mode-toggle" id="player-mode-toggle"
         type="button" aria-pressed="true">ONLINE</button></div>
@@ -2709,7 +3083,8 @@
       $('#player-name').value = typeof playerName === 'string' ? playerName : '';
       $('#player-error').textContent = '';
       if (!playerDialog.open) playerDialog.showModal();
-      $('#player-name').focus();
+      if (matchMedia('(max-width:64rem), (max-width:90rem) and (hover:none) and (pointer:coarse)').matches) $('#player-title').focus({ preventScroll:true });
+      else $('#player-name').focus();
     }
     async function rankingFetch(options = {}) {
       const controller = new AbortController();
@@ -2744,7 +3119,7 @@
         fragment.append(tr);
       });
       body.append(fragment);
-      body.querySelector('.own-score')?.scrollIntoView({ block: 'nearest' });
+      if (!matchMedia('(max-width:64rem), (max-width:90rem) and (hover:none) and (pointer:coarse)').matches) body.querySelector('.own-score')?.scrollIntoView({ block: 'nearest' });
     }
     async function loadRanking() {
       const request = ++rankingRequest;
@@ -2769,7 +3144,7 @@
         const record = pendingScore || lastRecord;
         $('#ranking-summary').textContent = `${record.nombre} · ${record.palabrasResueltas} palabras resueltas`;
       }
-      $('#ranking-action').textContent = returnToPlayer ? 'VOLVER →' : runActive ? 'SEGUIR JUGANDO →' : 'NUEVA PARTIDA →';
+      $('#ranking-action').textContent = returnToPlayer ? 'VOLVER →' : runActive ? 'SEGUIR JUGANDO →' : matchMedia('(max-width:64rem), (max-width:90rem) and (hover:none) and (pointer:coarse)').matches ? 'NUEVA PARTIDA' : 'NUEVA PARTIDA →';
       $('#ranking-action').disabled = savingScore;
       if (!rankingDialog.open) rankingDialog.showModal();
       if (pendingScore) saveRun(); else loadRanking();
@@ -2863,7 +3238,7 @@
     drawUsed();
 
     // Mover los mismos controles conserva sus eventos y el estado del motor.
-    const compactView = matchMedia('(max-width:64rem)'), optionsDialog = $('#options-dialog');
+    const compactView = matchMedia('(max-width:64rem), (max-width:90rem) and (hover:none) and (pointer:coarse)'), optionsDialog = $('#options-dialog');
     const headerControls = $('.header-actions'), levelControls = $('.level-row');
     const headerAnchor = document.createComment('controles de cabecera'), levelAnchor = document.createComment('dificultad');
     headerControls.before(headerAnchor); levelControls.before(levelAnchor);
@@ -2878,7 +3253,107 @@
     compactView.addEventListener('change', adaptControls); adaptControls();
 
   </script>
-  <script src="./motor.js?v=7-sqlite"></script>
+  <script>
+/* INTERFAZ TÁCTIL — viewport visible, teclado y orientación. */
+(() => {
+  const root = document.documentElement;
+  const query = matchMedia('(max-width:64rem), (max-width:90rem) and (hover:none) and (pointer:coarse)');
+  const viewport = window.visualViewport;
+  const keyboard = document.querySelector('#letter-keyboard');
+  const dialogStates = new WeakMap();
+  const rules = document.createElement('div');
+  rules.className = 'touch-rules';
+  rules.hidden = true;
+  rules.innerHTML = '<strong>09 FALLOS MÁXIMOS</strong><span>Tildes opcionales · Ñ independiente</span>';
+  document.querySelector('#options-controls').after(rules);
+  const scoreLabel = document.querySelector('#score-label');
+  const syncTouchScore = () => { scoreLabel.dataset.touchScore = scoreLabel.textContent.match(/\d+/)?.[0] || '0'; };
+  new MutationObserver(syncTouchScore).observe(scoreLabel, { childList:true, subtree:true, characterData:true });
+  syncTouchScore();
+  const rankingCopy = document.querySelector('#ranking-title + p');
+  const originalRankingCopy = rankingCopy.innerHTML;
+  const alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+  let frame = 0, lastWidth = 0, baselineHeight = window.innerHeight;
+  const update = () => {
+    frame = 0;
+    const active = query.matches;
+    root.classList.toggle('touch-mode', active);
+    rules.hidden = !active;
+    const desiredCopy = active ? 'Las cinco mejores partidas online. Puntuaciones verificadas durante el juego.' : originalRankingCopy;
+    if (rankingCopy.innerHTML !== desiredCopy) rankingCopy.innerHTML = desiredCopy;
+    const action = document.querySelector('#ranking-action');
+    if (/^NUEVA PARTIDA(?: →)?$/.test(action.textContent)) action.textContent = active ? 'NUEVA PARTIDA' : 'NUEVA PARTIDA →';
+    if (!active) {
+      for (const key of keyboard.querySelectorAll('.letter-key')) key.style.removeProperty('order');
+      for (const name of ['touchOrientation','touchDensity','touchKeyboard','touchShort']) delete root.dataset[name];
+      return;
+    }
+    const viewport = window.visualViewport;
+    const width = viewport?.width || window.innerWidth;
+    const height = viewport?.height || window.innerHeight;
+    if (Math.abs(width - lastWidth) > 40) baselineHeight = window.innerHeight;
+    lastWidth = width;
+    const inputFocused = document.activeElement?.matches('input,textarea,[contenteditable=true]');
+    const keyboardVisible = !!inputFocused && Math.max(baselineHeight, window.innerHeight) - height > 100;
+    if (!inputFocused) baselineHeight = Math.max(height, window.innerHeight);
+    // Guardar el marco del cuadro: escribir no cambia su tamaño ni sus márgenes.
+    for (const dialog of document.querySelectorAll('dialog')) {
+      if (!dialog.open) { dialogStates.delete(dialog); continue; }
+      let state = dialogStates.get(dialog);
+      if (!state || Math.abs(state.width - width) > 40) {
+        state = { width, height: baselineHeight, keyboardTop: null };
+        dialogStates.set(dialog, state);
+      }
+      dialog.style.setProperty('--dialog-height', state.height + 'px');
+      const normalTop = Math.max(8, (state.height - dialog.offsetHeight) / 2);
+      if (keyboardVisible && dialog.contains(document.activeElement)) {
+        if (state.keyboardTop === null) {
+          const form = document.activeElement.closest('form');
+          const bottom = (form || document.activeElement).getBoundingClientRect().bottom - dialog.getBoundingClientRect().top;
+          state.keyboardTop = Math.min(normalTop, height - bottom - 12);
+        }
+        dialog.style.setProperty('--dialog-top', ((viewport?.offsetTop || 0) + state.keyboardTop) + 'px');
+      } else {
+        state.keyboardTop = null;
+        dialog.style.setProperty('--dialog-top', normalTop + 'px');
+      }
+    }
+    root.style.setProperty('--touch-height', height + 'px');
+    root.style.setProperty('--touch-top', (viewport?.offsetTop || 0) + 'px');
+    root.dataset.touchOrientation = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+    root.dataset.touchDensity = height < 650 ? 'compact' : 'comfortable';
+    root.dataset.touchKeyboard = String(keyboardVisible);
+    root.dataset.touchShort = String(height <= 250);
+    root.style.setProperty('--touch-key', Math.max(44, Math.min(56, height * .06)) + 'px');
+    const columns = Math.max(4, Math.min(9, Math.floor((keyboard.clientWidth + 4) / 48)));
+    root.style.setProperty('--touch-cols', columns);
+    for (const key of keyboard.querySelectorAll('.letter-key')) {
+      key.style.order = alphabet.indexOf(key.dataset.letter);
+
+    }
+    requestAnimationFrame(() => { if (typeof fitWord === 'function') fitWord(); });
+  };
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+  query.addEventListener('change', schedule);
+  window.addEventListener('resize', schedule);
+  window.addEventListener('orientationchange', schedule);
+  viewport?.addEventListener('resize', schedule);
+  viewport?.addEventListener('scroll', schedule);
+  document.addEventListener('focusin', schedule);
+  document.addEventListener('focusout', schedule);
+  for (const dialog of document.querySelectorAll('dialog')) {
+    dialog.addEventListener('close', schedule);
+    new MutationObserver(schedule).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+  }
+  if ('ResizeObserver' in window) {
+    const layoutObserver = new ResizeObserver(schedule);
+    layoutObserver.observe(keyboard);
+    for (const dialog of document.querySelectorAll('dialog')) layoutObserver.observe(dialog);
+  }
+  update();
+})();
+  </script>
+  <script src="./motor.js?v=8-categorias"></script>
 </body>
 
 </html>

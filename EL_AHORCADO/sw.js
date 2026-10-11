@@ -2,7 +2,7 @@
 
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'ahorcado-offline-' + encodeURIComponent(BASE.pathname) + '-';
-const CACHE = PREFIX + 'v6-sqlite';
+const CACHE = PREFIX + 'v7-categorias';
 const POLICY = 'descubrimiento-cultural-v5';
 const INDEX = new URL('index.html', BASE).href;
 const MOTOR = new URL('motor.js', BASE).href;

@@ -5,6 +5,10 @@
   const POLICY = 'descubrimiento-cultural-v5';
   const CACHE_KEY = 'ahorcado-catalogo-mensual-v5';
   const CATEGORIES = ['Películas', 'Series de ficción', 'Películas de animación', 'Series de animación', 'Programas de televisión', 'Videojuegos', 'Libros', 'Cantantes y grupos', 'Canciones', 'Lugares y monumentos', 'Figuras históricas y públicas', 'Personajes de ficción', 'Gastronomía', 'Arte', 'Deportes', 'Cultura friki'];
+  const CATEGORY_KEY = 'ahorcado-categoria-v1';
+  const categorySelect = $('#category-select');
+  const savedCategory = read(CATEGORY_KEY, 'all');
+  if (categorySelect) categorySelect.value = CATEGORIES.includes(savedCategory) ? savedCategory : 'all';
   const MODE_KEY = 'ahorcado-modo-v2';
   const API = './api/palabras.php';
 
@@ -290,9 +294,10 @@
   }
 
   catalogStatus = function () {
-    const remaining = catalog.filter(item => !used.has(item.id)).length;
+    const filteredCatalog = offlinePool();
+    const remaining = filteredCatalog.filter(item => !used.has(item.id)).length;
     const count =
-      `${remaining.toLocaleString('es-ES')} de ${catalog.length.toLocaleString('es-ES')} enigmas pendientes`;
+      `${remaining.toLocaleString('es-ES')} de ${filteredCatalog.length.toLocaleString('es-ES')} enigmas pendientes`;
 
     const searching =
       loading && mode === 'online' && navigator.onLine;
@@ -362,6 +367,12 @@
   let startRequest = null;
   let pendingAttempt = null;
   let verificationBusy = false;
+  function syncFilterLocks() {
+    for (const filter of [$('#level-select'), categorySelect]) {
+      if (filter) filter.disabled = loading || verificationBusy || Boolean(pendingAttempt);
+    }
+  }
+
 
   const originalEndRun = endRun;
 
@@ -372,6 +383,8 @@
     }
 
     originalEndRun();
+    pendingAttempt = null;
+    syncFilterLocks();
     cancelPrefetch();
   };
 
@@ -525,13 +538,13 @@
     if (mode === 'offline') {
       if (!offlinePool().length) {
         feedback(
-          'No hay enigmas guardados para esta selección. Cambia de dificultad o termina la partida para elegir online.'
+          'No hay enigmas guardados para esta selección. Cambia de dificultad o categoría, o termina la partida para elegir online.'
         );
 
         $('#result-title').textContent = 'SIN ENIGMAS GUARDADOS';
         $('#result-eyebrow').textContent = 'MODO OFFLINE';
         $('#result-description').textContent =
-          'Cambia de dificultad o termina la partida para elegir el modo online.';
+          'Cambia de dificultad o categoría, o termina la partida para elegir el modo online.';
         $('#result-answer').textContent = '';
         $('#result-run').textContent = `${runScore} palabras resueltas.`;
         $('#play-again').textContent = 'REINTENTAR →';
@@ -546,6 +559,7 @@
       verifiedRound = null;
       startRequest = null;
       pendingAttempt = null;
+      syncFilterLocks();
       window.verifiedActive = false;
       window.verifiedSubmit = null;
       lastOrigin = 'local';
@@ -567,7 +581,7 @@
     input.disabled = true;
     $('#guess-button').disabled = true;
     $('#play-again').disabled = true;
-    $('#level-select').disabled = true;
+    syncFilterLocks();
 
     syncKeyboard();
     catalogStatus();
@@ -627,7 +641,7 @@
     } finally {
       loading = false;
       $('#play-again').disabled = false;
-      $('#level-select').disabled = false;
+      syncFilterLocks();
       catalogStatus();
       syncKeyboard();
     }
@@ -663,6 +677,7 @@
     };
 
     verificationBusy = true;
+    syncFilterLocks();
 
     if ($('#solution-dialog').open) {
       $('#solution-dialog').close();
@@ -716,6 +731,7 @@
       );
     } finally {
       verificationBusy = false;
+      syncFilterLocks();
 
       if (!finished && runActive) {
         input.disabled = false;
@@ -758,16 +774,20 @@
 
   $('#restart').addEventListener('click', stopSearch);
   $('#end-run').addEventListener('click', stopSearch);
-  $('#level-select').addEventListener('change', () => {
+  const filtersChanged = () => {
+    if (categorySelect) save(CATEGORY_KEY, chosenCategory());
     updateMode();
     cancelPrefetch();
-    if (!loading && !verificationBusy) startPrefetch();
-  });
-
-  $('#category-select')?.addEventListener('change', () => {
-    updateMode();
-    cancelPrefetch();
-    if (runActive && !finished && !loading) newGame();
+    if (loading || verificationBusy || pendingAttempt) return;
+    if (mode === 'online') {
+      startPrefetch();
+      if (runActive && !finished) feedback('Selección guardada para el próximo enigma.');
+    }
+  };
+  $('#level-select').addEventListener('change', filtersChanged);
+  categorySelect?.addEventListener('change', () => {
+    filtersChanged();
+    if (mode === 'offline' && runActive && !finished && !loading) newGame();
   });
 
   function observeServerCatalog(data) {
