@@ -1,0 +1,198 @@
+PÁGINA 4 — Artículo 2.7
+
+Líneas digitales 176–182
+
+«Se aplicará a los datos personales tratados en relación con los derechos y obligaciones establecidos en el presente Reglamento. Sin perjuicio de sus artículos 4 bis y 59, el presente Reglamento no afectará a los Reglamentos (UE) 2016/679 o (UE) 2018/1725 ni a las Directivas 2002/58/CE o (UE) 2016/680.»
+
+---------------------------------------
+
+Protección de datos de clientes: el chatbot deberá proteger los datos personales, restringiendo el acceso a pedidos, tarifas, direcciones e historiales mediante autenticación y permisos individuales. Se aplicará conjuntamente el RGPD.
+
+Uso controlado de información: la IA no tendrá acceso directo a toda la base de datos. El servidor PHP verificará la identidad y los permisos del usuario, proporcionando únicamente la información necesaria para cada consulta.
+
+Tratamiento de datos y bases de datos: las bases de datos operativas deberán garantizar confidencialidad, integridad, control de accesos y tratamiento lícito de la información personal.
+
+Estas medidas son propuestas técnicas de UCO. El artículo confirma que el Reglamento de IA no sustituye al RGPD.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 11 — Artículo 4.1
+
+Líneas digitales 699–715
+
+Alfabetización en materia de IA: los proveedores y responsables del despliegue deberán adoptar medidas para promover conocimientos suficientes sobre inteligencia artificial entre las personas que utilizan estos sistemas, teniendo en cuenta su experiencia, formación y contexto de utilización.
+
+---------------------------------------
+
+Formación del personal: los trabajadores de UCO que utilicen o supervisen el chatbot deberán conocer sus capacidades, limitaciones, riesgos, medidas de seguridad y protección de datos.
+
+Obligación de alfabetización en IA adaptada a las características y utilización del sistema.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINAS 13–14 — Artículo 5.1.a–b
+
+Prácticas prohibidas relacionadas con la manipulación de personas y la explotación de determinadas vulnerabilidades.
+
+---------------------------------------
+
+Manipulación comercial: el chatbot no deberá utilizar técnicas manipuladoras perjudiciales ni aprovechar vulnerabilidades personales para condicionar decisiones de compra.
+
+Las recomendaciones comerciales deberán respetar la autonomía del cliente. La prohibición legal se aplica cuando concurren las condiciones específicas previstas en el artículo.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 14 — Artículo 5.1.e
+
+Líneas digitales 877–882
+
+Prohibición de crear o ampliar bases de datos de reconocimiento facial mediante extracción no selectiva de imágenes faciales de internet o circuitos cerrados de televisión.
+
+Reconocimiento facial: UCO no recopilará indiscriminadamente imágenes faciales para crear bases de datos destinadas a identificar personas.
+
+Esta prohibición no afecta automáticamente a todos los sistemas de verificación facial, pero cualquier incorporación de esta tecnología deberá evaluarse legalmente.
+
+## PÁGINA 14 — Artículo 5.1.f–g
+
+Líneas digitales 883–897
+
+Prohibición de determinados sistemas de reconocimiento de emociones en lugares de trabajo y centros educativos, así como de determinadas formas de categorización biométrica basadas en características sensibles.
+
+---------------------------------------
+
+Reconocimiento de emociones: UCO no utilizará IA para analizar emociones de trabajadores mediante datos biométricos, salvo las excepciones legales aplicables.
+
+Clasificación biométrica: no se utilizarán sistemas que deduzcan características sensibles de personas mediante prácticas prohibidas de categorización biométrica.
+
+Estas restricciones deberán considerarse antes de incorporar cámaras inteligentes o sistemas de análisis facial.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 37 — Artículo 26.1–2
+
+Líneas digitales 2452–2461
+
+1\. Los responsables del despliegue de sistemas de IA de alto riesgo adoptarán medidas técnicas y organizativas adecuadas para garantizar que utilizan dichos sistemas con arreglo a las instrucciones de uso que los acompañen, de acuerdo con los apartados 3 y 6.
+
+
+2\. Los responsables del despliegue encomendarán la supervisión humana a personas físicas que tengan la competencia, la formación y la autoridad necesarias.
+
+---------------------------------------
+
+Supervisión de decisiones comerciales: la IA podrá informar, recomendar productos y preparar pedidos, pero las modificaciones de tarifas, descuentos excepcionales y operaciones sensibles deberán someterse a reglas de autorización y confirmación.
+
+Se adopta el principio de supervisión humana como medida preventiva. El artículo se refiere a sistemas de IA de alto riesgo, sin que ello implique que el chatbot de UCO tenga esa clasificación.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINAS 37–38 — Artículo 26.4–5
+
+Desde la línea digital 2466
+
+Apartado 4 — Datos de entrada
+
+Sin perjuicio de lo dispuesto en los apartados 1 y 2, el responsable del despliegue se asegurará de que los datos de entrada sean pertinentes y suficientemente representativos en vista de la finalidad prevista del sistema de IA de alto riesgo, en la medida en que ejerza el control sobre dichos datos.
+
+Apartado 5 — Vigilancia del funcionamiento
+
+Los responsables del despliegue vigilarán el funcionamiento del sistema de IA de alto riesgo basándose en las instrucciones de uso y, cuando proceda, informarán a los proveedores con arreglo al artículo 72.
+
+---------------------------------------
+
+Seguridad y trazabilidad: el sistema deberá controlar los accesos, registrar operaciones relevantes y prevenir consultas o modificaciones no autorizadas, incluso ante instrucciones maliciosas dirigidas al chatbot.
+
+Medida de seguridad recomendada para UCO. El artículo regula obligaciones de vigilancia de sistemas de IA de alto riesgo.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 59 — Artículo 50.1
+
+Líneas digitales 3938–3951
+
+1\. Los proveedores garantizarán que los sistemas de IA destinados a interactuar directamente con personas físicas se diseñen y desarrollen de forma que las personas físicas de que se trate estén informadas de que están interactuando con un sistema de IA, excepto cuando resulte evidente desde el punto de vista de una persona física razonablemente informada, atenta y perspicaz, teniendo en cuenta las circunstancias y el contexto de utilización.
+
+Esta obligación no se aplicará a los sistemas de IA autorizados por ley para detectar, prevenir, investigar o enjuiciar delitos, con sujeción a las garantías adecuadas para los derechos y libertades de terceros, salvo que estos sistemas estén a disposición del público para denunciar un delito penal.
+
+---------------------------------------
+
+Identificación del chatbot como IA: el asistente virtual deberá informar claramente al usuario de que interactúa con inteligencia artificial desde el inicio de la conversación, salvo las excepciones legales aplicables, indicando su naturaleza automatizada y ofreciendo acceso a atención humana cuando corresponda.
+
+Obligación de transparencia expresamente contemplada en el Reglamento. La posibilidad de solicitar atención humana es una medida adicional propuesta para UCO.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 59 — Artículo 50.3
+
+Desde la línea digital 3970
+
+Los responsables del despliegue de sistemas de reconocimiento de emociones o categorización biométrica informarán de su funcionamiento a las personas expuestas y tratarán sus datos personales conforme a la normativa aplicable.
+
+---------------------------------------
+
+Información sobre análisis biométrico: si UCO incorpora estos sistemas en usos legalmente permitidos, deberá informar a las personas afectadas y garantizar la protección de sus datos.
+
+La obligación de transparencia no convierte en legales los usos prohibidos.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINAS 59–60 — Artículo 50.4–5
+
+Desde la línea digital 3980
+
+Obligaciones de transparencia respecto de determinados contenidos generados o manipulados artificialmente, incluidas las ultrafalsificaciones.
+
+---------------------------------------
+
+Contenido generado por IA: UCO identificará los contenidos artificiales cuando el Reglamento lo exija, especialmente imágenes, audios o vídeos que constituyan ultrafalsificaciones.
+
+No todas las imágenes comerciales generadas con IA requieren automáticamente el mismo aviso.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINA 131 — Anexo III, apartado 1
+
+Desde la línea digital 8801
+
+Clasificación de determinados sistemas biométricos como sistemas de IA de alto riesgo. Se excluye de esta categoría concreta la verificación biométrica cuya única finalidad sea confirmar que una persona es quien afirma ser.
+
+---------------------------------------
+
+Identificación facial: UCO deberá diferenciar entre verificar la identidad de un usuario e identificar personas mediante reconocimiento biométrico remoto.
+
+La identificación biométrica remota puede considerarse de alto riesgo y exigir garantías adicionales. La verificación facial también está sujeta a la normativa de protección de datos.
+
+---------------------------------------
+---------------------------------------
+
+PÁGINAS 131–132 — Anexo III, apartados 4 y 5
+
+Sistemas de IA relacionados con empleo, gestión de trabajadores y evaluación de solvencia de personas físicas.
+
+---------------------------------------
+
+Gestión de personal: si UCO incorpora IA para seleccionar trabajadores o evaluar su rendimiento, deberá comprobar su posible clasificación como sistema de alto riesgo.
+
+Evaluación de clientes: si utiliza IA para determinar la solvencia de personas físicas, deberá comprobar las obligaciones aplicables.
+
+Estas disposiciones no convierten automáticamente las tarifas profesionales, descuentos o recomendaciones comerciales en actividades de alto riesgo.
+
+---------------------------------------
+---------------------------------------
+
+
+CONCLUSIÓN
+
+Aplicación al desarrollo actual: protección de datos, autorización de accesos, limitación de información facilitada a la IA, identificación del chatbot, formación del personal, seguridad, trazabilidad y supervisión de operaciones comerciales sensibles.
+
+Aplicación a futuras funcionalidades: reconocimiento facial, cámaras inteligentes, análisis de emociones, clasificación biométrica, generación de contenidos artificiales y evaluación automatizada de trabajadores o solvencia de clientes.
+
+Las medidas técnicas propuestas para UCO deben distinguirse de las obligaciones expresas del Reglamento. La clasificación de alto riesgo dependerá de la finalidad y características concretas de cada sistema de IA, y su utilización deberá respetar también el RGPD y la normativa española aplicable.
