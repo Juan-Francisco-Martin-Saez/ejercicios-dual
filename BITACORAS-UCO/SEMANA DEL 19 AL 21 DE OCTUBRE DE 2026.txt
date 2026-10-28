@@ -1,0 +1,21 @@
+SEMANA DEL 19 AL 21 DE OCTUBRE DE 2026
+---------------------------------------------------------
+
+Durante los días de trabajo efectivo de oficina he continuado desarrollando y perfeccionando la plataforma de gestión UCO Sa Pobla 2.0, centrándome especialmente en la integración del sistema de pedidos con el panel de administración y el área de clientes. He implementado una estructura operativa en SQLite para gestionar la preparación de pedidos, incorporando diferentes estados, desde su recepción hasta la entrega, así como controles para evitar modificaciones indebidas. También he desarrollado un panel administrativo con herramientas de búsqueda, filtrado y consulta de pedidos, información de pagos y productos, y opciones para actualizar los estados de preparación. He diseñado ventanas de confirmación personalizadas, adaptadas a ordenadores, tabletas y móviles, respetando la identidad visual de la empresa. Además, he incorporado un mecanismo de reinicio de pedidos protegido mediante contraseña administrativa, que exige justificar por escrito cada modificación y conserva un registro de las operaciones realizadas.
+
+Paralelamente, he ampliado el área privada de clientes para permitir la consulta del estado de preparación de sus pedidos, manteniendo la integración con el historial de compras y los justificantes existentes. He desarrollado mecanismos de trazabilidad para registrar los cambios de estado, los responsables de las operaciones y los reinicios administrativos, además de herramientas de auditoría para comprobar la integridad de la base de datos y la seguridad del sistema. Las verificaciones realizadas han confirmado la integridad de los ocho pedidos de prueba, la conservación de cinco eventos de preparación y dos reinicios auditados, sin detectar inconsistencias. También he superado once comprobaciones estáticas de seguridad y cinco pruebas de acceso HTTP sin autorización, verificando el rechazo de solicitudes no autenticadas. Finalmente, he continuado trabajando en la visualización del historial completo de cada pedido y en la corrección de una incidencia de sintaxis detectada durante su integración, avanzando hacia una plataforma comercial más completa, segura, organizada y preparada para su futura utilización con operaciones reales.
+
+Enlace a mi prototipo: https://uco.reijohan.com/
+
+(ACCEDER POR /ADMIN)
+
+Administrador
+UCO_Admin_General_1982 
+
+(cliente (ACCEDER POR AREA DE CLIENTES))
+(colaborador (ACCEDER POR /ADMIN))
+
+Pepe 
+UCO_Pepe_cliente_1982
+
+---------------------------------------------------------
