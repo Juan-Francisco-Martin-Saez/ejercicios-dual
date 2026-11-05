@@ -1,0 +1,24 @@
+SEMANA DEL 02 AL 04 DE NOVIEMBRE DE 2026
+---------------------------------------------------------
+
+Esta semana hemos seguido impulsando la modernización digital de UCO Sa Pobla, avanzando en el desarrollo de la nueva web, el área de clientes y las herramientas de administración. Hemos mejorado la gestión de productos, tarifas, pedidos y documentación, optimizando la navegación, la seguridad y la experiencia de usuario.
+
+Uno de los avances más destacados ha sido la evolución del chatbot inteligente, que incorpora un diccionario dinámico, memoria conversacional y reconocimiento de conceptos para interpretar consultas sobre productos, precios personalizados y pedidos. Seguimos ampliando sus capacidades para convertirlo en un asistente integrado en la gestión diaria de UCO.
+
+En el ámbito de la comunicación, hemos trabajado en el diseño y la maquetación de tres comunicados de prensa, mejorando su composición, jerarquía visual, tratamiento fotográfico e integración de elementos corporativos para conseguir una presentación más profesional y homogénea.
+
+
+Enlace a mi prototipo: https://uco.reijohan.com/
+
+(ACCEDER POR /ADMIN)
+
+Administrador
+UCO_Admin_General_1982 
+
+(cliente (ACCEDER POR AREA DE CLIENTES))
+(colaborador (ACCEDER POR /ADMIN))
+
+Pepe 
+UCO_Pepe_cliente_1982
+
+---------------------------------------------------------
