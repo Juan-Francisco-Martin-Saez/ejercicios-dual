@@ -1,0 +1,7 @@
+{
+  "name": "ocr2-test-client",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cliente de prueba para Unlimited-OCR-2 en Vast.ai; Node.js >=20",
+  "scripts": { "test-ocr": "node test-ocr.mjs" }
+}

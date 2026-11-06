@@ -1,0 +1,22 @@
+# PRUEBAS LOCALES en host Linux/WSL2 con NVIDIA Container Toolkit configurado.
+# Vast.ai NO usa este compose: en Vast se despliega la imagen publicada.
+services:
+  ocr:
+    image: unlimited-ocr2-vast:runtime
+    build:
+      context: .
+      args:
+        BAKE_WEIGHTS: "0"
+    env_file: .env
+    ports:
+      - "127.0.0.1:10001:10001"  # No lo expongas a Internet accidentalmente
+    volumes:
+      - ./model-cache:/models/hf
+    shm_size: "16gb"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

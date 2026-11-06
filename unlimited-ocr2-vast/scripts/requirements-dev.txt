@@ -1,0 +1,4 @@
+-r ../gateway/requirements.txt
+pytest>=8,<10
+httpx>=0.27,<1
+pymupdf==1.27.2.2
