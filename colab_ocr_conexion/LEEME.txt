@@ -1,0 +1,8 @@
+CONEXION COLAB OCR
+1. Abre https://colab.research.google.com y sube COLAB_OCR_PASARELA.ipynb.
+2. Ejecuta las celdas, introduce la URL y clave de un motor OCR YA ACTIVO.
+3. En la tercera celda sube colab_proxy.py.
+4. Copia COLAB_OCR_URL a .env en Windows y usa una clave nueva OCR_API_KEY (la misma que introdujiste en Colab).
+5. Ejecuta: node --env-file=.env vast-ocr2.mjs "11065.pdf"
+6. Si quieres ejecutar el motor ORIGINAL en Colab, se necesita su Dockerfile/repositorio/pesos; el ZIP aportado no los contiene.
+NOTA: la URL temporal se desactiva al terminar Colab; el tunel gratuito no garantiza disponibilidad ni seguridad para produccion. No subas credenciales al notebook ni lo compartas con claves.
