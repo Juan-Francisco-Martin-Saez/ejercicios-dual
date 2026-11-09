@@ -1,0 +1,12 @@
+.env
+OCR_API_KEY.txt
+scripts-ALEX
+.env.example
+resultado-ocr.json
+resultado-ocr.txt
+vast-ocr2.mjs
+11065.pdf
+historial_resultados
+PDF.ocr.txt
+PDF.ocr.json
+PDF.pdf
