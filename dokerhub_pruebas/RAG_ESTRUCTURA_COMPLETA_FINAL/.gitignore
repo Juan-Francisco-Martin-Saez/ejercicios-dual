@@ -1,0 +1,44 @@
+
+# ==========================================
+# RAG_ESTRUCTURA_COMPLETA_FINAL
+# ==========================================
+
+# Código fuente
+/index.js
+/ocr-service.js
+/openai-service.js
+/vector-service.js
+/query.js
+/import-chroma.js
+
+# Dependencias
+/node_modules/
+
+# Configuración y credenciales
+/.env
+/.env.example
+
+# Archivos de configuración
+/package.json
+/package-lock.json
+
+# Directorios del proyecto
+/bocetos/
+/chroma-data/
+/input/
+/originales/
+/output/
+
+# Bases de datos y archivos generados
+*.sqlite3
+*.sqlite
+*.db
+*.json
+*.txt
+*.log
+
+# Copias comprimidas permitidas
+!/*.zip
+
+# Mantener el propio .gitignore
+!/.gitignore
